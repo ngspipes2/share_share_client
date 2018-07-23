@@ -22,7 +22,7 @@ export class LoginService {
         let headers = new Headers();
         headers.append("Authorization", "Basic " + btoa(userName+":"+password));
 
-        return this.http.get(Server.AUTHENTICATION_URI, {headers: headers})
+        return this.http.post(Server.AUTHENTICATION_URI, null, {headers: headers})
             .toPromise()
             .then(response => {
                 if(response.status == 200) {
