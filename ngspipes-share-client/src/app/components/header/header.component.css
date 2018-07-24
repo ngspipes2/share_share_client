@@ -1,0 +1,13 @@
+#logo {
+    margin-right: 5px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+#user-image {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+}

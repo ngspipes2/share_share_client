@@ -1,0 +1,23 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <mat-icon id="logo">share</mat-icon>
+        <span>NGSPippes Share</span>
+
+        <span class="example-spacer"></span>
+
+        <button mat-button [matMenuTriggerFor]="menu" *ngIf="user">
+            <mat-icon *ngIf="!user.gravatarEmail">account_circle</mat-icon>
+            <img [src]="getUserImage()" id="user-image" *ngIf="user.gravatarEmail"/>
+            {{user.userName}}
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="profileClick()">Profile</button>
+            <button mat-menu-item (click)="logoutClick()">Logout</button>
+            <button mat-menu-item [matMenuTriggerFor]="theme_menu">Theme</button>
+        </mat-menu>
+        <mat-menu #theme_menu="matMenu">
+            <button mat-menu-item (click)="setTheme('light-theme')">Light</button>
+            <button mat-menu-item (click)="setTheme('dark-theme')">Dark</button>
+        </mat-menu>
+    </mat-toolbar-row>
+</mat-toolbar>
