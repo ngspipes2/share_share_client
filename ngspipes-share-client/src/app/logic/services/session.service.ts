@@ -15,17 +15,14 @@ export class SessionService {
 
 
     redirectUrl : string;
-    loginEvent : Subject<[string, string]>;
-    logoutEvent : Subject<[string, string]>;
+    loginEvent : Subject<[string, string]> = new Subject<[string, string]>();
+    logoutEvent : Subject<[string, string]> = new Subject<[string, string]>();
     loggedIn : boolean;
     currentCredentials : [string, string];
 
 
 
-    constructor(private loginService : LoginService) {
-        this.loginEvent = loginService.loginEvent;
-        this.logoutEvent = loginService.logoutEvent;
-    }
+    constructor(private loginService : LoginService) { }
 
 
 
@@ -38,6 +35,8 @@ export class SessionService {
 
                     window.localStorage.setItem(SessionService.USER_NAME_KEY, userName);
                     window.localStorage.setItem(SessionService.PASSWORD_KEY, password);
+
+                    this.loginEvent.next(this.currentCredentials);
                 }
 
                 return response;
@@ -55,6 +54,8 @@ export class SessionService {
 
                     window.localStorage.removeItem(SessionService.USER_NAME_KEY);
                     window.localStorage.removeItem(SessionService.PASSWORD_KEY);
+
+                    this.logoutEvent.next(credentials);
                 }
 
                 return response;

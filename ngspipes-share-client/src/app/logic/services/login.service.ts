@@ -9,11 +9,6 @@ import { Server } from './server';
 @Injectable()
 export class LoginService {
 
-    loginEvent = new Subject<[string, string]>();
-    logoutEvent = new Subject<[string, string]>();
-
-
-
     constructor(private http: Http) { }
 
 
@@ -25,12 +20,7 @@ export class LoginService {
         return this.http.post(Server.AUTHENTICATION_URI, null, {headers: headers})
             .toPromise()
             .then(response => {
-                if(response.status == 200) {
-                    this.loginEvent.next([userName, password]);
-                    return true;
-                }
-
-                return false;
+                return response.status == 200;
             })
             .catch(error => {
                 if(error.status === 401) {
@@ -43,7 +33,6 @@ export class LoginService {
     }
 
     logout(userName : string, password : string) : Promise<boolean> {
-        this.logoutEvent.next([userName, password]);
         return Promise.resolve(true);
     }
 
