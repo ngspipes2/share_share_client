@@ -1,0 +1,34 @@
+<mat-grid-list cols="1" rowHeight="100px">
+    <mat-grid-tile colspan="1" rowspan="1">
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <mat-icon id="user-icon" *ngIf="!loading && (!user || !user.gravatarEmail)">account_circle</mat-icon>
+        <img id="user-image" *ngIf="!loading && (user && user.gravatarEmail)" [src]="getUserImage()"/>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="2">
+        <mat-grid-list cols="1" rowHeight="100" [class]="fill">
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field>
+                    <input matInput placeholder="UserName" type="text" [(ngModel)]="userName" (blur)="userNameChanged()">
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <mat-form-field>
+                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" (keyup.enter)="loginClick()">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" rowspan="1">
+        <mat-grid-list cols="1" rowHeight="50" [class]="fill">
+            <mat-grid-tile colspan="1" rowspan="1">
+                <button mat-raised-button (click)="loginClick()" color="primary">Login</button>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1">
+                <button mat-raised-button (click)="newUserClick()" color="primary">New User</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,11 @@
+#user-image {
+    height: 75px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+#user-icon {
+    font-size: 75px !important;
+    height: 75px !important;
+    width: 75px !important;
+}
