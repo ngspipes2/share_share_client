@@ -82,7 +82,7 @@ export class GroupService {
             groupName : group.groupName,
             description : group.description,
             creationDate : group.creationDate,
-            owner : { userName : group.owenerName },
+            owner : { userName : group.ownerName },
             members : group.members.map(member => { return {userName : member} })
         };
     }

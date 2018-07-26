@@ -62,7 +62,7 @@ export class ToolsRepositoryService {
             serverRepository.description,
             new Date(serverRepository.creationDate),
             serverRepository.isPublic,
-            serverRepository.owener.userName,
+            serverRepository.owner.userName,
             serverRepository.groupsAccess.map(group => group.groupName),
             serverRepository.usersAccess.map(user => user.userName)
         );

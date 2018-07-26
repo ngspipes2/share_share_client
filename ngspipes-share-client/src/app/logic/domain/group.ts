@@ -3,7 +3,7 @@ export class Group {
         public groupName : string,
         public description : string,
         public creationDate : Date,
-        public owenerName : string,
+        public ownerName : string,
         public members: string[]
     ) { }
 }
