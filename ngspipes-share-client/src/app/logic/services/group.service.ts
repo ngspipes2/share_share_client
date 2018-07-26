@@ -110,7 +110,7 @@ export class GroupService {
     }
 
     getGroupsOfUser(userName : string) : Promise<Group[]> {
-        let url = Server.GET_GROUPS_OF_USER.replace("userName", userName);
+        let url = Server.GET_GROUPS_OF_USER.replace("{userName}", userName);
 
         return this.httpUtils.get(url)
             .then(response => {
@@ -124,7 +124,7 @@ export class GroupService {
     }
 
     getGroupsWithMember(userName : string) : Promise<Group[]> {
-        let url = Server.GET_GROUPS_WITH_MEMBER.replace("userName", userName);
+        let url = Server.GET_GROUPS_WITH_MEMBER.replace("{userName}", userName);
 
         return this.httpUtils.get(url)
             .then(response => {
