@@ -15,11 +15,14 @@ import { PreferencesService } from '../../logic/services/preferences.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+    loading : boolean;
     user : User;
+
     userUpdateSubscription : any;
     loginSubscription : any;
     logoutSubscription : any;
     themeChangeSubscription : any;
+
     currentTheme : string;
 
 
@@ -53,11 +56,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     loadUser(userName : string) {
+        this.loading = true;
+
         this.userService.getUser(userName)
             .then((user) => {
+                this.loading = false;
                 this.user = user;
             })
             .catch((error) => {
+                this.loading = false;
                 window.alert("Error getting user with userName:" + userName);
                 console.error(error);
             });

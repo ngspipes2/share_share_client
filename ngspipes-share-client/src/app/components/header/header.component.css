@@ -6,6 +6,13 @@
     flex: 1 1 auto;
 }
 
+#user-icon {
+    font-size: 40px !important;
+    height: 40px !important;
+    width: 40px !important;
+    margin-right: 5px;
+}
+
 #user-image {
     height: 40px;
     border-radius: 50%;
