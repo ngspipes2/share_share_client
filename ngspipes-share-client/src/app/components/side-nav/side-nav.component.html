@@ -1,0 +1,76 @@
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-spinner *ngIf="loadingGroups" [diameter]="25"></mat-spinner>
+                <mat-icon *ngIf="!loadingGroups">group</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description>
+                My Groups
+                <button mat-icon-button matTooltip="Create Group" (click)="createGroupClick()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="search-field">
+            <input matInput placeholder="Group name" type="text" #groupNameFilter>
+        </mat-form-field>
+        <mat-nav-list>
+            <div *ngFor="let group of groups">
+                <a  mat-list-item
+                routerLink="/groups/{{group.groupName}}"
+                *ngIf="group.groupName.indexOf(groupNameFilter.value) !== -1">{{group.groupName}}</a>
+            </div>
+        </mat-nav-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-spinner *ngIf="loadingToolsRepositories" [diameter]="25"></mat-spinner>
+                <mat-icon *ngIf="!loadingToolsRepositories">build</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description>
+                My Tool Repositories
+                <button mat-icon-button matTooltip="Create Tools Repository" (click)="createToolsRepositoryClick()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="search-field">
+            <input matInput placeholder="Repository name" type="text" #toolsRepositoryNameFilter>
+        </mat-form-field>
+        <mat-nav-list>
+            <div *ngFor="let repository of toolsRepositories">
+                <a  mat-list-item
+                    routerLink="/toolsRepositories/{{repository.id}}"
+                    *ngIf="repository.name.indexOf(toolsRepositoryNameFilter.value) !== -1">{{repository.name}}</a>
+            </div>
+        </mat-nav-list>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-spinner *ngIf="loadingPipelinesRepositories" [diameter]="25"></mat-spinner>
+                <mat-icon *ngIf="!loadingPipelinesRepositories">insert_drive_file</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description>
+                My Pipeline Repositories
+                <button mat-icon-button matTooltip="Create Pipelines Repository" (click)="createPipelinesRepositoryClick()">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field class="search-field">
+            <input matInput placeholder="Repository name" type="text" #pipelinesRepositoryNameFilter>
+        </mat-form-field>
+        <mat-nav-list>
+            <div *ngFor="let repository of pipelinesRepositories">
+                <a  mat-list-item
+                    routerLink="/pipelinesRepositories/{{repository.id}}"
+                    *ngIf="repository.name.indexOf(pipelinesRepositoryNameFilter.value) !== -1">{{repository.name}}</a>
+            </div>
+        </mat-nav-list>
+    </mat-expansion-panel>
+</mat-accordion>
