@@ -1,0 +1,32 @@
+.container {
+    margin: 10px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.actions {
+    justify-content: center;
+}
+
+#error{
+    color: rgb(208, 85, 85);
+}
+
+#warning{
+    color: rgb(212, 106, 61);
+}
+
+#information{
+    color: rgb(71, 154, 218);
+}
+
+#success{
+    color: rgb(93, 191, 103);
+}
+
+.message {
+    max-width: calc(100vw/2);
+    max-height: calc(100vh/2);
+}
