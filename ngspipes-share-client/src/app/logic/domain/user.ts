@@ -3,7 +3,7 @@ export class User {
         public userName : string,
         public password : string,
         public email : string,
-        public gravatarEmail : string,
+        public name : string,
         public creationDate : Date,
         public role : string
     ) { }

@@ -63,7 +63,7 @@ export class UserService {
             serverUser.userName,
             serverUser.password,
             serverUser.email,
-            serverUser.gravatarEmail,
+            serverUser.name,
             new Date(serverUser.creationDate),
             serverUser.role);
     }
@@ -85,7 +85,7 @@ export class UserService {
             userName : user.userName,
             password : user.password,
             email : user.email,
-            gravatarEmail : user.gravatarEmail,
+            name : user.name,
             creationDate : user.creationDate,
             role : user.role
         };
