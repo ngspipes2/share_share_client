@@ -7,6 +7,7 @@ import { User } from '../../logic/domain/user';
 import { UserService } from '../../logic/services/user.service';
 import { SessionService } from '../../logic/services/session.service';
 import { PreferencesService } from '../../logic/services/preferences.service';
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
     selector: 'app-header',
@@ -26,9 +27,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     currentTheme : string;
 
 
+
     constructor(private sessionService : SessionService,
                 private userService : UserService,
                 private preferencesService : PreferencesService,
+                private dialogService : DialogService,
                 private router : Router,
                 private overlayContainer : OverlayContainer) { }
 
@@ -65,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
             })
             .catch((error) => {
                 this.loading = false;
-                window.alert("Error getting user with userName:" + userName);
+                this.dialogService.openErrorDialog("Error", "Error getting user with userName:" + userName);
                 console.error(error);
             });
     }
@@ -87,10 +90,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
                 if(response)
                     this.router.navigate(['/login']);
                 else
-                    window.alert("Could not logout!");
+                    this.dialogService.openWarningDialog("Could not logout!", "");
             })
             .catch((error) => {
-                window.alert("Error while logout!");
+                this.dialogService.openErrorDialog("Error while logout!", "");
                 console.error(error);
             });
     }

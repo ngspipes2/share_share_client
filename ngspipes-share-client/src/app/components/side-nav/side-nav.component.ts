@@ -8,6 +8,7 @@ import { GroupService } from '../../logic/services/group.service';
 import { ToolsRepositoryService } from '../../logic/services/tools-repository.service';
 import { PipelinesRepositoryService } from '../../logic/services/pipelines-repository.service';
 import { SessionService } from '../../logic/services/session.service';
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
     selector: 'app-side-nav',
@@ -36,6 +37,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
                 private toolsRepositoryService : ToolsRepositoryService,
                 private pipelinesRepositoryService : PipelinesRepositoryService,
                 private sessionService : SessionService,
+                private dialogService : DialogService,
                 private router : Router) { }
 
 
@@ -93,7 +95,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
             this.loadingGroups = false;
-            window.alert("Error getting Groups of " + userName);
+            this.dialogService.openErrorDialog("Error", "Error getting Groups of " + userName);
             console.error(error);
         });
     }
@@ -110,7 +112,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
             this.loadingToolsRepositories = false;
-            window.alert("Error getting Tools Repositories of " + userName);
+            this.dialogService.openErrorDialog("Error", "Error getting Tools Repositories of " + userName);
             console.error(error);
         });
     }
@@ -127,7 +129,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
             this.loadingPipelinesRepositories = false;
-            window.alert("Error getting Pipelines Repositories of " + userName);
+            this.dialogService.openErrorDialog("Error", "Error getting Pipelines Repositories of " + userName);
             console.error(error);
         });
     }

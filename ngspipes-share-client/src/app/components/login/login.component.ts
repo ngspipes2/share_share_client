@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { User } from '../../logic/domain/user';
 import { UserService } from '../../logic/services/user.service';
 import { SessionService } from '../../logic/services/session.service';
+import { DialogService } from '../dialog/dialog.service';
 
 @Component({
     selector: 'app-login',
@@ -21,7 +22,10 @@ export class LoginComponent implements OnInit {
 
 
 
-    constructor(private userService : UserService, private sessionService : SessionService, private router : Router) { }
+    constructor(private userService : UserService,
+                private sessionService : SessionService,
+                private dialogService : DialogService,
+                private router : Router) { }
 
 
 
@@ -66,7 +70,7 @@ export class LoginComponent implements OnInit {
             })
             .catch((error) => {
                 this.loading = false;
-                window.alert("Error creating new user!");
+                this.dialogService.openErrorDialog("Error", "Error creating new user!");
                 console.error(error);
             });
     }
@@ -79,14 +83,14 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
 
                 if(!result)
-                    window.alert("Invalid credentials!");
+                    this.dialogService.openErrorDialog("Invalid credentials!", "");
                 else
                     this.router.navigate(['/users/' + userName]);
             })
             .catch((error) => {
                 this.loading = false;
-                
-                window.alert("Error while login!");
+
+                this.dialogService.openErrorDialog("Error while login!", "");
                 console.error(error);
             });
     }
