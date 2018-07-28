@@ -28,7 +28,7 @@ export class UserService {
 
         return this.httpUtils.get(url)
             .then(response => {
-                if(!response.json())
+                if(!response._body)
                     return [];
 
                 let data : any = response.json();
@@ -46,7 +46,7 @@ export class UserService {
 
         return this.httpUtils.get(url)
             .then(response => {
-                if(!response.json() || response.status===404)
+                if(!response._body || response.status===404)
                     return null;
 
                 let data : any = response.json();
