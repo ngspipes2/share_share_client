@@ -43,7 +43,7 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     load() {
         this.loading = true;
 
-        let url = Server.GET_GROUP.replace('{groupName}', this.groupName);
+        let url = Server.GET_GROUP_IMAGE.replace('{groupName}', this.groupName);
         let credentials = this.sessionService.getCurrentCredentials();
         let headers = new Headers();
 
