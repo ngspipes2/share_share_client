@@ -92,7 +92,7 @@ export class GroupService {
 
         let data = this.clientGroupToServerGroup(group);
 
-        return this.httpUtils.post(url, data)
+        return this.httpUtils.put(url, data)
             .then((response) => {
                 this.fireUpdateEvent(group.groupName);
                 return true;
@@ -102,7 +102,7 @@ export class GroupService {
     deleteGroup(groupName : string) : Promise<boolean> {
         let url = Server.DELETE_GROUP.replace("{groupName}", groupName);
 
-        return this.httpUtils.post(url, { })
+        return this.httpUtils.delete(url)
             .then((response) => {
                 this.fireDeleteEvent(groupName);
                 return true;
@@ -134,6 +134,26 @@ export class GroupService {
                 let data : any = response.json();
 
                 return this.serverGroupsToClientGroups(data);
+            });
+    }
+
+    updateImage(groupName : string, file : any) : Promise<boolean> {
+        let url = Server.UPDATE_GROUP_IMAGE.replace('{groupName}', groupName);
+
+        return this.httpUtils.uploadFile(url, file)
+            .then((response) => {
+                this.fireUpdateEvent(groupName);
+                return true;
+            });
+    }
+
+    deleteImage(groupName : string) : Promise<boolean> {
+        let url = Server.DELETE_GROUP_IMAGE.replace('{groupName}', groupName);
+
+        return this.httpUtils.delete(url)
+            .then((response) => {
+                this.fireUpdateEvent(groupName);
+                return true;
             });
     }
 

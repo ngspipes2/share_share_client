@@ -96,7 +96,7 @@ export class UserService {
 
         let data = this.clientUserToServerUser(user);
 
-        return this.httpUtils.post(url, data)
+        return this.httpUtils.put(url, data)
             .then((response) => {
                 this.fireUpdateEvent(user.userName);
                 return true;
@@ -106,9 +106,29 @@ export class UserService {
     deleteUser(userName : string) : Promise<boolean> {
         let url = Server.DELETE_USER.replace("{userName}", userName);
 
-        return this.httpUtils.post(url, { })
+        return this.httpUtils.delete(url)
             .then((response) => {
                 this.fireDeleteEvent(userName);
+                return true;
+            });
+    }
+
+    updateImage(userName : string, file : any) : Promise<boolean> {
+        let url = Server.UPDATE_USER_IMAGE.replace('{userName}', userName);
+
+        return this.httpUtils.uploadFile(url, file)
+            .then((response) => {
+                this.fireUpdateEvent(userName);
+                return true;
+            });
+    }
+
+    deleteImage(userName : string) : Promise<boolean> {
+        let url = Server.DELETE_USER_IMAGE.replace('{userName}', userName);
+
+        return this.httpUtils.delete(url)
+            .then((response) => {
+                this.fireUpdateEvent(userName);
                 return true;
             });
     }

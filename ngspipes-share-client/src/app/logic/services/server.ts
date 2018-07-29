@@ -34,4 +34,20 @@ export class Server {
     public static DELETE_PIPELINES_REPOSITORY : string =  Server.PIPELINES_REPOSITORY_SERVER_URI + "/pipelinesrepositories/{repositoryId}";
     public static GET_PIPELINES_REPOSITORIES_OF_USER : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/pipelinesrepositories/owner/{userName}";
 
+    public static GET_USER_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/users" + "/{userName}";
+    public static UPDATE_USER_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/users" + "/{userName}";
+    public static DELETE_USER_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/users" + "/{userName}";
+
+    public static GET_GROUP_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/groups" + "/{groupName}";
+    public static UPDATE_GROUP_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/groups" + "/{groupName}";
+    public static DELETE_GROUP_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/groups" + "/{groupName}";
+
+    public static GET_TOOLS_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/toolsRepository" + "/{repositoryId}";
+    public static UPDATE_TOOLS_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/toolsRepository" + "/{repositoryId}";
+    public static DELETE_TOOLS_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/toolsRepository" + "/{repositoryId}";
+
+    public static GET_PIPELINES_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/pipelinesRepository" + "/{repositoryId}";
+    public static UPDATE_PIPELINES_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/pipelinesRepository" + "/{repositoryId}";
+    public static DELETE_PIPELINES_REPOSITORY_IMAGE : string = Server.PIPELINES_REPOSITORY_SERVER_URI + "/images/pipelinesRepository" + "/{repositoryId}";
+
 }

@@ -29,7 +29,7 @@ export class HttpUtils {
             });
     }
 
-    public post(url : string, body : any) : Promise<any>{
+    public post(url : string, body : any) : Promise<any> {
         let credentials = this.sessionService.getCurrentCredentials();
         let headers = new Headers();
 
@@ -42,6 +42,48 @@ export class HttpUtils {
             .toPromise()
             .catch(error => {
                 this.logError(url, headers, body, error);
+
+                if(error.status >= 400 || error.status < 500)
+                    throw error._body;
+                else
+                    throw "Error contacting Server!";
+            });
+    }
+
+    public put(url : string, body : any) : Promise<any> {
+        let credentials = this.sessionService.getCurrentCredentials();
+        let headers = new Headers();
+
+        if(credentials) {
+            headers.append("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
+            headers.append("Content-Type", "application/json");
+        }
+
+        return this.http.put(url, body, {headers: headers})
+            .toPromise()
+            .catch(error => {
+                this.logError(url, headers, body, error);
+
+                if(error.status >= 400 || error.status < 500)
+                    throw error._body;
+                else
+                    throw "Error contacting Server!";
+            });
+    }
+
+    public delete(url : string) : Promise<any> {
+        let credentials = this.sessionService.getCurrentCredentials();
+        let headers = new Headers();
+
+        if(credentials) {
+            headers.append("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
+            headers.append("Content-Type", "application/json");
+        }
+
+        return this.http.delete(url, {headers: headers})
+            .toPromise()
+            .catch(error => {
+                this.logError(url, headers, null, error);
 
                 if(error.status >= 400 || error.status < 500)
                     throw error._body;

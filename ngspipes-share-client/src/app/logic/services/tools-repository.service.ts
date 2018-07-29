@@ -98,7 +98,7 @@ export class ToolsRepositoryService {
 
         let data = this.clientRepositoryToServerRepository(repository);
 
-        return this.httpUtils.post(url, data)
+        return this.httpUtils.put(url, data)
             .then((response) => {
                 this.fireUpdateEvent(repository.id);
                 return true;
@@ -108,7 +108,7 @@ export class ToolsRepositoryService {
     deleteRepository(repositoryId : number) : Promise<boolean> {
         let url = Server.DELETE_TOOLS_REPOSITORY.replace("{repositoryId}", repositoryId.toString());
 
-        return this.httpUtils.post(url, { })
+        return this.httpUtils.delete(url)
             .then((response) => {
                 this.fireDeleteEvent(repositoryId);
                 return true;
@@ -126,6 +126,26 @@ export class ToolsRepositoryService {
                 let data : any = response.json();
 
                 return this.serverRepositoriesToClientRepositories(data);
+            });
+    }
+
+    updateImage(repositoryId : number, file : any) : Promise<boolean> {
+        let url = Server.UPDATE_TOOLS_REPOSITORY_IMAGE.replace('{repositoryId}', repositoryId.toString());
+
+        return this.httpUtils.uploadFile(url, file)
+            .then((response) => {
+                this.fireUpdateEvent(repositoryId);
+                return true;
+            });
+    }
+
+    deleteImage(repositoryId : number) : Promise<boolean> {
+        let url = Server.DELETE_TOOLS_REPOSITORY_IMAGE.replace('{repositoryId}', repositoryId.toString());
+
+        return this.httpUtils.delete(url)
+            .then((response) => {
+                this.fireUpdateEvent(repositoryId);
+                return true;
             });
     }
 
