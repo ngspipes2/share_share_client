@@ -123,11 +123,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
             });
     }
 
-    getUserImage() : string {
-        let baseUri = "https://www.gravatar.com/avatar";
-        let hash = Md5.hashStr(this.user.gravatarEmail.trim().toLowerCase());
-
-        return baseUri + "/" + hash;
-    }
-
 }

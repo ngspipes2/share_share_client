@@ -95,13 +95,6 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    getUserImage() : string {
-        let baseUri = "https://www.gravatar.com/avatar";
-        let hash = Md5.hashStr(this.user.gravatarEmail.trim().toLowerCase());
-
-        return baseUri + "/" + hash;
-    }
-
     userNameChanged() {
         if(this.user && this.userName !== this.userName)
             this.user = undefined;

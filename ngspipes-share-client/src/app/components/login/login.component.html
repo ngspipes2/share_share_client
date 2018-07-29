@@ -3,8 +3,7 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1">
         <mat-spinner *ngIf="loading"></mat-spinner>
-        <mat-icon id="user-icon" *ngIf="!loading && (!user || !user.gravatarEmail)">account_circle</mat-icon>
-        <img id="user-image" *ngIf="!loading && (user && user.gravatarEmail)" [src]="getUserImage()"/>
+        <app-user-image *ngIf="!loading && user" [userName]="user.userName"></app-user-image>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="2">
         <mat-grid-list cols="1" rowHeight="100" [class]="fill">

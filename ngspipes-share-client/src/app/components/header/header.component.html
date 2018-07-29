@@ -7,8 +7,7 @@
 
         <mat-spinner color="accent" [diameter]="25" *ngIf="loading"></mat-spinner>
         <button mat-button [matMenuTriggerFor]="menu" *ngIf="!loading && user">
-            <mat-icon id="user-icon" *ngIf="!user.gravatarEmail">account_circle</mat-icon>
-            <img [src]="getUserImage()" id="user-image" *ngIf="user.gravatarEmail"/>
+            <app-user-image [userName]="user.userName" [spinnerDiameter]="25"></app-user-image>
             {{user.userName}}
         </button>
         <mat-menu #menu="matMenu">
