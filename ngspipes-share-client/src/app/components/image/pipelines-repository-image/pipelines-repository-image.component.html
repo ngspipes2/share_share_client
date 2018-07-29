@@ -1,0 +1,3 @@
+<mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" color="accent"></mat-spinner>
+<img *ngIf="!loading && imageURI" [src]="imageURI">
+<mat-icon *ngIf="!loading && !imageURI">insert_drive_file</mat-icon>

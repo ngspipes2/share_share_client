@@ -13,6 +13,10 @@ import { LoginComponent } from './components/login/login.component';
 import { UserComponent } from './components/user/user.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { SimpleDialogComponent } from './components/dialog/simple-dialog/simple-dialog.component';
+import { UserImageComponent } from './components/image/user-image/user-image.component';
+import { GroupImageComponent } from './components/image/group-image/group-image.component';
+import { ToolsRepositoryImageComponent } from './components/image/tools-repository-image/tools-repository-image.component';
+import { PipelinesRepositoryImageComponent } from './components/image/pipelines-repository-image/pipelines-repository-image.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -27,7 +31,11 @@ const appRoutes: Routes = [
         LoginComponent,
         UserComponent,
         SideNavComponent,
-        SimpleDialogComponent
+        SimpleDialogComponent,
+        UserImageComponent,
+        GroupImageComponent,
+        ToolsRepositoryImageComponent,
+        PipelinesRepositoryImageComponent
     ],
     imports: [
         BrowserModule,
@@ -42,6 +50,10 @@ const appRoutes: Routes = [
         UserComponent,
         SideNavComponent,
         SimpleDialogComponent,
+        UserImageComponent,
+        GroupImageComponent,
+        ToolsRepositoryImageComponent,
+        PipelinesRepositoryImageComponent,
         RouterModule
     ],
     entryComponents : [ SimpleDialogComponent ]
