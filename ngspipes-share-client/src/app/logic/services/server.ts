@@ -11,6 +11,7 @@ export class Server {
     public static INSERT_USER : string = Server.AUTHENTICATION_SERVER_URI + "/users";
     public static UPDATE_USER : string = Server.AUTHENTICATION_SERVER_URI + "/users/{userName}";
     public static DELETE_USER : string = Server.AUTHENTICATION_SERVER_URI + "/users/{userName}";
+    public static CHANGE_USER_PASSWORD : string = Server.AUTHENTICATION_SERVER_URI + "/users/{userName}/changePassword";
 
     public static GET_ALL_GROUPS : string = Server.AUTHENTICATION_SERVER_URI + "/groups";
     public static GET_GROUP : string = Server.AUTHENTICATION_SERVER_URI + "/groups/{groupName}";

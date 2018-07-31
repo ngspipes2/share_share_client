@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpUtils } from './http-utils';
 import { Server } from './server';
 import { User } from '../domain/user';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class UserService {
@@ -15,7 +16,7 @@ export class UserService {
 
 
 
-    constructor(private httpUtils: HttpUtils) {
+    constructor(private httpUtils: HttpUtils, private sessionService : SessionService) {
         this.userInsertEvent.subscribe(userName => this.userEvent.next(userName));
         this.userUpdateEvent.subscribe(userName => this.userEvent.next(userName));
         this.userDeleteEvent.subscribe(userName => this.userEvent.next(userName));
@@ -128,6 +129,29 @@ export class UserService {
 
         return this.httpUtils.delete(url)
             .then((response) => {
+                this.fireUpdateEvent(userName);
+                return true;
+            });
+    }
+
+    changeUserPassword(userName : string, currentPassword : string, newPassword : string) : Promise<boolean> {
+        let url = Server.CHANGE_USER_PASSWORD.replace("{userName}", userName);
+
+        let data = {
+            currentPassword : currentPassword,
+            newPassword : newPassword
+        };
+
+        return this.httpUtils.post(url, data)
+            .then((response) => {
+                if(this.sessionService.getCurrentCredentials()[0] === userName) {
+                    return this.sessionService.login(userName, data.newPassword)
+                    .then(() => {
+                        this.fireUpdateEvent(userName);
+                        return true;
+                    });
+                }
+
                 this.fireUpdateEvent(userName);
                 return true;
             });
