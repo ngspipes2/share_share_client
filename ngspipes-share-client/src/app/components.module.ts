@@ -17,6 +17,7 @@ import { UserImageComponent } from './components/image/user-image/user-image.com
 import { GroupImageComponent } from './components/image/group-image/group-image.component';
 import { ToolsRepositoryImageComponent } from './components/image/tools-repository-image/tools-repository-image.component';
 import { PipelinesRepositoryImageComponent } from './components/image/pipelines-repository-image/pipelines-repository-image.component';
+import { ChangePasswordDialogComponent } from './components/dialog/change-password-dialog/change-password-dialog.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,7 +36,8 @@ const appRoutes: Routes = [
         UserImageComponent,
         GroupImageComponent,
         ToolsRepositoryImageComponent,
-        PipelinesRepositoryImageComponent
+        PipelinesRepositoryImageComponent,
+        ChangePasswordDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -54,9 +56,13 @@ const appRoutes: Routes = [
         GroupImageComponent,
         ToolsRepositoryImageComponent,
         PipelinesRepositoryImageComponent,
+        ChangePasswordDialogComponent,
         RouterModule
     ],
-    entryComponents : [ SimpleDialogComponent ]
+    entryComponents : [
+        SimpleDialogComponent,
+        ChangePasswordDialogComponent
+     ]
 })
 
 export class ComponentsModule { }

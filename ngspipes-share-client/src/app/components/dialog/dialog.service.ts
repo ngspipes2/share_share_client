@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @Injectable()
 export class DialogService {
@@ -32,6 +33,10 @@ export class DialogService {
 
     openSuccessDialog(title : string, message : string) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
         return this.openSimpleDialog(title, message, "SUCCESS", ["Ok"]);
+    }
+
+    openChangePasswordDialog() : MatDialogRef<ChangePasswordDialogComponent> {
+        return this.dialog.open(ChangePasswordDialogComponent);
     }
 
 }
