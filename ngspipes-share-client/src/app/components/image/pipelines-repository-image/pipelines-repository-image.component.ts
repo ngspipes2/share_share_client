@@ -15,7 +15,7 @@ export class PipelinesRepositoryImageComponent implements OnInit, OnDestroy {
     @Input()
     repositoryId : number;
     @Input()
-    spinnerDiameter : number;
+    spinnerDiameter : number = 100;
 
     repositoryUpdateSubscription : any;
     imageURI : string;

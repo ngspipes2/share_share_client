@@ -15,7 +15,7 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     @Input()
     groupName : string;
     @Input()
-    spinnerDiameter : number;
+    spinnerDiameter : number = 100;
 
     groupUpdateSubscription : any;
     imageURI : string;
