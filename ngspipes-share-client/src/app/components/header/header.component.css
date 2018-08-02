@@ -1,12 +1,10 @@
-app-user-image {
-    margin-right: 5px;
-}
-
 .example-spacer {
     flex: 1 1 auto;
 }
 
 app-user-image {
+    margin-right: 5px;
+
     font-size: 40px;
 
     height: 40px;
