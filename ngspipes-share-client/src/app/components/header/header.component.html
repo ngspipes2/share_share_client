@@ -6,7 +6,7 @@
         <span class="example-spacer"></span>
 
         <mat-spinner color="accent" [diameter]="25" *ngIf="loading"></mat-spinner>
-        <button mat-button [matMenuTriggerFor]="menu" *ngIf="!loading && user">
+        <button mat-button [matMenuTriggerFor]="menu" *ngIf="!loading && user" id="optionsButton">
             <app-user-image [userName]="user.userName" [spinnerDiameter]="25"></app-user-image>
             {{user.userName}}
         </button>

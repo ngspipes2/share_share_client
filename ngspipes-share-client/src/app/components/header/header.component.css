@@ -2,21 +2,23 @@
     flex: 1 1 auto;
 }
 
+#optionsButton ::ng-deep span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 app-user-image {
-    margin-right: 5px;
+    font-size: 30px;
 
-    font-size: 40px;
+    height: 30px;
+    width: 30px;
 
-    height: 40px;
-    width: 40px;
+    margin-right: 10px;
+}
 
-    margin-right: 5px;
-
+app-user-image ::ng-deep img {
     border-radius: 50%;
-
-    vertical-align: middle;
-
-    display: inline-block;
 }
 
 mat-toolbar {
