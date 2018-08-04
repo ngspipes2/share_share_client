@@ -10,3 +10,16 @@ mat-panel-description {
 mat-panel-title {
     align-items: center;
 }
+
+app-group-image, app-tools-repository-image, app-pipelines-repository-image {
+    font-size: 20px;
+
+    height: 25px;
+    width: 25px;
+
+    margin-right: 10px;
+}
+
+app-group-image ::ng-deep img, app-tools-repository-image ::ng-deep img, app-pipelines-repository-image ::ng-deep img {
+    border-radius: 50%;
+}

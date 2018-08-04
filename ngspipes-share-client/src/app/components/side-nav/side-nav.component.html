@@ -2,12 +2,18 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <mat-spinner *ngIf="loadingGroups" [diameter]="25"></mat-spinner>
+                <mat-spinner color="accent" *ngIf="loadingGroups" [diameter]="25"></mat-spinner>
                 <mat-icon *ngIf="!loadingGroups">group</mat-icon>
             </mat-panel-title>
             <mat-panel-description>
                 My Groups
-                <button mat-icon-button matTooltip="Create Group" (click)="createGroupClick()">
+                <button
+                    mat-icon-button
+                    matTooltip="Create Group"
+                    (click)="createGroupClick()"
+                    #addGroupButton
+                    (mouseenter)="addGroupButton.color='primary'"
+                    (mouseleave)="addGroupButton.color=''">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </mat-panel-description>
@@ -18,8 +24,12 @@
         <mat-nav-list>
             <div *ngFor="let group of groups">
                 <a  mat-list-item
-                routerLink="/groups/{{group.groupName}}"
-                *ngIf="group.groupName.indexOf(groupNameFilter.value) !== -1">{{group.groupName}}</a>
+                    class="entity"
+                    routerLink="/groups/{{group.groupName}}"
+                    *ngIf="group.groupName.indexOf(groupNameFilter.value) !== -1">
+                    <app-group-image class="image" [groupName]="group.groupName" [spinnerDiameter]="15"></app-group-image>
+                    {{group.groupName}}
+                </a>
             </div>
         </mat-nav-list>
     </mat-expansion-panel>
@@ -27,12 +37,18 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <mat-spinner *ngIf="loadingToolsRepositories" [diameter]="25"></mat-spinner>
+                <mat-spinner color="accent" *ngIf="loadingToolsRepositories" [diameter]="25"></mat-spinner>
                 <mat-icon *ngIf="!loadingToolsRepositories">build</mat-icon>
             </mat-panel-title>
             <mat-panel-description>
                 My Tool Repositories
-                <button mat-icon-button matTooltip="Create Tools Repository" (click)="createToolsRepositoryClick()">
+                <button
+                    mat-icon-button
+                    matTooltip="Create Tools Repository"
+                    (click)="createToolsRepositoryClick()"
+                    #addToolsRepositoryButton
+                    (mouseenter)="addToolsRepositoryButton.color='primary'"
+                    (mouseleave)="addToolsRepositoryButton.color=''">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </mat-panel-description>
@@ -43,8 +59,12 @@
         <mat-nav-list>
             <div *ngFor="let repository of toolsRepositories">
                 <a  mat-list-item
+                    class="entity"
                     routerLink="/toolsRepositories/{{repository.id}}"
-                    *ngIf="repository.name.indexOf(toolsRepositoryNameFilter.value) !== -1">{{repository.name}}</a>
+                    *ngIf="repository.name.indexOf(toolsRepositoryNameFilter.value) !== -1">
+                    <app-tools-repository-image class="image" [repositoryId]="repository.id" [spinnerDiameter]="15"></app-tools-repository-image>
+                    {{repository.name}}
+                </a>
             </div>
         </mat-nav-list>
     </mat-expansion-panel>
@@ -52,12 +72,18 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <mat-spinner *ngIf="loadingPipelinesRepositories" [diameter]="25"></mat-spinner>
+                <mat-spinner color="accent" *ngIf="loadingPipelinesRepositories" [diameter]="25"></mat-spinner>
                 <mat-icon *ngIf="!loadingPipelinesRepositories">insert_drive_file</mat-icon>
             </mat-panel-title>
             <mat-panel-description>
                 My Pipeline Repositories
-                <button mat-icon-button matTooltip="Create Pipelines Repository" (click)="createPipelinesRepositoryClick()">
+                <button
+                    mat-icon-button
+                    matTooltip="Create Pipelines Repository"
+                    (click)="createPipelinesRepositoryClick()"
+                    #addPipelinesRepositoryButton
+                    (mouseenter)="addPipelinesRepositoryButton .color='primary'"
+                    (mouseleave)="addPipelinesRepositoryButton .color=''">
                     <mat-icon>add_circle</mat-icon>
                 </button>
             </mat-panel-description>
@@ -68,8 +94,12 @@
         <mat-nav-list>
             <div *ngFor="let repository of pipelinesRepositories">
                 <a  mat-list-item
+                    class="entity"
                     routerLink="/pipelinesRepositories/{{repository.id}}"
-                    *ngIf="repository.name.indexOf(pipelinesRepositoryNameFilter.value) !== -1">{{repository.name}}</a>
+                    *ngIf="repository.name.indexOf(pipelinesRepositoryNameFilter.value) !== -1">
+                    <app-pipelines-repository-image class="image" [repositoryId]="repository.id" [spinnerDiameter]="15"></app-pipelines-repository-image>
+                    {{repository.name}}
+                </a>
             </div>
         </mat-nav-list>
     </mat-expansion-panel>
