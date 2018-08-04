@@ -2,8 +2,8 @@
     <mat-grid-tile colspan="1" rowspan="1">
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="1">
-        <mat-spinner *ngIf="loading"></mat-spinner>
-        <app-user-image *ngIf="!loading" [userName]="user ? user.userName : ''"></app-user-image>
+        <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
+        <app-user-image *ngIf="!loading" [userName]="user ? user.userName : ''" spinnerDiameter="75"></app-user-image>
     </mat-grid-tile>
     <mat-grid-tile colspan="1" rowspan="2">
         <mat-grid-list cols="1" rowHeight="100" [class]="fill">
