@@ -1,0 +1,31 @@
+#profileGrid {
+    width: 50%;
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+app-user-info ::ng-deep mat-card {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+mat-spinner {
+    margin-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#entitiesGrid {
+    margin-top: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+mat-toolbar {
+    justify-content: space-between;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    max-height: 50px;
+}

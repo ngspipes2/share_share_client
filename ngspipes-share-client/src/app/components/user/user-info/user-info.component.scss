@@ -1,0 +1,10 @@
+app-user-image {
+    font-size: 150px;
+
+    height: 150px;
+    width: 150px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}

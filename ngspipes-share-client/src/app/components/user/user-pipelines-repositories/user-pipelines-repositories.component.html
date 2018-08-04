@@ -1,0 +1,13 @@
+<mat-form-field class="search-field">
+    <input matInput placeholder="Repository name" type="text" #repositoryNameFilter>
+</mat-form-field>
+<mat-nav-list>
+    <div *ngFor="let repository of repositories">
+        <a  mat-list-item
+            routerLink="/pipelinesRepositories/{{repository.id}}"
+            *ngIf="repository.name.indexOf(repositoryNameFilter.value) !== -1">
+            <app-pipelines-repository-image [repositoryId]="repository.id" [spinnerDiameter]="15"></app-pipelines-repository-image>
+            {{repository.name}}
+        </a>
+    </div>
+</mat-nav-list>

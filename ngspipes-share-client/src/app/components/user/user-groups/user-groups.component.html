@@ -1,0 +1,13 @@
+<mat-form-field class="search-field">
+    <input matInput placeholder="Group name" type="text" #groupNameFilter>
+</mat-form-field>
+<mat-nav-list>
+    <div *ngFor="let group of groups">
+        <a  mat-list-item
+            routerLink="/groups/{{group.groupName}}"
+            *ngIf="group.groupName.indexOf(groupNameFilter.value) !== -1">
+            <app-group-image [groupName]="group.groupName" [spinnerDiameter]="15"></app-group-image>
+            {{group.groupName}}
+        </a>
+    </div>
+</mat-nav-list>

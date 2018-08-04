@@ -18,13 +18,16 @@ import { GroupImageComponent } from './components/image/group-image/group-image.
 import { ToolsRepositoryImageComponent } from './components/image/tools-repository-image/tools-repository-image.component';
 import { PipelinesRepositoryImageComponent } from './components/image/pipelines-repository-image/pipelines-repository-image.component';
 import { ChangePasswordDialogComponent } from './components/dialog/change-password-dialog/change-password-dialog.component';
+import { UserInfoComponent } from './components/user/user-info/user-info.component';
+import { UserGroupsComponent } from './components/user/user-groups/user-groups.component';
+import { UserToolsRepositoriesComponent } from './components/user/user-tools-repositories/user-tools-repositories.component';
+import { UserPipelinesRepositoriesComponent } from './components/user/user-pipelines-repositories/user-pipelines-repositories.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]}
 ];
-
 
 @NgModule({
     declarations: [
@@ -37,7 +40,11 @@ const appRoutes: Routes = [
         GroupImageComponent,
         ToolsRepositoryImageComponent,
         PipelinesRepositoryImageComponent,
-        ChangePasswordDialogComponent
+        ChangePasswordDialogComponent,
+        UserInfoComponent,
+        UserGroupsComponent,
+        UserToolsRepositoriesComponent,
+        UserPipelinesRepositoriesComponent
     ],
     imports: [
         BrowserModule,
@@ -57,6 +64,10 @@ const appRoutes: Routes = [
         ToolsRepositoryImageComponent,
         PipelinesRepositoryImageComponent,
         ChangePasswordDialogComponent,
+        UserInfoComponent,
+        UserGroupsComponent,
+        UserToolsRepositoriesComponent,
+        UserPipelinesRepositoriesComponent,
         RouterModule
     ],
     entryComponents : [
