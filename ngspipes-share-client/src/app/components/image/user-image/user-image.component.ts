@@ -16,6 +16,8 @@ export class UserImageComponent implements OnInit, OnDestroy {
     userName : string;
     @Input()
     spinnerDiameter : number = 100;
+    @Input()
+    spinnerColor : string = "accent";
 
     userUpdateSubscription : any;
     imageURI : string;

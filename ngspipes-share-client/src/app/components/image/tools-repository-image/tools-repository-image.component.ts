@@ -16,6 +16,8 @@ export class ToolsRepositoryImageComponent implements OnInit, OnDestroy {
     repositoryId : number;
     @Input()
     spinnerDiameter : number = 100;
+    @Input()
+    spinnerColor : string = "accent";
 
     repositoryUpdateSubscription : any;
     imageURI : string;
