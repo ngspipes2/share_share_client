@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
+import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
 
 @Injectable()
 export class DialogService {
@@ -37,6 +39,14 @@ export class DialogService {
 
     openChangePasswordDialog() : MatDialogRef<ChangePasswordDialogComponent> {
         return this.dialog.open(ChangePasswordDialogComponent);
+    }
+
+    openSelectUserDialog() : MatDialogRef<SelectUserDialogComponent> {
+        return this.dialog.open(SelectUserDialogComponent);
+    }
+
+    openSelectGroupDialog() : MatDialogRef<SelectGroupDialogComponent> {
+        return this.dialog.open(SelectGroupDialogComponent);
     }
 
 }

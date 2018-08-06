@@ -1,0 +1,30 @@
+form {
+    width: 30vw;
+}
+
+button {
+    display: flex;
+    margin: auto;
+}
+
+.option {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+app-user-image {
+    font-size: 30px;
+
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+app-user-image ::ng-deep mat-icon {
+    margin: 0px !important;
+}
