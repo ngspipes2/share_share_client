@@ -157,6 +157,16 @@ export class GroupService {
             });
     }
 
+    getGroupsNames() : Promise<string[]> {
+        return this.httpUtils.get(Server.GET_GROUPS_NAMES)
+        .then((response) => {
+            if(!response._body)
+                return [];
+
+            return JSON.parse(response._body);
+        });
+    }
+
     fireInsertEvent(groupName: string) {
         this.groupInsertEvent.next(groupName);
     }

@@ -157,6 +157,16 @@ export class UserService {
             });
     }
 
+    getUsersNames() : Promise<string[]> {
+        return this.httpUtils.get(Server.GET_USERS_NAMES)
+        .then((response) => {
+            if(!response._body)
+                return [];
+
+            return JSON.parse(response._body);
+        });
+    }
+
     fireInsertEvent(userName: string) {
         this.userInsertEvent.next(userName);
     }
