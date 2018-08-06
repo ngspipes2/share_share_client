@@ -1,0 +1,14 @@
+app-group-image {
+    font-size: 150px;
+
+    height: 150px;
+    width: 150px;
+}
+
+app-group-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+mat-nav-list {
+    padding-top: 0px;
+}

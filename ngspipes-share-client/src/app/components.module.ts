@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 
 import { AuthGuard } from './logic/services/auth-guard.service';
@@ -22,11 +22,17 @@ import { UserInfoComponent } from './components/user/user-info/user-info.compone
 import { UserGroupsComponent } from './components/user/user-groups/user-groups.component';
 import { UserToolsRepositoriesComponent } from './components/user/user-tools-repositories/user-tools-repositories.component';
 import { UserPipelinesRepositoriesComponent } from './components/user/user-pipelines-repositories/user-pipelines-repositories.component';
+import { GroupComponent } from './components/group/group.component';
+import { GroupInfoComponent } from './components/group/group-info/group-info.component';
+import { GroupMembersComponent } from './components/group/group-members/group-members.component';
+import { SelectUserDialogComponent } from './components/dialog/select-user-dialog/select-user-dialog.component';
+import { SelectGroupDialogComponent } from './components/dialog/select-group-dialog/select-group-dialog.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]}
+    { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+    { path: 'groups/:groupName', component: GroupComponent, pathMatch: 'full', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -44,12 +50,18 @@ const appRoutes: Routes = [
         UserInfoComponent,
         UserGroupsComponent,
         UserToolsRepositoriesComponent,
-        UserPipelinesRepositoriesComponent
+        UserPipelinesRepositoriesComponent,
+        GroupComponent,
+        GroupInfoComponent,
+        GroupMembersComponent,
+        SelectUserDialogComponent,
+        SelectGroupDialogComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
+        ReactiveFormsModule,
         MaterialModule,
         RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/)
     ],
@@ -68,11 +80,18 @@ const appRoutes: Routes = [
         UserGroupsComponent,
         UserToolsRepositoriesComponent,
         UserPipelinesRepositoriesComponent,
+        GroupComponent,
+        GroupInfoComponent,
+        GroupMembersComponent,
+        SelectUserDialogComponent,
+        SelectGroupDialogComponent,
         RouterModule
     ],
     entryComponents : [
         SimpleDialogComponent,
-        ChangePasswordDialogComponent
+        ChangePasswordDialogComponent,
+        SelectUserDialogComponent,
+        SelectGroupDialogComponent
      ]
 })
 
