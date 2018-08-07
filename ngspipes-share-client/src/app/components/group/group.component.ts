@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Group } from '../../logic/domain/group';
@@ -12,7 +12,7 @@ import { DialogService } from '../dialog/dialog.service';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
 
     paramsSubscription : any;
     loginSubscription : any;
@@ -121,7 +121,7 @@ export class GroupComponent implements OnInit {
             })
             .catch((error) => {
                 this.loadingGroup = false;
-                
+
                 this.group.members = this.group.members.filter(name => name !== userName);
                 this.dialogService.openErrorDialog("Error adding member", error);
                 console.error(error);
