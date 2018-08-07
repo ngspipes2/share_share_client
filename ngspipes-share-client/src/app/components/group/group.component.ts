@@ -51,7 +51,7 @@ export class GroupComponent implements OnInit, OnDestroy {
 
         this.groupSubscription = this.groupService.groupEvent.subscribe((groupName) => {
             if(this.groupName === groupName)
-                this.loadGroup();
+                this.load();
         });
 
         this.groupName = this.activatedRoute.snapshot.params.groupName;
@@ -68,8 +68,9 @@ export class GroupComponent implements OnInit, OnDestroy {
     }
 
     load() {
-        this.checkEditable();
-        this.loadGroup();
+        this.loadGroup()
+        .then(() => this.checkEditable())
+        .catch(() => this.checkEditable());
     }
 
     checkEditable() {
@@ -77,10 +78,10 @@ export class GroupComponent implements OnInit, OnDestroy {
         this.editable = credentials && this.group && credentials[0] === this.group.ownerName;
     }
 
-    loadGroup() {
+    loadGroup() : Promise<Group> {
         this.loadingGroup = true;
 
-        this.groupService.getGroup(this.groupName)
+        return this.groupService.getGroup(this.groupName)
         .then((group) => {
             this.loadingGroup = false;
 
@@ -89,13 +90,15 @@ export class GroupComponent implements OnInit, OnDestroy {
             if(!group)
                 this.dialogService.openWarningDialog("Non existent group", "There is no group with groupName: " + this.groupName);
 
-            this.checkEditable();
+            return group;
           })
           .catch((error) => {
             this.loadingGroup = false;
 
             this.dialogService.openErrorDialog("Error", "Error getting Group with groupName: " + this.groupName);
             console.error(error);
+
+            throw error;
         });
     }
 
