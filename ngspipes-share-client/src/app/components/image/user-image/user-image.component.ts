@@ -1,4 +1,19 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+
 import { Http, Headers } from '@angular/http';
 
 import { UserService } from '../../../logic/services/user.service';
@@ -22,24 +37,42 @@ export class UserImageComponent implements OnInit, OnDestroy {
     userUpdateSubscription : any;
     imageURI : string;
     loading : boolean;
+    inited : boolean = false;
+
+    observer: IntersectionObserver;
 
 
 
-    constructor(private sessionService : SessionService, private userService : UserService, private http : Http) { }
+    constructor(
+        private sessionService : SessionService,
+        private userService : UserService,
+        private http : Http,
+        public element: ElementRef) {}
 
 
 
-    ngOnInit() {
+    ngOnInit(): void {
+        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
+        this.observer.observe(this.element.nativeElement);
+
         this.userUpdateSubscription = this.userService.userUpdateEvent.subscribe((userName) => {
-            if(userName === this.userName)
-                this.load();
+          if(userName === this.userName && this.inited)
+            this.load();
         });
-
-        this.load();
     }
 
-    ngOnDestroy() {
-        this.userUpdateSubscription.unsubscribe();
+    ngOnDestroy(): void {
+      this.observer.disconnect();
+      this.userUpdateSubscription.unsubscribe();
+    }
+
+    handleIntersect(entries, observer) : void {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+            if (entry.isIntersecting && !this.inited) {
+                this.inited = true;
+                this.load();
+            }
+        });
     }
 
     load() {

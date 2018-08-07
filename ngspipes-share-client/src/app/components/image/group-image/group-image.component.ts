@@ -1,4 +1,19 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+
 import { Http, Headers } from '@angular/http';
 
 import { GroupService } from '../../../logic/services/group.service';
@@ -22,24 +37,42 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     groupUpdateSubscription : any;
     imageURI : string;
     loading : boolean;
+    inited : boolean = false;
+
+    observer: IntersectionObserver;
 
 
 
-    constructor(private sessionService : SessionService, private groupService : GroupService, private http : Http) { }
+    constructor(
+        private sessionService : SessionService,
+         private groupService : GroupService,
+        private http : Http,
+        public element: ElementRef) {}
 
 
 
     ngOnInit() {
+        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
+        this.observer.observe(this.element.nativeElement);
+
         this.groupUpdateSubscription = this.groupService.groupUpdateEvent.subscribe((groupName) => {
-            if(groupName === this.groupName)
+            if(groupName === this.groupName && this.inited)
                 this.load();
         });
-
-        this.load();
     }
 
     ngOnDestroy() {
+        this.observer.disconnect();
         this.groupUpdateSubscription.unsubscribe();
+    }
+
+    handleIntersect(entries, observer) : void {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+            if (entry.isIntersecting && !this.inited) {
+                this.inited = true;
+                this.load();
+            }
+        });
     }
 
     load() {

@@ -1,4 +1,19 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import {
+    Component,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+
 import { Http, Headers } from '@angular/http';
 
 import { PipelinesRepositoryService } from '../../../logic/services/pipelines-repository.service';
@@ -22,24 +37,42 @@ export class PipelinesRepositoryImageComponent implements OnInit, OnDestroy {
     repositoryUpdateSubscription : any;
     imageURI : string;
     loading : boolean;
+    inited : boolean = false;
+
+    observer: IntersectionObserver;
 
 
 
-    constructor(private sessionService : SessionService, private pipelinesRepositoryService : PipelinesRepositoryService, private http : Http) { }
+    constructor(
+        private sessionService : SessionService,
+        private pipelinesRepositoryService : PipelinesRepositoryService,
+        private http : Http,
+        public element: ElementRef) {}
 
 
 
     ngOnInit() {
+        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
+        this.observer.observe(this.element.nativeElement);
+
         this.repositoryUpdateSubscription = this.pipelinesRepositoryService.pipelinesRepositoryUpdateEvent.subscribe((repositoryId) => {
-            if(repositoryId === this.repositoryId)
+            if(repositoryId === this.repositoryId && this.inited)
                 this.load();
         });
-
-        this.load();
     }
 
     ngOnDestroy() {
+        this.observer.disconnect();
         this.repositoryUpdateSubscription.unsubscribe();
+    }
+
+    handleIntersect(entries, observer) : void {
+        entries.forEach((entry: IntersectionObserverEntry) => {
+            if (entry.isIntersecting && !this.inited) {
+                this.inited = true;
+                this.load();
+            }
+        });
     }
 
     load() {
