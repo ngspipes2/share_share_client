@@ -9,9 +9,12 @@ mat-grid-tile-header {
     font-size: 18px;
 }
 
-app-user-info, app-user-groups, app-user-tools-repositories, app-user-pipelines-repositories {
-    display: grid;
-    align-self: flex-end;
+app-user-info {
+    padding-top: 6%;
     width: 100%;
-    height: 88%;
+}
+
+app-user-groups, app-user-tools-repositories, app-user-pipelines-repositories {
+    padding-top: 10%;
+    width: 100%;
 }
