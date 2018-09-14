@@ -181,15 +181,72 @@ export class UserComponent implements OnInit, OnDestroy {
     }
 
     createGroupClick() {
-        this.router.navigate(['/createGroup']);
+        this.dialogService.openNewGroupNameDialog().afterClosed().subscribe((groupName) => {
+            if(!groupName)
+                return;
+
+            this.loadingGroups = true;
+
+            let owner = this.sessionService.getCurrentCredentials()[0];
+            let group = new Group(groupName, "", new Date(), owner, []);
+
+            this.groupService.createGroup(group)
+            .then(() => {
+                this.loadingGroups = false;
+                this.dialogService.openSuccessDialog("New Group created successfully!", "");
+                this.router.navigate(['/groups/' + groupName]);
+            })
+            .catch((error) => {
+                this.loadingGroups = false;
+                this.dialogService.openErrorDialog("Error creating new Group!", error);
+            });
+        });
     }
 
     createToolsRepositoryClick() {
-        this.router.navigate(['/createToolsRepository']);
+        this.dialogService.openNewToolsRepositoryNameDialog().afterClosed().subscribe((repositoryName) => {
+            if(!repositoryName)
+                return;
+
+            this.loadingToolsRepositories = true;
+
+            let owner = this.sessionService.getCurrentCredentials()[0];
+            let repository = new ToolsRepository(0, repositoryName, "", new Date(), false, owner, [], []);
+
+            this.toolsRepositoryService.createRepository(repository)
+            .then((id) => {
+                this.loadingToolsRepositories = false;
+                this.dialogService.openSuccessDialog("ToolsRepository created successfully!", "");
+                this.router.navigate(['/toolsRepositories/' + id]);
+            })
+            .catch((error) => {
+                this.loadingToolsRepositories = false;
+                this.dialogService.openErrorDialog("Error creating ToolsRepository!", error);
+            });
+        });
     }
 
     createPipelinesRepositoryClick() {
-        this.router.navigate(['/createPipelinesRepository']);
+        this.dialogService.openNewPipelinesRepositoryNameDialog().afterClosed().subscribe((repositoryName) => {
+            if(!repositoryName)
+                return;
+
+            this.loadingPipelinesRepositories = true;
+
+            let owner = this.sessionService.getCurrentCredentials()[0];
+            let repository = new PipelinesRepository(0, repositoryName, "", new Date(), false, owner, [], []);
+
+            this.pipelinesRepositoryService.createRepository(repository)
+            .then((id) => {
+                this.loadingPipelinesRepositories = false;
+                this.dialogService.openSuccessDialog("PipelinesRepository created successfully!", "");
+                this.router.navigate(['/pipelinesRepositories/' + id]);
+            })
+            .catch((error) => {
+                this.loadingPipelinesRepositories = false;
+                this.dialogService.openErrorDialog("Error creating PipelinesRepository!", error);
+            });
+        });
     }
 
 }
