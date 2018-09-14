@@ -5,6 +5,7 @@ import { SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
 import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
+import { AskStringValueDialogComponent, AskStringValueDialogData } from './ask-string-value-dialog/ask-string-value-dialog.component';
 
 @Injectable()
 export class DialogService {
@@ -47,6 +48,26 @@ export class DialogService {
 
     openSelectGroupDialog() : MatDialogRef<SelectGroupDialogComponent> {
         return this.dialog.open(SelectGroupDialogComponent);
+    }
+
+    openAskStringValueDialog(message : string, placeholder : string) : MatDialogRef<AskStringValueDialogComponent, string> {
+        const dialogRef = this.dialog.open(AskStringValueDialogComponent, {
+            data: {message : message, placeholder : placeholder}
+        });
+
+        return dialogRef;
+    }
+
+    openNewGroupNameDialog() : MatDialogRef<AskStringValueDialogComponent, string> {
+        return this.openAskStringValueDialog("Insert new Group Name", "GroupName");
+    }
+
+    openNewToolsRepositoryNameDialog() : MatDialogRef<AskStringValueDialogComponent, string> {
+        return this.openAskStringValueDialog("Insert new Tools Repository name", "RepositoryName");
+    }
+
+    openNewPipelinesRepositoryNameDialog() : MatDialogRef<AskStringValueDialogComponent, string> {
+        return this.openAskStringValueDialog("Insert new Pipelines Repository name", "RepositoryName");
     }
 
 }
