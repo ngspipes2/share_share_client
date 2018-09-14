@@ -1,0 +1,10 @@
+app-pipelines-repository-image {
+    font-size: 150px;
+
+    height: 150px;
+    width: 150px;
+}
+
+app-pipelines-repository-image ::ng-deep img {
+    border-radius: 50%;
+}

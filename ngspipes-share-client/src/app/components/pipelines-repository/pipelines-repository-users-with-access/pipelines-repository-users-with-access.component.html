@@ -1,0 +1,13 @@
+<mat-form-field class="search-field">
+    <input matInput placeholder="UserName" type="text" #userNameFilter>
+</mat-form-field>
+<mat-nav-list>
+    <div *ngFor="let user of users">
+        <a  mat-list-item
+            routerLink="/users/{{user}}"
+            *ngIf="user.indexOf(userNameFilter.value) !== -1">
+            <app-user-image [userName]="user" [spinnerDiameter]="15"></app-user-image>
+            {{user}}
+        </a>
+    </div>
+</mat-nav-list>

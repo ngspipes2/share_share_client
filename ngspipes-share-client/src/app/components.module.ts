@@ -31,6 +31,10 @@ import { ToolsRepositoryComponent } from './components/tools-repository/tools-re
 import { ToolsRepositoryInfoComponent } from './components/tools-repository/tools-repository-info/tools-repository-info.component';
 import { ToolsRepositoryUsersWithAccessComponent } from './components/tools-repository/tools-repository-users-with-access/tools-repository-users-with-access.component';
 import { ToolsRepositoryGroupsWithAccessComponent } from './components/tools-repository/tools-repository-groups-with-access/tools-repository-groups-with-access.component';
+import { PipelinesRepositoryComponent } from './components/pipelines-repository/pipelines-repository.component';
+import { PipelinesRepositoryInfoComponent } from './components/pipelines-repository/pipelines-repository-info/pipelines-repository-info.component';
+import { PipelinesRepositoryUsersWithAccessComponent } from './components/pipelines-repository/pipelines-repository-users-with-access/pipelines-repository-users-with-access.component';
+import { PipelinesRepositoryGroupsWithAccessComponent } from './components/pipelines-repository/pipelines-repository-groups-with-access/pipelines-repository-groups-with-access.component';
 import { AskStringValueDialogComponent } from './components/dialog/ask-string-value-dialog/ask-string-value-dialog.component';
 
 const appRoutes: Routes = [
@@ -38,7 +42,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]},
     { path: 'groups/:groupName', component: GroupComponent, pathMatch: 'full', canActivate: [AuthGuard]},
-    { path: 'toolsRepositories/:repositoryId', component: ToolsRepositoryComponent, pathMatch: 'full', canActivate: [AuthGuard]}
+    { path: 'toolsRepositories/:repositoryId', component: ToolsRepositoryComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+    { path: 'pipelinesRepositories/:repositoryId', component: PipelinesRepositoryComponent, pathMatch: 'full', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -66,6 +71,10 @@ const appRoutes: Routes = [
         ToolsRepositoryInfoComponent,
         ToolsRepositoryUsersWithAccessComponent,
         ToolsRepositoryGroupsWithAccessComponent,
+        PipelinesRepositoryComponent,
+        PipelinesRepositoryInfoComponent,
+        PipelinesRepositoryUsersWithAccessComponent,
+        PipelinesRepositoryGroupsWithAccessComponent,
         AskStringValueDialogComponent
     ],
     imports: [
@@ -100,6 +109,10 @@ const appRoutes: Routes = [
         ToolsRepositoryInfoComponent,
         ToolsRepositoryUsersWithAccessComponent,
         ToolsRepositoryGroupsWithAccessComponent,
+        PipelinesRepositoryComponent,
+        PipelinesRepositoryInfoComponent,
+        PipelinesRepositoryUsersWithAccessComponent,
+        PipelinesRepositoryGroupsWithAccessComponent,
         AskStringValueDialogComponent,
         RouterModule
     ],

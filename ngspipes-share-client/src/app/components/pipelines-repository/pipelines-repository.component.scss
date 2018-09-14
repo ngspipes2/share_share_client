@@ -1,0 +1,20 @@
+#root {
+    margin: 20px;
+}
+
+mat-grid-tile-header {
+    justify-content: space-between;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    font-size: 18px;
+}
+
+app-pipelines-repository-info {
+    padding-top: 4%;
+    width: 100%;
+}
+
+app-pipelines-repository-users-with-access, app-pipelines-repository-groups-with-access {
+    padding-top: 12%;
+    width: 100%;
+}
