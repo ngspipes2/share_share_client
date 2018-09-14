@@ -1,0 +1,20 @@
+#root {
+    margin: 20px;
+}
+
+mat-grid-tile-header {
+    justify-content: space-between;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    font-size: 18px;
+}
+
+app-tools-repository-info {
+    padding-top: 4%;
+    width: 100%;
+}
+
+app-tools-repository-users-with-access, app-tools-repository-groups-with-access {
+    padding-top: 12%;
+    width: 100%;
+}

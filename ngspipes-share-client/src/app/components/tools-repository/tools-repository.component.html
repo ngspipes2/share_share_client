@@ -1,0 +1,83 @@
+<mat-grid-list cols="16" rowHeight="1:1" gutterSize="25" id="root">
+    <mat-grid-tile colspan="11" rowspan="5">
+        <mat-grid-tile-header>
+            Profile
+        </mat-grid-tile-header>
+        <mat-spinner diameter="75" *ngIf="loadingRepository" color="accent"></mat-spinner>
+        <app-tools-repository-info *ngIf="!loadingRepository && repository" [repository]="repository" [editable]="editable"></app-tools-repository-info>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="5" rowspan="5">
+        <mat-grid-tile-header>
+            Tools
+            <button
+                *ngIf="editable"
+                class="addButton"
+                mat-icon-button
+                matTooltip="Create Tool"
+                (click)="createToolClick()"
+                #createToolButton
+                (mouseenter)="createToolButton.color='primary'"
+                (mouseleave)="createToolButton.color=''">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-grid-tile-header>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="5">
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="5" rowspan="5">
+        <mat-grid-tile-header>
+            Users with access
+            <button
+                *ngIf="editable"
+                class="addButton"
+                mat-icon-button
+                matTooltip="Add User"
+                (click)="addUserClick()"
+                #addUserButton
+                (mouseenter)="addUserButton.color='primary'"
+                (mouseleave)="addUserButton.color=''">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-grid-tile-header>
+        <mat-spinner diameter="75" *ngIf="loadingRepository" color="accent"></mat-spinner>
+        <app-tools-repository-users-with-access
+            *ngIf="!loadingRepository && repository"
+            class="fill"
+            [users]="repository.usersAccess"
+            [editable]="editable">
+        </app-tools-repository-users-with-access>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="5">
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="5" rowspan="5">
+        <mat-grid-tile-header>
+            Groups with access
+            <button
+                *ngIf="editable"
+                class="addButton"
+                mat-icon-button
+                matTooltip="Add Group"
+                (click)="addGroupClick()"
+                #addGroupButton
+                (mouseenter)="addGroupButton.color='primary'"
+                (mouseleave)="addGroupButton.color=''">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+        </mat-grid-tile-header>
+        <mat-spinner diameter="75" *ngIf="loadingRepository" color="accent"></mat-spinner>
+        <app-tools-repository-groups-with-access
+            *ngIf="!loadingRepository && repository"
+            class="fill"
+            [groups]="repository.groupsAccess"
+            [editable]="editable">
+        </app-tools-repository-groups-with-access>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="5">
+    </mat-grid-tile>
+
+</mat-grid-list>

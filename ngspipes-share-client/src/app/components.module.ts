@@ -27,12 +27,18 @@ import { GroupInfoComponent } from './components/group/group-info/group-info.com
 import { GroupMembersComponent } from './components/group/group-members/group-members.component';
 import { SelectUserDialogComponent } from './components/dialog/select-user-dialog/select-user-dialog.component';
 import { SelectGroupDialogComponent } from './components/dialog/select-group-dialog/select-group-dialog.component';
+import { ToolsRepositoryComponent } from './components/tools-repository/tools-repository.component';
+import { ToolsRepositoryInfoComponent } from './components/tools-repository/tools-repository-info/tools-repository-info.component';
+import { ToolsRepositoryUsersWithAccessComponent } from './components/tools-repository/tools-repository-users-with-access/tools-repository-users-with-access.component';
+import { ToolsRepositoryGroupsWithAccessComponent } from './components/tools-repository/tools-repository-groups-with-access/tools-repository-groups-with-access.component';
+import { AskStringValueDialogComponent } from './components/dialog/ask-string-value-dialog/ask-string-value-dialog.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]},
-    { path: 'groups/:groupName', component: GroupComponent, pathMatch: 'full', canActivate: [AuthGuard]}
+    { path: 'groups/:groupName', component: GroupComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+    { path: 'toolsRepositories/:repositoryId', component: ToolsRepositoryComponent, pathMatch: 'full', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -55,7 +61,12 @@ const appRoutes: Routes = [
         GroupInfoComponent,
         GroupMembersComponent,
         SelectUserDialogComponent,
-        SelectGroupDialogComponent
+        SelectGroupDialogComponent,
+        ToolsRepositoryComponent,
+        ToolsRepositoryInfoComponent,
+        ToolsRepositoryUsersWithAccessComponent,
+        ToolsRepositoryGroupsWithAccessComponent,
+        AskStringValueDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -85,13 +96,19 @@ const appRoutes: Routes = [
         GroupMembersComponent,
         SelectUserDialogComponent,
         SelectGroupDialogComponent,
+        ToolsRepositoryComponent,
+        ToolsRepositoryInfoComponent,
+        ToolsRepositoryUsersWithAccessComponent,
+        ToolsRepositoryGroupsWithAccessComponent,
+        AskStringValueDialogComponent,
         RouterModule
     ],
     entryComponents : [
         SimpleDialogComponent,
         ChangePasswordDialogComponent,
         SelectUserDialogComponent,
-        SelectGroupDialogComponent
+        SelectGroupDialogComponent,
+        AskStringValueDialogComponent
      ]
 })
 
