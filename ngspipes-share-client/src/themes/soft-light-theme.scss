@@ -1,0 +1,9 @@
+$soft-light-theme-primary: mat-palette($mat-blue-grey);
+$soft-light-theme-accent: mat-palette($mat-grey);
+$soft-light-theme-warn: mat-palette($mat-red);
+
+$soft-light-theme: mat-light-theme(
+    $soft-light-theme-primary,
+    $soft-light-theme-accent,
+    $soft-light-theme-warn
+);

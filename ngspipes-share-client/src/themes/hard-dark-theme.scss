@@ -1,0 +1,9 @@
+$hard-dark-theme-primary: mat-palette($mat-teal);
+$hard-dark-theme-accent: mat-palette($mat-light-green);
+$hard-dark-theme-warn: mat-palette($mat-red);
+
+$hard-dark-theme: mat-dark-theme(
+    $hard-dark-theme-primary,
+    $hard-dark-theme-accent,
+    $hard-dark-theme-warn
+);

@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/@angular/material/theming";
+
+@include mat-core();
+
+@import './themes/soft-light-theme';
+@import './themes/hard-light-theme';
+@import './themes/soft-dark-theme';
+@import './themes/hard-dark-theme';
+
+.soft-light-theme {
+    @include angular-material-theme($soft-light-theme);
+}
+
+.hard-light-theme {
+    @include angular-material-theme($hard-light-theme);
+}
+
+.soft-dark-theme {
+    @include angular-material-theme($soft-dark-theme);
+}
+
+.hard-dark-theme {
+    @include angular-material-theme($hard-dark-theme);
+}
+
+.fill {
+    height: 100%;
+    width: 100%;
+}
