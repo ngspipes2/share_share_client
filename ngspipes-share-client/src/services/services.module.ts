@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { PreferencesService } from './preferences.service';
+import { ThemeService } from './theme.service';
 import { LoginService } from './login.service';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth-guard.service';
@@ -24,6 +25,7 @@ import { InternalRepositoryGroupMemberService } from './internal-repository-grou
     exports: [ ],
     providers: [
         PreferencesService,
+        ThemeService,
         LoginService,
         SessionService,
         AuthGuard,
