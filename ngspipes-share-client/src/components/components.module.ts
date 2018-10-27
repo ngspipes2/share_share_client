@@ -9,11 +9,9 @@ import { MaterialModule } from '../app/material.module';
 import { SimpleDialogComponent } from './dialog/simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog/dialog.manager';
 
-
 @NgModule({
     declarations: [
-        SimpleDialogComponent,
-        DialogManager
+        SimpleDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -23,7 +21,9 @@ import { DialogManager } from './dialog/dialog.manager';
         MaterialModule
     ],
     exports: [
-        SimpleDialogComponent,
+        SimpleDialogComponent
+    ],
+    providers: [
         DialogManager
     ],
     entryComponents : [
