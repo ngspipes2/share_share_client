@@ -168,6 +168,10 @@ export class UserService {
         });
     }
 
+    public getUserImageURL(userName : string) : string {
+        return ServersRoutes.GET_USER_IMAGE_ROUTE.replace("{userName}", userName);
+    }
+
 
     fireCreateEvent(userName: string) {
         this.userCreateEvent.next(userName);

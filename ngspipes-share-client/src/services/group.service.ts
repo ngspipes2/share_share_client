@@ -163,6 +163,10 @@ export class GroupService {
         });
     }
 
+    public getGroupImageURL(groupName : string) : string {
+        return ServersRoutes.GET_GROUP_IMAGE_ROUTE.replace("{groupName}", groupName);
+    }
+
 
     fireCreateEvent(groupName: string) {
         this.groupCreateEvent.next(groupName);
