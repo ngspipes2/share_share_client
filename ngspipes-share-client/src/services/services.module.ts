@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpModule } from '@angular/http';
 
 import { LoginService } from './login.service';
 import { SessionService } from './session.service';
@@ -16,7 +17,9 @@ import { InternalRepositoryGroupMemberService } from './internal-repository-grou
 
 @NgModule({
     declarations: [ ],
-    imports: [ ],
+    imports: [
+        HttpModule
+    ],
     exports: [ ],
     providers: [
         LoginService,
