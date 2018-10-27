@@ -8,10 +8,12 @@ import { MaterialModule } from '../app/material.module';
 
 import { SimpleDialogComponent } from './dialog/simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog/dialog.manager';
+import { UserImageComponent } from './image/user-image/user-image.component';
 
 @NgModule({
     declarations: [
-        SimpleDialogComponent
+        SimpleDialogComponent,
+        UserImageComponent
     ],
     imports: [
         BrowserModule,
@@ -21,7 +23,8 @@ import { DialogManager } from './dialog/dialog.manager';
         MaterialModule
     ],
     exports: [
-        SimpleDialogComponent
+        SimpleDialogComponent,
+        UserImageComponent
     ],
     providers: [
         DialogManager
