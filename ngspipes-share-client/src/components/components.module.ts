@@ -6,8 +6,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../app/material.module';
 
+import { SimpleDialogComponent } from './dialog/simple-dialog/simple-dialog.component';
+
+
 @NgModule({
-    declarations: [ ],
+    declarations: [
+        SimpleDialogComponent
+    ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -15,8 +20,12 @@ import { MaterialModule } from '../app/material.module';
         ReactiveFormsModule,
         MaterialModule
     ],
-    exports: [ ],
-    entryComponents : [ ]
+    exports: [
+        SimpleDialogComponent
+    ],
+    entryComponents : [
+        SimpleDialogComponent
+    ]
 })
 
 export class ComponentsModule { }
