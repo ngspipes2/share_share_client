@@ -143,43 +143,27 @@ export class HttpService {
     }
 
     private logRequest(method : string, url : string, headers : any, body : any) {
-        console.log("");
+        let log = {
+            way: "Response",
+            method : method,
+            url : url,
+            headers : headers,
+            body : body
+        };
 
-        console.log("Request:");
-
-        console.log("Method:");
-        console.log(method);
-
-        console.log("Url:");
-        console.log(url);
-
-        console.log("Headers:");
-        console.log(headers);
-
-        console.log("Body:");
-        console.log(body);
-
-        console.log("");
+        console.log(log);
     }
 
     private logResponse(method : string, url : string, status : number, body : any) {
-        console.log("");
+        let log = {
+            way: "Request",
+            method : method,
+            url : url,
+            status: status,
+            body : body
+        };
 
-        console.log("Response:");
-
-        console.log("Method:");
-        console.log(method);
-
-        console.log("Url:");
-        console.log(url);
-
-        console.log("Status:");
-        console.log(status);
-
-        console.log("Body:");
-        console.log(body);
-
-        console.log("");
+        console.log(log);
     }
 
 }
