@@ -7,16 +7,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../app/material.module';
 
+import{ ImageModule } from './image/image.module';
+
 import { SimpleDialogComponent } from './dialog/simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog/dialog.manager';
-import { UserImageComponent } from './image/user-image/user-image.component';
 
 const appRoutes: Routes = [ ];
 
 @NgModule({
     declarations: [
-        SimpleDialogComponent,
-        UserImageComponent
+        SimpleDialogComponent
     ],
     imports: [
         RouterModule,
@@ -25,12 +25,12 @@ const appRoutes: Routes = [ ];
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/)
+        RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/),
+        ImageModule
     ],
     exports: [
         RouterModule,
-        SimpleDialogComponent,
-        UserImageComponent
+        SimpleDialogComponent
     ],
     providers: [
         DialogManager
