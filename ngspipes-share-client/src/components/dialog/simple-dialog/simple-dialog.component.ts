@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export enum Type {
-    ERROR,
-    WARNING,
-    INFO,
-    SUCCESS
+    ERROR = "ERROR",
+    WARNING = "WARNING",
+    INFO = "INFO",
+    SUCCESS = "SUCCESS"
 }
 
 export interface SimpleDialogData {
