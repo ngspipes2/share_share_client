@@ -15,34 +15,34 @@ export class DialogManager {
          return this.dialog.open(componentOrTemplateRef, config);
      }
 
-    public openSimpleDialog(title : string, message : string, type : Type, responses : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+    public openSimpleDialog(title : string, message : string, type : Type, responses : string[]) : MatDialogRef<SimpleDialogComponent, string> {
         return this.open(SimpleDialogComponent, {
             data: {title : title, message : message, type : type, responses : responses}
         });
     }
 
-    public openErrorDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+    public openErrorDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, string> {
         if(!responses)
             responses = ["Ok"];
 
         return this.openSimpleDialog(title, message, Type.ERROR, responses);
     }
 
-    public openWarningDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+    public openWarningDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, string> {
         if(!responses)
             responses = ["Ok"];
 
         return this.openSimpleDialog(title, message, Type.WARNING, responses);
     }
 
-    public openInformationDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+    public openInformationDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, string> {
         if(!responses)
             responses = ["Ok"];
 
         return this.openSimpleDialog(title, message, Type.INFO, responses);
     }
 
-    public openSuccessDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+    public openSuccessDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, string> {
         if(!responses)
             responses = ["Ok"];
 
