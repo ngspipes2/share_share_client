@@ -10,20 +10,24 @@ h1 {
     justify-content: center;
 }
 
-#error{
+#error {
     color: rgb(208, 85, 85);
+    vertical-align: sub;
 }
 
-#warning{
+#warning {
     color: rgb(212, 106, 61);
+    vertical-align: sub;
 }
 
-#information{
+#info {
     color: rgb(71, 154, 218);
+    vertical-align: sub;
 }
 
-#success{
+#success {
     color: rgb(93, 191, 103);
+    vertical-align: sub;
 }
 
 .message {
