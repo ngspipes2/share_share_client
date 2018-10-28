@@ -21,20 +21,32 @@ export class DialogManager {
         });
     }
 
-    public openErrorDialog(title : string, message : string) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
-        return this.openSimpleDialog(title, message, Type.ERROR, ["Ok"]);
+    public openErrorDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+        if(!responses)
+            responses = ["Ok"];
+
+        return this.openSimpleDialog(title, message, Type.ERROR, responses);
     }
 
-    public openWarningDialog(title : string, message : string) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
-        return this.openSimpleDialog(title, message, Type.WARNING, ["Ok"]);
+    public openWarningDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+        if(!responses)
+            responses = ["Ok"];
+
+        return this.openSimpleDialog(title, message, Type.WARNING, responses);
     }
 
-    public openInformationDialog(title : string, message : string) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
-        return this.openSimpleDialog(title, message, Type.INFO, ["Ok"]);
+    public openInformationDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+        if(!responses)
+            responses = ["Ok"];
+
+        return this.openSimpleDialog(title, message, Type.INFO, responses);
     }
 
-    public openSuccessDialog(title : string, message : string) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
-        return this.openSimpleDialog(title, message, Type.SUCCESS, ["Ok"]);
+    public openSuccessDialog(title : string, message : string, responses ? : string[]) : MatDialogRef<SimpleDialogComponent, SimpleDialogData> {
+        if(!responses)
+            responses = ["Ok"];
+
+        return this.openSimpleDialog(title, message, Type.SUCCESS, responses);
     }
 
 }
