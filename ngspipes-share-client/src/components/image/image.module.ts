@@ -16,7 +16,7 @@ import { UserImageComponent } from './user-image/user-image.component';
       BrowserAnimationsModule,
       MaterialModule
   ],
-  exports : [
+  exports: [
       UserImageComponent
   ]
 })
