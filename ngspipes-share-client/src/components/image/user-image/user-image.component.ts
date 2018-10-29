@@ -32,9 +32,8 @@ export class UserImageComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private sessionService : SessionService,
-                private userService : UserService,
-                public element: ElementRef) {}
+    constructor(private userService : UserService,
+                private element: ElementRef) {}
 
 
 
@@ -78,7 +77,7 @@ export class UserImageComponent implements OnInit, OnDestroy {
             .catch(error => {
                 this.loading = false;
                 this.imageURL = undefined;
-            })
+            });
     }
 
 }
