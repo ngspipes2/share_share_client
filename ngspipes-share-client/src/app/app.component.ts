@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { ThemeService } from '../services/theme.service';
 import { DialogManager } from '../components/dialog/dialog.manager';
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private themeService : ThemeService,
+    constructor(private overlayContainer : OverlayContainer,
+                private themeService : ThemeService,
                 private dialogManager : DialogManager) { }
 
 
@@ -35,8 +37,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
     loadTheme() {
         this.themeService.getTheme()
-            .then(theme => this.theme = theme)
-            .catch(error => this.dialogManager.openErrorDialog("Error getting theme!", error));
+            .then((theme) => {
+                this.overlayContainer.getContainerElement().classList.remove(this.theme);
+                this.theme = theme
+                this.overlayContainer.getContainerElement().classList.add(theme)
+            })
+            .catch((error) => {
+                console.log("Error getting theme!");
+                console.error(error);
+            });
     }
 
 }
