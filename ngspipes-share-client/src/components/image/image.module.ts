@@ -6,10 +6,12 @@ import { MaterialModule } from '../../app/material.module';
 
 
 import { UserImageComponent } from './user-image/user-image.component';
+import { GroupImageComponent } from './group-image/group-image.component';
 
 @NgModule({
   declarations: [
-      UserImageComponent
+      UserImageComponent,
+      GroupImageComponent
   ],
   imports: [
       BrowserModule,
@@ -17,7 +19,8 @@ import { UserImageComponent } from './user-image/user-image.component';
       MaterialModule
   ],
   exports: [
-      UserImageComponent
+      UserImageComponent,
+      GroupImageComponent
   ]
 })
 export class ImageModule { }

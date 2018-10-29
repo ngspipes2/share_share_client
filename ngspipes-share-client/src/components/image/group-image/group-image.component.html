@@ -1,0 +1,5 @@
+<div class="content">
+    <mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" [color]="spinnerColor"></mat-spinner>
+    <img *ngIf="!loading && imageURL" [src]="imageURL">
+    <mat-icon *ngIf="!loading && !imageURL">group</mat-icon>
+</div>
