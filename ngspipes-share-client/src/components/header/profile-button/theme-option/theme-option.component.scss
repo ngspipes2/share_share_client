@@ -1,0 +1,26 @@
+.option {
+    display: flex;
+    margin: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+#slt, #hlt, #sdt, #hdt {
+    height: 30px;
+}
+
+#slt {
+    background-color: #607D8B;
+}
+
+#hlt {
+    background-color: #673AB7;
+}
+
+#sdt {
+    background-color: #448AFF;
+}
+
+#hdt {
+    background-color: #009688;
+}

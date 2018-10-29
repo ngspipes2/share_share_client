@@ -1,0 +1,18 @@
+#optionsButton ::ng-deep span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+app-user-image {
+    font-size: 30px;
+
+    height: 30px;
+    width: 30px;
+
+    margin-right: 10px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}

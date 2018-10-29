@@ -1,0 +1,18 @@
+<button mat-menu-item [matMenuTriggerFor]="theme_menu">
+    <mat-icon id="logo">color_lens</mat-icon>
+    Theme
+</button>
+<mat-menu #theme_menu="matMenu">
+    <div class="option">
+        <button mat-raised-button (click)="setTheme('soft-light-theme')" id="slt"></button>
+    </div>
+    <div class="option">
+        <button mat-raised-button (click)="setTheme('hard-light-theme')" id="hlt"></button>
+    </div>
+    <div class="option">
+        <button mat-raised-button (click)="setTheme('soft-dark-theme')" id="sdt"></button>
+    </div>
+    <div class="option">
+        <button mat-raised-button (click)="setTheme('hard-dark-theme')" id="hdt"></button>
+    </div>
+</mat-menu>
