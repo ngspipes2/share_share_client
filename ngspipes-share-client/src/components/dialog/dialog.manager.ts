@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
+import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -47,6 +48,10 @@ export class DialogManager {
             responses = ["Ok"];
 
         return this.openSimpleDialog(title, message, Type.SUCCESS, responses);
+    }
+
+    public openChangePasswordDialog() : MatDialogRef<ChangePasswordDialogComponent> {
+        return this.dialog.open(ChangePasswordDialogComponent);
     }
 
 }
