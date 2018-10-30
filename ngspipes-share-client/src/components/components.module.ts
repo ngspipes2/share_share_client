@@ -9,12 +9,14 @@ import { MaterialModule } from '../app/material.module';
 
 import { ImageModule } from './image/image.module';
 import { DialogModule } from './dialog/dialog.module';
+import { HeaderModule } from './header/header.module';
+
+import { HeaderComponent } from './header/header.component';
 
 const appRoutes: Routes = [ ];
 
 @NgModule({
-    declarations: [
-    ],
+    declarations: [ ],
     imports: [
         RouterModule,
         BrowserModule,
@@ -24,10 +26,12 @@ const appRoutes: Routes = [ ];
         MaterialModule,
         RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/),
         ImageModule,
-        DialogModule
+        DialogModule,
+        HeaderModule
     ],
     exports: [
-        RouterModule
+        RouterModule,
+        HeaderComponent
     ],
     providers: [
     ],

@@ -1,0 +1,11 @@
+<mat-toolbar id="root" color="primary">
+    <mat-toolbar-row>
+        <mat-icon id="logo">share</mat-icon>
+
+        <span id="title">NGSPipes Share</span>
+
+        <app-search-bar *ngIf="profileButtonVisible" class="example-spacer"></app-search-bar>
+
+        <app-profile-button *ngIf="profileButtonVisible"></app-profile-button>
+    </mat-toolbar-row>
+</mat-toolbar>
