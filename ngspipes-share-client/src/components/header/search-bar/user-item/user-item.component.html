@@ -1,0 +1,21 @@
+<div id="root" class="fill" (click)="clicked()">
+    <mat-grid-list cols="10" rowHeight="100px">
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1">
+            <app-user-image [userName]="userName" [spinnerDiameter]=15></app-user-image>
+        </mat-grid-tile>
+        <mat-grid-tile
+            [colspan]="8"
+            [rowspan]="1">
+            <div id="name">
+                {{userName}}
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile
+            [colspan]="1"
+            [rowspan]="1">
+            <mat-icon>account_circle</mat-icon>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

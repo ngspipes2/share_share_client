@@ -1,0 +1,14 @@
+<div id="root">
+    <form>
+        <mat-form-field class="fill">
+            <input matInput placeholder="Search" [formControl]="entitiesControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let entity of filteredOptions | async" [value]="entity.name">
+                    <app-user-item *ngIf="entity.type === 'USER'" [userName]="entity.name" class="fill"></app-user-item>
+                    <app-group-item *ngIf="entity.type === 'GROUP'" [groupName]="entity.name" class="fill"></app-group-item>
+                </mat-option>
+            </mat-autocomplete>
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </form>
+</div>

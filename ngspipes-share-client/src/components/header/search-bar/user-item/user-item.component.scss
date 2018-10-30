@@ -1,0 +1,20 @@
+app-user-image {
+    vertical-align: sub;
+    display: inline-grid;
+
+    font-size: 26px;
+
+    height: 25px;
+    width: 25px;
+
+    margin-right: 10px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+#name {
+    position: absolute;
+    left: 2px;
+}
