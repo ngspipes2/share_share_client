@@ -10,8 +10,10 @@ import { MaterialModule } from '../app/material.module';
 import { ImageModule } from './image/image.module';
 import { DialogModule } from './dialog/dialog.module';
 import { HeaderModule } from './header/header.module';
+import { BodyModule } from './body/body.module';
 
 import { HeaderComponent } from './header/header.component';
+import { BodyComponent } from './body/body.component';
 
 const appRoutes: Routes = [ ];
 
@@ -27,11 +29,13 @@ const appRoutes: Routes = [ ];
         RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/),
         ImageModule,
         DialogModule,
-        HeaderModule
+        HeaderModule,
+        BodyModule
     ],
     exports: [
         RouterModule,
-        HeaderComponent
+        HeaderComponent,
+        BodyComponent
     ],
     providers: [
     ],
