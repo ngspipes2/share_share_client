@@ -144,7 +144,7 @@ export class HttpService {
 
     private logRequest(method : string, url : string, headers : any, body : any) {
         let log = {
-            way: "Response",
+            way: "Request",
             method : method,
             url : url,
             headers : headers,
@@ -156,7 +156,7 @@ export class HttpService {
 
     private logResponse(method : string, url : string, status : number, body : any) {
         let log = {
-            way: "Request",
+            way: "Response",
             method : method,
             url : url,
             status: status,
