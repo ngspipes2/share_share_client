@@ -1,0 +1,23 @@
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
+                <mat-icon *ngIf="!loading">group</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description>
+                My Groups
+                <button
+                    mat-icon-button
+                    matTooltip="Create Group"
+                    (click)="createGroupClick()"
+                    #addGroupButton
+                    (mouseenter)="addGroupButton.color='primary'"
+                    (mouseleave)="addGroupButton.color=''">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-my-groups-list></app-my-groups-list>
+    </mat-expansion-panel>
+</mat-accordion>
