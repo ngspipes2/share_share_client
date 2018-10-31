@@ -167,6 +167,20 @@ export class GroupService {
         return ServersRoutes.GET_GROUP_IMAGE_ROUTE.replace("{groupName}", groupName);
     }
 
+    public getGroupsAccessibleByUser(userName : string) : Promise<Group[]> {
+        let url = ServersRoutes.GET_ALL_GROUPS_ROUTE + "?accessibleBy=" + userName;
+
+        return this.httpService.get(url)
+            .then(response => {
+                if(!response.text())
+                    return [];
+
+                let data : any = response.json();
+
+                return this.serverGroupsToClientGroups(data);
+            });
+    }
+
 
     fireCreateEvent(groupName: string) {
         this.groupCreateEvent.next(groupName);
