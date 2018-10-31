@@ -55,7 +55,7 @@ export class DialogManager {
         return this.dialog.open(ChangePasswordDialogComponent);
     }
 
-    public openNewGroupNameDialog() : MatDialogRef<NewGroupNameDialogComponent, String> {
+    public openNewGroupNameDialog() : MatDialogRef<NewGroupNameDialogComponent, string> {
         return this.dialog.open(NewGroupNameDialogComponent);
     }
 
