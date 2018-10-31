@@ -1,0 +1,11 @@
+<div class="container">
+    <div mat-dialog-content>
+        <mat-form-field class="fill">
+            <input matInput placeholder="GroupName" type="text" [(ngModel)]="groupName" (input)="groupNameChanged()">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="okClicked()" *ngIf="!nameNotAvailable">Ok</button>
+        <button mat-button *ngIf="nameNotAvailable" color="warn">GroupName not Available</button>
+    </div>
+</div>

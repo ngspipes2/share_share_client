@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog.manager';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 
 @NgModule({
   declarations: [
       SimpleDialogComponent,
-      ChangePasswordDialogComponent
+      ChangePasswordDialogComponent,
+      NewGroupNameDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -22,14 +24,16 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
   ],
   exports: [
       SimpleDialogComponent,
-      ChangePasswordDialogComponent
+      ChangePasswordDialogComponent,
+      NewGroupNameDialogComponent
   ],
   providers: [
       DialogManager
   ],
   entryComponents: [
       SimpleDialogComponent,
-      ChangePasswordDialogComponent
+      ChangePasswordDialogComponent,
+      NewGroupNameDialogComponent
   ]
 })
 export class DialogModule { }

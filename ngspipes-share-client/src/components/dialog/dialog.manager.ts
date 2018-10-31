@@ -4,6 +4,7 @@ import { ComponentType } from '@angular/cdk/portal';
 
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
+import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -52,6 +53,10 @@ export class DialogManager {
 
     public openChangePasswordDialog() : MatDialogRef<ChangePasswordDialogComponent> {
         return this.dialog.open(ChangePasswordDialogComponent);
+    }
+
+    public openNewGroupNameDialog() : MatDialogRef<NewGroupNameDialogComponent, String> {
+        return this.dialog.open(NewGroupNameDialogComponent);
     }
 
 }
