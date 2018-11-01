@@ -5,9 +5,8 @@ export enum InternalRepositoryType {
 
 export class InternalRepository {
     constructor(
-        public id : number,
+        public repositoryName : string,
         public type : InternalRepositoryType,
-        public name : string,
         public description : string,
         public creationDate : Date,
         public isPublic : boolean,

@@ -3,7 +3,7 @@ export class InternalRepositoryUserMember {
         public id : number,
         public creationDate : Date,
         public userName : string,
-        public repositoryId : number,
+        public repositoryName : string,
         public writeAccess : boolean
     ) { }
 }

@@ -5,9 +5,8 @@ export enum ExternalRepositoryType {
 
 export class ExternalRepository {
     constructor(
-        public id : number,
+        public repositoryName : string,
         public type : ExternalRepositoryType,
-        public name : string,
         public description : string,
         public publishDate : Date,
         public publisherName : string,

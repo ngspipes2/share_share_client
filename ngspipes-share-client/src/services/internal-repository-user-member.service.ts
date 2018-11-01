@@ -60,7 +60,7 @@ export class InternalRepositoryUserMemberService {
             serverMember.id,
             new Date(serverMember.creationDate),
             serverMember.user.userName,
-            serverMember.repository.id,
+            serverMember.repository.repositoryName,
             serverMember.writeAccess,
         );
     }
@@ -83,7 +83,7 @@ export class InternalRepositoryUserMemberService {
             id : member.id,
             creationDate : member.creationDate,
             user : { userName : member.userName },
-            repository : { id : member.repositoryId },
+            repository : { repositoryName : member.repositoryName },
             writeAccess : member.writeAccess
         };
     }
@@ -110,8 +110,8 @@ export class InternalRepositoryUserMemberService {
             });
     }
 
-    public getMembersOfRepository(repositoryId : number) : Promise<InternalRepositoryUserMember[]> {
-        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE + "?repositoryId=" + repositoryId;
+    public getMembersOfRepository(repositoryName : string) : Promise<InternalRepositoryUserMember[]> {
+        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE + "?repositoryName=" + repositoryName;
 
         return this.httpService.get(url)
             .then(response => {

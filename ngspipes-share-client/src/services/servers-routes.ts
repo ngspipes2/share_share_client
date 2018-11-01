@@ -56,10 +56,10 @@ export class ServersRoutes {
     public static INTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositories";
 
     public static GET_ALL_INTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE;
-    public static GET_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
+    public static GET_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
     public static CREATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE;
-    public static UPDATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
-    public static DELETE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
+    public static UPDATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static DELETE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
 
 
     public static INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositorygroupmembers";
@@ -83,10 +83,10 @@ export class ServersRoutes {
     public static EXTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/externalrepositories";
 
     public static GET_ALL_EXTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE;
-    public static GET_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
+    public static GET_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
     public static CREATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE;
-    public static UPDATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
-    public static DELETE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryId}";
+    public static UPDATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static DELETE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
 
 
     public static TOOLS_REPOSITORY_FACADE_URI : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/tools";

@@ -60,7 +60,7 @@ export class InternalRepositoryGroupMemberService {
             serverMember.id,
             new Date(serverMember.creationDate),
             serverMember.group.groupName,
-            serverMember.repository.id,
+            serverMember.repository.repositoryName,
             serverMember.writeAccess,
         );
     }
@@ -83,7 +83,7 @@ export class InternalRepositoryGroupMemberService {
             id : member.id,
             creationDate : member.creationDate,
             group : { groupName : member.groupName },
-            repository : { id : member.repositoryId },
+            repository : { repositoryName : member.repositoryName },
             writeAccess : member.writeAccess
         };
     }
@@ -110,8 +110,8 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    public getMembersOfRepository(repositoryId : number) : Promise<InternalRepositoryGroupMember[]> {
-        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?repositoryId=" + repositoryId;
+    public getMembersOfRepository(repositoryName : string) : Promise<InternalRepositoryGroupMember[]> {
+        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?repositoryName=" + repositoryName;
 
         return this.httpService.get(url)
             .then(response => {

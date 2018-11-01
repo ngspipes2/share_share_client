@@ -8,17 +8,17 @@ import { ExternalRepository, ExternalRepositoryType } from '../entities/external
 @Injectable()
 export class ExternalRepositoryService {
 
-    repositoryEvent = new Subject<number>();
-    repositoryCreateEvent = new Subject<number>();
-    repositoryUpdateEvent = new Subject<number>();
-    repositoryDeleteEvent = new Subject<number>();
+    repositoryEvent = new Subject<string>();
+    repositoryCreateEvent = new Subject<string>();
+    repositoryUpdateEvent = new Subject<string>();
+    repositoryDeleteEvent = new Subject<string>();
 
 
 
     constructor(private httpService: HttpService) {
-        this.repositoryCreateEvent.subscribe(repositoryId => this.repositoryEvent.next(repositoryId));
-        this.repositoryUpdateEvent.subscribe(repositoryId => this.repositoryEvent.next(repositoryId));
-        this.repositoryDeleteEvent.subscribe(repositoryId => this.repositoryEvent.next(repositoryId));
+        this.repositoryCreateEvent.subscribe(repositoryName => this.repositoryEvent.next(repositoryName));
+        this.repositoryUpdateEvent.subscribe(repositoryName => this.repositoryEvent.next(repositoryName));
+        this.repositoryDeleteEvent.subscribe(repositoryName => this.repositoryEvent.next(repositoryName));
     }
 
 
@@ -41,8 +41,8 @@ export class ExternalRepositoryService {
         return repositories.map(this.serverRepositoryToClienteRepository);
     }
 
-    public getRepository(repositoryId : number) : Promise<ExternalRepository> {
-        let url = ServersRoutes.GET_EXTERNAL_REPOSITORY_ROUTE.replace('{repositoryId}', repositoryId.toString());
+    public getRepository(repositoryName : string) : Promise<ExternalRepository> {
+        let url = ServersRoutes.GET_EXTERNAL_REPOSITORY_ROUTE.replace('{repositoryName}', repositoryName);
 
         return this.httpService.get(url)
             .then(response => {
@@ -57,9 +57,8 @@ export class ExternalRepositoryService {
 
     private serverRepositoryToClienteRepository(repository : any) : ExternalRepository {
         return new ExternalRepository(
-            repository.id,
+            repository.repositoryName,
             repository.type,
-            repository.name,
             repository.description,
             new Date(repository.publishDate),
             repository.publisher.userName,
@@ -67,24 +66,22 @@ export class ExternalRepositoryService {
         );
     }
 
-    public createRepository(repository : ExternalRepository) : Promise<number> {
+    public createRepository(repository : ExternalRepository) : Promise<boolean> {
         let url = ServersRoutes.CREATE_EXTERNAL_REPOSITORY_ROUTE;
 
         let data = this.clientRepositoryToServerRepository(repository);
 
         return this.httpService.post(url, data)
             .then((response) => {
-                repository.id = Number(response.text());
-                this.fireCreateEvent(repository.id);
-                return repository.id;
+                this.fireCreateEvent(repository.repositoryName);
+                return true;
             });
     }
 
     private clientRepositoryToServerRepository(repository : ExternalRepository) : any {
         return {
-            id : repository.id,
+            repositoryName : repository.repositoryName,
             type : repository.type,
-            name : repository.name,
             description : repository.description,
             publishDate : repository.publishDate,
             publisher : { userName : repository.publisherName },
@@ -93,23 +90,23 @@ export class ExternalRepositoryService {
     }
 
     public updateRepository(repository : ExternalRepository) : Promise<boolean> {
-        let url = ServersRoutes.UPDATE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryId}", repository.id.toString());
+        let url = ServersRoutes.UPDATE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryName}", repository.repositoryName);
 
         let data = this.clientRepositoryToServerRepository(repository);
 
         return this.httpService.put(url, data)
             .then((response) => {
-                this.fireUpdateEvent(repository.id);
+                this.fireUpdateEvent(repository.repositoryName);
                 return true;
             });
     }
 
-    public deleteRepository(repositoryId : number) : Promise<boolean> {
-        let url = ServersRoutes.DELETE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryId}", repositoryId.toString());
+    public deleteRepository(repositoryName : string) : Promise<boolean> {
+        let url = ServersRoutes.DELETE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryName}", repositoryName);
 
         return this.httpService.delete(url)
             .then((response) => {
-                this.fireDeleteEvent(repositoryId);
+                this.fireDeleteEvent(repositoryName);
                 return true;
             });
     }
@@ -129,16 +126,16 @@ export class ExternalRepositoryService {
     }
 
 
-    fireCreateEvent(repositoryId: number) {
-        this.repositoryCreateEvent.next(repositoryId);
+    fireCreateEvent(repositoryName: string) {
+        this.repositoryCreateEvent.next(repositoryName);
     }
 
-    fireUpdateEvent(repositoryId: number) {
-        this.repositoryUpdateEvent.next(repositoryId);
+    fireUpdateEvent(repositoryName: string) {
+        this.repositoryUpdateEvent.next(repositoryName);
     }
 
-    fireDeleteEvent(repositoryId: number) {
-        this.repositoryDeleteEvent.next(repositoryId);
+    fireDeleteEvent(repositoryName: string) {
+        this.repositoryDeleteEvent.next(repositoryName);
     }
 
 }
