@@ -10,11 +10,14 @@ import { GroupService } from '../../../services/group.service';
 })
 export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
 
+    validCharactersRegex : RegExp = new RegExp(/[a-zA-Z0-9\-_]+$/);
     groupSubscription : any;
-    groupName : string = "";
     groupsNames : string[] = [];
+
     loading : boolean;
-    nameNotAvailable : boolean;
+    groupName : string;
+    validGroupName : boolean = false;
+    invalidMessage : string;
 
 
 
@@ -47,7 +50,19 @@ export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
     }
 
     groupNameChanged() {
-        this.nameNotAvailable = this.groupsNames.indexOf(this.groupName) !== -1;
+        if(!this.groupName || this.groupName.length < 1) {
+            this.validGroupName = false;
+            this.invalidMessage = undefined;
+        } else if(this.groupsNames.indexOf(this.groupName) !== -1) {
+            this.validGroupName = false;
+            this.invalidMessage = "GroupName not available!";
+        } else if(!this.validCharactersRegex.test(this.groupName) || new RegExp(/\s/).test(this.groupName)) {
+            this.validGroupName = false;
+            this.invalidMessage = "Invalid characters!";
+        } else {
+            this.validGroupName = true;
+            this.invalidMessage = undefined;
+        }
     }
 
     okClicked() {

@@ -1,11 +1,12 @@
 <div class="container">
+    <p>GroupName can only contain: Letters, Numbers, '-' or '_'</p>
     <div mat-dialog-content>
         <mat-form-field class="fill">
             <input matInput placeholder="GroupName" type="text" [(ngModel)]="groupName" (input)="groupNameChanged()">
         </mat-form-field>
     </div>
     <div mat-dialog-actions class="actions" align="center">
-        <button mat-button (click)="okClicked()" *ngIf="!nameNotAvailable">Ok</button>
-        <button mat-button *ngIf="nameNotAvailable" color="warn">GroupName not Available</button>
+        <button mat-button (click)="okClicked()" *ngIf="validGroupName">Ok</button>
+        <button mat-button *ngIf="!validGroupName" color="warn">{{invalidMessage}}</button>
     </div>
 </div>
