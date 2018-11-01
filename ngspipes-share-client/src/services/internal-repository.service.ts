@@ -128,6 +128,18 @@ export class InternalRepositoryService {
             });
     }
 
+    public getRepositoriesNames() : Promise<string[]> {
+        let url = ServersRoutes.GET_INTERNAL_REPOSITORIES_NAMES_ROUTE;
+
+        return this.httpService.get(url)
+            .then(response => {
+                if(!response.text())
+                    return [];
+
+               return JSON.parse(response.text());
+            });
+    }
+
 
     fireCreateEvent(repositoryName: string) {
         this.repositoryCreateEvent.next(repositoryName);

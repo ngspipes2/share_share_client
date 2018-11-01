@@ -60,6 +60,7 @@ export class ServersRoutes {
     public static CREATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE;
     public static UPDATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
     public static DELETE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static GET_INTERNAL_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositoriesnames";
 
 
     public static INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositorygroupmembers";
@@ -87,7 +88,7 @@ export class ServersRoutes {
     public static CREATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE;
     public static UPDATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
     public static DELETE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-
+    public static GET_EXTERNAL_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/externalrepositoriesnames";
 
     public static TOOLS_REPOSITORY_FACADE_URI : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/tools";
 
