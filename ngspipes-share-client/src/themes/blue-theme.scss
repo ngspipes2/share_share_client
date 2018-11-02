@@ -1,0 +1,15 @@
+$blue-theme-primary: mat-palette($mat-blue);
+$blue-theme-accent: mat-palette($mat-cyan);
+$blue-theme-warn: mat-palette($mat-red);
+
+$blue-light-theme: mat-light-theme(
+    $blue-theme-primary,
+    $blue-theme-accent,
+    $blue-theme-warn
+);
+
+$blue-dark-theme: mat-dark-theme(
+    $blue-theme-primary,
+    $blue-theme-accent,
+    $blue-theme-warn
+);

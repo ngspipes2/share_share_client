@@ -1,9 +1,0 @@
-$hard-light-theme-primary: mat-palette($mat-deep-purple);
-$hard-light-theme-accent: mat-palette($mat-purple);
-$hard-light-theme-warn: mat-palette($mat-red);
-
-$hard-light-theme: mat-light-theme(
-    $hard-light-theme-primary,
-    $hard-light-theme-accent,
-    $hard-light-theme-warn
-);

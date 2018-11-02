@@ -1,9 +1,0 @@
-$soft-dark-theme-primary: mat-palette($mat-blue);
-$soft-dark-theme-accent: mat-palette($mat-cyan);
-$soft-dark-theme-warn: mat-palette($mat-red);
-
-$soft-dark-theme: mat-dark-theme(
-    $soft-dark-theme-primary,
-    $soft-dark-theme-accent,
-    $soft-dark-theme-warn
-);

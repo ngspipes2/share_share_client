@@ -2,25 +2,41 @@
 
 @include mat-core();
 
-@import './themes/soft-light-theme';
-@import './themes/hard-light-theme';
-@import './themes/soft-dark-theme';
-@import './themes/hard-dark-theme';
+@import './themes/blue-theme';
+@import './themes/green-theme';
+@import './themes/grey-theme';
+@import './themes/purple-theme';
 
-.soft-light-theme {
-    @include angular-material-theme($soft-light-theme);
+.blue-light-theme {
+    @include angular-material-theme($blue-light-theme);
 }
 
-.hard-light-theme {
-    @include angular-material-theme($hard-light-theme);
+.blue-dark-theme {
+    @include angular-material-theme($blue-dark-theme);
 }
 
-.soft-dark-theme {
-    @include angular-material-theme($soft-dark-theme);
+.green-light-theme {
+    @include angular-material-theme($green-light-theme);
 }
 
-.hard-dark-theme {
-    @include angular-material-theme($hard-dark-theme);
+.green-dark-theme {
+    @include angular-material-theme($green-dark-theme);
+}
+
+.grey-light-theme {
+    @include angular-material-theme($grey-light-theme);
+}
+
+.grey-dark-theme {
+    @include angular-material-theme($grey-dark-theme);
+}
+
+.purple-light-theme {
+    @include angular-material-theme($purple-light-theme);
+}
+
+.purple-dark-theme {
+    @include angular-material-theme($purple-dark-theme);
 }
 
 .fill {

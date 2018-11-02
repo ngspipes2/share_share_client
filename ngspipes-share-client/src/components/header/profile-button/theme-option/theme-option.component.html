@@ -3,36 +3,83 @@
     Theme
 </button>
 <mat-menu #theme_menu="matMenu">
-    <div class="option">
-        <button
-            mat-raised-button
-            id="slt"
-            (click)="setTheme('soft-light-theme')"
-            (mouseenter)="showTheme('soft-light-theme')"
-            (mouseleave)="hideTheme('soft-light-theme')"></button>
-    </div>
-    <div class="option">
-        <button
-            mat-raised-button
-            id="hlt"
-            (click)="setTheme('hard-light-theme')"
-            (mouseenter)="showTheme('hard-light-theme')"
-            (mouseleave)="hideTheme('hard-light-theme')"></button>
-    </div>
-    <div class="option">
-        <button
-            mat-raised-button
-            id="sdt"
-            (click)="setTheme('soft-dark-theme')"
-            (mouseenter)="showTheme('soft-dark-theme')"
-            (mouseleave)="hideTheme('soft-dark-theme')"></button>
-    </div>
-    <div class="option">
-        <button
-            mat-raised-button
-            id="hdt"
-            (click)="setTheme('hard-dark-theme')"
-            (mouseenter)="showTheme('hard-dark-theme')"
-            (mouseleave)="hideTheme('hard-dark-theme')"></button>
+    <div id="grid">
+        <mat-grid-list cols="2" gutterSize="10">
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="blue-light"
+                    class="fill"
+                    (click)="setTheme('blue-light-theme')"
+                    (mouseenter)="showTheme('blue-light-theme')"
+                    (mouseleave)="hideTheme('blue-light-theme')"></button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="blue-dark"
+                    class="fill"
+                    (click)="setTheme('blue-dark-theme')"
+                    (mouseenter)="showTheme('blue-dark-theme')"
+                    (mouseleave)="hideTheme('blue-dark-theme')"></button>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="green-light"
+                    class="fill"
+                    (click)="setTheme('green-light-theme')"
+                    (mouseenter)="showTheme('green-light-theme')"
+                    (mouseleave)="hideTheme('green-light-theme')"></button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="green-dark"
+                    class="fill"
+                    (click)="setTheme('green-dark-theme')"
+                    (mouseenter)="showTheme('green-dark-theme')"
+                    (mouseleave)="hideTheme('green-dark-theme')"></button>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="grey-light"
+                    class="fill"
+                    (click)="setTheme('grey-light-theme')"
+                    (mouseenter)="showTheme('grey-light-theme')"
+                    (mouseleave)="hideTheme('grey-light-theme')"></button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="grey-dark"
+                    class="fill"
+                    (click)="setTheme('grey-dark-theme')"
+                    (mouseenter)="showTheme('grey-dark-theme')"
+                    (mouseleave)="hideTheme('grey-dark-theme')"></button>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="purple-light"
+                    class="fill"
+                    (click)="setTheme('purple-light-theme')"
+                    (mouseenter)="showTheme('purple-light-theme')"
+                    (mouseleave)="hideTheme('purple-light-theme')"></button>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <button
+                    mat-raised-button
+                    id="purple-dark"
+                    class="fill"
+                    (click)="setTheme('purple-dark-theme')"
+                    (mouseenter)="showTheme('purple-dark-theme')"
+                    (mouseleave)="hideTheme('purple-dark-theme')"></button>
+            </mat-grid-tile>
+        </mat-grid-list>
     </div>
 </mat-menu>

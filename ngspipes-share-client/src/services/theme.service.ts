@@ -9,10 +9,14 @@ import { PreferencesService } from './preferences.service';
 export class ThemeService {
 
     public static THEMES : string[] = [
-        "soft-light-theme",
-        "hard-light-theme",
-        "soft-dark-theme",
-        "hard-dark-theme"
+        "blue-light-theme",
+        "blue-dark-theme",
+        "green-light-theme",
+        "green-dark-theme",
+        "grey-light-theme",
+        "grey-dark-theme",
+        "purple-light-theme",
+        "purple-dark-theme"
     ];
     private static DEFAULT_THEME : string = ThemeService.THEMES[0];
     private static THEME_KEY : string = "Theme";
