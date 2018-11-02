@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from "@angular/platform-browser";
 
 import { ThemeService } from '../services/theme.service';
 import { DialogManager } from '../components/dialog/dialog.manager';
@@ -19,7 +21,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
     constructor(private overlayContainer : OverlayContainer,
                 private themeService : ThemeService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private iconRegistry : MatIconRegistry,
+                private domSanitizer : DomSanitizer) {
+        this.iconRegistry.addSvgIcon(
+            'ticket',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ticket.svg")
+        );
+    }
 
 
 
