@@ -1,3 +1,8 @@
+#root {
+    display: flex;
+    align-items: center;
+}
+
 app-user-image {
     vertical-align: sub;
     display: inline-grid;
@@ -14,7 +19,7 @@ app-user-image ::ng-deep img {
     border-radius: 50%;
 }
 
-#name {
+#icon {
     position: absolute;
-    left: 2px;
+    right: 15px;
 }
