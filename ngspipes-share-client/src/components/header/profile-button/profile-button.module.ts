@@ -9,6 +9,7 @@ import { DeleteAccountOptionComponent } from './delete-account-option/delete-acc
 import { ThemeOptionComponent } from './theme-option/theme-option.component';
 import { ChangePasswordOptionComponent } from './change-password-option/change-password-option.component';
 import { MyTokensOptionComponent } from './my-tokens-option/my-tokens-option.component';
+import { RepositoriesConfigOptionComponent } from './repositories-config-option/repositories-config-option.component';
 
 import { ProfileButtonComponent } from './profile-button.component';
 
@@ -20,6 +21,7 @@ import { ProfileButtonComponent } from './profile-button.component';
       ThemeOptionComponent,
       ChangePasswordOptionComponent,
       MyTokensOptionComponent,
+      RepositoriesConfigOptionComponent,
       ProfileButtonComponent
   ],
   imports: [
