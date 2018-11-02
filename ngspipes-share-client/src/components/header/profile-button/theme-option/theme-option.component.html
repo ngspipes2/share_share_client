@@ -4,15 +4,35 @@
 </button>
 <mat-menu #theme_menu="matMenu">
     <div class="option">
-        <button mat-raised-button (click)="setTheme('soft-light-theme')" id="slt"></button>
+        <button
+            mat-raised-button
+            id="slt"
+            (click)="setTheme('soft-light-theme')"
+            (mouseenter)="showTheme('soft-light-theme')"
+            (mouseleave)="hideTheme('soft-light-theme')"></button>
     </div>
     <div class="option">
-        <button mat-raised-button (click)="setTheme('hard-light-theme')" id="hlt"></button>
+        <button
+            mat-raised-button
+            id="hlt"
+            (click)="setTheme('hard-light-theme')"
+            (mouseenter)="showTheme('hard-light-theme')"
+            (mouseleave)="hideTheme('hard-light-theme')"></button>
     </div>
     <div class="option">
-        <button mat-raised-button (click)="setTheme('soft-dark-theme')" id="sdt"></button>
+        <button
+            mat-raised-button
+            id="sdt"
+            (click)="setTheme('soft-dark-theme')"
+            (mouseenter)="showTheme('soft-dark-theme')"
+            (mouseleave)="hideTheme('soft-dark-theme')"></button>
     </div>
     <div class="option">
-        <button mat-raised-button (click)="setTheme('hard-dark-theme')" id="hdt"></button>
+        <button
+            mat-raised-button
+            id="hdt"
+            (click)="setTheme('hard-dark-theme')"
+            (mouseenter)="showTheme('hard-dark-theme')"
+            (mouseleave)="hideTheme('hard-dark-theme')"></button>
     </div>
 </mat-menu>
