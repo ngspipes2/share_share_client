@@ -28,6 +28,11 @@ export class AppComponent implements OnInit, OnDestroy {
             'ticket',
             this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/ticket.svg")
         );
+
+        this.iconRegistry.addSvgIcon(
+            'repository-config',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/repository-config.svg")
+        );
     }
 
 
