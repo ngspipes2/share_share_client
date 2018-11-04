@@ -15,7 +15,12 @@ import { BodyModule } from './body/body.module';
 import { HeaderComponent } from './header/header.component';
 import { BodyComponent } from './body/body.component';
 
-const appRoutes: Routes = [ ];
+import { AuthGuard } from '../services/auth-guard.service';
+import { RepositoriesConfigComponent } from './body/repositories-config/repositories-config.component';
+
+const appRoutes: Routes = [
+    { path: 'repositoriesconfig', component: RepositoriesConfigComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+];
 
 @NgModule({
     declarations: [ ],
