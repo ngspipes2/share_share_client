@@ -16,6 +16,7 @@ import { ExternalRepositoryService } from './external-repository.service';
 import { InternalRepositoryService } from './internal-repository.service';
 import { InternalRepositoryUserMemberService } from './internal-repository-user-member.service';
 import { InternalRepositoryGroupMemberService } from './internal-repository-group-member.service';
+import { RepositoryConfigService } from './repository-config.service';
 
 @NgModule({
     declarations: [ ],
@@ -37,7 +38,8 @@ import { InternalRepositoryGroupMemberService } from './internal-repository-grou
         ExternalRepositoryService,
         InternalRepositoryService,
         InternalRepositoryUserMemberService,
-        InternalRepositoryGroupMemberService
+        InternalRepositoryGroupMemberService,
+        RepositoryConfigService
     ]
 })
 
