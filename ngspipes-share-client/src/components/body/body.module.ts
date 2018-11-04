@@ -7,6 +7,7 @@ import { MaterialModule } from '../../app/material.module';
 import { FormsModule } from '@angular/forms';
 
 import { SideNavModule } from './side-nav/side-nav.module';
+import { RepositoriesConfigModule } from './repositories-config/repositories-config.module';
 
 import { BodyComponent } from './body.component';
 
@@ -21,7 +22,8 @@ import { BodyComponent } from './body.component';
         BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
-        SideNavModule
+        SideNavModule,
+        RepositoriesConfigModule
     ],
     exports: [
         BodyComponent
