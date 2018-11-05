@@ -55,7 +55,12 @@ export class RepositoryConfigService {
 
             let key = RepositoryConfigService.CONFIGS_KEY;
             let value = JSON.stringify(configs);
-            return this.preferencesService.setPreference(key, value);
+
+            return this.preferencesService.setPreference(key, value)
+            .then((result) => {
+                this.fireCreateEvent(config.location);
+                return result;
+            });
         });
     }
 
@@ -70,7 +75,12 @@ export class RepositoryConfigService {
 
             let key = RepositoryConfigService.CONFIGS_KEY;
             let value = JSON.stringify(configs);
-            return this.preferencesService.setPreference(key, value);
+
+            return this.preferencesService.setPreference(key, value)
+            .then((result) => {
+                this.fireUpdateEvent(config.location);
+                return result;
+            });
         });
     }
 
@@ -84,7 +94,12 @@ export class RepositoryConfigService {
 
             let key = RepositoryConfigService.CONFIGS_KEY;
             let value = JSON.stringify(configs);
-            return this.preferencesService.setPreference(key, value);
+
+            return this.preferencesService.setPreference(key, value)
+            .then((result) => {
+                this.fireUpdateEvent(location);
+                return result;
+            });
         });
     }
 
