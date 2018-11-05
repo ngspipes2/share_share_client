@@ -1,0 +1,12 @@
+<div class="container">
+    <p>Insert location of repository</p>
+    <div mat-dialog-content>
+        <mat-form-field class="fill">
+            <input matInput placeholder="Location" type="text" [(ngModel)]="location" (input)="locationChanged()">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="okClicked()" *ngIf="isValidLocation">Ok</button>
+        <button mat-button *ngIf="!isValidLocation" color="warn">{{invalidMessage}}</button>
+    </div>
+</div>
