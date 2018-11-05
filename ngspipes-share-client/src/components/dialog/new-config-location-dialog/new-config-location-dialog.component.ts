@@ -54,7 +54,7 @@ export class NewConfigLocationDialogComponent implements OnInit {
             this.invalidMessage = undefined;
         } else if(this.locations.indexOf(this.location) !== -1) {
             this.isValidLocation = false;
-            this.invalidMessage = "You already hava a configuration for this repository location!";
+            this.invalidMessage = "You already have a configuration for this repository location!";
         } else {
             this.isValidLocation = true;
             this.invalidMessage = undefined;
