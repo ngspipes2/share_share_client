@@ -6,6 +6,7 @@ import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
+import { SelectRepositoryConfigComponent } from './select-repository-config/select-repository-config.component';
 
 @Injectable()
 export class DialogManager {
@@ -62,6 +63,10 @@ export class DialogManager {
 
     public openNewRepositoryConfigNameDialog() : MatDialogRef<NewRepositoryConfigNameDialogComponent, string> {
         return this.dialog.open(NewRepositoryConfigNameDialogComponent);
+    }
+
+    public openSelectRepostiroyConfigDialog() : MatDialogRef<SelectRepositoryConfigComponent, string> {
+        return this.dialog.open(SelectRepositoryConfigComponent);
     }
 
 }

@@ -1,0 +1,15 @@
+<div class="container">
+    <p>Select Config</p>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-select placeholder="Repository Config" [(ngModel)]="selectedName">
+                <mat-option *ngFor="let name of names" [value]="name">
+                    {{name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="okClick()" *ngIf="selectedName">Ok</button>
+    </div>
+</div>
