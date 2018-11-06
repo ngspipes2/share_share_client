@@ -17,9 +17,11 @@ import { BodyComponent } from './body/body.component';
 
 import { AuthGuard } from '../services/auth-guard.service';
 import { RepositoriesConfigComponent } from './body/repositories-config/repositories-config.component';
+import { AccessTokensComponent } from './body/access-tokens/access-tokens.component';
 
 const appRoutes: Routes = [
     { path: 'repositoriesconfig', component: RepositoriesConfigComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+    { path: 'mytokens', component: AccessTokensComponent, pathMatch: 'full', canActivate: [AuthGuard]},
 ];
 
 @NgModule({
