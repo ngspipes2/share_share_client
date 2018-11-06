@@ -1,0 +1,12 @@
+<div class="container">
+    <p>Insert name for repository</p>
+    <div mat-dialog-content>
+        <mat-form-field class="fill">
+            <input matInput placeholder="Name" type="text" [(ngModel)]="name" (input)="nameChanged()">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="okClicked()" *ngIf="isValidName">Ok</button>
+        <button mat-button *ngIf="!isValidName" color="warn">{{invalidMessage}}</button>
+    </div>
+</div>

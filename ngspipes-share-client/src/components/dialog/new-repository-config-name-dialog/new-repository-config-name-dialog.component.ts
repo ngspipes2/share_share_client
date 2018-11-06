@@ -4,23 +4,23 @@ import { MatDialogRef } from '@angular/material';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 
 @Component({
-    selector: 'app-new-config-location-dialog',
-    templateUrl: './new-config-location-dialog.component.html',
-    styleUrls: ['./new-config-location-dialog.component.scss']
+    selector: 'app-new-repository-config-name-dialog',
+    templateUrl: './new-repository-config-name-dialog.component.html',
+    styleUrls: ['./new-repository-config-name-dialog.component.scss']
 })
-export class NewConfigLocationDialogComponent implements OnInit {
+export class NewRepositoryConfigNameDialogComponent implements OnInit {
 
     configSubscription : any;
-    locations : string[] = [];
+    names : string[] = [];
 
     loading : boolean;
-    location : string;
-    isValidLocation : boolean = false;
+    name : string;
+    isValidName : boolean = false;
     invalidMessage : string;
 
 
 
-    constructor(private dialogRef: MatDialogRef<NewConfigLocationDialogComponent>,
+    constructor(private dialogRef: MatDialogRef<NewRepositoryConfigNameDialogComponent>,
                 private repositoryConfigService : RepositoryConfigService) { }
 
 
@@ -40,7 +40,7 @@ export class NewConfigLocationDialogComponent implements OnInit {
         this.repositoryConfigService.getAllConfigs()
         .then(configs => {
             this.loading = false;
-            this.locations = configs.map(config => config.location);
+            this.names = configs.map(config => config.name);
         })
         .catch(error => {
             this.loading = false;
@@ -48,21 +48,21 @@ export class NewConfigLocationDialogComponent implements OnInit {
         });
     }
 
-    locationChanged() {
-        if(!this.location || this.location.length < 0) {
-            this.isValidLocation = false;
+    nameChanged() {
+        if(!this.name || this.name.length < 0) {
+            this.isValidName = false;
             this.invalidMessage = undefined;
-        } else if(this.locations.indexOf(this.location) !== -1) {
-            this.isValidLocation = false;
-            this.invalidMessage = "You already have a configuration for this repository location!";
+        } else if(this.names.indexOf(this.name) !== -1) {
+            this.isValidName = false;
+            this.invalidMessage = "You already have a configuration with this name!";
         } else {
-            this.isValidLocation = true;
+            this.isValidName = true;
             this.invalidMessage = undefined;
         }
     }
 
     okClicked() {
-        this.dialogRef.close(this.location);
+        this.dialogRef.close(this.name);
     }
 
 }

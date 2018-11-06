@@ -9,14 +9,14 @@ import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog.manager';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
-import { NewConfigLocationDialogComponent } from './new-config-location-dialog/new-config-location-dialog.component';
+import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
 
 @NgModule({
   declarations: [
       SimpleDialogComponent,
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
-      NewConfigLocationDialogComponent
+      NewRepositoryConfigNameDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -28,7 +28,7 @@ import { NewConfigLocationDialogComponent } from './new-config-location-dialog/n
       SimpleDialogComponent,
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
-      NewConfigLocationDialogComponent
+      NewRepositoryConfigNameDialogComponent
   ],
   providers: [
       DialogManager
@@ -37,7 +37,7 @@ import { NewConfigLocationDialogComponent } from './new-config-location-dialog/n
       SimpleDialogComponent,
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
-      NewConfigLocationDialogComponent
+      NewRepositoryConfigNameDialogComponent
   ]
 })
 export class DialogModule { }

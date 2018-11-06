@@ -8,7 +8,9 @@ export class Config {
 
 export class RepositoryConfig {
     constructor(
+        public name : string,
+        public description : string,
         public location : string,
-        public config : Config[]
+        public configs : Config[]
     ) { }
 }
