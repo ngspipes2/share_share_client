@@ -1,0 +1,20 @@
+#no-configs-content, #configs-content {
+    min-height: 350px;
+    max-height: 500px;
+    padding: 10px 25px 25px 25px;
+}
+
+#no-configs-content {
+    display: grid;
+    align-content: center;
+    text-align: center;
+}
+
+.search-field {
+    width: 100%;
+}
+
+#list {
+    overflow-y: auto;
+    max-height: 350px;
+}

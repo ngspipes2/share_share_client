@@ -1,0 +1,30 @@
+<div *ngIf="loading">
+    <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
+</div>
+
+<div id="no-configs-content" *ngIf="!loading && configs.length == 0">
+    <p>You currently have no Repository configuration.<p>
+    <button
+        mat-raised-button
+        #createFirstConfigButton
+        (mouseenter)="createFirstConfigButton.color='primary'"
+        (mouseleave)="createFirstConfigButton.color=''"
+        (click)="createConfigClick()">
+        Create Config
+    </button>
+</div>
+
+<div id="configs-content" *ngIf="!loading && configs.length > 0">
+    <mat-form-field class="search-field">
+        <input matInput placeholder="Name" type="text" [(ngModel)]="filterText">
+    </mat-form-field>
+    <mat-list id="list">
+        <div *ngFor="let config of configs">
+            <app-list-item *ngIf="filter(config)"
+                [config]="config"
+                [selected]="isSelected(config)"
+                (click)="configClick(config)">
+            </app-list-item>
+        </div>
+    </mat-list>
+</div>

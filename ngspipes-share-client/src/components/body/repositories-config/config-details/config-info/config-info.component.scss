@@ -1,0 +1,25 @@
+mat-form-field {
+    width: 90%;
+}
+
+#configs-label {
+    text-align: center;
+    align-self: baseline;
+    padding-top: 10px;
+    display: grid;
+    justify-items : center;
+}
+
+mat-list {
+    max-height: 200px;
+    overflow: auto;
+}
+
+mat-list ::ng-deep mat-form-field {
+    width: 35%;
+}
+
+.config {
+    display: flex;
+    justify-content: space-around;
+}

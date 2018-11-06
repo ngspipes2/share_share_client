@@ -1,0 +1,64 @@
+<mat-grid-list cols="10">
+    <mat-grid-tile colspan="2" rowspan="1">Name:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1" [matTooltip]="config.name">
+        {{config.name}}
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="1">Description:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1" [matTooltip]="config.description">
+        <mat-form-field>
+            <input matInput placeholder="" [(ngModel)]="config.description">
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="1">Location:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1" [matTooltip]="config.location">
+        <mat-form-field>
+            <input matInput placeholder="" [(ngModel)]="config.location">
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="4">
+        <div id="configs-label">
+            Configs:
+            <button mat-icon-button
+                matTooltip="Add Config"
+                (click)="addConfigClick()"
+                #addConfigButton
+                (mouseenter)="addConfigButton.color='accent'"
+                (mouseleave)="addConfigButton.color=''">
+                <mat-icon>add_circle</mat-icon>
+            </button>
+            <button mat-icon-button *ngIf="!cloning"
+                matTooltip="Clone Config"
+                (click)="cloneConfigClick()"
+                #cloneConfigButton
+                (mouseenter)="cloneConfigButton.color='accent'"
+                (mouseleave)="cloneConfigButton.color=''">
+                <mat-icon>file_copy</mat-icon>
+            </button>
+            <mat-spinner diameter="25" color="accent" *ngIf="cloning"></mat-spinner>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="4">
+        <mat-list id="list">
+            <div *ngFor="let config of config.configs" class="config">
+                <mat-form-field>
+                    <input matInput placeholder="Name" [(ngModel)]="config.name">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Value" [(ngModel)]="config.value" [type]="config.hidden?'password':'text'">
+                    <mat-icon matSuffix (click)="config.hidden = !config.hidden">{{!config.hidden ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </mat-form-field>
+                <button mat-icon-button
+                    matTooltip="Remove Config"
+                    (click)="removeConfigClick(config)"
+                    #removeConfigButton
+                    (mouseenter)="removeConfigButton.color='warn'"
+                    (mouseleave)="removeConfigButton.color=''">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </mat-list>
+    </mat-grid-tile>
+</mat-grid-list>

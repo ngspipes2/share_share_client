@@ -1,0 +1,32 @@
+<button mat-button *ngIf="!selected" #itemButton
+    (mouseenter)="itemButton.color='primary'"
+    (mouseleave)="itemButton.color=''">
+    <div class="button-content">
+        <div class="config-name" [matTooltip]="config.name">
+            {{config.name}}
+        </div>
+        <mat-spinner diameter="25" color="accent" *ngIf="deleting"></mat-spinner>
+        <mat-icon #deleteIcon *ngIf="!deleting"
+            (mouseenter)="deleteIcon.color='warn'"
+            (mouseleave)="deleteIcon.color=''"
+            matTooltip="Delete Config"
+            (click)="deleteClick()">
+            delete
+        </mat-icon>
+    </div>
+</button>
+<button mat-raised-button *ngIf="selected" color="primary">
+    <div class="button-content">
+        <div class="config-name" [matTooltip]="config.name">
+            {{config.name}}
+        </div>
+        <mat-spinner diameter="25" color="accent" *ngIf="deleting"></mat-spinner>
+        <mat-icon #deleteIcon *ngIf="!deleting"
+            (mouseenter)="deleteIcon.color='warn'"
+            (mouseleave)="deleteIcon.color=''"
+            matTooltip="Delete Config"
+            (click)="deleteClick()">
+            delete
+        </mat-icon>
+    </div>
+</button>

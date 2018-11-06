@@ -1,0 +1,19 @@
+<mat-card id="root">
+    <div id="header">
+        <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
+        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
+        <mat-card-title>Repository Config</mat-card-title>
+        <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
+        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content *ngIf="config">
+        <app-config-info [config]="config"></app-config-info>
+    </mat-card-content>
+    <mat-card-actions align="center" *ngIf="config">
+        <button mat-button (click)="saveClick()">Save</button>
+        <button mat-button color="warn" (click)="deleteClick()">Delete</button>
+    </mat-card-actions>
+</mat-card>

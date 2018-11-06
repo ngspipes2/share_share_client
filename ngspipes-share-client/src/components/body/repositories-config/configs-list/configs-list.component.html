@@ -1,0 +1,23 @@
+<div id="root">
+    <button mat-raised-button color="primary" id="header-wrapper">
+        <div id="header">
+            <div class="header-title">
+                <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
+                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
+                Repositories Config
+            </div>
+            <div class="header-buttons">
+                <button
+                mat-icon-button
+                matTooltip="Create Config"
+                (click)="createConfigClick()"
+                #createConfigButton
+                (mouseenter)="createConfigButton.color='accent'"
+                (mouseleave)="createConfigButton.color=''">
+                <mat-icon>add_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+    </button>
+    <app-list [selectedConfigName]="selectedConfigName" (selectedConfigNameChange)="selectConfig($event)"></app-list>
+</div>
