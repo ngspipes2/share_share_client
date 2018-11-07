@@ -17,6 +17,8 @@ import { InternalRepositoryService } from './internal-repository.service';
 import { InternalRepositoryUserMemberService } from './internal-repository-user-member.service';
 import { InternalRepositoryGroupMemberService } from './internal-repository-group-member.service';
 import { RepositoryConfigService } from './repository-config.service';
+import { ToolsRepositoryFacadeService } from './tools-repository-facade.service';
+import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.service';
 
 @NgModule({
     declarations: [ ],
@@ -39,7 +41,9 @@ import { RepositoryConfigService } from './repository-config.service';
         InternalRepositoryService,
         InternalRepositoryUserMemberService,
         InternalRepositoryGroupMemberService,
-        RepositoryConfigService
+        RepositoryConfigService,
+        ToolsRepositoryFacadeService,
+        PipelinesRepositoryFacadeService
     ]
 })
 
