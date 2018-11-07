@@ -1,0 +1,27 @@
+#root {
+    min-height: 250px;
+    max-height: 500px;
+    padding: 10px 25px 25px 25px;
+    display: grid;
+}
+
+#no-tokens-content, #load-container {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.search-field {
+    width: 100%;
+}
+
+#list {
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+#check-boxes {
+    display: flex;
+    justify-content: space-around;
+}

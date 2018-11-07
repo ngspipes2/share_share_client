@@ -1,0 +1,25 @@
+<mat-grid-list cols="10">
+    <mat-grid-tile colspan="2" rowspan="1">Name:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1" [matTooltip]="token.name">
+        <mat-form-field>
+            <input matInput placeholder="" [(ngModel)]="token.name">
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="1">Description:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1" [matTooltip]="token.description">
+        <mat-form-field>
+            <input matInput placeholder="" [(ngModel)]="token.description">
+        </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="1">Creation Date:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1">
+        {{dateToString(token.creationDate)}}
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2" rowspan="1">Write Access:</mat-grid-tile>
+    <mat-grid-tile colspan="8" rowspan="1">
+        <mat-slide-toggle [(ngModel)]="token.writeAccess"></mat-slide-toggle>
+    </mat-grid-tile>
+</mat-grid-list>

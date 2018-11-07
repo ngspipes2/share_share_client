@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-access-tokens',
   templateUrl: './access-tokens.component.html',
   styleUrls: ['./access-tokens.component.scss']
 })
-export class AccessTokensComponent implements OnInit {
+export class AccessTokensComponent {
 
-  constructor() { }
+    selectedTokenId : number;
 
-  ngOnInit() {
-  }
+
+
+    constructor() { }
+
+
+
+    selectToken(selectedTokenId : number) {
+        this.selectedTokenId = selectedTokenId;
+    }
 
 }

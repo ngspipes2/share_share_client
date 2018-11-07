@@ -1,3 +1,8 @@
-<p>
-  access-tokens works!
-</p>
+<div id="root">
+    <div id="list-col">
+        <app-tokens-list (selectedTokenIdChange)="selectToken($event)"></app-tokens-list>
+    </div>
+    <div id="item-col">
+       <app-token-details [tokenId]="selectedTokenId"></app-token-details>
+    </div>
+</div>

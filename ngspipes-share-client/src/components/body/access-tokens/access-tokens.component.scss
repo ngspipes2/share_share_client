@@ -1,0 +1,12 @@
+#root {
+    height: 100%;
+    display: flex;
+    align-content: center;
+}
+
+#list-col, #item-col {
+    display: inline-grid;
+    justify-content: center;
+    align-content: center;
+    width: 50%;
+}

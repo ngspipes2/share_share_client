@@ -1,0 +1,23 @@
+<div id="root">
+    <button mat-raised-button color="primary" id="header-wrapper">
+        <div id="header">
+            <div class="header-title">
+                <mat-icon svgIcon="ticket" *ngIf="!loading"></mat-icon>
+                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
+                Access Tokens
+            </div>
+            <div class="header-buttons">
+                <button
+                    mat-icon-button
+                    matTooltip="Create Access Token"
+                    (click)="createTokenClick()"
+                    #createTokenButton
+                    (mouseenter)="createTokenButton.color='accent'"
+                    (mouseleave)="createTokenButton.color=''">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+    </button>
+    <app-list [selectedTokenId]="selectedTokenId" (selectedTokenIdChange)="selectToken($event)"></app-list>
+</div>
