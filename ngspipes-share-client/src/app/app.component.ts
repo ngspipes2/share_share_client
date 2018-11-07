@@ -38,6 +38,16 @@ export class AppComponent implements OnInit, OnDestroy {
             'clipboard',
             this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/clipboard.svg")
         );
+
+        this.iconRegistry.addSvgIcon(
+            'pencil',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/pencil.svg")
+        );
+
+        this.iconRegistry.addSvgIcon(
+            'pencil_off',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/pencil_off.svg")
+        );
     }
 
 
