@@ -23,7 +23,7 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     spinnerColor : string = "accent";
 
     groupUpdateSubscription : any;
-    imageURL : string;
+    imageData : any;
     loading : boolean;
     inited : boolean = false;
 
@@ -66,15 +66,11 @@ export class GroupImageComponent implements OnInit, OnDestroy {
         this.groupService.getGroupImage(this.groupName)
             .then(image => {
                 this.loading = false;
-
-                if(image)
-                    this.imageURL = this.groupService.getGroupImageURL(this.groupName);
-                else
-                    this.imageURL = undefined;
+                this.imageData = image;
             })
             .catch(error => {
                 this.loading = false;
-                this.imageURL = undefined;
+                this.imageData = undefined;
             });
     }
 

@@ -1,5 +1,5 @@
 <div class="content">
     <mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" [color]="spinnerColor"></mat-spinner>
-    <img *ngIf="!loading && imageURL" [src]="imageURL">
-    <mat-icon *ngIf="!loading && !imageURL">account_circle</mat-icon>
+    <img *ngIf="!loading && imageData" [src]="'data:image/jpeg;base64,' + imageData">
+    <mat-icon *ngIf="!loading && !imageData">account_circle</mat-icon>
 </div>

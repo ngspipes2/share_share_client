@@ -23,11 +23,13 @@ export class UserImageComponent implements OnInit, OnDestroy {
     spinnerColor : string = "accent";
 
     userUpdateSubscription : any;
-    imageURL : string;
+    imageData : any;
     loading : boolean;
     inited : boolean = false;
 
     observer: IntersectionObserver;
+
+
 
 
 
@@ -67,15 +69,11 @@ export class UserImageComponent implements OnInit, OnDestroy {
         this.userService.getUserImage(this.userName)
             .then(image => {
                 this.loading = false;
-
-                if(image)
-                    this.imageURL = this.userService.getUserImageURL(this.userName);
-                else
-                    this.imageURL = undefined;
+                this.imageData = image;
             })
             .catch(error => {
                 this.loading = false;
-                this.imageURL = undefined;
+                this.imageData = undefined;
             });
     }
 
