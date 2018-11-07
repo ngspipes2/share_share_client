@@ -5,6 +5,10 @@ import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
 import { AccessToken } from '../entities/access-token';
 
+export class NewAccessTokenData {
+    constructor(public id : number, public token : string) { }
+}
+
 @Injectable()
 export class AccessTokenService {
 
@@ -23,16 +27,17 @@ export class AccessTokenService {
 
 
 
-    public createAccessToken(token : AccessToken) : Promise<string> {
+    public createAccessToken(token : AccessToken) : Promise<NewAccessTokenData> {
         let url = ServersRoutes.CREATE_ACCESS_TOKEN_ROUTE;
 
         let data = this.clienteTokenToServerToken(token);
 
         return this.httpService.post(url, data)
             .then((response) => {
-                let tokenCode = response.text();
-                this.fireCreateEvent(tokenCode);
-                return tokenCode;
+                let data = response.json();
+                let newTokenData = new NewAccessTokenData(data.id, data.token);
+                this.fireCreateEvent(newTokenData.id);
+                return newTokenData;
             });
     }
 
