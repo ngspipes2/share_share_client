@@ -6,7 +6,7 @@ import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
-import { SelectRepositoryConfigComponent } from './select-repository-config/select-repository-config.component';
+import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 
 @Injectable()
@@ -66,8 +66,8 @@ export class DialogManager {
         return this.dialog.open(NewRepositoryConfigNameDialogComponent);
     }
 
-    public openSelectRepostiroyConfigDialog() : MatDialogRef<SelectRepositoryConfigComponent, string> {
-        return this.dialog.open(SelectRepositoryConfigComponent);
+    public openSelectRepostiroyConfigDialog() : MatDialogRef<SelectRepositoryConfigDialogComponent, string> {
+        return this.dialog.open(SelectRepositoryConfigDialogComponent);
     }
 
     public openNewAccessTokenNameDialog() : MatDialogRef<NewAccessTokenNameDialogComponent, string> {

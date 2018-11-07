@@ -4,11 +4,11 @@ import { MatDialogRef } from '@angular/material';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 
 @Component({
-    selector: 'app-select-repository-config',
-    templateUrl: './select-repository-config.component.html',
-    styleUrls: ['./select-repository-config.component.scss']
+    selector: 'app-select-repository-config-dialog',
+    templateUrl: './select-repository-config-dialog.component.html',
+    styleUrls: ['./select-repository-config-dialog.component.scss']
 })
-export class SelectRepositoryConfigComponent implements OnInit, OnDestroy {
+export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy {
 
     configSubscription : any;
 
@@ -19,7 +19,7 @@ export class SelectRepositoryConfigComponent implements OnInit, OnDestroy {
 
 
     constructor(private repositoryConfigService : RepositoryConfigService,
-                private dialogRef : MatDialogRef<SelectRepositoryConfigComponent>) { }
+                private dialogRef : MatDialogRef<SelectRepositoryConfigDialogComponent>) { }
 
 
 
