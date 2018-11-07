@@ -1,0 +1,33 @@
+<div class="container">
+    <div mat-dialog-title>
+        <mat-icon id="info-icon">info</mat-icon>
+        New Access Token
+    </div>
+    <div mat-dialog-content>
+        <div>
+            Generated Token:
+        </div>
+        <div id="token-wrapper">
+            <div id="token" [matTooltip]="token" matTooltipPosition="above">
+                {{token}}
+            </div>
+            <button mat-icon-button
+                matTooltip="Copy"
+                ngxClipboard [cbContent]="token"
+                #createConfigButton
+                (mouseenter)="createConfigButton.color='accent'"
+                (mouseleave)="createConfigButton.color=''">
+                <mat-icon svgIcon="clipboard"></mat-icon>
+            </button>
+        </div>
+        <div>
+            Save this token because you wont be able to consult it again.
+        </div>
+        <div>
+            If you lose this token you have to generate a new one.
+        </div>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="dialogRef.close()">Ok</button>
+    </div>
+</div>

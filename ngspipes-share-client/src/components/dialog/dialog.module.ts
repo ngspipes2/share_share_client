@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../app/material.module';
 import { FormsModule } from '@angular/forms';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog.manager';
@@ -12,6 +13,7 @@ import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-n
 import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
+import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
       SelectRepositoryConfigDialogComponent,
-      NewAccessTokenNameDialogComponent
+      NewAccessTokenNameDialogComponent,
+      ShowTokenDialogComponent
   ],
   imports: [
       BrowserModule,
       BrowserAnimationsModule,
       MaterialModule,
-      FormsModule
+      FormsModule,
+      ClipboardModule
   ],
   exports: [
       SimpleDialogComponent,
@@ -34,7 +38,8 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
       SelectRepositoryConfigDialogComponent,
-      NewAccessTokenNameDialogComponent
+      NewAccessTokenNameDialogComponent,
+      ShowTokenDialogComponent
   ],
   providers: [
       DialogManager
@@ -45,7 +50,8 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
       SelectRepositoryConfigDialogComponent,
-      NewAccessTokenNameDialogComponent
+      NewAccessTokenNameDialogComponent,
+      ShowTokenDialogComponent
   ]
 })
 export class DialogModule { }

@@ -8,6 +8,7 @@ import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-n
 import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
+import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -72,6 +73,10 @@ export class DialogManager {
 
     public openNewAccessTokenNameDialog() : MatDialogRef<NewAccessTokenNameDialogComponent, string> {
         return this.dialog.open(NewAccessTokenNameDialogComponent);
+    }
+
+    public openShowTokenDialog(token : string) : MatDialogRef<ShowTokenDialogComponent> {
+        return this.dialog.open(ShowTokenDialogComponent, {data : token});
     }
 
 }
