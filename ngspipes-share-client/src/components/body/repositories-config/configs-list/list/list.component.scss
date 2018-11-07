@@ -1,11 +1,13 @@
-#no-configs-content, #configs-content {
-    min-height: 350px;
+#root {
+    min-height: 250px;
     max-height: 500px;
     padding: 10px 25px 25px 25px;
+    display: grid;
 }
 
-#no-configs-content {
+#no-tokens-content, #load-container {
     display: grid;
+    justify-content: center;
     align-content: center;
     text-align: center;
 }
