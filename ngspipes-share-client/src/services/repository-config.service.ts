@@ -111,6 +111,11 @@ export class RepositoryConfigService {
         });
     }
 
+    public getConfigsForLocation(location : string) : Promise<RepositoryConfig[]> {
+        return this.getAllConfigs()
+        .then(configs => configs.filter(config => config.location === location));
+    }
+
 
     fireCreateEvent(name: string) {
         this.configCreateEvent.next(name);
