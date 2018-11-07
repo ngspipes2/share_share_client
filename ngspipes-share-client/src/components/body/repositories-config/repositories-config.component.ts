@@ -15,7 +15,7 @@ export class RepositoriesConfigComponent {
 
 
 
-    selectConfig(selectedConfigName : any) {
+    selectConfig(selectedConfigName : string) {
         this.selectedConfigName = selectedConfigName;
     }
 
