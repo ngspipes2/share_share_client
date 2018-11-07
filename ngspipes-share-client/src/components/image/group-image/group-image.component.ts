@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import { GroupService } from '../../../services/group.service';
-import { SessionService } from '../../../services/session.service';
 
 @Component({
     selector: 'app-group-image',

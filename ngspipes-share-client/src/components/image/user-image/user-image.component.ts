@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 
 import { UserService } from '../../../services/user.service';
-import { SessionService } from '../../../services/session.service';
 
 @Component({
     selector: 'app-user-image',
