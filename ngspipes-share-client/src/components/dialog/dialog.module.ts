@@ -11,6 +11,7 @@ import { ChangePasswordDialogComponent } from './change-password-dialog/change-p
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
 import { SelectRepositoryConfigComponent } from './select-repository-config/select-repository-config.component';
+import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SelectRepositoryConfigComponent } from './select-repository-config/sele
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
-      SelectRepositoryConfigComponent
+      SelectRepositoryConfigComponent,
+      NewAccessTokenNameDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -31,7 +33,8 @@ import { SelectRepositoryConfigComponent } from './select-repository-config/sele
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
-      SelectRepositoryConfigComponent
+      SelectRepositoryConfigComponent,
+      NewAccessTokenNameDialogComponent
   ],
   providers: [
       DialogManager
@@ -41,7 +44,8 @@ import { SelectRepositoryConfigComponent } from './select-repository-config/sele
       ChangePasswordDialogComponent,
       NewGroupNameDialogComponent,
       NewRepositoryConfigNameDialogComponent,
-      SelectRepositoryConfigComponent
+      SelectRepositoryConfigComponent,
+      NewAccessTokenNameDialogComponent
   ]
 })
 export class DialogModule { }
