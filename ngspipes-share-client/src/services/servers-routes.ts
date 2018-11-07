@@ -47,6 +47,7 @@ export class ServersRoutes {
 
     public static ACCESS_TOKEN_ROUTE : string = ServersRoutes.API_SERVER_URI + "/tokens";
 
+    public static GET_ACCESS_TOKEN_ROUTE : string = ServersRoutes.ACCESS_TOKEN_ROUTE + "/{tokenId}";
     public static CREATE_ACCESS_TOKEN_ROUTE : string = ServersRoutes.ACCESS_TOKEN_ROUTE;
     public static UPDATE_ACCESS_TOKEN_ROUTE : string = ServersRoutes.ACCESS_TOKEN_ROUTE + "/{tokenId}";
     public static DELETE_ACCESS_TOKEN_ROUTE : string = ServersRoutes.ACCESS_TOKEN_ROUTE + "/{tokenId}";

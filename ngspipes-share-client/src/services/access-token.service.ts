@@ -27,6 +27,31 @@ export class AccessTokenService {
 
 
 
+    public getAccessToken(tokenId : number) : Promise<AccessToken> {
+        let url = ServersRoutes.GET_ACCESS_TOKEN_ROUTE.replace("{tokenId}", tokenId.toString());
+
+        return this.httpService.get(url)
+            .then(response => {
+                if(!response.text() || response.status===404)
+                    return null;
+
+                let data : any = response.json();
+
+                return this.serverTokenToClientToken(data);
+            });
+    }
+
+    private serverTokenToClientToken(token : any) : AccessToken {
+         return new AccessToken(
+             token.id,
+             token.owner.userName,
+             new Date(token.creationDate),
+             token.name,
+             token.description,
+             token.writeAccess
+         );
+     }
+
     public createAccessToken(token : AccessToken) : Promise<NewAccessTokenData> {
         let url = ServersRoutes.CREATE_ACCESS_TOKEN_ROUTE;
 
@@ -92,16 +117,6 @@ export class AccessTokenService {
         return tokens.map(this.serverTokenToClientToken);
     }
 
-    private serverTokenToClientToken(token : any) : AccessToken {
-         return new AccessToken(
-             token.id,
-             token.owner.userName,
-             new Date(token.creationDate),
-             token.name,
-             token.description,
-             token.writeAccess
-         );
-     }
 
 
     fireCreateEvent(tokenId: number) {
