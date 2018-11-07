@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
         );
 
         this.iconRegistry.addSvgIcon(
-            'pencil_off',
-            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/pencil_off.svg")
+            'pencil-off',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/pencil-off.svg")
         );
     }
 
