@@ -91,26 +91,27 @@ export class ServersRoutes {
     public static DELETE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
     public static GET_EXTERNAL_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/externalrepositoriesnames";
 
-    public static TOOLS_REPOSITORY_FACADE_URI : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/tools";
 
-    public static TOOLS_FACADE_GET_LOGO_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/getlogo";
-    public static TOOLS_FACADE_SET_LOGO_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/setlogo";
-    public static TOOLS_FACADE_GET_ALL_TOOLS_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/gettools";
-    public static TOOLS_FACADE_GET_TOOL_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/gettool/{toolName}";
-    public static TOOLS_FACADE_INSERT_TOOL_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/inserttool";
-    public static TOOLS_FACADE_UPDATE_TOOL_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/updatetool/{toolName}";
-    public static TOOLS_FACADE_DELETE_TOOL_URI : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_URI + "/deletetool/{toolName}";
+    public static TOOLS_REPOSITORY_FACADE_ROUTE : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/tools";
+
+    public static TOOLS_FACADE_GET_LOGO_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/getlogo";
+    public static TOOLS_FACADE_SET_LOGO_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/setlogo";
+    public static TOOLS_FACADE_GET_ALL_TOOLS_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/gettools";
+    public static TOOLS_FACADE_GET_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/gettool/{toolName}";
+    public static TOOLS_FACADE_INSERT_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/inserttool";
+    public static TOOLS_FACADE_UPDATE_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/updatetool/{toolName}";
+    public static TOOLS_FACADE_DELETE_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/deletetool/{toolName}";
 
 
-    public static PIPELINES_REPOSITORY_FACADE_URI : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/pipelines";
+    public static PIPELINES_REPOSITORY_FACADE_ROUTE : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/pipelines";
 
-    public static PIPELINES_FACADE_GET_LOGO_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/getlogo";
-    public static PIPELINES_FACADE_SET_LOGO_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/setlogo";
-    public static PIPELINES_FACADE_GET_ALL_PIPELINES_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/getpipelines";
-    public static PIPELINES_FACADE_GET_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/getpipeline/{pipelineName}";
-    public static PIPELINES_FACADE_INSERT_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/insertpipeline";
-    public static PIPELINES_FACADE_UPDATE_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/updatepipeline/{pipelineName}";
-    public static PIPELINES_FACADE_DELETE_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_URI + "/deletepipeline/{pipelineName}";
+    public static PIPELINES_FACADE_GET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getlogo";
+    public static PIPELINES_FACADE_SET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/setlogo";
+    public static PIPELINES_FACADE_GET_ALL_PIPELINES_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipelines";
+    public static PIPELINES_FACADE_GET_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipeline/{pipelineName}";
+    public static PIPELINES_FACADE_INSERT_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/insertpipeline";
+    public static PIPELINES_FACADE_UPDATE_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/updatepipeline/{pipelineName}";
+    public static PIPELINES_FACADE_DELETE_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/deletepipeline/{pipelineName}";
 
 
 }
