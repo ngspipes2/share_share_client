@@ -15,8 +15,8 @@ export class ToolsRepositoryFacadeService {
     public getRepositoryImage(repositoryConfig : RepositoryConfig) : Promise<any> {
         let url = ServersRoutes.TOOLS_FACADE_GET_LOGO_ROUTE;
         let data = {
-            location : repositoryConfig.location,
-            config : this.createConfig(repositoryConfig.configs)
+            repositoryLocation : repositoryConfig.location,
+            repositoryConfig : this.createConfig(repositoryConfig.configs)
         };
 
         return this.httpService.post(url, data)
