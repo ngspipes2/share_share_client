@@ -21,8 +21,8 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
     @Input()
     spinnerColor : string = "accent";
 
-    repositoryUpdateSubscription : any;
-    configUpdateSubscription : any;
+    repositorySubscription : any;
+    configSubscription : any;
 
     repository : InternalRepository;
     repositoryConfig : RepositoryConfig;
@@ -46,21 +46,31 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
         this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
         this.observer.observe(this.element.nativeElement);
 
-        this.repositoryUpdateSubscription = this.internalRepositoryService.repositoryUpdateEvent.subscribe((repositoryName) => {
-            if(repositoryName === this.repositoryName && this.inited)
+        this.repositorySubscription = this.internalRepositoryService.repositoryEvent.subscribe((repositoryName) => {
+            if(!this.inited)
+                return;
+
+            if(!this.repository)
+                this.load();
+            else if(repositoryName === this.repositoryName)
                 this.load();
         });
 
-        this.configUpdateSubscription = this.repositoryConfigService.configUpdateEvent.subscribe((configName) => {
-            if(this.repositoryConfig && this.repositoryConfig.name === configName && this.inited)
+        this.configSubscription = this.repositoryConfigService.configEvent.subscribe((configName) => {
+            if(!this.inited)
+                return;
+
+            if(!this.repositoryConfig)
+                this.load();
+            else if(this.repositoryConfig.name === configName)
                 this.load();
         });
     }
 
     ngOnDestroy() {
         this.observer.disconnect();
-        this.repositoryUpdateSubscription.unsubscribe();
-        this.configUpdateSubscription.unsubscribe();
+        this.repositorySubscription.unsubscribe();
+        this.configSubscription.unsubscribe();
     }
 
     handleIntersect(entries, observer) : void {

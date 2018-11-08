@@ -22,7 +22,7 @@ export class UserImageComponent implements OnInit, OnDestroy {
     @Input()
     spinnerColor : string = "accent";
 
-    userUpdateSubscription : any;
+    userSubscription : any;
     imageData : any;
     loading : boolean;
     inited : boolean = false;
@@ -42,15 +42,18 @@ export class UserImageComponent implements OnInit, OnDestroy {
         this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
         this.observer.observe(this.element.nativeElement);
 
-        this.userUpdateSubscription = this.userService.userUpdateEvent.subscribe((userName) => {
-          if(userName === this.userName && this.inited)
-            this.load();
+        this.userSubscription = this.userService.userEvent.subscribe((userName) => {
+            if(!this.inited)
+                return;
+
+            if(userName === this.userName)
+                this.load();
         });
     }
 
     ngOnDestroy(): void {
         this.observer.disconnect();
-        this.userUpdateSubscription.unsubscribe();
+        this.userSubscription.unsubscribe();
     }
 
     //LAZY LOAD

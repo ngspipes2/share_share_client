@@ -22,7 +22,7 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     @Input()
     spinnerColor : string = "accent";
 
-    groupUpdateSubscription : any;
+    groupSubscription : any;
     imageData : any;
     loading : boolean;
     inited : boolean = false;
@@ -40,15 +40,18 @@ export class GroupImageComponent implements OnInit, OnDestroy {
         this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
         this.observer.observe(this.element.nativeElement);
 
-        this.groupUpdateSubscription = this.groupService.groupUpdateEvent.subscribe((groupName) => {
-            if(groupName === this.groupName && this.inited)
+        this.groupSubscription = this.groupService.groupEvent.subscribe((groupName) => {
+            if(!this.inited)
+                return;
+
+            if(groupName === this.groupName)
                 this.load();
         });
     }
 
     ngOnDestroy() {
         this.observer.disconnect();
-        this.groupUpdateSubscription.unsubscribe();
+        this.groupSubscription.unsubscribe();
     }
 
     handleIntersect(entries, observer) : void {
