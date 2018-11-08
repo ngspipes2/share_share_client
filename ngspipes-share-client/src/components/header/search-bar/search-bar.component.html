@@ -6,6 +6,8 @@
                 <mat-option *ngFor="let entity of filteredOptions | async" [value]="entity.name">
                     <app-user-item *ngIf="entity.type === 'USER'" [userName]="entity.name" class="fill"></app-user-item>
                     <app-group-item *ngIf="entity.type === 'GROUP'" [groupName]="entity.name" class="fill"></app-group-item>
+                    <app-external-repository-item *ngIf="entity.type === 'EXTERNAL_REPOSITORY'" [repositoryName]="entity.name" class="fill"></app-external-repository-item>
+                    <app-internal-repository-item *ngIf="entity.type === 'INTERNAL_REPOSITORY'" [repositoryName]="entity.name" class="fill"></app-internal-repository-item>
                 </mat-option>
             </mat-autocomplete>
             <mat-icon matSuffix>search</mat-icon>

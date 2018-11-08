@@ -1,0 +1,25 @@
+#root {
+    display: flex;
+    align-items: center;
+}
+
+app-internal-repository-image {
+    vertical-align: sub;
+    display: inline-grid;
+
+    font-size: 26px;
+
+    height: 25px;
+    width: 25px;
+
+    margin-right: 10px;
+}
+
+app-internal-repository-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+#icon {
+    position: absolute;
+    right: 15px;
+}
