@@ -35,6 +35,11 @@ export class AppComponent implements OnInit, OnDestroy {
         );
 
         this.iconRegistry.addSvgIcon(
+            'repository',
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/repository.svg")
+        );
+
+        this.iconRegistry.addSvgIcon(
             'clipboard',
             this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/clipboard.svg")
         );
