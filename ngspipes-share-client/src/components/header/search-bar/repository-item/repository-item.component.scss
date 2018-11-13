@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-app-internal-repository-image {
+app-repository-image {
     vertical-align: sub;
     display: inline-grid;
 
@@ -15,7 +15,7 @@ app-internal-repository-image {
     margin-right: 10px;
 }
 
-app-internal-repository-image ::ng-deep img {
+app-repository-image ::ng-deep img {
     border-radius: 50%;
 }
 

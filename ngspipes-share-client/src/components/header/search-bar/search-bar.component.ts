@@ -5,8 +5,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { UserService } from '../../../services/user.service';
 import { GroupService } from '../../../services/group.service';
-import { ExternalRepositoryService } from '../../../services/external-repository.service';
-import { InternalRepositoryService } from '../../../services/internal-repository.service';
+import { RepositoryService } from '../../../services/repository.service';
 import { DialogManager } from '../../dialog/dialog.manager';
 
 @Component({
@@ -18,14 +17,12 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     userNames : string[] = [];
     groupNames : string[] = [];
-    externalRepositoryNames : string[] = [];
-    internalRepositoryNames : string[] = [];
+    repositoryNames : string[] = [];
     entities : any[] = [];
 
     userEventSubscription : any;
     groupEventSubscription : any;
-    externalRepositorySubscription : any;
-    internalRepositorySubscription : any;
+    repositorySubscription : any;
 
     entitiesControl = new FormControl();
     filteredOptions: Observable<any[]>;
@@ -34,8 +31,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     constructor(private dialogManager : DialogManager,
                 private userService : UserService,
-                private externalRepositoryService : ExternalRepositoryService,
-                private internalRepositoryService : InternalRepositoryService,
+                private repositoryService : RepositoryService,
                 private groupService : GroupService) { }
 
 
@@ -48,20 +44,17 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
         this.userEventSubscription = this.userService.userEvent.subscribe(() => this.loadUserNames());
         this.groupEventSubscription = this.groupService.groupEvent.subscribe(() => this.loadGroupNames());
-        this.externalRepositorySubscription = this.externalRepositoryService.repositoryEvent.subscribe(() => this.loadExternalRepositoryNames());
-        this.internalRepositorySubscription = this.internalRepositoryService.repositoryEvent.subscribe(() => this.loadInternalRepositoryNames());
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadRepositoryNames());
 
         this.loadUserNames();
         this.loadGroupNames();
-        this.loadExternalRepositoryNames();
-        this.loadInternalRepositoryNames();
+        this.loadRepositoryNames();
     }
 
     ngOnDestroy() {
         this.userEventSubscription.unsubscribe();
         this.groupEventSubscription.unsubscribe();
-        this.externalRepositorySubscription.unsubscribe();
-        this.internalRepositorySubscription.unsubscribe();
+        this.repositorySubscription.unsubscribe();
     }
 
     filter(value: string): any[] {
@@ -93,26 +86,14 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadExternalRepositoryNames() {
-        this.externalRepositoryService.getRepositoriesNames()
+    loadRepositoryNames() {
+        this.repositoryService.getRepositoriesNames()
         .then(repositoryNames => {
-            this.externalRepositoryNames = repositoryNames;
+            this.repositoryNames = repositoryNames;
             this.buildEntities();
         })
         .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting external repositories names!", error);
-            console.error(error);
-        });
-    }
-
-    loadInternalRepositoryNames() {
-        this.internalRepositoryService.getRepositoriesNames()
-        .then(repositoryNames => {
-            this.internalRepositoryNames = repositoryNames;
-            this.buildEntities();
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting internal repositories names!", error);
+            this.dialogManager.openErrorDialog("Error getting repositories names!", error);
             console.error(error);
         });
     }
@@ -122,8 +103,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
         this.userNames.forEach(name => this.entities.push({type: "USER", name : name}));
         this.groupNames.forEach(name => this.entities.push({type: "GROUP", name : name}));
-        this.externalRepositoryNames.forEach(name => this.entities.push({type: "EXTERNAL_REPOSITORY", name : name}));
-        this.internalRepositoryNames.forEach(name => this.entities.push({type: "INTERNAL_REPOSITORY", name : name}));
+        this.repositoryNames.forEach(name => this.entities.push({type: "REPOSITORY", name : name}));
 
         this.entities = this.entities.sort((a,b) => {
             if (a.name < b.name)

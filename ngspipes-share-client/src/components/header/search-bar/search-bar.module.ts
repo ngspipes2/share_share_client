@@ -11,17 +11,15 @@ import { DialogModule } from '../../dialog/dialog.module';
 
 import { UserItemComponent } from './user-item/user-item.component';
 import { GroupItemComponent } from './group-item/group-item.component';
+import { RepositoryItemComponent } from './repository-item/repository-item.component';
 import { SearchBarComponent } from './search-bar.component';
-import { ExternalRepositoryItemComponent } from './external-repository-item/external-repository-item.component';
-import { InternalRepositoryItemComponent } from './internal-repository-item/internal-repository-item.component';
 
 @NgModule({
   declarations: [
       UserItemComponent,
       GroupItemComponent,
-      SearchBarComponent,
-      ExternalRepositoryItemComponent,
-      InternalRepositoryItemComponent
+      RepositoryItemComponent,
+      SearchBarComponent
   ],
   imports: [
       BrowserModule,
