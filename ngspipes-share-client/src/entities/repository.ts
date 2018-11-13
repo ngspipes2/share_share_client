@@ -1,12 +1,18 @@
-export enum InternalRepositoryType {
+export enum EntityType {
     TOOLS = "TOOLS",
     PIPELINES = "PIPELINES"
 }
 
-export class InternalRepository {
+export enum LocationType {
+    INTERNAL = "INTERNAL",
+    EXTERNAL = "EXTERNAL"
+}
+
+export class Repository {
     constructor(
         public repositoryName : string,
-        public type : InternalRepositoryType,
+        public entityType : EntityType,
+        public locationType : LocationType,
         public description : string,
         public creationDate : Date,
         public isPublic : boolean,

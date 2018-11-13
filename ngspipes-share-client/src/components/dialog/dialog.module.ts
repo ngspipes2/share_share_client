@@ -14,8 +14,7 @@ import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
-import { NewExternalRepositoryNameDialogComponent } from './new-external-repository-name-dialog/new-external-repository-name-dialog.component';
-import { NewInternalRepositoryNameDialogComponent } from './new-internal-repository-name-dialog/new-internal-repository-name-dialog.component';
+import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { NewInternalRepositoryNameDialogComponent } from './new-internal-reposit
       SelectRepositoryConfigDialogComponent,
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
-      NewExternalRepositoryNameDialogComponent,
-      NewInternalRepositoryNameDialogComponent
+      NewRepositoryNameDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -44,8 +42,7 @@ import { NewInternalRepositoryNameDialogComponent } from './new-internal-reposit
       SelectRepositoryConfigDialogComponent,
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
-      NewExternalRepositoryNameDialogComponent,
-      NewInternalRepositoryNameDialogComponent
+      NewRepositoryNameDialogComponent
   ],
   providers: [
       DialogManager
@@ -58,8 +55,7 @@ import { NewInternalRepositoryNameDialogComponent } from './new-internal-reposit
       SelectRepositoryConfigDialogComponent,
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
-      NewExternalRepositoryNameDialogComponent,
-      NewInternalRepositoryNameDialogComponent
+      NewRepositoryNameDialogComponent
   ]
 })
 export class DialogModule { }

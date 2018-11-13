@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
-import { InternalRepositoryGroupMember } from '../entities/internal-repository-group-member';
+import { RepositoryGroupMember } from '../entities/repository-group-member';
 
 @Injectable()
-export class InternalRepositoryGroupMemberService {
+export class RepositoryGroupMemberService {
 
     memberEvent = new Subject<number>();
     memberCreateEvent = new Subject<number>();
@@ -23,8 +23,8 @@ export class InternalRepositoryGroupMemberService {
 
 
 
-    public getAllMembers() : Promise<InternalRepositoryGroupMember[]> {
-        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE;
+    public getAllMembers() : Promise<RepositoryGroupMember[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORY_GROUP_MEMBERS_ROUTE;
 
         return this.httpService.get(url)
             .then(response => {
@@ -37,12 +37,12 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    private serverMembersToClientMembers(serverMembers : any[]) : InternalRepositoryGroupMember[] {
+    private serverMembersToClientMembers(serverMembers : any[]) : RepositoryGroupMember[] {
         return serverMembers.map(this.serverMemberToClientMember);
     }
 
-    public getMember(memberId : number) : Promise<InternalRepositoryGroupMember> {
-        let url = ServersRoutes.GET_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE.replace('{memberId}', memberId.toString());
+    public getMember(memberId : number) : Promise<RepositoryGroupMember> {
+        let url = ServersRoutes.GET_REPOSITORY_GROUP_MEMBER_ROUTE.replace('{memberId}', memberId.toString());
 
         return this.httpService.get(url)
             .then(response => {
@@ -55,8 +55,8 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    private serverMemberToClientMember(serverMember : any) : InternalRepositoryGroupMember {
-        return new InternalRepositoryGroupMember(
+    private serverMemberToClientMember(serverMember : any) : RepositoryGroupMember {
+        return new RepositoryGroupMember(
             serverMember.id,
             new Date(serverMember.creationDate),
             serverMember.group.groupName,
@@ -65,8 +65,8 @@ export class InternalRepositoryGroupMemberService {
         );
     }
 
-    public createMember(member : InternalRepositoryGroupMember) : Promise<number> {
-        let url = ServersRoutes.CREATE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE;
+    public createMember(member : RepositoryGroupMember) : Promise<number> {
+        let url = ServersRoutes.CREATE_REPOSITORY_GROUP_MEMBER_ROUTE;
 
         let data = this.clientMemberToServerMember(member);
 
@@ -78,7 +78,7 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    private clientMemberToServerMember(member : InternalRepositoryGroupMember) : any {
+    private clientMemberToServerMember(member : RepositoryGroupMember) : any {
         return {
             id : member.id,
             creationDate : member.creationDate,
@@ -88,8 +88,8 @@ export class InternalRepositoryGroupMemberService {
         };
     }
 
-    public updateMember(member : InternalRepositoryGroupMember) : Promise<boolean> {
-        let url = ServersRoutes.UPDATE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE.replace("{memberId}", member.id.toString());
+    public updateMember(member : RepositoryGroupMember) : Promise<boolean> {
+        let url = ServersRoutes.UPDATE_REPOSITORY_GROUP_MEMBER_ROUTE.replace("{memberId}", member.id.toString());
 
         let data = this.clientMemberToServerMember(member);
 
@@ -101,7 +101,7 @@ export class InternalRepositoryGroupMemberService {
     }
 
     public deleteMember(memberId : number) : Promise<boolean> {
-        let url = ServersRoutes.DELETE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE.replace("{memberId}", memberId.toString());
+        let url = ServersRoutes.DELETE_REPOSITORY_GROUP_MEMBER_ROUTE.replace("{memberId}", memberId.toString());
 
         return this.httpService.delete(url)
             .then((response) => {
@@ -110,8 +110,8 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    public getMembersOfRepository(repositoryName : string) : Promise<InternalRepositoryGroupMember[]> {
-        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?repositoryName=" + repositoryName;
+    public getMembersOfRepository(repositoryName : string) : Promise<RepositoryGroupMember[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?repositoryName=" + repositoryName;
 
         return this.httpService.get(url)
             .then(response => {
@@ -124,8 +124,8 @@ export class InternalRepositoryGroupMemberService {
             });
     }
 
-    public getMembersWithGroup(groupName : string) : Promise<InternalRepositoryGroupMember[]> {
-        let url = ServersRoutes.GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?groupName=" + groupName;
+    public getMembersWithGroup(groupName : string) : Promise<RepositoryGroupMember[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORY_GROUP_MEMBERS_ROUTE + "?groupName=" + groupName;
 
         return this.httpService.get(url)
             .then(response => {

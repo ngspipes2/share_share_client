@@ -54,42 +54,32 @@ export class ServersRoutes {
     public static GET_ACCESS_TOKENS_OF_USER : string = ServersRoutes.ACCESS_TOKEN_ROUTE;
 
 
-    public static INTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositories";
+    public static REPOSITORIES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/repositories";
 
-    public static GET_ALL_INTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE;
-    public static GET_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static CREATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE;
-    public static UPDATE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static DELETE_INTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static GET_INTERNAL_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositoriesnames";
-
-
-    public static INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositorygroupmembers";
-
-    public static GET_ALL_INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE;
-    public static GET_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
-    public static CREATE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE;
-    public static UPDATE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
-    public static DELETE_INTERNAL_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
+    public static GET_ALL_REPOSITORIES_ROUTE : string = ServersRoutes.REPOSITORIES_ROUTE;
+    public static GET_REPOSITORY_ROUTE : string = ServersRoutes.REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static CREATE_REPOSITORY_ROUTE : string = ServersRoutes.REPOSITORIES_ROUTE;
+    public static UPDATE_REPOSITORY_ROUTE : string = ServersRoutes.REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static DELETE_REPOSITORY_ROUTE : string = ServersRoutes.REPOSITORIES_ROUTE + "/{repositoryName}";
+    public static GET_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/repositoriesnames";
 
 
-    public static INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/internalrepositoryusermembers";
+    public static REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/repositorygroupmembers";
 
-    public static GET_ALL_INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE;
-    public static GET_INTERNAL_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
-    public static CREATE_INTERNAL_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE;
-    public static UPDATE_INTERNAL_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
-    public static DELETE_INTERNAL_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.INTERNAL_REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
+    public static GET_ALL_REPOSITORY_GROUP_MEMBERS_ROUTE : string = ServersRoutes.REPOSITORY_GROUP_MEMBERS_ROUTE;
+    public static GET_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
+    public static CREATE_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_GROUP_MEMBERS_ROUTE;
+    public static UPDATE_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
+    public static DELETE_REPOSITORY_GROUP_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_GROUP_MEMBERS_ROUTE + "/{memberId}";
 
 
-    public static EXTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/externalrepositories";
+    public static REPOSITORY_USER_MEMBERS_ROUTE : string = ServersRoutes.API_SERVER_URI + "/repositoryusermembers";
 
-    public static GET_ALL_EXTERNAL_REPOSITORIES_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE;
-    public static GET_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static CREATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE;
-    public static UPDATE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static DELETE_EXTERNAL_REPOSITORY_ROUTE : string = ServersRoutes.EXTERNAL_REPOSITORIES_ROUTE + "/{repositoryName}";
-    public static GET_EXTERNAL_REPOSITORIES_NAMES_ROUTE : string = ServersRoutes.API_SERVER_URI + "/externalrepositoriesnames";
+    public static GET_ALL_REPOSITORY_USER_MEMBERS_ROUTE : string = ServersRoutes.REPOSITORY_USER_MEMBERS_ROUTE;
+    public static GET_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
+    public static CREATE_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_USER_MEMBERS_ROUTE;
+    public static UPDATE_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
+    public static DELETE_REPOSITORY_USER_MEMBER_ROUTE : string = ServersRoutes.REPOSITORY_USER_MEMBERS_ROUTE + "/{memberId}";
 
 
     public static TOOLS_REPOSITORY_FACADE_ROUTE : string = ServersRoutes.REPOSITORY_FACADE_SERVER_URI + "/tools";

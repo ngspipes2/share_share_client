@@ -9,8 +9,7 @@ import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
-import { NewExternalRepositoryNameDialogComponent } from './new-external-repository-name-dialog/new-external-repository-name-dialog.component';
-import { NewInternalRepositoryNameDialogComponent } from './new-internal-repository-name-dialog/new-internal-repository-name-dialog.component';
+import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -81,12 +80,8 @@ export class DialogManager {
         return this.dialog.open(ShowTokenDialogComponent, {data : token});
     }
 
-    public openNewInternalRepositoryNameDialog() : MatDialogRef<NewInternalRepositoryNameDialogComponent, string> {
-        return this.dialog.open(NewInternalRepositoryNameDialogComponent);
-    }
-
-    public openNewExternalRepositoryNameDialog() : MatDialogRef<NewExternalRepositoryNameDialogComponent, string> {
-        return this.dialog.open(NewExternalRepositoryNameDialogComponent);
+    public openNewRepositoryNameDialog() : MatDialogRef<NewRepositoryNameDialogComponent, string> {
+        return this.dialog.open(NewRepositoryNameDialogComponent);
     }
 
 }

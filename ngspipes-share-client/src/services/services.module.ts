@@ -12,10 +12,9 @@ import { UserService } from './user.service';
 import { GroupService } from './group.service';
 import { GroupMemberService } from './group-member.service';
 import { AccessTokenService } from './access-token.service';
-import { ExternalRepositoryService } from './external-repository.service';
-import { InternalRepositoryService } from './internal-repository.service';
-import { InternalRepositoryUserMemberService } from './internal-repository-user-member.service';
-import { InternalRepositoryGroupMemberService } from './internal-repository-group-member.service';
+import { RepositoryService } from './repository.service';
+import { RepositoryUserMemberService } from './repository-user-member.service';
+import { RepositoryGroupMemberService } from './repository-group-member.service';
 import { RepositoryConfigService } from './repository-config.service';
 import { ToolsRepositoryFacadeService } from './tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.service';
@@ -37,10 +36,9 @@ import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.
         GroupService,
         GroupMemberService,
         AccessTokenService,
-        ExternalRepositoryService,
-        InternalRepositoryService,
-        InternalRepositoryUserMemberService,
-        InternalRepositoryGroupMemberService,
+        RepositoryService,
+        RepositoryUserMemberService,
+        RepositoryGroupMemberService,
         RepositoryConfigService,
         ToolsRepositoryFacadeService,
         PipelinesRepositoryFacadeService

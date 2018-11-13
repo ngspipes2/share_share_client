@@ -1,18 +1,18 @@
 import { Component, Input, OnInit, OnDestroy, ElementRef } from '@angular/core';
 
-import { InternalRepository, InternalRepositoryType } from '../../../entities/internal-repository';
-import { InternalRepositoryService } from '../../../services/internal-repository.service';
+import { Repository, EntityType, LocationType  } from '../../../entities/repository';
+import { RepositoryService } from '../../../services/repository.service';
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 import { ToolsRepositoryFacadeService } from '../../../services/tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from '../../../services/pipelines-repository-facade.service';
 
 @Component({
-  selector: 'app-internal-repository-image',
-  templateUrl: './internal-repository-image.component.html',
-  styleUrls: ['./internal-repository-image.component.scss']
+  selector: 'app-repository-image',
+  templateUrl: './repository-image.component.html',
+  styleUrls: ['./repository-image.component.scss']
 })
-export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
+export class RepositoryImageComponent implements OnInit, OnDestroy {
 
     @Input()
     repositoryName : string;
@@ -24,7 +24,7 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
     repositorySubscription : any;
     configSubscription : any;
 
-    repository : InternalRepository;
+    repository : Repository;
     repositoryConfig : RepositoryConfig;
     imageData : any;
 
@@ -34,7 +34,7 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private internalRepositoryService : InternalRepositoryService,
+    constructor(private repositoryService : RepositoryService,
                 private repositoryConfigService : RepositoryConfigService,
                 private toolsRepositoryFacadeService : ToolsRepositoryFacadeService,
                 private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService,
@@ -46,7 +46,7 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
         this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
         this.observer.observe(this.element.nativeElement);
 
-        this.repositorySubscription = this.internalRepositoryService.repositoryEvent.subscribe((repositoryName) => {
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe((repositoryName) => {
             if(!this.inited)
                 return;
 
@@ -93,10 +93,10 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
         });
     }
 
-    loadRepository() : Promise<InternalRepository> {
+    loadRepository() : Promise<Repository> {
         this.loading = true;
 
-        return this.internalRepositoryService.getRepository(this.repositoryName)
+        return this.repositoryService.getRepository(this.repositoryName)
         .then(repository => {
             this.loading = false;
             this.repository = repository;
@@ -129,7 +129,7 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         let promise : Promise<any>;
-        if(this.repository.type === InternalRepositoryType.PIPELINES)
+        if(this.repository.entityType === EntityType.PIPELINES)
             promise = this.pipelinesRepositoryFacadeService.getRepositoryImage(this.repositoryConfig);
         else
             promise = this.toolsRepositoryFacadeService.getRepositoryImage(this.repositoryConfig)
@@ -150,7 +150,7 @@ export class InternalRepositoryImageComponent implements OnInit, OnDestroy {
         if(!this.repository)
             return "";
 
-        return this.repository.type === InternalRepositoryType.PIPELINES ? "insert_drive_file" : "build";
+        return this.repository.entityType === EntityType.PIPELINES ? "insert_drive_file" : "build";
     }
 
 }

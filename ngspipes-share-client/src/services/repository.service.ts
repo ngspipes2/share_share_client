@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
-import { ExternalRepository, ExternalRepositoryType } from '../entities/external-repository';
+import { Repository, EntityType, LocationType } from '../entities/repository';
 
 @Injectable()
-export class ExternalRepositoryService {
+export class RepositoryService {
 
     repositoryEvent = new Subject<string>();
     repositoryCreateEvent = new Subject<string>();
@@ -23,8 +23,8 @@ export class ExternalRepositoryService {
 
 
 
-    public getAllRepositories() : Promise<ExternalRepository[]> {
-        let url = ServersRoutes.GET_ALL_EXTERNAL_REPOSITORIES_ROUTE;
+    public getAllRepositories() : Promise<Repository[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORIES_ROUTE;
 
         return this.httpService.get(url)
             .then(response => {
@@ -37,12 +37,12 @@ export class ExternalRepositoryService {
             });
     }
 
-    private serverRepositoriesToClientRepositories(repositories : any[]) : ExternalRepository[] {
+    private serverRepositoriesToClientRepositories(repositories : any[]) : Repository[] {
         return repositories.map(this.serverRepositoryToClienteRepository);
     }
 
-    public getRepository(repositoryName : string) : Promise<ExternalRepository> {
-        let url = ServersRoutes.GET_EXTERNAL_REPOSITORY_ROUTE.replace('{repositoryName}', repositoryName);
+    public getRepository(repositoryName : string) : Promise<Repository> {
+        let url = ServersRoutes.GET_REPOSITORY_ROUTE.replace('{repositoryName}', repositoryName);
 
         return this.httpService.get(url)
             .then(response => {
@@ -55,19 +55,30 @@ export class ExternalRepositoryService {
             });
     }
 
-    private serverRepositoryToClienteRepository(repository : any) : ExternalRepository {
-        return new ExternalRepository(
+    private serverRepositoryToClienteRepository(repository : any) : Repository {
+        let repo = new Repository(
             repository.repositoryName,
-            repository.type,
+            repository.entityType,
+            repository.LocationType,
             repository.description,
-            new Date(repository.publishDate),
-            repository.publisher.userName,
+            new Date(repository.creationDate),
+            repository.isPublic,
+            repository.owner.userName,
             repository.location
         );
+
+        if(repo.locationType === LocationType.INTERNAL) {
+            repo.location = repo.location.replace(
+                "{server}",
+                repo.entityType === EntityType.TOOLS ? ServersRoutes.TOOLS_SERVER_URI : ServersRoutes.PIPELINES_SERVER_URI
+            );
+        }
+
+        return repo;
     }
 
-    public createRepository(repository : ExternalRepository) : Promise<boolean> {
-        let url = ServersRoutes.CREATE_EXTERNAL_REPOSITORY_ROUTE;
+    public createRepository(repository : Repository) : Promise<boolean> {
+        let url = ServersRoutes.CREATE_REPOSITORY_ROUTE;
 
         let data = this.clientRepositoryToServerRepository(repository);
 
@@ -78,19 +89,21 @@ export class ExternalRepositoryService {
             });
     }
 
-    private clientRepositoryToServerRepository(repository : ExternalRepository) : any {
+    private clientRepositoryToServerRepository(repository : Repository) : any {
         return {
             repositoryName : repository.repositoryName,
-            type : repository.type,
+            entityType : repository.entityType,
+            locationType : repository.locationType,
             description : repository.description,
-            publishDate : repository.publishDate,
-            publisher : { userName : repository.publisherName },
+            creationDate : repository.creationDate,
+            isPublic : repository.isPublic,
+            owner : { userName : repository.ownerName },
             location : repository.location
         };
     }
 
-    public updateRepository(repository : ExternalRepository) : Promise<boolean> {
-        let url = ServersRoutes.UPDATE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryName}", repository.repositoryName);
+    public updateRepository(repository : Repository) : Promise<boolean> {
+        let url = ServersRoutes.UPDATE_REPOSITORY_ROUTE.replace("{repositoryName}", repository.repositoryName);
 
         let data = this.clientRepositoryToServerRepository(repository);
 
@@ -102,7 +115,7 @@ export class ExternalRepositoryService {
     }
 
     public deleteRepository(repositoryName : string) : Promise<boolean> {
-        let url = ServersRoutes.DELETE_EXTERNAL_REPOSITORY_ROUTE.replace("{repositoryName}", repositoryName);
+        let url = ServersRoutes.DELETE_REPOSITORY_ROUTE.replace("{repositoryName}", repositoryName);
 
         return this.httpService.delete(url)
             .then((response) => {
@@ -111,8 +124,8 @@ export class ExternalRepositoryService {
             });
     }
 
-    public getRepositoriesOfUser(userName : string) : Promise<ExternalRepository[]> {
-        let url = ServersRoutes.GET_ALL_EXTERNAL_REPOSITORIES_ROUTE + "?userName=" + userName;
+    public getRepositoriesOfUser(userName : string) : Promise<Repository[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORIES_ROUTE + "?userName=" + userName;
 
         return this.httpService.get(url)
             .then(response => {
@@ -126,7 +139,7 @@ export class ExternalRepositoryService {
     }
 
     public getRepositoriesNames() : Promise<string[]> {
-        let url = ServersRoutes.GET_EXTERNAL_REPOSITORIES_NAMES_ROUTE;
+        let url = ServersRoutes.GET_REPOSITORIES_NAMES_ROUTE;
 
         return this.httpService.get(url)
             .then(response => {

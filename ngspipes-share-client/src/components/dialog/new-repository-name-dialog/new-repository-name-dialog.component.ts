@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
-import { InternalRepositoryService } from '../../../services/internal-repository.service';
+import { RepositoryService } from '../../../services/repository.service';
 
 @Component({
-  selector: 'app-new-internal-repository-name-dialog',
-  templateUrl: './new-internal-repository-name-dialog.component.html',
-  styleUrls: ['./new-internal-repository-name-dialog.component.scss']
+  selector: 'app-new-repository-name-dialog',
+  templateUrl: './new-repository-name-dialog.component.html',
+  styleUrls: ['./new-repository-name-dialog.component.scss']
 })
-export class NewInternalRepositoryNameDialogComponent implements OnInit {
+export class NewRepositoryNameDialogComponent implements OnInit {
 
     validCharactersRegex : RegExp = new RegExp(/[a-zA-Z0-9\-_]+$/);
     repositorySubscription : any;
@@ -21,13 +21,13 @@ export class NewInternalRepositoryNameDialogComponent implements OnInit {
 
 
 
-    constructor(private dialogRef: MatDialogRef<NewInternalRepositoryNameDialogComponent>,
-                private internalRepositoryService : InternalRepositoryService) { }
+    constructor(private dialogRef: MatDialogRef<NewRepositoryNameDialogComponent>,
+                private repositoryService : RepositoryService) { }
 
 
 
     ngOnInit() {
-        this.repositorySubscription = this.internalRepositoryService.repositoryEvent.subscribe(() => this.load());
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.load());
         this.load();
     }
 
@@ -38,7 +38,7 @@ export class NewInternalRepositoryNameDialogComponent implements OnInit {
     load() {
         this.loading = true;
 
-        this.internalRepositoryService.getRepositoriesNames()
+        this.repositoryService.getRepositoriesNames()
         .then(repositoriesNames => {
             this.loading = false;
             this.repositoriesNames = repositoriesNames;

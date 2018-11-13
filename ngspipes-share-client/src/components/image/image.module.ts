@@ -6,15 +6,13 @@ import { MaterialModule } from '../../app/material.module';
 
 import { UserImageComponent } from './user-image/user-image.component';
 import { GroupImageComponent } from './group-image/group-image.component';
-import { ExternalRepositoryImageComponent } from './external-repository-image/external-repository-image.component';
-import { InternalRepositoryImageComponent } from './internal-repository-image/internal-repository-image.component';
+import { RepositoryImageComponent } from './repository-image/repository-image.component';
 
 @NgModule({
   declarations: [
       UserImageComponent,
       GroupImageComponent,
-      ExternalRepositoryImageComponent,
-      InternalRepositoryImageComponent
+      RepositoryImageComponent
   ],
   imports: [
       BrowserModule,
@@ -24,8 +22,7 @@ import { InternalRepositoryImageComponent } from './internal-repository-image/in
   exports: [
       UserImageComponent,
       GroupImageComponent,
-      ExternalRepositoryImageComponent,
-      InternalRepositoryImageComponent
+      RepositoryImageComponent
   ]
 })
 export class ImageModule { }
