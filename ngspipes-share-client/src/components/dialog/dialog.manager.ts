@@ -10,6 +10,7 @@ import { SelectRepositoryConfigDialogComponent } from './select-repository-confi
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
+import { NewRepositoryLocationDialogComponent } from './new-repository-location-dialog/new-repository-location-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -82,6 +83,10 @@ export class DialogManager {
 
     public openNewRepositoryNameDialog() : MatDialogRef<NewRepositoryNameDialogComponent, string> {
         return this.dialog.open(NewRepositoryNameDialogComponent);
+    }
+
+    public openNewRepositoryLocationDialog() : MatDialogRef<NewRepositoryLocationDialogComponent, string> {
+        return this.dialog.open(NewRepositoryLocationDialogComponent);
     }
 
 }
