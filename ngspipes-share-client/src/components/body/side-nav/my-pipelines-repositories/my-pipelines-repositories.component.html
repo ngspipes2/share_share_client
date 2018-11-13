@@ -1,0 +1,34 @@
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
+                <mat-icon *ngIf="!loading">insert_drive_file</mat-icon>
+            </mat-panel-title>
+            <mat-panel-description>
+                My Pipelines Repositories
+                <div class="buttons">
+                    <button
+                        mat-icon-button
+                        matTooltip="Publish Repository"
+                        (click)="publishRepositoryClick()"
+                        #publishRepositoryButton
+                        (mouseenter)="publishRepositoryButton.color='accent'"
+                        (mouseleave)="publishRepositoryButton.color=''">
+                        <mat-icon>publish</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        matTooltip="Create Repository"
+                        (click)="createRepositoryClick()"
+                        #createRepositoryButton
+                        (mouseenter)="createRepositoryButton.color='accent'"
+                        (mouseleave)="createRepositoryButton.color=''">
+                        <mat-icon>add_circle</mat-icon>
+                    </button>
+                </div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-my-pipelines-repositories-list></app-my-pipelines-repositories-list>
+    </mat-expansion-panel>
+</mat-accordion>

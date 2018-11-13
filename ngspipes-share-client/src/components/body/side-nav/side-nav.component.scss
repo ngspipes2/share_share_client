@@ -1,3 +1,7 @@
 #root {
-    min-width: 20vw;
+    min-width: 25vw;
+}
+
+app-my-groups, app-my-tools-repositories, app-my-pipelines-repositories {
+    padding: 5px;
 }
