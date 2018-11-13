@@ -150,6 +150,20 @@ export class RepositoryService {
             });
     }
 
+    public getRepositoriesAccessibleByUser(userName : string) : Promise<Repository[]> {
+        let url = ServersRoutes.GET_ALL_REPOSITORIES_ROUTE + "?accessibleBy=" + userName;
+
+        return this.httpService.get(url)
+            .then(response => {
+                if(!response.text())
+                    return [];
+
+                let data : any = response.json();
+
+                return this.serverRepositoriesToClientRepositories(data);
+            });
+    }
+
 
     fireCreateEvent(repositoryName: string) {
         this.repositoryCreateEvent.next(repositoryName);
