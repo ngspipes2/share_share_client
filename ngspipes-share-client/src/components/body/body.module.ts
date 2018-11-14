@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SideNavModule } from './side-nav/side-nav.module';
 import { RepositoriesConfigModule } from './repositories-config/repositories-config.module';
 import { AccessTokensModule } from './access-tokens/access-tokens.module';
+import { LoginModule } from './login/login.module';
 
 import { BodyComponent } from './body.component';
 
@@ -25,7 +26,8 @@ import { BodyComponent } from './body.component';
         FormsModule,
         SideNavModule,
         RepositoriesConfigModule,
-        AccessTokensModule
+        AccessTokensModule,
+        LoginModule
     ],
     exports: [
         BodyComponent

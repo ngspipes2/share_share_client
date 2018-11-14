@@ -1,0 +1,29 @@
+<div id="root">
+    <mat-card id="form">
+        <mat-card-content>
+            <div class="image">
+                <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
+                <mat-icon *ngIf="!loading && !user">account_circle</mat-icon>
+                <app-user-image *ngIf="!loading && user" [userName]="user.userName" spinnerDiameter="75"></app-user-image>
+            </div>
+            <div class="inputs">
+                <mat-form-field>
+                    <input matInput placeholder="UserName" type="text" [(ngModel)]="userName" (blur)="userNameChanged()">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" (keyup.enter)="loginClick()">
+                    <mat-icon matSuffix (click)="hide = !hide">{{!hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                </mat-form-field>
+            </div>
+        </mat-card-content>
+
+        <mat-card-actions align="center">
+            <div>
+                <button mat-raised-button (click)="loginClick()" color="primary">Login</button>
+            </div>
+            <div>
+                <button mat-raised-button (click)="createAccountClick()" color="primary">Create Account</button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>

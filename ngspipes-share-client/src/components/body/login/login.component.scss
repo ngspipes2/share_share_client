@@ -1,0 +1,44 @@
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#form {
+    width: 350px;
+    height: 400px;
+    padding: 25px;
+    display: grid;
+    align-content: space-around;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+.inputs {
+    margin-top: 25px;
+    display: grid;
+}
+
+app-user-image, .image > mat-icon {
+    font-size: 100px;
+
+    height: 100px;
+    width: 100px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+mat-card-actions {
+    display: contents;
+}
+
+mat-card-actions ::ng-deep button {
+    width: 50%;
+}
