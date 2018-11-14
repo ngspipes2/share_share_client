@@ -1,5 +1,5 @@
 <div id="root">
-    <button mat-raised-button color="primary" id="header-wrapper">
+    <mat-toolbar color="primary" id="header-wrapper">
         <div id="header">
             <div class="header-title">
                 <mat-icon svgIcon="ticket" *ngIf="!loading"></mat-icon>
@@ -18,6 +18,6 @@
                 </button>
             </div>
         </div>
-    </button>
+    </mat-toolbar>
     <app-list [selectedTokenId]="selectedTokenId" (selectedTokenIdChange)="selectToken($event)"></app-list>
 </div>
