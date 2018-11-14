@@ -24,3 +24,9 @@ mat-spinner {
     display: inline-block;
     margin-right: 5px;
 }
+
+#name {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -2,8 +2,10 @@
     class="entity"
     routerLink="/groups/{{group.groupName}}">
     <app-group-image class="image" [groupName]="group.groupName" [spinnerDiameter]="15"></app-group-image>
-    {{group.groupName}}
-
+    <div id="name" [matTooltip]="group.groupName">
+        {{group.groupName}}
+    </div>
+    
     <div class="icons">
         <mat-spinner color="accent" *ngIf="deleting" [diameter]="25"></mat-spinner>
         <mat-icon   #deleteIcon

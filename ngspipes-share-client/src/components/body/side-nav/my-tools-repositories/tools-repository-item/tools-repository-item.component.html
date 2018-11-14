@@ -2,7 +2,9 @@
     class="entity"
     routerLink="/repositories/{{repository.repositoryName}}">
     <app-repository-image class="image" [repositoryName]="repository.repositoryName" [spinnerDiameter]="15"></app-repository-image>
-    {{repository.repositoryName}}
+    <div id="name" [matTooltip]="repository.repositoryName">
+        {{repository.repositoryName}}
+    </div>
 
     <div class="icons">
         <mat-spinner color="accent" *ngIf="deleting" [diameter]="25"></mat-spinner>
