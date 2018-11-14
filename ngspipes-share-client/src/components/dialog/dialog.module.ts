@@ -16,6 +16,7 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 import { NewRepositoryLocationDialogComponent } from './new-repository-location-dialog/new-repository-location-dialog.component';
+import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-entity-type-dialog/select-repository-entity-type-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NewRepositoryLocationDialogComponent } from './new-repository-location-
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
-      NewRepositoryLocationDialogComponent
+      NewRepositoryLocationDialogComponent,
+      SelectRepositoryEntityTypeDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -45,7 +47,8 @@ import { NewRepositoryLocationDialogComponent } from './new-repository-location-
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
-      NewRepositoryLocationDialogComponent
+      NewRepositoryLocationDialogComponent,
+      SelectRepositoryEntityTypeDialogComponent
   ],
   providers: [
       DialogManager
@@ -59,7 +62,8 @@ import { NewRepositoryLocationDialogComponent } from './new-repository-location-
       NewAccessTokenNameDialogComponent,
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
-      NewRepositoryLocationDialogComponent
+      NewRepositoryLocationDialogComponent,
+      SelectRepositoryEntityTypeDialogComponent
   ]
 })
 export class DialogModule { }

@@ -1,0 +1,21 @@
+<div class="container">
+    <p>Select Repository type:</p>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-select #select>
+                <mat-select-trigger *ngIf="select.value">
+                    <mat-icon>{{select.value.icon}}</mat-icon>
+                    {{select.value.label}}
+                </mat-select-trigger>
+                <mat-option *ngFor="let option of options" [value]="option">
+                    <mat-icon>{{option.icon}}</mat-icon>
+                    {{option.label}}
+                </mat-option>
+            </mat-select>
+
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="dialogRef.close(select.value? select.value.value : undefined)">Select</button>
+    </div>
+</div>

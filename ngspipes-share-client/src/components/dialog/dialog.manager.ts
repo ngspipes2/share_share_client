@@ -2,6 +2,8 @@ import { Injectable, TemplateRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 
+import { EntityType } from '../../entities/repository';
+
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
@@ -11,6 +13,8 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 import { NewRepositoryLocationDialogComponent } from './new-repository-location-dialog/new-repository-location-dialog.component';
+
+import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-entity-type-dialog/select-repository-entity-type-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -87,6 +91,10 @@ export class DialogManager {
 
     public openNewRepositoryLocationDialog() : MatDialogRef<NewRepositoryLocationDialogComponent, string> {
         return this.dialog.open(NewRepositoryLocationDialogComponent);
+    }
+
+    public openSelectRepositoryEntityTypeDialog() : MatDialogRef<SelectRepositoryEntityTypeDialogComponent, EntityType> {
+        return this.dialog.open(SelectRepositoryEntityTypeDialogComponent);
     }
 
 }
