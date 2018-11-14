@@ -52,6 +52,14 @@ export class MyToolsRepositoriesListComponent implements OnInit {
         .then(repositories => {
             this.loading = false;
             this.repositories = repositories.filter(repository => repository.entityType === EntityType.TOOLS);
+            this.repositories = this.repositories.sort((a,b) => {
+                if (a.repositoryName < b.repositoryName)
+                    return -1;
+                if (a.repositoryName > b.repositoryName)
+                    return 1;
+
+                return 0;
+            });
         })
         .catch(error=>{
             this.loading = false;

@@ -52,6 +52,14 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
         .then(groups => {
             this.loading = false;
             this.groups = groups;
+            this.groups = this.groups.sort((a,b) => {
+                if (a.groupName < b.groupName)
+                    return -1;
+                if (a.groupName > b.groupName)
+                    return 1;
+
+                return 0;
+            });
         })
         .catch(error=>{
             this.loading = false;

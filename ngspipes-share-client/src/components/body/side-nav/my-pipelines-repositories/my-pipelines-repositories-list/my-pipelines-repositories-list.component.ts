@@ -52,6 +52,14 @@ export class MyPipelinesRepositoriesListComponent implements OnInit, OnDestroy {
         .then(repositories => {
             this.loading = false;
             this.repositories = repositories.filter(repository => repository.entityType === EntityType.PIPELINES);
+            this.repositories = this.repositories.sort((a,b) => {
+                if (a.repositoryName < b.repositoryName)
+                    return -1;
+                if (a.repositoryName > b.repositoryName)
+                    return 1;
+
+                return 0;
+            });
         })
         .catch(error=>{
             this.loading = false;
