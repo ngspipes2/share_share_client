@@ -2,8 +2,6 @@
     <input matInput placeholder="Repository name" type="text" [(ngModel)]="filterText">
 </mat-form-field>
 
-<mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-
 <div id="check-boxes">
     <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptOwner" matTooltip="Owner">
         <mat-icon>person</mat-icon>
@@ -11,6 +9,10 @@
     <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptMember" matTooltip="Member">
         <mat-icon>people</mat-icon>
     </mat-checkbox>
+</div>
+
+<div class="spinner">
+    <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
 </div>
 
 <mat-nav-list *ngIf="!loading">
