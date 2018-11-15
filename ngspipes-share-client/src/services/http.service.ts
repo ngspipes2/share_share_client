@@ -54,15 +54,32 @@ export class HttpService {
     }
 
     public uploadFile(url : string, file : any) : Promise<any> {
-        let formData : FormData = new FormData();
-        formData.append('file', file);
+        let credentials = this.sessionService.getCurrentCredentials();
 
-        return this.execute({
-            method : "POST",
-            url : url,
-            body : formData,
-            headers : this.createUploadFileHeaders()
-        });
+      return new Promise((resolve, reject) => {
+          var formData = new FormData();
+          formData.append("file", file);
+
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", url);
+          xhr.setRequestHeader("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
+          xhr.send(formData);
+
+          xhr.onreadystatechange = function() {
+              if(xhr.readyState === 4) {
+                  if(xhr.status === 200) {
+                      resolve(xhr);
+                  } else {
+                      console.log(xhr.response);
+                      if(xhr.status === 412) {
+                          reject(xhr.response.responseText);
+                      } else {
+                          reject("Error contacting Server!");
+                      }
+                  }
+              }
+          }
+      });
     }
 
 
@@ -121,19 +138,6 @@ export class HttpService {
         let headers = new Headers();
 
         headers.append("Content-Type", "application/json");
-        headers.append('Accept', 'application/json');
-
-        if(credentials)
-            headers.append("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
-
-        return headers;
-    }
-
-    private createUploadFileHeaders() : Headers {
-        let credentials = this.sessionService.getCurrentCredentials();
-        let headers = new Headers();
-
-        headers.append('Content-Type', 'multipart/form-data');
         headers.append('Accept', 'application/json');
 
         if(credentials)
