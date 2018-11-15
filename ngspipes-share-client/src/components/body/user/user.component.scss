@@ -1,0 +1,29 @@
+#root {
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+
+#user-profile-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+#user-entities-container {
+    display: flex;
+}
+
+#user-groups-container {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin: 40px;
+}
+
+#user-repositories-container {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin: 40px;
+}

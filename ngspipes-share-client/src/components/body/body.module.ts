@@ -10,6 +10,7 @@ import { SideNavModule } from './side-nav/side-nav.module';
 import { RepositoriesConfigModule } from './repositories-config/repositories-config.module';
 import { AccessTokensModule } from './access-tokens/access-tokens.module';
 import { LoginModule } from './login/login.module';
+import { UserModule } from './user/user.module';
 
 import { BodyComponent } from './body.component';
 
@@ -27,7 +28,8 @@ import { BodyComponent } from './body.component';
         SideNavModule,
         RepositoriesConfigModule,
         AccessTokensModule,
-        LoginModule
+        LoginModule,
+        UserModule
     ],
     exports: [
         BodyComponent

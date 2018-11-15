@@ -1,0 +1,21 @@
+<a  mat-list-item
+    class="entity"
+    routerLink="/groups/{{group.groupName}}">
+    <app-group-image class="image" [groupName]="group.groupName" [spinnerDiameter]="15"></app-group-image>
+    <div id="name" [matTooltip]="group.groupName">
+        {{group.groupName}}
+    </div>
+
+    <div class="icons">
+        <mat-spinner color="accent" *ngIf="deleting" [diameter]="25"></mat-spinner>
+        <mat-icon   #deleteIcon
+                    id="delete-icon"
+                    *ngIf="isOwner && editable && !deleting"
+                    matTooltip="Delete"
+                    (mouseenter)="deleteIcon.color='warn'"
+                    (mouseleave)="deleteIcon.color=''"
+                    (click)="deleteClick()">delete</mat-icon>
+        <mat-icon *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
+        <mat-icon *ngIf="isMember" matTooltip="Member">people</mat-icon>
+    </div>
+</a>

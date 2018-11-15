@@ -1,0 +1,49 @@
+#root {
+    margin: 20px;
+    display: flex;
+    height: 300px;
+}
+
+#info-container {
+    display: grid;
+    align-content: space-between;
+    width: 60%;
+    margin: 5px;
+}
+
+#image-container {
+    display: grid;
+    width: 40%;
+    margin: 5px;
+    align-content: space-around;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+}
+
+.field > div {
+    margin-left: 15px;
+}
+
+.field-button {
+    display: flex;
+    justify-content: center;
+}
+
+#image {
+    display: flex;
+    justify-content: center;
+}
+
+app-user-image, mat-icon {
+    font-size: 200px;
+
+    height: 200px;
+    width: 200px;
+}
+
+app-user-image ::ng-deep img {
+    border-radius: 50%;
+}

@@ -1,0 +1,13 @@
+<div id="root">
+    <div id="user-profile-container">
+        <app-user-profile [userName]="userName" [editable]="editable"></app-user-profile>
+    </div>
+    <div id="user-entities-container">
+        <div id="user-groups-container">
+            <app-user-groups [userName]="userName" [editable]="editable"></app-user-groups>
+        </div>
+        <div id="user-repositories-container">
+            <app-user-repositories [userName]="userName" [editable]="editable"></app-user-repositories>
+        </div>
+    </div>
+</div>
