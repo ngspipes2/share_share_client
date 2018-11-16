@@ -3,8 +3,10 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../app/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
+
+import { ImageModule } from '../image/image.module';
 
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog.manager';
@@ -17,6 +19,9 @@ import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.
 import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 import { NewRepositoryLocationDialogComponent } from './new-repository-location-dialog/new-repository-location-dialog.component';
 import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-entity-type-dialog/select-repository-entity-type-dialog.component';
+import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
+import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
+import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,14 +34,19 @@ import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-e
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
       NewRepositoryLocationDialogComponent,
-      SelectRepositoryEntityTypeDialogComponent
+      SelectRepositoryEntityTypeDialogComponent,
+      SelectUserDialogComponent,
+      SelectGroupDialogComponent,
+      SelectRepositoryDialogComponent
   ],
   imports: [
       BrowserModule,
       BrowserAnimationsModule,
       MaterialModule,
       FormsModule,
-      ClipboardModule
+      ReactiveFormsModule,
+      ClipboardModule,
+      ImageModule
   ],
   exports: [
       SimpleDialogComponent,
@@ -48,7 +58,10 @@ import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-e
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
       NewRepositoryLocationDialogComponent,
-      SelectRepositoryEntityTypeDialogComponent
+      SelectRepositoryEntityTypeDialogComponent,
+      SelectUserDialogComponent,
+      SelectGroupDialogComponent,
+      SelectRepositoryDialogComponent
   ],
   providers: [
       DialogManager
@@ -63,7 +76,10 @@ import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-e
       ShowTokenDialogComponent,
       NewRepositoryNameDialogComponent,
       NewRepositoryLocationDialogComponent,
-      SelectRepositoryEntityTypeDialogComponent
+      SelectRepositoryEntityTypeDialogComponent,
+      SelectUserDialogComponent,
+      SelectGroupDialogComponent,
+      SelectRepositoryDialogComponent
   ]
 })
 export class DialogModule { }

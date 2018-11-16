@@ -1,0 +1,40 @@
+.container {
+    padding: 10px;
+    width: 300px;
+}
+
+.spinner {
+    display: flex;
+    justify-content: center;
+    min-height: 30px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+}
+
+.image {
+    display: flex;
+    margin-right: 10px;
+}
+
+app-repository-image {
+    font-size: 25px;
+
+    height: 25px;
+    width: 25px;
+}
+
+app-repository-image ::ng-deep img {
+    border-radius: 50%;
+}
+
+app-repository-image ::ng-deep .mat-icon {
+    margin: 0px;
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

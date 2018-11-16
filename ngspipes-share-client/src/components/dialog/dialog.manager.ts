@@ -13,8 +13,10 @@ import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialo
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
 import { NewRepositoryNameDialogComponent } from './new-repository-name-dialog/new-repository-name-dialog.component';
 import { NewRepositoryLocationDialogComponent } from './new-repository-location-dialog/new-repository-location-dialog.component';
-
 import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-entity-type-dialog/select-repository-entity-type-dialog.component';
+import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
+import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
+import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -95,6 +97,18 @@ export class DialogManager {
 
     public openSelectRepositoryEntityTypeDialog() : MatDialogRef<SelectRepositoryEntityTypeDialogComponent, EntityType> {
         return this.dialog.open(SelectRepositoryEntityTypeDialogComponent);
+    }
+
+    public openSelectUserDialog() : MatDialogRef<SelectUserDialogComponent, string> {
+        return this.dialog.open(SelectUserDialogComponent);
+    }
+
+    public openSelectGroupDialog() : MatDialogRef<SelectGroupDialogComponent, string> {
+        return this.dialog.open(SelectGroupDialogComponent);
+    }
+
+    public openSelectRepositoryDialog() : MatDialogRef<SelectRepositoryDialogComponent, string> {
+        return this.dialog.open(SelectRepositoryDialogComponent);
     }
 
 }
