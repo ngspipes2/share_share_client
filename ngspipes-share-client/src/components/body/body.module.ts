@@ -13,6 +13,7 @@ import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
 
 import { BodyComponent } from './body.component';
+import { GroupModule } from './group/group.module';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { BodyComponent } from './body.component';
         RepositoriesConfigModule,
         AccessTokensModule,
         LoginModule,
-        UserModule
+        UserModule,
+        GroupModule
     ],
     exports: [
         BodyComponent
