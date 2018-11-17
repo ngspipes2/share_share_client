@@ -20,13 +20,15 @@ import { RepositoriesConfigComponent } from './body/repositories-config/reposito
 import { AccessTokensComponent } from './body/access-tokens/access-tokens.component';
 import { LoginComponent } from './body/login/login.component';
 import { UserComponent } from './body/user/user.component';
+import { GroupComponent } from './body/group/group.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: 'repositoriesconfig', component: RepositoriesConfigComponent, pathMatch: 'full', canActivate: [AuthGuard]},
-    { path: 'mytokens', component: AccessTokensComponent, pathMatch: 'full', canActivate: [AuthGuard]},
-    { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard]},
+    { path: 'repositoriesconfig', component: RepositoriesConfigComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+    { path: 'mytokens', component: AccessTokensComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+    { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard] },
+    { path: 'groups/:groupName', component : GroupComponent, pathMatch: 'full', canActivate: [AuthGuard] }
 ];
 
 @NgModule({
