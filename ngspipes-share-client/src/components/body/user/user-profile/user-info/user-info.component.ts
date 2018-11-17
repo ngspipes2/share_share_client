@@ -52,7 +52,7 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
         })
         .catch(error => {
             this.loading = false;
-            this.dialogManager.openErrorDialog("error getting user!", error);
+            this.dialogManager.openErrorDialog("Error getting user!", error);
             console.error(error);
         });
     }
