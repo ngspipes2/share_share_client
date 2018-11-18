@@ -1,0 +1,31 @@
+<div id="root">
+    <mat-form-field class="search-field">
+        <input matInput placeholder="Member name" type="text" [(ngModel)]="filterText">
+    </mat-form-field>
+
+    <div id="check-boxes">
+        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptReadAccess" matTooltip="Read Access">
+            <mat-icon svgIcon="pencil-off"></mat-icon>
+        </mat-checkbox>
+        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptWriteAccess" matTooltip="Write Access">
+            <mat-icon svgIcon="pencil"></mat-icon>
+        </mat-checkbox>
+        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptUser" matTooltip="User">
+            <mat-icon>person</mat-icon>
+        </mat-checkbox>
+        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptGroup" matTooltip="Group">
+            <mat-icon>people</mat-icon>
+        </mat-checkbox>
+    </div>
+
+    <div id="spinner">
+        <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
+    </div>
+
+    <mat-nav-list *ngIf="!loading">
+        <div *ngFor="let member of members">
+            <app-user-member-item *ngIf="member.userName && acceptUser(member)" [repositoryName]="repositoryName" [member]="member" [editable]="editable"></app-user-member-item>
+            <app-group-member-item *ngIf="member.groupName && acceptGroup(member)" [repositoryName]="repositoryName" [member]="member" [editable]="editable"></app-group-member-item>
+        </div>
+    </mat-nav-list>
+</div>

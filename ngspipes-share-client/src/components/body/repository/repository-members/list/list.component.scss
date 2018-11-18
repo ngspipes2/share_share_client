@@ -1,0 +1,22 @@
+#root {
+    margin: 15px 35px 15px 35px;
+}
+
+.search-field {
+    width: 100%;
+}
+
+#check-boxes {
+    display: flex;
+    justify-content: space-around;
+}
+
+#spinner {
+    display: flex;
+    justify-content: center;
+}
+
+mat-nav-list {
+    height: 200px;
+    overflow: auto;
+}

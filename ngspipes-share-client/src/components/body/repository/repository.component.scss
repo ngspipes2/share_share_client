@@ -1,0 +1,23 @@
+#root {
+    display: grid;
+    width: 100%;
+    height: 100%;
+}
+
+#repository-profile-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px;
+}
+
+#repository-entities-container {
+    display: flex;
+    justify-content: center;
+}
+
+#repository-members-container {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin: 40px;
+}

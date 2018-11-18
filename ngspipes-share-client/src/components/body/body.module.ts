@@ -11,9 +11,10 @@ import { RepositoriesConfigModule } from './repositories-config/repositories-con
 import { AccessTokensModule } from './access-tokens/access-tokens.module';
 import { LoginModule } from './login/login.module';
 import { UserModule } from './user/user.module';
+import { GroupModule } from './group/group.module';
+import { RepositoryModule } from './repository/repository.module';
 
 import { BodyComponent } from './body.component';
-import { GroupModule } from './group/group.module';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { GroupModule } from './group/group.module';
         AccessTokensModule,
         LoginModule,
         UserModule,
-        GroupModule
+        GroupModule,
+        RepositoryModule
     ],
     exports: [
         BodyComponent
