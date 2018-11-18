@@ -53,33 +53,33 @@ export class HttpService {
         });
     }
 
-    public uploadFile(url : string, file : any) : Promise<any> {
+    public uploadFile(url : string, file : any, body? : any) : Promise<any> {
         let credentials = this.sessionService.getCurrentCredentials();
 
-      return new Promise((resolve, reject) => {
-          var formData = new FormData();
-          formData.append("file", file);
+        return new Promise((resolve, reject) => {
+              var formData = new FormData();
+              formData.append("file", file);
 
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", url);
-          xhr.setRequestHeader("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
-          xhr.send(formData);
+              var xhr = new XMLHttpRequest();
+              xhr.open("POST", url);
+              xhr.setRequestHeader("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
+              xhr.send(formData);
 
-          xhr.onreadystatechange = function() {
-              if(xhr.readyState === 4) {
-                  if(xhr.status === 200) {
-                      resolve(xhr);
-                  } else {
-                      console.log(xhr.response);
-                      if(xhr.status === 412) {
-                          reject(xhr.response.responseText);
+              xhr.onreadystatechange = function() {
+                  if(xhr.readyState === 4) {
+                      if(xhr.status === 200) {
+                          resolve(xhr);
                       } else {
-                          reject("Error contacting Server!");
+                          console.log(xhr.response);
+                          if(xhr.status === 412) {
+                              reject(xhr.response.responseText);
+                          } else {
+                              reject("Error contacting Server!");
+                          }
                       }
                   }
               }
-          }
-      });
+          });
     }
 
 

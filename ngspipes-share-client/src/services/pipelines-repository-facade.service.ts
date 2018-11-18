@@ -28,6 +28,19 @@ export class PipelinesRepositoryFacadeService {
         });
     }
 
+    public setRepositoryImage(repositoryConfig : RepositoryConfig, file : any) : Promise<boolean> {
+        let url = ServersRoutes.PIPELINES_FACADE_SET_LOGO_ROUTE;
+        let data = {
+            repositoryLocation : repositoryConfig.location,
+            repositoryConfig : this.createConfig(repositoryConfig.configs)
+        };
+
+        return this.httpService.uploadFile(url, data, file)
+        .then(response => {
+            return response.status === 200;
+        });
+    }
+
     private createConfig(configs : Config[] ) : any {
         let config = {};
 
