@@ -65,7 +65,7 @@ export class GroupComponent implements OnInit {
         })
         .catch(error => {
             this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting user!", error);
+            this.dialogManager.openErrorDialog("Error getting group!", error);
             console.error(error);
         });
     }

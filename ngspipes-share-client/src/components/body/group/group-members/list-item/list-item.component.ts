@@ -54,7 +54,7 @@ export class ListItemComponent implements OnInit {
         .then(result => {
             this.deleting = false;
             if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Group could not be deleted. Please try again later.");
+                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted. Please try again later.");
         })
         .catch(error => {
             this.deleting = false;

@@ -59,7 +59,7 @@ export class RepositoryService {
         let repo = new Repository(
             repository.repositoryName,
             repository.entityType,
-            repository.LocationType,
+            repository.locationType,
             repository.description,
             new Date(repository.creationDate),
             repository.isPublic,
