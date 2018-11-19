@@ -67,7 +67,6 @@ export class RepositoryComponent implements OnInit {
             this.editable = repository.ownerName === currentUserName;
 
             this.isInternalRepository = repository.locationType === LocationType.INTERNAL;
-console.log(repository);
         })
         .catch(error => {
             this.loading = false;
