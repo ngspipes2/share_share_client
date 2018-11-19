@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Repository, EntityType, LocationType  } from '../../../entities/repository';
 import { RepositoryService } from '../../../services/repository.service';
@@ -7,12 +7,17 @@ import { RepositoryConfigService } from '../../../services/repository-config.ser
 import { ToolsRepositoryFacadeService } from '../../../services/tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from '../../../services/pipelines-repository-facade.service';
 
+import { LoadImageComponent } from '../load-image/load-image.component';
+
 @Component({
   selector: 'app-repository-image',
   templateUrl: './repository-image.component.html',
   styleUrls: ['./repository-image.component.scss']
 })
 export class RepositoryImageComponent implements OnInit, OnDestroy {
+
+    @ViewChild("loadImage")
+    loadImage : LoadImageComponent;
 
     @Input()
     repositoryName : string;
@@ -26,130 +31,79 @@ export class RepositoryImageComponent implements OnInit, OnDestroy {
 
     repository : Repository;
     repositoryConfig : RepositoryConfig;
-    imageData : any;
-
-    loading : boolean;
-    inited : boolean = false;
-    observer: IntersectionObserver;
 
 
 
     constructor(private repositoryService : RepositoryService,
                 private repositoryConfigService : RepositoryConfigService,
                 private toolsRepositoryFacadeService : ToolsRepositoryFacadeService,
-                private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService,
-                private element : ElementRef) {}
+                private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService) {}
 
 
 
     ngOnInit() {
-        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
-        this.observer.observe(this.element.nativeElement);
-
         this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe((repositoryName) => {
-            if(!this.inited)
-                return;
-
             if(!this.repository)
-                this.load();
-            else if(repositoryName === this.repositoryName)
-                this.load();
+                this.loadImage.update();
+            else if(this.repository.repositoryName === repositoryName)
+                this.loadImage.update();
         });
 
         this.configSubscription = this.repositoryConfigService.configEvent.subscribe((configName) => {
-            if(!this.inited)
-                return;
-
             if(!this.repositoryConfig)
-                this.load();
+                this.loadImage.update();
             else if(this.repositoryConfig.name === configName)
-                this.load();
+                this.loadImage.update();
         });
     }
 
     ngOnDestroy() {
-        this.observer.disconnect();
         this.repositorySubscription.unsubscribe();
         this.configSubscription.unsubscribe();
     }
 
-    handleIntersect(entries, observer) : void {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-            if (entry.isIntersecting && !this.inited) {
-                this.inited = true;
-                this.load();
-            }
-        });
-    }
-
-    load() {
-        this.loadRepository()
-        .then(() => {
-            this.loadRepositoryConfig()
-            .then(() => {
-                if(this.repositoryConfig)
-                    this.loadImage();
-            })
-        });
-    }
-
-    loadRepository() : Promise<Repository> {
-        this.loading = true;
-
+    getRepository() : Promise<Repository> {
         return this.repositoryService.getRepository(this.repositoryName)
         .then(repository => {
-            this.loading = false;
             this.repository = repository;
             return repository;
-        })
-        .catch(error => {
-            this.loading = false;
-            this.imageData = undefined;
-            throw error;
         });
     }
 
-    loadRepositoryConfig() : Promise<RepositoryConfig> {
-        this.loading = true;
+    getRepositoryConfig() : Promise<RepositoryConfig> {
+        let location = this.repository.location;
 
-        return this.repositoryConfigService.getConfigsForLocation(this.repository.location)
+        return this.repositoryConfigService.getConfigsForLocation(location)
         .then(configs => {
-            this.loading = false;
-            this.repositoryConfig = configs.length > 0 ? configs[0] : undefined;
-            return configs[0];
-        })
-        .catch(error => {
-            this.loading = false;
-            this.imageData = undefined;
-            throw error;
+            this.repositoryConfig = undefined;
+
+            if(configs.length > 0)
+                this.repositoryConfig = configs[0];
+
+            return this.repositoryConfig;
         });
     }
 
-    loadImage() : Promise<any> {
-        this.loading = true;
+    getImage() : Promise<any> {
+        return this.getRepository()
+        .then((repository) => {
+            if(!repository)
+                return null;
 
-        let promise : Promise<any>;
-        if(this.repository.entityType === EntityType.PIPELINES)
-            promise = this.pipelinesRepositoryFacadeService.getRepositoryImage(this.repositoryConfig);
-        else
-            promise = this.toolsRepositoryFacadeService.getRepositoryImage(this.repositoryConfig)
+            return this.getRepositoryConfig()
+            .then((config) => {
+                if(!config)
+                    return null;
 
-        return promise.then(image => {
-                this.loading = false;
-                this.imageData = image;
-                return image;
-            })
-            .catch(error => {
-                this.loading = false;
-                this.imageData = undefined;
-                throw error;
+                if(repository.entityType === EntityType.PIPELINES)
+                    return this.pipelinesRepositoryFacadeService.getRepositoryImage(config);
+                else
+                    return this.toolsRepositoryFacadeService.getRepositoryImage(config);
             });
+        });
     }
 
     getIcon() : string {
-        if(!this.repository)
-            return "";
-
         return this.repository.entityType === EntityType.PIPELINES ? "insert_drive_file" : "build";
     }
 

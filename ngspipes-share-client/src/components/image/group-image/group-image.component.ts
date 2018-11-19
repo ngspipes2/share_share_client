@@ -1,12 +1,8 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    OnDestroy,
-    ElementRef
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { GroupService } from '../../../services/group.service';
+
+import { LoadImageComponent } from '../load-image/load-image.component';
 
 @Component({
     selector: 'app-group-image',
@@ -14,6 +10,9 @@ import { GroupService } from '../../../services/group.service';
     styleUrls: ['./group-image.component.scss']
 })
 export class GroupImageComponent implements OnInit, OnDestroy {
+
+    @ViewChild("loadImage")
+    loadImage : LoadImageComponent;
 
     @Input()
     groupName : string;
@@ -23,58 +22,26 @@ export class GroupImageComponent implements OnInit, OnDestroy {
     spinnerColor : string = "accent";
 
     groupSubscription : any;
-    imageData : any;
-    loading : boolean;
-    inited : boolean = false;
-
-    observer: IntersectionObserver;
 
 
 
-    constructor(private groupService : GroupService,
-                private element : ElementRef) {}
+    constructor(private groupService : GroupService) { }
 
 
 
     ngOnInit() {
-        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
-        this.observer.observe(this.element.nativeElement);
-
         this.groupSubscription = this.groupService.groupEvent.subscribe((groupName) => {
-            if(!this.inited)
-                return;
-
             if(groupName === this.groupName)
-                this.load();
+                this.loadImage.update();
         });
     }
 
     ngOnDestroy() {
-        this.observer.disconnect();
         this.groupSubscription.unsubscribe();
     }
 
-    handleIntersect(entries, observer) : void {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-            if (entry.isIntersecting && !this.inited) {
-                this.inited = true;
-                this.load();
-            }
-        });
-    }
-
-    load() {
-        this.loading = true;
-
-        this.groupService.getGroupImage(this.groupName)
-            .then(image => {
-                this.loading = false;
-                this.imageData = image;
-            })
-            .catch(error => {
-                this.loading = false;
-                this.imageData = undefined;
-            });
+    getImage() : Promise<any> {
+        return this.groupService.getGroupImage(this.groupName);
     }
 
 }

@@ -1,12 +1,8 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    OnDestroy,
-    ElementRef
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { UserService } from '../../../services/user.service';
+
+import { LoadImageComponent } from '../load-image/load-image.component';
 
 @Component({
     selector: 'app-user-image',
@@ -14,6 +10,9 @@ import { UserService } from '../../../services/user.service';
     styleUrls: ['./user-image.component.scss']
 })
 export class UserImageComponent implements OnInit, OnDestroy {
+
+    @ViewChild("loadImage")
+    loadImage : LoadImageComponent;
 
     @Input()
     userName : string;
@@ -23,61 +22,26 @@ export class UserImageComponent implements OnInit, OnDestroy {
     spinnerColor : string = "accent";
 
     userSubscription : any;
-    imageData : any;
-    loading : boolean;
-    inited : boolean = false;
-
-    observer: IntersectionObserver;
 
 
 
-
-
-    constructor(private userService : UserService,
-                private element: ElementRef) {}
+    constructor(private userService : UserService) {}
 
 
 
     ngOnInit(): void {
-        this.observer = new IntersectionObserver(this.handleIntersect.bind(this));
-        this.observer.observe(this.element.nativeElement);
-
         this.userSubscription = this.userService.userEvent.subscribe((userName) => {
-            if(!this.inited)
-                return;
-
             if(userName === this.userName)
-                this.load();
+                this.loadImage.update();
         });
     }
 
     ngOnDestroy(): void {
-        this.observer.disconnect();
         this.userSubscription.unsubscribe();
     }
 
-    //LAZY LOAD
-    handleIntersect(entries, observer) : void {
-        entries.forEach((entry: IntersectionObserverEntry) => {
-            if (entry.isIntersecting && !this.inited) {
-                this.inited = true;
-                this.load();
-            }
-        });
-    }
-
-    load() {
-        this.loading = true;
-
-        this.userService.getUserImage(this.userName)
-            .then(image => {
-                this.loading = false;
-                this.imageData = image;
-            })
-            .catch(error => {
-                this.loading = false;
-                this.imageData = undefined;
-            });
+    getImage() : Promise<any> {
+        return this.userService.getUserImage(this.userName);
     }
 
 }

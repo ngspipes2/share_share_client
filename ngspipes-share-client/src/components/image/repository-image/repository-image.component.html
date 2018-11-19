@@ -1,5 +1,8 @@
-<div class="content">
-    <mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" [color]="spinnerColor"></mat-spinner>
-    <img *ngIf="!loading && imageData" [src]="'data:image/jpeg;base64,' + imageData">
-    <mat-icon *ngIf="!loading && !imageData">{{getIcon()}}</mat-icon>
-</div>
+<app-load-image
+    #loadImage
+    [imageSupplier]="getImage.bind(this)"
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [svgIcon]="repository ? null : 'repository'"
+    [icon]="repository ? getIcon() : null">
+</app-load-image>
