@@ -1,11 +1,6 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon>account_circle</mat-icon>
-                Profile
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-user-info [userName]="userName" [editable]="editable"></app-user-info>
-</div>
+<app-entities-frame headerTitle="Profile" icon="account_circle">
+    <app-user-info frame-body
+        [userName]="userName"
+        [editable]="editable">
+    </app-user-info>
+</app-entities-frame>

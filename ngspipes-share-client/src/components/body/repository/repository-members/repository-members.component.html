@@ -1,32 +1,24 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon *ngIf="!loading" svgIcon="repository"></mat-icon>
-                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
-                Members
-            </div>
-            <div class="header-buttons" *ngIf="editable">
-                <button
-                    mat-icon-button
-                    matTooltip="Add User Member"
-                    (click)="addUserMemberClick()"
-                    #addUserButton
-                    (mouseenter)="addUserButton.color='accent'"
-                    (mouseleave)="addUserButton.color=''">
-                    <mat-icon>person_add</mat-icon>
-                </button>
-                <button
-                    mat-icon-button
-                    matTooltip="Add Group Member"
-                    (click)="addGroupMemberClick()"
-                    #addGroupButton
-                    (mouseenter)="addGroupButton.color='accent'"
-                    (mouseleave)="addGroupButton.color=''">
-                    <mat-icon>group_add</mat-icon>
-                </button>
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-list [repositoryName]="repositoryName" [editable]="editable"></app-list>
-</div>
+<app-entities-frame headerTitle="Members" icon="people">
+    <div *ngIf="editable" frame-header-buttons>
+        <button mat-icon-button
+            matTooltip="Add User Member"
+            (click)="addUserMemberClick()"
+            #addUserButton
+            (mouseenter)="addUserButton.color='accent'"
+            (mouseleave)="addUserButton.color=''">
+            <mat-icon>person_add</mat-icon>
+        </button>
+        <button mat-icon-button
+            matTooltip="Add Group Member"
+            (click)="addGroupMemberClick()"
+            #addGroupButton
+            (mouseenter)="addGroupButton.color='accent'"
+            (mouseleave)="addGroupButton.color=''">
+            <mat-icon>group_add</mat-icon>
+        </button>
+    </div>
+    <app-list frame-body
+        [repositoryName]="repositoryName"
+        [editable]="editable">
+    </app-list>
+</app-entities-frame>

@@ -8,6 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
+import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
 
 import { UserProfileComponent } from './user-profile.component';
 import { UserInfoComponent } from './user-info/user-info.component';
@@ -21,7 +22,8 @@ import { UserInfoComponent } from './user-info/user-info.component';
         FormsModule,
         MaterialModule,
         DialogModule,
-        ImageModule
+        ImageModule,
+        EntitiesFrameModule
     ],
     declarations: [
         UserProfileComponent,

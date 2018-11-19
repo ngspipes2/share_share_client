@@ -1,23 +1,16 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon *ngIf="!loading">group</mat-icon>
-                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
-                Members
-            </div>
-            <div class="header-buttons" *ngIf="editable">
-                <button
-                    mat-icon-button
-                    matTooltip="Add Member"
-                    (click)="addMemberClick()"
-                    #addButton
-                    (mouseenter)="addButton.color='accent'"
-                    (mouseleave)="addButton.color=''">
-                    <mat-icon>person_add</mat-icon>
-                </button>
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-list [groupName]="groupName" [editable]="editable"></app-list>
-</div>
+<app-entities-frame headerTitle="Members" icon="people">
+    <div *ngIf="editable" frame-header-buttons>
+        <button mat-icon-button
+            matTooltip="Add Member"
+            (click)="addMemberClick()"
+            #addButton
+            (mouseenter)="addButton.color='accent'"
+            (mouseleave)="addButton.color=''">
+            <mat-icon>person_add</mat-icon>
+        </button>
+    </div>
+    <app-list frame-body
+        [groupName]="groupName"
+        [editable]="editable">
+    </app-list>
+</app-entities-frame>

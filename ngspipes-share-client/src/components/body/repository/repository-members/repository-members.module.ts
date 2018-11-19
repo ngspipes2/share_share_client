@@ -8,6 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
+import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
 
 import { UserMemberItemComponent } from './user-member-item/user-member-item.component';
 import { GroupMemberItemComponent } from './group-member-item/group-member-item.component';
@@ -24,7 +25,8 @@ import { RepositoryMembersComponent } from './repository-members.component';
         FormsModule,
         MaterialModule,
         DialogModule,
-        ImageModule
+        ImageModule,
+        EntitiesFrameModule
     ],
     declarations: [
         RepositoryMembersComponent,

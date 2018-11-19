@@ -1,32 +1,24 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon *ngIf="!loading" svgIcon="repository"></mat-icon>
-                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
-                Repositories
-            </div>
-            <div class="header-buttons" *ngIf="editable">
-                <button
-                    mat-icon-button
-                    matTooltip="Publish Repository"
-                    (click)="publishRepositoryClick()"
-                    #publishButton
-                    (mouseenter)="publishButton.color='accent'"
-                    (mouseleave)="publishButton.color=''">
-                    <mat-icon>publish</mat-icon>
-                </button>
-                <button
-                    mat-icon-button
-                    matTooltip="Create Repository"
-                    (click)="createRepositoryClick()"
-                    #createButton
-                    (mouseenter)="createButton.color='accent'"
-                    (mouseleave)="createButton.color=''">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-list [userName]="userName" [editable]="editable"></app-list>
-</div>
+<app-entities-frame headerTitle="Repositories" svgIcon="repository">
+    <div *ngIf="editable" frame-header-buttons>
+        <button mat-icon-button
+            matTooltip="Publish Repository"
+            (click)="publishRepositoryClick()"
+            #publishButton
+            (mouseenter)="publishButton.color='accent'"
+            (mouseleave)="publishButton.color=''">
+            <mat-icon>publish</mat-icon>
+        </button>
+        <button mat-icon-button
+            matTooltip="Create Repository"
+            (click)="createRepositoryClick()"
+            #createButton
+            (mouseenter)="createButton.color='accent'"
+            (mouseleave)="createButton.color=''">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <app-list frame-body
+        [userName]="userName"
+        [editable]="editable">
+    </app-list>
+</app-entities-frame>

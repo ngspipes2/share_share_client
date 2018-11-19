@@ -1,23 +1,16 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
-                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
-                Repositories Config
-            </div>
-            <div class="header-buttons">
-                <button
-                mat-icon-button
-                matTooltip="Create Config"
-                (click)="createConfigClick()"
-                #createConfigButton
-                (mouseenter)="createConfigButton.color='accent'"
-                (mouseleave)="createConfigButton.color=''">
-                <mat-icon>add</mat-icon>
-                </button>
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-list [selectedConfigName]="selectedConfigName" (selectedConfigNameChange)="selectConfig($event)"></app-list>
-</div>
+<app-entities-frame headerTitle="Repositories Config" svgIcon="repository-config">
+    <div frame-header-buttons>
+        <button mat-icon-button
+            matTooltip="Create Config"
+            (click)="createConfigClick()"
+            #createConfigButton
+            (mouseenter)="createConfigButton.color='accent'"
+            (mouseleave)="createConfigButton.color=''">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <app-list frame-body
+        [selectedConfigName]="selectedConfigName"
+        (selectedConfigNameChange)="selectConfig($event)">
+    </app-list>
+</app-entities-frame>

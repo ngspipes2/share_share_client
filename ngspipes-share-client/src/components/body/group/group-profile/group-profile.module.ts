@@ -8,6 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
+import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
 
 import { GroupInfoComponent } from './group-info/group-info.component';
 
@@ -22,7 +23,8 @@ import { GroupProfileComponent } from './group-profile.component';
         FormsModule,
         MaterialModule,
         DialogModule,
-        ImageModule
+        ImageModule,
+        EntitiesFrameModule
     ],
     declarations: [
         GroupProfileComponent,

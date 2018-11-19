@@ -1,23 +1,16 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon svgIcon="ticket" *ngIf="!loading"></mat-icon>
-                <mat-spinner color="accent" diameter="25" *ngIf="loading"></mat-spinner>
-                Access Tokens
-            </div>
-            <div class="header-buttons">
-                <button
-                    mat-icon-button
-                    matTooltip="Create Access Token"
-                    (click)="createTokenClick()"
-                    #createTokenButton
-                    (mouseenter)="createTokenButton.color='accent'"
-                    (mouseleave)="createTokenButton.color=''">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-list [selectedTokenId]="selectedTokenId" (selectedTokenIdChange)="selectToken($event)"></app-list>
-</div>
+<app-entities-frame headerTitle="Access Tokens" svgIcon="ticket">
+    <div frame-header-buttons>
+        <button mat-icon-button
+            matTooltip="Create Access Token"
+            (click)="createTokenClick()"
+            #createTokenButton
+            (mouseenter)="createTokenButton.color='accent'"
+            (mouseleave)="createTokenButton.color=''">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <app-list frame-body
+        [selectedTokenId]="selectedTokenId"
+        (selectedTokenIdChange)="selectToken($event)">
+    </app-list>
+</app-entities-frame>

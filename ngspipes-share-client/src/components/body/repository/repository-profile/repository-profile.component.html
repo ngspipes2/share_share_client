@@ -1,11 +1,6 @@
-<div id="root">
-    <mat-toolbar color="primary" id="header-wrapper">
-        <div id="header">
-            <div class="header-title">
-                <mat-icon svgIcon="repository"></mat-icon>
-                Profile
-            </div>
-        </div>
-    </mat-toolbar>
-    <app-repository-info [repositoryName]="repositoryName" [editable]="editable"></app-repository-info>
-</div>
+<app-entities-frame headerTitle="Profile" svgIcon="repository">
+    <app-repository-info frame-body
+        [repositoryName]="repositoryName"
+        [editable]="editable">
+    </app-repository-info>
+</app-entities-frame>

@@ -8,6 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
+import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
 
 import { RepositoryInfoComponent } from './repository-info/repository-info.component';
 
@@ -22,11 +23,12 @@ import { RepositoryProfileComponent } from './repository-profile.component';
         FormsModule,
         MaterialModule,
         DialogModule,
-        ImageModule
+        ImageModule,
+        EntitiesFrameModule
     ],
     declarations: [
-        RepositoryProfileComponent,
-        RepositoryInfoComponent
+        RepositoryInfoComponent,
+        RepositoryProfileComponent
     ],
     exports: [
         RepositoryProfileComponent
