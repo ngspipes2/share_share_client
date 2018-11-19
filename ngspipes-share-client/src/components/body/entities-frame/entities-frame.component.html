@@ -1,0 +1,13 @@
+<div id="root">
+    <mat-toolbar id="header" [color]="color">
+        <div id="header-title">
+            <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon"></mat-icon>
+            <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+            {{title}}
+        </div>
+        <div id="header-buttons">
+            <ng-content select="[frame-header-buttons]"></ng-content>
+        </div>
+    </mat-toolbar>
+    <ng-content select="[frame-body]"></ng-content>
+</div>

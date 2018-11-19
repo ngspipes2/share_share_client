@@ -1,0 +1,30 @@
+#root {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 20px;
+}
+
+#header {
+    width: 100%;
+    border-radius: 20px 20px 0px 0px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px 10px 20px;
+}
+
+#header-title, #header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+#header-title > mat-icon {
+    margin-right: 10px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    margin-bottom: 2px;
+}
+
+#header-title {
+    font-size: 22px;
+}
