@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../app/material.module';
 
 import { FrameComponent } from './frame/frame.component';
+import { OperationElementComponent } from './operation-element/operation-element.component';
 
 @NgModule({
     imports: [
@@ -16,10 +17,12 @@ import { FrameComponent } from './frame/frame.component';
         MaterialModule
     ],
     declarations: [
-        FrameComponent
+        FrameComponent,
+        OperationElementComponent
     ],
     exports: [
-        FrameComponent
+        FrameComponent,
+        OperationElementComponent
     ]
 })
 export class UtilsModule { }

@@ -1,0 +1,7 @@
+<div id="root">
+    <mat-spinner *ngIf="working"
+        [diameter]="spinnerDiameter"
+        [color]="spinnerColor">
+    </mat-spinner>
+    <ng-content *ngIf="!working"></ng-content>
+</div>
