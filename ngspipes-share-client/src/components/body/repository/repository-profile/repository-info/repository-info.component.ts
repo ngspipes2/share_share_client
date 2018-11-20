@@ -24,6 +24,8 @@ export class RepositoryInfoComponent {
 
     repository : Repository;
     loading : boolean;
+    saving : boolean;
+    changingImage : boolean;
 
 
 
@@ -77,7 +79,7 @@ export class RepositoryInfoComponent {
         if(!file)
             return;
 
-        this.loading = true;
+        this.changingImage = true;
 
         this.repositoryConfigService.getConfigsForLocation(this.repository.location)
         .then(configs => {
@@ -87,7 +89,7 @@ export class RepositoryInfoComponent {
                 if(this.repository.entityType === EntityType.TOOLS)
                     this.toolsRepositoryFacadeService.setRepositoryImage(configs[0], file)
                     .then(result => {
-                        this.loading = false;
+                        this.changingImage = false;
 
                         if(result)
                             this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
@@ -95,14 +97,14 @@ export class RepositoryInfoComponent {
                             this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
                     })
                     .catch(error => {
-                        this.loading = false;
+                        this.changingImage = false;
                         this.dialogManager.openErrorDialog("Error uploading image!", error);
                         console.error(error);
                     });
                 else
                     this.pipelinesRepositoryFacadeService.setRepositoryImage(configs[0], file)
                     .then(result => {
-                        this.loading = false;
+                        this.changingImage = false;
 
                         if(result)
                             this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
@@ -110,24 +112,24 @@ export class RepositoryInfoComponent {
                             this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
                     })
                     .catch(error => {
-                        this.loading = false;
+                        this.changingImage = false;
                         this.dialogManager.openErrorDialog("Error uploading image!", error);
                         console.error(error);
                     });
         })
         .catch(error => {
-            this.loading = true;
+            this.changingImage = false;
             this.dialogManager.openErrorDialog("Error gettings configs for current repository!", error);
             console.error(error);
         });
     }
 
     saveClick() {
-        this.loading = true;
+        this.saving = true;
 
         this.repositoryService.updateRepository(this.repository)
         .then(result => {
-            this.loading = false;
+            this.saving = false;
 
             if(!result)
                 this.dialogManager.openErrorDialog("Repository could not be saved!", "Repository could not be saved! Please try again latter.");
@@ -135,7 +137,7 @@ export class RepositoryInfoComponent {
                 this.dialogManager.openSuccessDialog("Saved successfully", null);
         })
         .catch(error => {
-            this.loading = false;
+            this.saving = false;
             this.dialogManager.openErrorDialog("Error saving repository!", error);
             console.error(error);
         });

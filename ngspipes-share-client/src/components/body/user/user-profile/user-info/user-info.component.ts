@@ -21,6 +21,8 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
     user : User;
     loading : boolean;
+    changingImage : boolean;
+    saving : boolean;
 
 
 
@@ -71,11 +73,11 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
         if(!file)
             return;
 
-        this.loading = true;
+        this.changingImage = true;
 
         this.userService.changeUserImage(this.user.userName, file)
         .then((response) => {
-            this.loading = false;
+            this.changingImage = false;
 
             if(response)
                 this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
@@ -83,18 +85,18 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
                 this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
         })
         .catch((error) => {
-            this.loading = false;
+            this.changingImage = false;
             this.dialogManager.openErrorDialog("Error uploading image!", error);
             console.error(error);
         });
     }
 
     saveClick() {
-        this.loading = true;
+        this.saving = true;
 
         this.userService.updateUser(this.user)
         .then(result => {
-            this.loading = false;
+            this.saving = false;
 
             if(!result)
                 this.dialogManager.openErrorDialog("User could not be saved!", "User could not be saved! Please try again latter.");
@@ -102,7 +104,7 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
                 this.dialogManager.openSuccessDialog("Saved successfully", null);
         })
         .catch(error => {
-            this.loading = false;
+            this.saving = false;
             this.dialogManager.openErrorDialog("Error saving user!", error);
             console.error(error);
         });

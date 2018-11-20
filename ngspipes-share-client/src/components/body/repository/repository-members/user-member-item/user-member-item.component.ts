@@ -22,7 +22,7 @@ export class UserMemberItemComponent {
     isRead : boolean;
     isWrite : boolean;
     deleting : boolean;
-    loading : boolean;
+    changingAccess : boolean;
 
 
 
@@ -64,16 +64,16 @@ export class UserMemberItemComponent {
     }
 
     writeAccessClick() {
-        this.loading = true;
+        this.changingAccess = true;
 
         this.userMemberService.updateMember(this.member)
         .then(result => {
-            this.loading = false;
+            this.changingAccess = false;
             if(!result)
                 this.dialogManager.openErrorDialog("Access could not be changed!", "Access could not be changed! Please try again latter.");
         })
         .catch(error => {
-            this.loading = false;
+            this.changingAccess = false;
             this.dialogManager.openErrorDialog("Error changing access!", error);
             console.error(error);
         });

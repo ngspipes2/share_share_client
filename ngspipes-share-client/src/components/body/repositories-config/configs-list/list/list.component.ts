@@ -20,6 +20,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
     configs : RepositoryConfig[] = [];
     loading : boolean;
+    creating : boolean;
     filterText : string = "";
 
 
@@ -73,11 +74,11 @@ export class ListComponent implements OnInit, OnDestroy {
     createConfig(name : string) {
         let config = new RepositoryConfig(name, "", "", []);
 
-        this.loading = true;
+        this.creating = true;
 
         this.repositoryConfigService.createConfig(config)
         .then(result => {
-            this.loading = false;
+            this.creating = false;
 
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config could not be created! Please try again latter.");
@@ -85,7 +86,7 @@ export class ListComponent implements OnInit, OnDestroy {
                 this.selectConfig(name);
         })
         .catch(error => {
-            this.loading = false;
+            this.creating = false;
             this.dialogManager.openErrorDialog("Error creating Repository Config!", error);
             console.error(error);
         });

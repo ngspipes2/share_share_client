@@ -20,7 +20,8 @@ export class RepositoryMembersComponent {
     @Input()
     editable : boolean;
 
-    loading : boolean;
+    creatingUserMember : boolean;
+    creatingGroupMember : boolean;
 
 
 
@@ -39,16 +40,16 @@ export class RepositoryMembersComponent {
     }
 
     createUserMember(userName : string) {
-        this.loading = true;
+        this.creatingUserMember = true;
 
         let member = new RepositoryUserMember(0, null, userName, this.repositoryName, false);
         this.userMemberService.createMember(member)
         .then(id => {
-            this.loading = false;
+            this.creatingUserMember = false;
             this.dialogManager.openSuccessDialog("Member created successfully!", null);
         })
         .catch(error => {
-            this.loading = false;
+            this.creatingUserMember = false;
             this.dialogManager.openErrorDialog("Error creating member!", error);
             console.error(error);
         });
@@ -62,16 +63,16 @@ export class RepositoryMembersComponent {
     }
 
     createGroupMember(groupName : string) {
-        this.loading = true;
+        this.creatingGroupMember = true;
 
         let member = new RepositoryGroupMember(0, null, groupName, this.repositoryName, false);
         this.groupMemberService.createMember(member)
         .then(id => {
-            this.loading = false;
+            this.creatingGroupMember = false;
             this.dialogManager.openSuccessDialog("Member created successfully!", null);
         })
         .catch(error => {
-            this.loading = false;
+            this.creatingGroupMember = false;
             this.dialogManager.openErrorDialog("Error creating member!", error);
             console.error(error);
         });

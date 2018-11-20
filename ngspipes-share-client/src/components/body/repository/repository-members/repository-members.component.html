@@ -1,21 +1,25 @@
 <app-frame headerTitle="Members" icon="people">
     <div *ngIf="editable" frame-header-buttons>
-        <button mat-icon-button
-            matTooltip="Add User Member"
-            (click)="addUserMemberClick()"
-            #addUserButton
-            (mouseenter)="addUserButton.color='accent'"
-            (mouseleave)="addUserButton.color=''">
-            <mat-icon>person_add</mat-icon>
-        </button>
-        <button mat-icon-button
-            matTooltip="Add Group Member"
-            (click)="addGroupMemberClick()"
-            #addGroupButton
-            (mouseenter)="addGroupButton.color='accent'"
-            (mouseleave)="addGroupButton.color=''">
-            <mat-icon>group_add</mat-icon>
-        </button>
+        <app-operation-element spinnerDiameter="25" [working]="creatingUserMember">
+            <button mat-icon-button
+                matTooltip="Add User Member"
+                (click)="addUserMemberClick()"
+                #addUserButton
+                (mouseenter)="addUserButton.color='accent'"
+                (mouseleave)="addUserButton.color=''">
+                <mat-icon>person_add</mat-icon>
+            </button>
+        </app-operation-element>
+        <app-operation-element spinnerDiameter="25" [working]="creatingGroupMember">
+            <button mat-icon-button
+                matTooltip="Add Group Member"
+                (click)="addGroupMemberClick()"
+                #addGroupButton
+                (mouseenter)="addGroupButton.color='accent'"
+                (mouseleave)="addGroupButton.color=''">
+                <mat-icon>group_add</mat-icon>
+            </button>
+        </app-operation-element>
     </div>
     <app-list frame-body
         [repositoryName]="repositoryName"

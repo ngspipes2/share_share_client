@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
     password : string;
     hide : boolean = true;
     loading : boolean;
+    logingIn : boolean;
+    creatingAccount : boolean;
 
 
 
@@ -60,26 +62,26 @@ export class LoginComponent implements OnInit {
     createAccountClick() {
         let user = new User(this.userName, this.password, null, null, null, UserRole.NORMAL);
 
-        this.loading = true;
+        this.creatingAccount = true;
 
         this.userService.createUser(user)
         .then((response) => {
-            this.loading = false;
+            this.creatingAccount = false;
             this.login(user.userName, user.password);
         })
         .catch((error) => {
-            this.loading = false;
+            this.creatingAccount = false;
             this.dialogManager.openErrorDialog("Error", error);
             console.error(error);
         });
     }
 
     login(userName : string, password : string) {
-        this.loading = true;
+        this.logingIn = true;
 
         this.sessionService.login(userName, password)
         .then((result) => {
-            this.loading = false;
+            this.logingIn = false;
 
             if(!result)
                 this.dialogManager.openErrorDialog("Invalid credentials!", "");
@@ -87,7 +89,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/users/' + userName]);
         })
         .catch((error) => {
-            this.loading = false;
+            this.logingIn = false;
 
             this.dialogManager.openErrorDialog("Error while login!", "");
             console.error(error);

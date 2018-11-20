@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ImageModule } from '../../image/image.module';
 import { DialogModule } from '../../dialog/dialog.module';
+import { UtilsModule } from '../../utils/utils.module';
 
 import { MyGroupsListComponent } from './my-groups/my-groups-list/my-groups-list.component';
 import { GroupItemComponent } from './my-groups/group-item/group-item.component';
@@ -44,7 +45,8 @@ import { SideNavComponent } from './side-nav.component';
         MaterialModule,
         FormsModule,
         ImageModule,
-        DialogModule
+        DialogModule,
+        UtilsModule
     ],
     exports: [
         SideNavComponent

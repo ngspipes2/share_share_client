@@ -67,7 +67,9 @@
             </div>
         </div>
         <div class="field-button" *ngIf="editable">
-            <button mat-button (click)="saveClick()">Save</button>
+              <app-operation-element spinnerDiameter="25" [working]="saving">
+                  <button mat-button (click)="saveClick()">Save</button>
+              </app-operation-element>
         </div>
     </div>
     <mat-divider vertical="true"></mat-divider>
@@ -78,7 +80,9 @@
         </div>
         <div class="field-button" *ngIf="editable">
             <input type="file" (change)="changeImage($event.target.files[0])" #selectFile hidden="true">
-            <button mat-button (click)="selectFile.click()">Change</button>
+            <app-operation-element spinnerDiameter="25" [working]="changingImage">
+                <button mat-button (click)="selectFile.click()">Change</button>
+            </app-operation-element>
         </div>
     </div>
 </div>

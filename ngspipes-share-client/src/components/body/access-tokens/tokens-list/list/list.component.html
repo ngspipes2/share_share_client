@@ -5,14 +5,16 @@
 
     <div id="no-tokens-content" *ngIf="!loading && tokens.length == 0">
         <p>You currently have no Access Token.<p>
-        <button
-            mat-raised-button
-            #createFirstTokenButton
-            (mouseenter)="createFirstTokenButton.color='primary'"
-            (mouseleave)="createFirstTokenButton.color=''"
-            (click)="createTokenClick()">
-            Create Token
-        </button>
+        <app-operation-element spinnerDiameter="25" [working]="creating">
+            <button
+                mat-raised-button
+                #createFirstTokenButton
+                (mouseenter)="createFirstTokenButton.color='primary'"
+                (mouseleave)="createFirstTokenButton.color=''"
+                (click)="createTokenClick()">
+                Create Token
+            </button>
+        </app-operation-element>
     </div>
 
     <div id="tokens-content" *ngIf="!loading && tokens.length > 0">

@@ -19,6 +19,8 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     token : AccessToken;
     loading : boolean;
+    saving : boolean;
+    deleting : boolean;
 
 
 
@@ -63,18 +65,18 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     saveClick() {
-        this.loading = true;
+        this.saving = true;
 
         this.accessTokensService.updateAccessToken(this.token)
         .then(result => {
-            this.loading = false;
+            this.saving = false;
             if(!result)
                 this.dialogManager.openErrorDialog("Access Token could not be saved!", "Access Token could not be saved! Please try again latter.");
             else
                 this.dialogManager.openSuccessDialog("Access Token saved successfully!", "");
         })
         .catch(error => {
-            this.loading = false;
+            this.saving = false;
             this.dialogManager.openErrorDialog("Error saving Access Token!", error);
             console.error(error);
         });
@@ -91,18 +93,18 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     deleteToken() {
-        this.loading = true;
+        this.deleting = true;
 
         this.accessTokensService.deleteAccessToken(this.tokenId)
         .then(result => {
-            this.loading = false;
+            this.deleting = false;
             if(!result)
                 this.dialogManager.openErrorDialog("Access Token could not be deleted!", "Access Token could not be deleted! Please try again latter.");
             else
                 this.dialogManager.openSuccessDialog("Access Token deleted successfully!", "");
         })
         .catch(error => {
-            this.loading = false;
+            this.deleting = false;
             this.dialogManager.openErrorDialog("Error deleting Access Token!", error);
             console.error(error);
         });

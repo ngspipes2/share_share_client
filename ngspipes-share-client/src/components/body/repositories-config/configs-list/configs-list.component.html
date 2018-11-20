@@ -1,13 +1,15 @@
 <app-frame headerTitle="Repositories Config" svgIcon="repository-config">
     <div frame-header-buttons>
-        <button mat-icon-button
-            matTooltip="Create Config"
-            (click)="createConfigClick()"
-            #createConfigButton
-            (mouseenter)="createConfigButton.color='accent'"
-            (mouseleave)="createConfigButton.color=''">
-            <mat-icon>add</mat-icon>
-        </button>
+        <app-operation-element spinnerDiameter="25" [working]="creating">
+            <button mat-icon-button
+                matTooltip="Create Config"
+                (click)="createConfigClick()"
+                #createConfigButton
+                (mouseenter)="createConfigButton.color='accent'"
+                (mouseleave)="createConfigButton.color=''">
+                <mat-icon>add</mat-icon>
+            </button>
+        </app-operation-element>
     </div>
     <app-list frame-body
         [selectedConfigName]="selectedConfigName"

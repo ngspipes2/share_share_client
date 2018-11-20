@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
+import { UtilsModule } from '../../../utils/utils.module';
+
 import { ConfigDetailsComponent } from './config-details.component';
 import { ConfigInfoComponent } from './config-info/config-info.component';
 
@@ -18,7 +20,8 @@ import { ConfigInfoComponent } from './config-info/config-info.component';
       BrowserAnimationsModule,
       MaterialModule,
       FormsModule,
-      DialogModule
+      DialogModule,
+      UtilsModule
   ],
   declarations: [
       ConfigDetailsComponent,

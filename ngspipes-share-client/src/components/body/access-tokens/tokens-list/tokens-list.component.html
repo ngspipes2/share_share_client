@@ -1,13 +1,15 @@
 <app-frame headerTitle="Access Tokens" svgIcon="ticket">
     <div frame-header-buttons>
-        <button mat-icon-button
-            matTooltip="Create Access Token"
-            (click)="createTokenClick()"
-            #createTokenButton
-            (mouseenter)="createTokenButton.color='accent'"
-            (mouseleave)="createTokenButton.color=''">
-            <mat-icon>add</mat-icon>
-        </button>
+        <app-operation-element spinnerDiameter="25" [working]="creating">
+            <button mat-icon-button
+                matTooltip="Create Access Token"
+                (click)="createTokenClick()"
+                #createTokenButton
+                (mouseenter)="createTokenButton.color='accent'"
+                (mouseleave)="createTokenButton.color=''">
+                <mat-icon>add</mat-icon>
+            </button>
+        </app-operation-element>
     </div>
     <app-list frame-body
         [selectedTokenId]="selectedTokenId"

@@ -13,7 +13,11 @@
         <app-config-info [config]="config"></app-config-info>
     </mat-card-content>
     <mat-card-actions align="center" *ngIf="config">
-        <button mat-button (click)="saveClick()">Save</button>
-        <button mat-button color="warn" (click)="deleteClick()">Delete</button>
+        <app-operation-element spinnerDiameter="25" [working]="saving">
+            <button mat-button (click)="saveClick()">Save</button>
+        </app-operation-element>
+        <app-operation-element spinnerDiameter="25" [working]="deleting">
+            <button mat-button color="warn" (click)="deleteClick()">Delete</button>
+        </app-operation-element>
     </mat-card-actions>
 </mat-card>

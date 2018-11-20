@@ -18,6 +18,8 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     config : RepositoryConfig;
     loading : boolean;
+    saving : boolean;
+    deleting : boolean;
 
 
 
@@ -61,18 +63,18 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     saveClick() {
-        this.loading = true;
+        this.saving = true;
 
         this.repositoryConfigService.updateConfig(this.config)
         .then(result => {
-            this.loading = false;
+            this.saving = false;
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config could not be saved!", "Repository Config could not be saved! Please try again latter.");
             else
                 this.dialogManager.openSuccessDialog("Repository Config saved successfully!", "");
         })
         .catch(error => {
-            this.loading = false;
+            this.saving = false;
             this.dialogManager.openErrorDialog("Error saving Repository Config!", error);
             console.error(error);
         });
@@ -89,18 +91,18 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     deleteConfig() {
-        this.loading = true;
+        this.deleting = true;
 
         this.repositoryConfigService.deleteConfig(this.configName)
         .then(result => {
-            this.loading = false;
+            this.deleting = false;
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config could not be deleted!", "Repository Config could not be deleted! Please try again latter.");
             else
                 this.dialogManager.openSuccessDialog("Repository Config deleted successfully!", "");
         })
         .catch(error => {
-            this.loading = false;
+            this.deleting = false;
             this.dialogManager.openErrorDialog("Error deleting Repository Config!", error);
             console.error(error);
         });

@@ -13,7 +13,7 @@ import { DialogManager } from '../../../dialog/dialog.manager';
 })
 export class MyGroupsComponent {
 
-    loading : boolean;
+    creating : boolean;
 
 
 
@@ -32,15 +32,15 @@ export class MyGroupsComponent {
             let userName = this.sessionService.getCurrentCredentials()[0];
             let group = new Group(groupName, null, null, userName);
 
-            this.loading = true;
+            this.creating = true;
             this.groupService.createGroup(group)
             .then(() => {
-                this.loading = false;
+                this.creating = false;
                 this.dialogManager.openSuccessDialog("Group created successfully!", null);
                 this.router.navigate(['/groups/' + groupName]);
             })
             .catch(error => {
-                this.loading = false;
+                this.creating = false;
                 this.dialogManager.openErrorDialog("Error creating Group!", error);
                 console.error(error);
             });

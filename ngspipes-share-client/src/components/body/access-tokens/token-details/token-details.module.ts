@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
+import { UtilsModule } from '../../../utils/utils.module';
 
 import { TokenInfoComponent } from './token-info/token-info.component';
 
@@ -20,7 +21,8 @@ import { TokenDetailsComponent } from './token-details.component';
         BrowserAnimationsModule,
         MaterialModule,
         FormsModule,
-        DialogModule
+        DialogModule,
+        UtilsModule
     ],
     declarations: [
         TokenDetailsComponent,

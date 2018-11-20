@@ -17,7 +17,7 @@ export class GroupMembersComponent {
     @Input()
     editable : boolean;
 
-    loading : boolean;
+    creating : boolean;
 
 
 
@@ -30,21 +30,21 @@ export class GroupMembersComponent {
     addMemberClick() {
         this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
             if(userName)
-            this.createMember(userName);
+                this.createMember(userName);
         });
     }
 
     createMember(userName : string) {
-        this.loading = true;
+        this.creating = true;
 
         let member = new GroupMember(0, null, userName, this.groupName, false);
         this.groupMemberService.createMember(member)
         .then(id => {
-            this.loading = false;
+            this.creating = false;
             this.dialogManager.openSuccessDialog("Member created successfully!", null);
         })
         .catch(error => {
-            this.loading = false;
+            this.creating = false;
             this.dialogManager.openErrorDialog("Error creating member!", error);
             console.error(error);
         });

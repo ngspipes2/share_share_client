@@ -8,6 +8,7 @@ import { MaterialModule } from '../../../app/material.module';
 
 import { DialogModule } from '../../dialog/dialog.module';
 import { ImageModule } from '../../image/image.module';
+import { UtilsModule } from '../../utils/utils.module';
 
 import { LoginComponent } from './login.component';
 
@@ -20,7 +21,8 @@ import { LoginComponent } from './login.component';
       FormsModule,
       MaterialModule,
       DialogModule,
-      ImageModule
+      ImageModule,
+      UtilsModule
   ],
   declarations: [
       LoginComponent

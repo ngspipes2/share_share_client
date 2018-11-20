@@ -17,7 +17,7 @@ export class TokensListComponent {
 
     selectedTokenId : number;
 
-    loading : boolean;
+    creating : boolean;
 
 
 
@@ -38,17 +38,17 @@ export class TokensListComponent {
         let userName = this.sessionService.getCurrentCredentials()[0];
         let accessToken = new AccessToken(0, userName, null, name, null, false);
 
-        this.loading = true;
+        this.creating = true;
 
         this.accessTokenService.createAccessToken(accessToken)
         .then(data => {
-            this.loading = false;
+            this.creating = false;
 
             this.selectToken(data.id);
             this.dialogManager.openShowTokenDialog(data.token);
         })
         .catch(error => {
-            this.loading = false;
+            this.creating = false;
             this.dialogManager.openErrorDialog("Error creating Access Token!", error);
             console.error(error);
         });

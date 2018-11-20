@@ -18,7 +18,8 @@ export class UserRepositoriesComponent {
     @Input()
     editable : boolean;
 
-    loading : boolean;
+    creating : boolean;
+    publishing : boolean;
 
 
 
@@ -69,15 +70,27 @@ export class UserRepositoriesComponent {
     }
 
     createRepository(repository : Repository) {
-        this.loading = true;
+        if(repository.locationType === LocationType.EXTERNAL)
+            this.publishing = true;
+        else
+            this.creating = true;
+
         this.repositoryService.createRepository(repository)
         .then(() => {
-            this.loading = false;
+            if(repository.locationType === LocationType.EXTERNAL)
+                this.publishing = false;
+            else
+                this.creating = false;
+
             this.dialogManager.openSuccessDialog("Repository created successfully!", null);
             this.router.navigate(['/repositories/' + repository.repositoryName]);
         })
         .catch(error => {
-            this.loading = false;
+            if(repository.locationType === LocationType.EXTERNAL)
+                this.publishing = false;
+            else
+                this.creating = false;
+
             this.dialogManager.openErrorDialog("Error creating Repository!", error);
             console.error(error);
         });

@@ -5,14 +5,15 @@
         <div class="config-name" [matTooltip]="config.name">
             {{config.name}}
         </div>
-        <mat-spinner diameter="25" color="accent" *ngIf="deleting"></mat-spinner>
-        <mat-icon #deleteIcon *ngIf="!deleting"
-            (mouseenter)="deleteIcon.color='warn'"
-            (mouseleave)="deleteIcon.color=''"
-            matTooltip="Delete Config"
-            (click)="deleteClick()">
-            delete
-        </mat-icon>
+        <app-operation-element spinnerDiameter="25" [working]="deleting">
+            <mat-icon #deleteIcon *ngIf="!deleting"
+                (mouseenter)="deleteIcon.color='warn'"
+                (mouseleave)="deleteIcon.color=''"
+                matTooltip="Delete Config"
+                (click)="deleteClick()">
+                delete
+            </mat-icon>
+        </app-operation-element>
     </div>
 </button>
 <button mat-raised-button *ngIf="selected" color="primary">
@@ -20,13 +21,14 @@
         <div class="config-name" [matTooltip]="config.name">
             {{config.name}}
         </div>
-        <mat-spinner diameter="25" color="accent" *ngIf="deleting"></mat-spinner>
-        <mat-icon #deleteIcon *ngIf="!deleting"
-            (mouseenter)="deleteIcon.color='warn'"
-            (mouseleave)="deleteIcon.color=''"
-            matTooltip="Delete Config"
-            (click)="deleteClick()">
-            delete
-        </mat-icon>
+        <app-operation-element spinnerDiameter="25" [working]="deleting">
+            <mat-icon #deleteIcon *ngIf="!deleting"
+                (mouseenter)="deleteIcon.color='warn'"
+                (mouseleave)="deleteIcon.color=''"
+                matTooltip="Delete Config"
+                (click)="deleteClick()">
+                delete
+            </mat-icon>
+        </app-operation-element>
     </div>
 </button>

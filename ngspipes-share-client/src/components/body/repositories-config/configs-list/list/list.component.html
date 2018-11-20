@@ -5,14 +5,15 @@
 
     <div id="no-configs-content" *ngIf="!loading && configs.length == 0">
         <p>You currently have no Repository configuration.<p>
-        <button
-            mat-raised-button
-            #createFirstConfigButton
-            (mouseenter)="createFirstConfigButton.color='primary'"
-            (mouseleave)="createFirstConfigButton.color=''"
-            (click)="createConfigClick()">
-            Create Config
-        </button>
+        <app-operation-element spinnerDiameter="25" [working]="creating">
+            <button mat-raised-button
+                #createFirstConfigButton
+                (mouseenter)="createFirstConfigButton.color='primary'"
+                (mouseleave)="createFirstConfigButton.color=''"
+                (click)="createConfigClick()">
+                Create Config
+            </button>
+        </app-operation-element>
     </div>
 
     <div id="configs-content" *ngIf="!loading && configs.length > 0">
