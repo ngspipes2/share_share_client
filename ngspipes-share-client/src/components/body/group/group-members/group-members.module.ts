@@ -8,7 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
-import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
+import { UtilsModule } from '../../../utils/utils.module';
 
 import { ListItemComponent } from './list-item/list-item.component';
 import { ListComponent } from './list/list.component';
@@ -26,7 +26,7 @@ import { GroupMembersComponent } from './group-members.component';
         MaterialModule,
         DialogModule,
         ImageModule,
-        EntitiesFrameModule
+        UtilsModule
     ],
     declarations: [
         GroupMembersComponent,

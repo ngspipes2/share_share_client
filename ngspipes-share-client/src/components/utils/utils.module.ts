@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from '../../../app/material.module';
+import { MaterialModule } from '../../app/material.module';
 
-import { EntitiesFrameComponent } from './entities-frame.component';
+import { FrameComponent } from './frame/frame.component';
 
 @NgModule({
     imports: [
@@ -16,10 +16,10 @@ import { EntitiesFrameComponent } from './entities-frame.component';
         MaterialModule
     ],
     declarations: [
-        EntitiesFrameComponent
+        FrameComponent
     ],
     exports: [
-        EntitiesFrameComponent
+        FrameComponent
     ]
 })
-export class EntitiesFrameModule { }
+export class UtilsModule { }

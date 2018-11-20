@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-entities-frame',
-    templateUrl: './entities-frame.component.html',
-    styleUrls: ['./entities-frame.component.scss']
+    selector: 'app-frame',
+    templateUrl: './frame.component.html',
+    styleUrls: ['./frame.component.scss']
 })
-export class EntitiesFrameComponent {
+export class FrameComponent {
 
     @Input("headerTitle")
     title : string;

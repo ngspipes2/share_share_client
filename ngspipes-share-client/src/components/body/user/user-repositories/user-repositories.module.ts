@@ -8,7 +8,7 @@ import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
 import { ImageModule } from '../../../image/image.module';
-import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
+import { UtilsModule } from '../../../utils/utils.module';
 
 import { UserRepositoriesComponent } from './user-repositories.component';
 import { ListComponent } from './list/list.component';
@@ -24,7 +24,7 @@ import { ListItemComponent } from './list-item/list-item.component';
         MaterialModule,
         DialogModule,
         ImageModule,
-        EntitiesFrameModule
+        UtilsModule
     ],
     declarations: [
         UserRepositoriesComponent,

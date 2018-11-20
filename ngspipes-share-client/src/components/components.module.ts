@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../app/material.module';
 
+import { UtilsModule } from './utils/utils.module';
 import { ImageModule } from './image/image.module';
 import { DialogModule } from './dialog/dialog.module';
 import { HeaderModule } from './header/header.module';
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
         ReactiveFormsModule,
         MaterialModule,
         RouterModule.forRoot(appRoutes /*,{enableTracing: true//debugging purposes only}*/),
+        UtilsModule,
         ImageModule,
         DialogModule,
         HeaderModule,

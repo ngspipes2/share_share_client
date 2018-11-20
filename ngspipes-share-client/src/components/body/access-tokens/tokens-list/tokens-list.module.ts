@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../../app/material.module';
 
 import { DialogModule } from '../../../dialog/dialog.module';
-import { EntitiesFrameModule } from '../../entities-frame/entities-frame.module';
+import { UtilsModule } from '../../../utils/utils.module';
 
 import { ListComponent } from './list/list.component';
 import { ListItemComponent } from './list-item/list-item.component';
@@ -23,7 +23,7 @@ import { TokensListComponent } from './tokens-list.component';
         MaterialModule,
         FormsModule,
         DialogModule,
-        EntitiesFrameModule
+        UtilsModule
     ],
     declarations: [
         TokensListComponent,
