@@ -17,11 +17,14 @@ export class RepositoryComponent implements OnInit {
     loginSubscription : any;
     logoutSubscription : any;
     paramsSubscription : any;
+    repositoryCreateSubscription : any;
+    repositoryDeleteSubscription : any;
 
     repositoryName : string;
     editable : boolean;
-    isInternalRepository : boolean;
-    loading = true;
+    loading : boolean;
+
+    repository : Repository;
 
 
 
@@ -35,43 +38,76 @@ export class RepositoryComponent implements OnInit {
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => {
-                this.checkEditable();
+            this.load();
         });
 
         this.logoutSubscription = this.sessionService.logoutEvent.subscribe(() => {
-                this.checkEditable();
+            this.load();
         });
 
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
-            this.repositoryName = this.activatedRoute.snapshot.params.repositoryName;
-            this.checkEditable();
+            if(this.repositoryName !== this.activatedRoute.snapshot.params.repositoryName) {
+                this.repositoryName = this.activatedRoute.snapshot.params.repositoryName;
+                this.load();
+            }
         });
 
-        this.checkEditable();
+        this.repositoryCreateSubscription = this.repositoryService.repositoryCreateEvent.subscribe(repositoryName => {
+            if(repositoryName === this.repositoryName)
+                this.load();
+        });
+
+        this.repositoryDeleteSubscription = this.repositoryService.repositoryDeleteEvent.subscribe(repositoryName => {
+            if(repositoryName === this.repositoryName)
+                this.load();
+        });
     }
 
     ngOnDestroy() {
         this.loginSubscription.unsubscribe();
         this.logoutSubscription.unsubscribe();
         this.paramsSubscription.unsubscribe();
+        this.repositoryCreateSubscription.unsubscribe();
+        this.repositoryDeleteSubscription.unsubscribe();
+    }
+
+    load() {
+        this.loading = true;
+
+        this.loadRepository()
+        .then(() => {
+            this.loading = false;
+            this.checkEditable();
+        })
+        .catch(() => {
+            this.loading = false;
+        });
+    }
+
+    loadRepository() : Promise<Repository> {
+        return this.repositoryService.getRepository(this.repositoryName)
+        .then(repository => {
+            this.repository = repository;
+
+            if(!repository)
+                this.dialogManager.openWarningDialog("There is no Repository " + this.repositoryName, null);
+
+            return repository;
+        })
+        .catch(error => {
+            this.dialogManager.openErrorDialog("Error getting Repository!", error);
+            console.error(error);
+            throw error;
+        });
     }
 
     checkEditable() {
-        this.loading = true;
-
-        this.repositoryService.getRepository(this.repositoryName)
-        .then(repository => {
-            this.loading = false;
-
-            let currentUserName = this.sessionService.getCurrentCredentials()[0];
-            this.editable = repository.ownerName === currentUserName;
-
-            this.isInternalRepository = repository.locationType === LocationType.INTERNAL;
-        })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting repository!", error);
-            console.error(error);
-        });
+        let currentUserName = this.sessionService.getCurrentCredentials()[0];
+        this.editable = this.repository.ownerName === currentUserName;
     }
+
+    isInternalRepository() : boolean {
+        return this.repository.locationType === LocationType.INTERNAL;
+    }
+
 }

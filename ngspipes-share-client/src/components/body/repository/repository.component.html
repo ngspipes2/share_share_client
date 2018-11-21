@@ -1,8 +1,10 @@
 <div id="root">
-    <div id="repository-profile-container">
+    <mat-spinner diameter="100" color="accent" *ngIf="loading"></mat-spinner>
+    <p *ngIf="!loading && !repository">There is no Repository {{repositoryName}}<p>
+    <div id="repository-profile-container" *ngIf="!loading && repository">
         <app-repository-profile [repositoryName]="repositoryName" [editable]="editable"></app-repository-profile>
     </div>
-    <div id="repository-entities-container">
+    <div id="repository-entities-container" *ngIf="!loading && repository">
         <div id="repository-members-container">
             <app-repository-members *ngIf="isInternalRepository" [repositoryName]="repositoryName" [editable]="editable"></app-repository-members>
         </div>
