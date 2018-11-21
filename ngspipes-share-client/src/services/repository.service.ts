@@ -90,7 +90,7 @@ export class RepositoryService {
     }
 
     private clientRepositoryToServerRepository(repository : Repository) : any {
-        return {
+        let repo = {
             repositoryName : repository.repositoryName,
             entityType : repository.entityType,
             locationType : repository.locationType,
@@ -100,6 +100,15 @@ export class RepositoryService {
             owner : { userName : repository.ownerName },
             location : repository.location
         };
+
+        if(repo.locationType === LocationType.INTERNAL) {
+            repo.location = repo.location.replace(
+                repo.entityType === EntityType.TOOLS ? ServersRoutes.TOOLS_SERVER_URI : ServersRoutes.PIPELINES_SERVER_URI,
+                "{server}"
+            );
+        }
+
+        return repo;
     }
 
     public updateRepository(repository : Repository) : Promise<boolean> {
