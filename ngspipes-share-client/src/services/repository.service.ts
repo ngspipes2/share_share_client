@@ -101,7 +101,7 @@ export class RepositoryService {
             location : repository.location
         };
 
-        if(repo.locationType === LocationType.INTERNAL) {
+        if(repo.locationType === LocationType.INTERNAL && repo.location) {
             repo.location = repo.location.replace(
                 repo.entityType === EntityType.TOOLS ? ServersRoutes.TOOLS_SERVER_URI : ServersRoutes.PIPELINES_SERVER_URI,
                 "{server}"
