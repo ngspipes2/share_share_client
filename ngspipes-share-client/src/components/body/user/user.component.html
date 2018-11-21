@@ -1,7 +1,7 @@
 <div id="root">
     <mat-spinner diameter="100" color="accent" *ngIf="loading"></mat-spinner>
     <p *ngIf="!loading && !user">There is no User {{userName}}<p>
-    <div id="user-profile-container" *ngIf="!loading && user">>
+    <div id="user-profile-container" *ngIf="!loading && user">
         <app-user-profile [userName]="userName" [editable]="editable"></app-user-profile>
     </div>
     <div id="user-entities-container" *ngIf="!loading && user">
