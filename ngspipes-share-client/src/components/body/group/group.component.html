@@ -1,12 +1,21 @@
 <div id="root">
     <mat-spinner diameter="100" color="accent" *ngIf="loading"></mat-spinner>
-    <p *ngIf="!loading && !group">There is no Group {{groupName}}<p>
-    <div id="group-profile-container" *ngIf="!loading && group">
-        <app-group-profile [groupName]="groupName" [editable]="editable"></app-group-profile>
+    <div id="non-existent-group" *ngIf="!loading && !group">
+        <app-non-existent-entity
+            icon="people"
+            message="There is no Group {{groupName}}!">
+        </app-non-existent-entity>
     </div>
-    <div id="group-entities-container" *ngIf="!loading && group">
-        <div id="group-members-container">
-            <app-group-members [groupName]="groupName" [editable]="editable"></app-group-members>
+    <div id="existent-group"  *ngIf="!loading && group">
+        <div id="left">
+            <div id="group-profile-container">
+                <app-group-profile [groupName]="groupName" [editable]="editable"></app-group-profile>
+            </div>
+        </div>
+        <div id="right">
+            <div id="group-members-container">
+                <app-group-members [groupName]="groupName" [editable]="editable"></app-group-members>
+            </div>
         </div>
     </div>
 </div>

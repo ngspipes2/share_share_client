@@ -1,29 +1,49 @@
 #root {
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
 }
 
-mat-spinner, p {
+#non-existent-repository, #existent-repository {
+    width: 100%;
+    height: 100%;
+}
+
+#non-existent-repository {
     display: flex;
-    align-self: center;
-    justify-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#existent-repository {
+    display: flex;
+    padding: 50px;
+}
+
+#left, #right {
+    display: grid;
+    width: 50%;
+}
+
+#left {
+    justify-items: start;
+}
+
+#right {
+    justify-items: end;
 }
 
 #repository-profile-container {
-    display: flex;
-    justify-content: center;
-    margin: 40px;
-}
-
-#repository-entities-container {
-    display: flex;
-    justify-content: center;
+   width: 90%;
 }
 
 #repository-members-container {
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin: 40px;
+    width: 70%;
+    margin-top: 50px;
+}
+
+#repository-tools-container {
+    width: 90%;
 }

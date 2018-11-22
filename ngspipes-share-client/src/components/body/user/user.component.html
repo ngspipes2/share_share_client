@@ -1,15 +1,24 @@
 <div id="root">
     <mat-spinner diameter="100" color="accent" *ngIf="loading"></mat-spinner>
-    <p *ngIf="!loading && !user">There is no User {{userName}}<p>
-    <div id="user-profile-container" *ngIf="!loading && user">
-        <app-user-profile [userName]="userName" [editable]="editable"></app-user-profile>
+    <div id="non-existent-user" *ngIf="!loading && !user">
+        <app-non-existent-entity
+            icon="person"
+            message="There is no User {{userName}}!">
+        </app-non-existent-entity>
     </div>
-    <div id="user-entities-container" *ngIf="!loading && user">
-        <div id="user-groups-container">
-            <app-user-groups [userName]="userName" [editable]="editable"></app-user-groups>
+    <div id="existent-user"  *ngIf="!loading && user">
+        <div id="left">
+            <div id="user-profile-container">
+                <app-user-profile [userName]="userName" [editable]="editable"></app-user-profile>
+            </div>
+            <div id="user-groups-container">
+                <app-user-groups [userName]="userName" [editable]="editable"></app-user-groups>
+            </div>
         </div>
-        <div id="user-repositories-container">
-            <app-user-repositories [userName]="userName" [editable]="editable"></app-user-repositories>
+        <div id="right">
+            <div id="user-repositories-container">
+                <app-user-repositories [userName]="userName" [editable]="editable"></app-user-repositories>
+            </div>
         </div>
     </div>
 </div>
