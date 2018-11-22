@@ -1,0 +1,16 @@
+<div id="root">
+    <div id="icon">
+        <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+        <mat-icon *ngIf="svgIcon" svgIcon="svgIcon"></mat-icon>
+    </div>
+    <div id="message">
+        <mat-icon>warning</mat-icon>
+        {{message}}
+    </div>
+    <div id="button">
+        <button mat-button (click)="myProfileClick()">
+            <mat-icon>account_circle</mat-icon>
+            My Profile
+        </button>
+    </div>
+</div>

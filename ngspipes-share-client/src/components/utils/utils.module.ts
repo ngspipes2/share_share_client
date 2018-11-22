@@ -7,6 +7,7 @@ import { MaterialModule } from '../../app/material.module';
 
 import { FrameComponent } from './frame/frame.component';
 import { OperationElementComponent } from './operation-element/operation-element.component';
+import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
 
 @NgModule({
     imports: [
@@ -18,11 +19,13 @@ import { OperationElementComponent } from './operation-element/operation-element
     ],
     declarations: [
         FrameComponent,
-        OperationElementComponent
+        OperationElementComponent,
+        NonExistentEntityComponent
     ],
     exports: [
         FrameComponent,
-        OperationElementComponent
+        OperationElementComponent,
+        NonExistentEntityComponent
     ]
 })
 export class UtilsModule { }
