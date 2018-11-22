@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
 import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
 
@@ -27,7 +27,8 @@ export class GroupMemberItemComponent {
 
 
     constructor(private groupMemberService : RepositoryGroupMemberService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -36,7 +37,7 @@ export class GroupMemberItemComponent {
         this.isWrite = this.member.writeAccess;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Member",
             "Are you sure you want to delete " + this.member.groupName + "?",
@@ -45,6 +46,8 @@ export class GroupMemberItemComponent {
             if(response === "Yes")
                 this.deleteMember();
         });
+
+        event.stopPropagation();
     }
 
     deleteMember() {
@@ -63,8 +66,10 @@ export class GroupMemberItemComponent {
         });
     }
 
-    writeAccessClick() {
+    writeAccessClick(event : any) {
         this.changingAccess = true;
+
+        this.member.writeAccess = !this.member.writeAccess;
 
         this.groupMemberService.updateMember(this.member)
         .then(result => {
@@ -77,6 +82,12 @@ export class GroupMemberItemComponent {
             this.dialogManager.openErrorDialog("Error changing access!", error);
             console.error(error);
         });
+
+        event.stopPropagation();
+    }
+
+    elementClick() {
+        this.router.navigate(["/groups/" + this.member.groupName]);
     }
 
 }

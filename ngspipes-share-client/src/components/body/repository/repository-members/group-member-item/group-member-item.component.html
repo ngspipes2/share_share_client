@@ -1,24 +1,30 @@
-<a  mat-list-item
-    class="entity"
-    routerLink="/groups/{{member.groupName}}">
-    <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-    <app-group-image *ngIf="!loading" class="image" [groupName]="member.groupName" [spinnerDiameter]="15"></app-group-image>
-    <div id="name" [matTooltip]="member.groupName">
-        {{member.groupName}}
+<div id="root" (click)="elementClick()">
+    <div id="label">
+        <app-group-image *ngIf="!loading" class="image" [groupName]="member.groupName" [spinnerDiameter]="15"></app-group-image>
+        <div id="name" [matTooltip]="member.groupName">
+            {{member.groupName}}
+        </div>
     </div>
 
-    <div class="icons">
-        <mat-slide-toggle [(ngModel)]="member.writeAccess" matTooltip="Write Access"></mat-slide-toggle>
-        <mat-spinner color="accent" *ngIf="deleting" [diameter]="25"></mat-spinner>
-        <mat-icon   #deleteIcon
-                    id="delete-icon"
-                    *ngIf="editable && !deleting"
-                    matTooltip="Delete"
-                    (mouseenter)="deleteIcon.color='warn'"
-                    (mouseleave)="deleteIcon.color=''"
-                    (click)="deleteClick()">delete</mat-icon>
+    <div id="icons">
+        <app-operation-element spinnerDiameter="25" [working]="changingAccess">
+            <mat-slide-toggle
+                [checked]="member.writeAccess"
+                (click)="writeAccessClick($event)"></mat-slide-toggle>
+        </app-operation-element>
+        <app-operation-element spinnerDiameter="25" [working]="deleting">
+            <mat-icon   #deleteIcon
+                id="delete-icon"
+                *ngIf="editable && !deleting"
+                matTooltip="Delete"
+                (mouseenter)="deleteIcon.color='warn'"
+                (mouseleave)="deleteIcon.color=''"
+                (click)="deleteClick($event)">
+                delete
+            </mat-icon>
+        </app-operation-element>
         <mat-icon *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
         <mat-icon *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
         <mat-icon matTooltip="Group">people</mat-icon>
     </div>
-</a>
+</div>

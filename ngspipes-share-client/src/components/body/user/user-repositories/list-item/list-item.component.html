@@ -1,12 +1,12 @@
-<a  mat-list-item
-    class="entity"
-    routerLink="/repositories/{{repository.repositoryName}}">
-    <app-repository-image class="image" [repositoryName]="repository.repositoryName" [spinnerDiameter]="15"></app-repository-image>
-    <div id="name" [matTooltip]="repository.repositoryName">
-        {{repository.repositoryName}}
+<div id="root" (click)="elementClick()">
+    <div id="label">
+        <app-repository-image class="image" [repositoryName]="repository.repositoryName" [spinnerDiameter]="15"></app-repository-image>
+        <div id="name" [matTooltip]="repository.repositoryName">
+            {{repository.repositoryName}}
+        </div>
     </div>
 
-    <div class="icons">
+    <div id="icons">
         <app-operation-element spinnerDiameter="25" [working]="deleting">
             <mat-icon   #deleteIcon
                 id="delete-icon"
@@ -14,7 +14,7 @@
                 matTooltip="Delete"
                 (mouseenter)="deleteIcon.color='warn'"
                 (mouseleave)="deleteIcon.color=''"
-                (click)="deleteClick()">
+                (click)="deleteClick($event)">
                 delete
             </mat-icon>
         </app-operation-element>
@@ -23,4 +23,4 @@
         <mat-icon *ngIf="isToolsRepository" matTooltip="Tools Repository">build</mat-icon>
         <mat-icon *ngIf="isPipelinesRepository" matTooltip="Pipelines Repository">insert_drive_file</mat-icon>
     </div>
-</a>
+</div>

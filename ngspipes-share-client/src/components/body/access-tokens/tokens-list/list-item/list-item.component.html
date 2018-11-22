@@ -15,7 +15,7 @@
                     (mouseenter)="deleteIcon.color='warn'"
                     (mouseleave)="deleteIcon.color=''"
                     matTooltip="Delete Token"
-                    (click)="deleteClick()">
+                    (click)="deleteClick($event)">
                     delete
                 </mat-icon>
             </app-operation-element>
@@ -37,7 +37,7 @@
                     (mouseenter)="deleteIcon.color='warn'"
                     (mouseleave)="deleteIcon.color=''"
                     matTooltip="Delete Token"
-                    (click)="deleteClick()">
+                    (click)="deleteClick($event)">
                     delete
                 </mat-icon>
             </app-operation-element>

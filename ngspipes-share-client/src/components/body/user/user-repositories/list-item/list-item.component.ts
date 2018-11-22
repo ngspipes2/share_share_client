@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
 
@@ -28,7 +28,8 @@ export class ListItemComponent implements OnInit {
 
 
     constructor(private repositoryService : RepositoryService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -39,7 +40,7 @@ export class ListItemComponent implements OnInit {
         this.isPipelinesRepository = this.repository.entityType === EntityType.PIPELINES;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Repository",
             "Are you sure you want to delete " + this.repository.repositoryName + "?",
@@ -48,6 +49,8 @@ export class ListItemComponent implements OnInit {
             if(response === "Yes")
                 this.deleteRepository();
         });
+
+        event.stopPropagation();
     }
 
     deleteRepository() {
@@ -64,6 +67,10 @@ export class ListItemComponent implements OnInit {
             this.dialogManager.openErrorDialog("Error deleting Repository!", error);
             console.error(error);
         });
+    }
+
+    elementClick() {
+        this.router.navigate(["/repositories/" + this.repository.repositoryName]);
     }
 
 }

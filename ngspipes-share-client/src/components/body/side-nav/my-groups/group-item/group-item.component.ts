@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
@@ -25,7 +26,8 @@ export class GroupItemComponent implements OnInit, OnDestroy {
 
     constructor(private sessionService : SessionService,
                 private groupService : GroupService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -44,7 +46,7 @@ export class GroupItemComponent implements OnInit, OnDestroy {
         this.isMember = this.group.ownerName !== this.userName;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Group",
             "Are you sure you want to delete " + this.group.groupName + "?",
@@ -53,6 +55,8 @@ export class GroupItemComponent implements OnInit, OnDestroy {
             if(response === "Yes")
                 this.deleteGroup();
         });
+
+        event.stopPropagation();
     }
 
     deleteGroup() {
@@ -69,6 +73,10 @@ export class GroupItemComponent implements OnInit, OnDestroy {
             this.dialogManager.openErrorDialog("Error deleting Group!", error);
             console.error(error);
         });
+    }
+
+    elementClick() {
+        this.router.navigate(["/groups/" + this.group.groupName]);
     }
 
 }

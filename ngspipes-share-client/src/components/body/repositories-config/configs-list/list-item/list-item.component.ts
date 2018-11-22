@@ -26,7 +26,7 @@ export class ListItemComponent {
 
 
 
-    deleteClick() {
+    deleteClick(event : any) {
         let title = "Delete Repository Config";
         let message = "Are you sure you want delete Repository Cofig: " + this.config.name + " ?";
         let options = ["Yes", "No"];
@@ -34,6 +34,8 @@ export class ListItemComponent {
             if(response === "Yes")
                 this.delete();
         });
+
+        event.stopPropagation();
     }
 
     delete() {

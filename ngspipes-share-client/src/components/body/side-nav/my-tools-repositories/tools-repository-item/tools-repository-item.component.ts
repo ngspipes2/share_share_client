@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Repository } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
@@ -25,7 +26,8 @@ export class ToolsRepositoryItemComponent {
 
     constructor(private sessionService : SessionService,
                 private repositoryService : RepositoryService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -44,7 +46,7 @@ export class ToolsRepositoryItemComponent {
         this.isMember = this.repository.ownerName !== this.userName;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Repository",
             "Are you sure you want to delete " + this.repository.repositoryName + "?",
@@ -53,6 +55,8 @@ export class ToolsRepositoryItemComponent {
             if(response === "Yes")
                 this.deleteRepository();
         });
+
+        event.stopPropagation();
     }
 
     deleteRepository() {
@@ -69,6 +73,10 @@ export class ToolsRepositoryItemComponent {
             this.dialogManager.openErrorDialog("Error deleting Repository!", error);
             console.error(error);
         });
+    }
+
+    elementClick() {
+        this.router.navigate(["/repositories/" + this.repository.repositoryName]);
     }
 
 }

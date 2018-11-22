@@ -26,7 +26,7 @@ export class ListItemComponent {
 
 
 
-    deleteClick() {
+    deleteClick(event : any) {
         let title = "Delete Access Token";
         let message = "Are you sure you want delete Access Token: " + this.token.name + " ?";
         let options = ["Yes", "No"];
@@ -34,6 +34,8 @@ export class ListItemComponent {
             if(response === "Yes")
                 this.delete();
         });
+
+        event.stopPropagation();
     }
 
     delete() {

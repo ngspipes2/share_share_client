@@ -1,15 +1,16 @@
-<a  mat-list-item
-    class="entity"
-    routerLink="/users/{{member.userName}}">
-    <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-    <app-user-image *ngIf="!loading" class="image" [userName]="member.userName" [spinnerDiameter]="15"></app-user-image>
-    <div id="name" [matTooltip]="member.userName">
-        {{member.userName}}
+<div id="root" (click)="elementClick()">
+    <div id="label">
+        <app-user-image *ngIf="!loading" class="image" [userName]="member.userName" [spinnerDiameter]="15"></app-user-image>
+        <div id="name" [matTooltip]="member.userName">
+            {{member.userName}}
+        </div>
     </div>
 
-    <div class="icons">
+    <div id="icons">
         <app-operation-element spinnerDiameter="25" [working]="changingAccess">
-            <mat-slide-toggle [(ngModel)]="member.writeAccess" matTooltip="Write Access"></mat-slide-toggle>
+            <mat-slide-toggle
+                [checked]="member.writeAccess"
+                (click)="writeAccessClick($event)"></mat-slide-toggle>
         </app-operation-element>
         <app-operation-element spinnerDiameter="25" [working]="deleting">
             <mat-icon   #deleteIcon
@@ -18,7 +19,7 @@
                 matTooltip="Delete"
                 (mouseenter)="deleteIcon.color='warn'"
                 (mouseleave)="deleteIcon.color=''"
-                (click)="deleteClick()">
+                (click)="deleteClick($event)">
                 delete
             </mat-icon>
         </app-operation-element>
@@ -26,4 +27,4 @@
         <mat-icon *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
         <mat-icon matTooltip="User">person</mat-icon>
     </div>
-</a>
+</div>

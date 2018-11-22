@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
@@ -27,7 +28,8 @@ export class ListItemComponent implements OnInit {
 
 
     constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -36,7 +38,7 @@ export class ListItemComponent implements OnInit {
         this.isWrite = this.member.writeAccess;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Member",
             "Are you sure you want to delete " + this.member.userName + "?",
@@ -45,6 +47,8 @@ export class ListItemComponent implements OnInit {
             if(response === "Yes")
                 this.deleteMember();
         });
+
+        event.stopPropagation();
     }
 
     deleteMember() {
@@ -63,8 +67,10 @@ export class ListItemComponent implements OnInit {
         });
     }
 
-    writeAccessClick() {
+    writeAccessClick(event : any) {
         this.changingAccess = true;
+
+        this.member.writeAccess = !this.member.writeAccess;
 
         this.groupMemberService.updateMember(this.member)
         .then(result => {
@@ -77,6 +83,12 @@ export class ListItemComponent implements OnInit {
             this.dialogManager.openErrorDialog("Error changing access!", error);
             console.error(error);
         });
+
+        event.stopPropagation();
+    }
+
+    elementClick() {
+        this.router.navigate(["/users/" + this.member.userName]);
     }
 
 }

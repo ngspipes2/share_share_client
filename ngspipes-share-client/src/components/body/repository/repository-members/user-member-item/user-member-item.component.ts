@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { Router } from '@angular/router';
 import { RepositoryUserMember } from '../../../../../entities/repository-user-member';
 import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
 
@@ -27,7 +27,8 @@ export class UserMemberItemComponent {
 
 
     constructor(private userMemberService : RepositoryUserMemberService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private router : Router) { }
 
 
 
@@ -36,7 +37,7 @@ export class UserMemberItemComponent {
         this.isWrite = this.member.writeAccess;
     }
 
-    deleteClick() {
+    deleteClick(event : any) {
         this.dialogManager.openWarningDialog(
             "Delete Member",
             "Are you sure you want to delete " + this.member.userName + "?",
@@ -45,6 +46,8 @@ export class UserMemberItemComponent {
             if(response === "Yes")
                 this.deleteMember();
         });
+
+        event.stopPropagation();
     }
 
     deleteMember() {
@@ -63,8 +66,10 @@ export class UserMemberItemComponent {
         });
     }
 
-    writeAccessClick() {
+    writeAccessClick(event : any) {
         this.changingAccess = true;
+
+        this.member.writeAccess = !this.member.writeAccess;
 
         this.userMemberService.updateMember(this.member)
         .then(result => {
@@ -77,6 +82,12 @@ export class UserMemberItemComponent {
             this.dialogManager.openErrorDialog("Error changing access!", error);
             console.error(error);
         });
+
+        event.stopPropagation();
+    }
+
+    elementClick() {
+        this.router.navigate(["/users/" + this.member.userName]);
     }
 
 }
