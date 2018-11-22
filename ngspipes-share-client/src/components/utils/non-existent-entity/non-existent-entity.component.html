@@ -1,7 +1,7 @@
 <div id="root">
     <div id="icon">
         <mat-icon *ngIf="icon">{{icon}}</mat-icon>
-        <mat-icon *ngIf="svgIcon" svgIcon="svgIcon"></mat-icon>
+        <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon"></mat-icon>
     </div>
     <div id="message">
         <mat-icon>warning</mat-icon>
