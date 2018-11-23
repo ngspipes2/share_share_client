@@ -1,0 +1,36 @@
+<div id="root">
+    <div id="text-filters">
+        <mat-form-field class="text-filter" *ngFor="let filter of getTextFilters()">
+            <input matInput
+                [placeholder]="filter.filterTextPlaceholder"
+                type="text"
+                [(ngModel)]="filter.filterValue">
+        </mat-form-field>
+    </div>
+
+    <div id="icon-filters">
+        <mat-checkbox
+            class="icon-filter"
+            *ngFor="let filter of getIconFilters()"
+            labelPosition="before"
+            [(ngModel)]="filter.filterValue"
+            [matTooltip]="filter.name">
+            <mat-icon *ngIf="filter.icon">{{filter.icon}}</mat-icon>
+            <mat-icon *ngIf="filter.svgIcon" [svgIcon]="filter.svgIcon"></mat-icon>
+        </mat-checkbox>
+    </div>
+
+    <div id="list">
+        <mat-spinner diameter="25" color="accent" *ngIf="!elements"></mat-spinner>
+
+        <div *ngIf="elements">
+            <div *ngFor="let element of elements">
+                <ng-template
+                    *ngIf="accept(element)"
+                    [ngTemplateOutlet]="templateRef"
+                    [ngTemplateOutletContext]="{$implicit: element}">
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

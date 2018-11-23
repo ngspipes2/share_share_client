@@ -8,6 +8,7 @@ import { MaterialModule } from '../../app/material.module';
 import { FrameComponent } from './frame/frame.component';
 import { OperationElementComponent } from './operation-element/operation-element.component';
 import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
+import { FilterListComponent } from './filter-list/filter-list.component';
 
 @NgModule({
     imports: [
@@ -20,12 +21,14 @@ import { NonExistentEntityComponent } from './non-existent-entity/non-existent-e
     declarations: [
         FrameComponent,
         OperationElementComponent,
-        NonExistentEntityComponent
+        NonExistentEntityComponent,
+        FilterListComponent
     ],
     exports: [
         FrameComponent,
         OperationElementComponent,
-        NonExistentEntityComponent
+        NonExistentEntityComponent,
+        FilterListComponent
     ]
 })
 export class UtilsModule { }
