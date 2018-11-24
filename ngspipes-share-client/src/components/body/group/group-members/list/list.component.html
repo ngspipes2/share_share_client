@@ -7,5 +7,17 @@
                 [editable]="editable">
             </app-list-item>
         </ng-template>
+        <div id="empty-list" empty-list>
+            <p>This Group has no members.<p>
+            <app-operation-element spinnerDiameter="25" [working]="creating" *ngIf="editable">
+              <button mat-raised-button
+                  #addMemberButton
+                  (mouseenter)="addMemberButton.color='primary'"
+                  (mouseleave)="addMemberButton.color=''"
+                  (click)="addMemberClick()">
+                  Add Member
+              </button>
+            </app-operation-element>
+        </div>
     </app-filter-list>
 </div>

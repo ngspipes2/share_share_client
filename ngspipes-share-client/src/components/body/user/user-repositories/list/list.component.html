@@ -1,13 +1,33 @@
 <div id="root">
-    <div id="root">
-        <app-filter-list [filters]="filters" [elements]="repositories">
-            <ng-template let-element>
-                <app-list-item
-                    [userName]="userName"
-                    [repository]="element"
-                    [editable]="editable">
-                </app-list-item>
-            </ng-template>
-        </app-filter-list>
-    </div>
+    <app-filter-list [filters]="filters" [elements]="repositories">
+        <ng-template let-element>
+            <app-list-item
+                [userName]="userName"
+                [repository]="element"
+                [editable]="editable">
+            </app-list-item>
+        </ng-template>
+        <div id="empty-list" empty-list>
+            <p *ngIf="!editable">This User has no Repositories.</p>
+            <p *ngIf="editable">You have no Repositories.</p>
+            <app-operation-element spinnerDiameter="25" [working]="creating" *ngIf="editable">
+              <button mat-raised-button
+                  #createFirstRepositoryButton
+                  (mouseenter)="createFirstRepositoryButton.color='primary'"
+                  (mouseleave)="createFirstRepositoryButton.color=''"
+                  (click)="createRepositoryClick()">
+                  Create Repository
+              </button>
+            </app-operation-element>
+            <app-operation-element spinnerDiameter="25" [working]="publishing">
+                <button mat-raised-button
+                    #publishFirstRepositoryButton
+                    (mouseenter)="publishFirstRepositoryButton.color='primary'"
+                    (mouseleave)="publishFirstRepositoryButton.color=''"
+                    (click)="publishRepositoryClick()">
+                    Publish Repository
+                </button>
+            </app-operation-element>
+        </div>
+    </app-filter-list>
 </div>

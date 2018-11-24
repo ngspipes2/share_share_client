@@ -5,3 +5,9 @@
 app-filter-list ::ng-deep #list {
     height: 300px;
 }
+
+#empty-list {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}

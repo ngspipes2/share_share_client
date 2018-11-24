@@ -1,3 +1,13 @@
 app-filter-list ::ng-deep #list {
     height: 200px;
 }
+
+#empty-list {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+#empty-list > app-operation-element {
+    margin: 5px;
+}

@@ -8,6 +8,18 @@
                     (click)="tokenClick(element)">
                 </app-list-item>
             </ng-template>
+            <div id="empty-list" empty-list>
+                <p>You currently have no Access Token.<p>
+                <app-operation-element spinnerDiameter="25" [working]="creating">
+                  <button mat-raised-button
+                      #createFirstTokenButton
+                      (mouseenter)="createFirstTokenButton.color='primary'"
+                      (mouseleave)="createFirstTokenButton.color=''"
+                      (click)="createTokenClick()">
+                      Create Token
+                  </button>
+                </app-operation-element>
+            </div>
         </app-filter-list>
     </div>
 </div>

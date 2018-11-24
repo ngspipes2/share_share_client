@@ -7,5 +7,17 @@
                 (click)="configClick(element)">
             </app-list-item>
         </ng-template>
+        <div id="empty-list" empty-list>
+            <p>You currently have no Repository Configs.<p>
+            <app-operation-element spinnerDiameter="25" [working]="creating">
+              <button mat-raised-button
+                  #createFirstConfigButton
+                  (mouseenter)="createFirstConfigButton.color='primary'"
+                  (mouseleave)="createFirstConfigButton.color=''"
+                  (click)="createConfigClick()">
+                  Create Config
+              </button>
+            </app-operation-element>
+        </div>
     </app-filter-list>
 </div>

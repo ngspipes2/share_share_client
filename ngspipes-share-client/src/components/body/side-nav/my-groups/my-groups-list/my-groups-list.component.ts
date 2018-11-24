@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
@@ -18,6 +19,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     groupSubscription : any;
 
     loading : boolean;
+    creating : boolean;
     userName : string;
     groups : Group[] = [];
 
@@ -27,7 +29,8 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
 
     constructor(private sessionService : SessionService,
                 private groupService : GroupService,
-                private dialogManager : DialogManager) {
+                private dialogManager : DialogManager,
+                private router : Router) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "GroupName"),
             new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
@@ -93,6 +96,29 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
             return false;
 
         return true;
+    }
+
+    createGroupClick() {
+        this.dialogManager.openNewGroupNameDialog().afterClosed().subscribe((groupName) => {
+            if(!groupName)
+                return;
+
+            let userName = this.sessionService.getCurrentCredentials()[0];
+            let group = new Group(groupName, null, null, userName);
+
+            this.creating = true;
+            this.groupService.createGroup(group)
+            .then(() => {
+                this.creating = false;
+                this.dialogManager.openSuccessDialog("Group created successfully!", null);
+                this.router.navigate(['/groups/' + groupName]);
+            })
+            .catch(error => {
+                this.creating = false;
+                this.dialogManager.openErrorDialog("Error creating Group!", error);
+                console.error(error);
+            });
+        });
     }
 
 }

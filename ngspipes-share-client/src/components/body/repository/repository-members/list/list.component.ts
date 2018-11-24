@@ -23,6 +23,8 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     groupMemberSubscription : any;
 
     loading : boolean;
+    creatingUserMember : boolean;
+    creatingGroupMember : boolean;
     userMembers : RepositoryUserMember[] = [];
     groupMembers : RepositoryGroupMember[] = [];
     members : any[];
@@ -152,6 +154,52 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
             return false;
 
         return true;
+    }
+
+    addUserMemberClick() {
+        this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
+            if(userName)
+            this.createUserMember(userName);
+        });
+    }
+
+    createUserMember(userName : string) {
+        this.creatingUserMember = true;
+
+        let member = new RepositoryUserMember(0, null, userName, this.repositoryName, false);
+        this.userMemberService.createMember(member)
+        .then(id => {
+            this.creatingUserMember = false;
+            this.dialogManager.openSuccessDialog("Member created successfully!", null);
+        })
+        .catch(error => {
+            this.creatingUserMember = false;
+            this.dialogManager.openErrorDialog("Error creating member!", error);
+            console.error(error);
+        });
+    }
+
+    addGroupMemberClick() {
+        this.dialogManager.openSelectGroupDialog().afterClosed().subscribe(groupName => {
+            if(groupName)
+                this.createGroupMember(groupName);
+        });
+    }
+
+    createGroupMember(groupName : string) {
+        this.creatingGroupMember = true;
+
+        let member = new RepositoryGroupMember(0, null, groupName, this.repositoryName, false);
+        this.groupMemberService.createMember(member)
+        .then(id => {
+            this.creatingGroupMember = false;
+            this.dialogManager.openSuccessDialog("Member created successfully!", null);
+        })
+        .catch(error => {
+            this.creatingGroupMember = false;
+            this.dialogManager.openErrorDialog("Error creating member!", error);
+            console.error(error);
+        });
     }
 
 }

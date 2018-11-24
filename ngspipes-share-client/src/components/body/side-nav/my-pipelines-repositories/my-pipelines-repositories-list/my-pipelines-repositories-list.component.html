@@ -4,6 +4,27 @@
             <ng-template let-element>
                 <app-pipelines-repository-item [repository]="element"></app-pipelines-repository-item>
             </ng-template>
+            <div id="empty-list" empty-list>
+                <p>You currently have no Pipelines Repositories.</p>
+                <app-operation-element spinnerDiameter="25" [working]="creating">
+                  <button mat-raised-button
+                      #createFirstRepositoryButton
+                      (mouseenter)="createFirstRepositoryButton.color='primary'"
+                      (mouseleave)="createFirstRepositoryButton.color=''"
+                      (click)="createRepositoryClick()">
+                      Create Pipelines Repository
+                  </button>
+                </app-operation-element>
+                <app-operation-element spinnerDiameter="25" [working]="publishing">
+                    <button mat-raised-button
+                        #publishFirstRepositoryButton
+                        (mouseenter)="publishFirstRepositoryButton.color='primary'"
+                        (mouseleave)="publishFirstRepositoryButton.color=''"
+                        (click)="publishRepositoryClick()">
+                        Publish Pipelines Repository
+                    </button>
+                </app-operation-element>
+            </div>
         </app-filter-list>
     </div>
 </div>
