@@ -23,7 +23,7 @@
     <div id="list">
         <mat-spinner diameter="25" color="accent" *ngIf="!elements"></mat-spinner>
 
-        <div *ngIf="elements">
+        <div id="non-empty-list" *ngIf="elements && elements.length !== 0">
             <div *ngFor="let element of elements">
                 <ng-template
                     *ngIf="accept(element)"
@@ -32,5 +32,7 @@
                 </ng-template>
             </div>
         </div>
+
+        <ng-content select="[empty-list]" *ngIf="elements && elements.length === 0"></ng-content>    
     </div>
 </div>
