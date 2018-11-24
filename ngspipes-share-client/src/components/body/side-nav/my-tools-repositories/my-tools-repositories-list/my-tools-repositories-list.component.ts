@@ -4,6 +4,7 @@ import { Repository, EntityType, LocationType } from '../../../../../entities/re
 import { RepositoryService } from '../../../../../services/repository.service';
 import { SessionService } from '../../../../../services/session.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
 @Component({
   selector: 'app-my-tools-repositories-list',
@@ -19,15 +20,19 @@ export class MyToolsRepositoriesListComponent implements OnInit {
     userName : string;
     repositories : Repository[] = [];
 
-    filterText : string = "";
-    filterAcceptOwner : boolean = true;
-    filterAcceptMember : boolean = true;
+    filters : Filter[];
 
 
 
     constructor(private sessionService : SessionService,
                 private repositoryService : RepositoryService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "RepositoryName"),
+            new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
+            new IconFilter(this.acceptMember.bind(this), true, "Member", "people", null)
+        ];
+    }
 
 
 
@@ -45,7 +50,7 @@ export class MyToolsRepositoriesListComponent implements OnInit {
 
     load() {
         this.userName = this.sessionService.getCurrentCredentials()[0];
-
+        this.repositories = undefined;
         this.loading = true;
 
         this.repositoryService.getRepositoriesAccessibleByUser(this.userName)
@@ -68,14 +73,22 @@ export class MyToolsRepositoriesListComponent implements OnInit {
         });
     }
 
-    accept(repository : Repository) : boolean {
-        if(repository.repositoryName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
+    acceptName(repository : Repository, text : string) {
+        let name = repository.repositoryName.toLowerCase();
+        text = text.toLowerCase();
+
+        return name.indexOf(text) !== -1;
+    }
+
+    acceptOwner(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.ownerName === this.userName)
             return false;
 
-        if(!this.filterAcceptOwner && repository.ownerName === this.userName)
-            return false;
+        return true;
+    }
 
-        if(!this.filterAcceptMember && repository.ownerName !== this.userName)
+    acceptMember(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.ownerName !== this.userName)
             return false;
 
         return true;

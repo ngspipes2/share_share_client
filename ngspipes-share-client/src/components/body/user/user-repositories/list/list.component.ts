@@ -4,6 +4,7 @@ import { Repository, EntityType, LocationType } from '../../../../../entities/re
 import { RepositoryService } from '../../../../../services/repository.service';
 
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
 @Component({
     selector: 'app-list',
@@ -22,16 +23,20 @@ export class ListComponent implements OnInit {
     loading : boolean;
     repositories : Repository[] = [];
 
-    filterText : string = "";
-    filterAcceptOwner : boolean = true;
-    filterAcceptMember : boolean = true;
-    filterAcceptToolsRepositories : boolean = true;
-    filterAcceptPipelinesRepositories : boolean = true;
+    filters : Filter[];
 
 
 
     constructor(private repositoryService : RepositoryService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "RepositoryName"),
+            new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
+            new IconFilter(this.acceptMember.bind(this), true, "Member", "people", null),
+            new IconFilter(this.acceptToolsRepository.bind(this), true, "Tools Repositories", "build", null),
+            new IconFilter(this.acceptPipelinesRepository.bind(this), true, "Pipelines Repositories", "insert_drive_file", null)
+        ];
+    }
 
 
 
@@ -49,6 +54,7 @@ export class ListComponent implements OnInit {
     }
 
     load() {
+        this.repositories = undefined;
         this.loading = true;
 
         this.repositoryService.getRepositoriesAccessibleByUser(this.userName)
@@ -71,20 +77,36 @@ export class ListComponent implements OnInit {
         });
     }
 
-    accept(repository : Repository) : boolean {
-        if(repository.repositoryName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
+    acceptName(repository : Repository, text : string) {
+        let name = repository.repositoryName.toLowerCase();
+        text = text.toLowerCase();
+
+        return name.indexOf(text) !== -1;
+    }
+
+    acceptOwner(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.ownerName === this.userName)
             return false;
 
-        if(!this.filterAcceptOwner && repository.ownerName === this.userName)
+        return true;
+    }
+
+    acceptMember(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.ownerName !== this.userName)
             return false;
 
-        if(!this.filterAcceptMember && repository.ownerName !== this.userName)
+        return true;
+    }
+
+    acceptToolsRepository(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.entityType === EntityType.TOOLS)
             return false;
 
-        if(!this.filterAcceptToolsRepositories && repository.entityType === EntityType.TOOLS)
-            return false;
+        return true;
+    }
 
-        if(!this.filterAcceptPipelinesRepositories && repository.entityType === EntityType.PIPELINES)
+    acceptPipelinesRepository(repository : Repository, accept : boolean) : boolean {
+        if(!accept && repository.entityType === EntityType.PIPELINES)
             return false;
 
         return true;

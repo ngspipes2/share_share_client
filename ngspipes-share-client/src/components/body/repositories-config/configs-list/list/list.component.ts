@@ -3,6 +3,7 @@ import { Component, OnInit, OnDestroy, EventEmitter,Input, Output } from '@angul
 import { RepositoryConfig } from '../../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
 @Component({
     selector: 'app-list',
@@ -21,12 +22,17 @@ export class ListComponent implements OnInit, OnDestroy {
     configs : RepositoryConfig[] = [];
     loading : boolean;
     creating : boolean;
-    filterText : string = "";
+
+    filters : Filter[];
 
 
 
     constructor(private repositoryConfigService : RepositoryConfigService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "ConfigName")
+        ];
+    }
 
 
 
@@ -40,6 +46,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     load() {
+        this.configs = undefined;
         this.loading = true;
 
         this.repositoryConfigService.getAllConfigs()
@@ -101,15 +108,15 @@ export class ListComponent implements OnInit, OnDestroy {
         this.selectedConfigNameChange.emit(name);
     }
 
-    filter(config : RepositoryConfig) {
-        let filter = this.filterText.toLowerCase();
-        let name = config.name.toLowerCase();
-
-        return name.indexOf(filter) !== -1;
-    }
-
     isSelected(config : RepositoryConfig) {
         return this.selectedConfigName === config.name;
+    }
+
+    acceptName(config : RepositoryConfig, text : string) {
+        let name = config.name.toLowerCase();
+        text = text.toLowerCase();
+
+        return name.indexOf(text) !== -1;
     }
 
 }

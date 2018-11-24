@@ -5,6 +5,7 @@ import { RepositoryGroupMember } from '../../../../../entities/repository-group-
 import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
 import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
 @Component({
     selector: 'app-list',
@@ -24,19 +25,23 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     loading : boolean;
     userMembers : RepositoryUserMember[] = [];
     groupMembers : RepositoryGroupMember[] = [];
-    members : any[] = [];
+    members : any[];
 
-    filterText : string = "";
-    filterAcceptReadAccess : boolean = true;
-    filterAcceptWriteAccess : boolean = true;
-    filterAcceptUser : boolean = true;
-    filterAcceptGroup : boolean = true;
+    filters: Filter[] = [];
 
 
 
     constructor(private userMemberService : RepositoryUserMemberService,
                 private groupMemberService : RepositoryGroupMemberService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "MemberName"),
+            new IconFilter(this.acceptReadAccess.bind(this), true, "Read Access", null, "pencil-off"),
+            new IconFilter(this.acceptWriteAccess.bind(this), true, "Write Access", null, "pencil"),
+            new IconFilter(this.acceptUser.bind(this), true, "User", "person", null),
+            new IconFilter(this.acceptGroup.bind(this), true, "Group", "people", null)
+        ];
+    }
 
 
 
@@ -56,6 +61,8 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     load() {
+        this.members = undefined;
+
         this.loadUserMembers();
         this.loadGroupMembers();
     }
@@ -111,33 +118,37 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    acceptUser(member : RepositoryUserMember) : boolean {
-        if(member.userName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
-            return false;
+    acceptName(member : any, text : string) {
+        let name = member.userName ? member.userName : member.groupName;
+        name = name.toLowerCase();
+        text = text.toLowerCase();
 
-        if(!this.filterAcceptReadAccess && !member.writeAccess)
-            return false;
+        return name.indexOf(text) !== -1;
+    }
 
-        if(!this.filterAcceptWriteAccess && member.writeAccess)
-            return false;
-
-        if(!this.filterAcceptUser)
+    acceptReadAccess(member : any, accept : boolean) : boolean {
+        if(!accept && !member.writeAccess)
             return false;
 
         return true;
     }
 
-    acceptGroup(member : RepositoryGroupMember) : boolean {
-        if(member.groupName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
+    acceptWriteAccess(member : any, accept : boolean) : boolean {
+        if(!accept && member.writeAccess)
             return false;
 
-        if(!this.filterAcceptReadAccess && !member.writeAccess)
+        return true;
+    }
+
+    acceptUser(member : any, accept : boolean) : boolean {
+        if(!accept && member.userName)
             return false;
 
-        if(!this.filterAcceptWriteAccess && member.writeAccess)
-            return false;
+        return true;
+    }
 
-        if(!this.filterAcceptGroup)
+    acceptGroup(member : any, accept : boolean) : boolean {
+        if(!accept && member.groupName)
             return false;
 
         return true;

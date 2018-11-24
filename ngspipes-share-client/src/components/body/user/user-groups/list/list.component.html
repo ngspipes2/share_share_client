@@ -1,24 +1,13 @@
 <div id="root">
-    <mat-form-field class="search-field">
-        <input matInput placeholder="Group name" type="text" [(ngModel)]="filterText">
-    </mat-form-field>
-
-    <div id="check-boxes">
-        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptOwner" matTooltip="Owner">
-            <mat-icon>person</mat-icon>
-        </mat-checkbox>
-        <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptMember" matTooltip="Member">
-            <mat-icon>people</mat-icon>
-        </mat-checkbox>
+    <div id="root">
+        <app-filter-list [filters]="filters" [elements]="groups">
+            <ng-template let-element>
+                 <app-list-item
+                    [userName]="userName"
+                    [group]="element"
+                    [editable]="editable">
+                </app-list-item>
+            </ng-template>
+        </app-filter-list>
     </div>
-
-    <div id="spinner">
-        <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-    </div>
-
-    <mat-nav-list *ngIf="!loading">
-        <div *ngFor="let group of groups">
-            <app-list-item *ngIf="accept(group)" [userName]="userName" [group]="group" [editable]="editable"></app-list-item>
-        </div>
-    </mat-nav-list>
 </div>

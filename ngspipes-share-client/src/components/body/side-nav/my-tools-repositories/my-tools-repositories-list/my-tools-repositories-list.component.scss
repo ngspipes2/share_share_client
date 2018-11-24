@@ -1,18 +1,7 @@
-.search-field {
-    width: 100%;
+#root {
+    margin: 15px 30px 15px 30px;
 }
 
-#check-boxes {
-    display: flex;
-    justify-content: space-around;
-}
-
-mat-nav-list {
-    overflow: auto;
-    max-height: 200px;
-}
-
-.spinner {
-    display: flex;
-    justify-content: center;
+app-filter-list ::ng-deep #list {
+    height: 300px;
 }

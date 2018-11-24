@@ -1,39 +1,13 @@
 <div id="root">
-    <div *ngIf="loading" id="load-container">
-        <mat-spinner color="accent" *ngIf="loading" [diameter]="50"></mat-spinner>
-    </div>
-
-    <div id="no-tokens-content" *ngIf="!loading && tokens.length == 0">
-        <p>You currently have no Access Token.<p>
-        <app-operation-element spinnerDiameter="25" [working]="creating">
-            <button
-                mat-raised-button
-                #createFirstTokenButton
-                (mouseenter)="createFirstTokenButton.color='primary'"
-                (mouseleave)="createFirstTokenButton.color=''"
-                (click)="createTokenClick()">
-                Create Token
-            </button>
-        </app-operation-element>
-    </div>
-
-    <div id="tokens-content" *ngIf="!loading && tokens.length > 0">
-        <mat-form-field class="search-field">
-            <input matInput placeholder="Name" type="text" [(ngModel)]="filterText">
-        </mat-form-field>
-        <div id="check-boxes">
-            <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptWriteAccess" matTooltip="Write Access">
-                <mat-icon svgIcon="pencil"></mat-icon>
-            </mat-checkbox>
-        </div>
-        <mat-list id="list">
-            <div *ngFor="let token of tokens">
-                <app-list-item *ngIf="filter(token)"
-                    [token]="token"
-                    [selected]="isSelected(token)"
-                    (click)="tokenClick(token)">
+    <div id="root">
+        <app-filter-list [filters]="filters" [elements]="tokens">
+            <ng-template let-element>
+                <app-list-item
+                    [token]="element"
+                    [selected]="isSelected(element)"
+                    (click)="tokenClick(element)">
                 </app-list-item>
-            </div>
-        </mat-list>
+            </ng-template>
+        </app-filter-list>
     </div>
 </div>

@@ -5,6 +5,8 @@ import { GroupService } from '../../../../../services/group.service';
 import { SessionService } from '../../../../../services/session.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
+
 @Component({
     selector: 'app-my-groups-list',
     templateUrl: './my-groups-list.component.html',
@@ -19,15 +21,19 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     userName : string;
     groups : Group[] = [];
 
-    filterText : string = "";
-    filterAcceptOwner : boolean = true;
-    filterAcceptMember : boolean = true;
+    filters : Filter[];
 
 
 
     constructor(private sessionService : SessionService,
                 private groupService : GroupService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "GroupName"),
+            new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
+            new IconFilter(this.acceptMember.bind(this), true, "Member", "people", null)
+        ];
+    }
 
 
 
@@ -45,7 +51,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
 
     load() {
         this.userName = this.sessionService.getCurrentCredentials()[0];
-
+        this.groups = undefined;
         this.loading = true;
 
         this.groupService.getGroupsAccessibleByUser(this.userName)
@@ -68,14 +74,22 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
         });
     }
 
-    accept(group : Group) : boolean {
-        if(group.groupName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
+    acceptName(group : Group, text : string) {
+        let name = group.groupName.toLowerCase();
+        text = text.toLowerCase();
+
+        return name.indexOf(text) !== -1;
+    }
+
+    acceptOwner(group : Group, accept : boolean) : boolean {
+        if(!accept && group.ownerName === this.userName)
             return false;
 
-        if(!this.filterAcceptOwner && group.ownerName === this.userName)
-            return false;
+        return true;
+    }
 
-        if(!this.filterAcceptMember && group.ownerName !== this.userName)
+    acceptMember(group : Group, accept : boolean) : boolean {
+        if(!accept && group.ownerName !== this.userName)
             return false;
 
         return true;

@@ -4,6 +4,8 @@ import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
+import { Filter, IconFilter, TextFilter } from '../../../../utils/filter-list/filter-list.component';
+
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
@@ -21,14 +23,18 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     loading : boolean;
     members : GroupMember[] = [];
 
-    filterText : string = "";
-    filterAcceptReadAccess : boolean = true;
-    filterAcceptWriteAccess : boolean = true;
+    filters : Filter[];
 
 
 
     constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "MemberName"),
+            new IconFilter(this.acceptReadAccess.bind(this), true, "Read Access", null, "pencil-off"),
+            new IconFilter(this.acceptWriteAccess.bind(this), true, "Write Access", null, "pencil")
+        ];
+    }
 
 
 
@@ -46,6 +52,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     load() {
+        this.members = undefined;
         this.loading = true;
 
         this.groupMemberService.getMembersOfGroup(this.groupName)
@@ -68,14 +75,22 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    accept(member : GroupMember) : boolean {
-        if(member.userName.toLowerCase().indexOf(this.filterText.toLowerCase()) === -1)
+    acceptName(member : GroupMember, text : string) {
+        let name = member.userName.toLowerCase();
+        text = text.toLowerCase();
+
+        return name.indexOf(text) !== -1;
+    }
+
+    acceptReadAccess(member : any, accept : boolean) : boolean {
+        if(!accept && !member.writeAccess)
             return false;
 
-        if(!this.filterAcceptReadAccess && !member.writeAccess)
-            return false;
+        return true;
+    }
 
-        if(!this.filterAcceptWriteAccess && member.writeAccess)
+    acceptWriteAccess(member : any, accept : boolean) : boolean {
+        if(!accept && member.writeAccess)
             return false;
 
         return true;

@@ -1,22 +1,9 @@
-<mat-form-field class="search-field">
-    <input matInput placeholder="Repository name" type="text" [(ngModel)]="filterText">
-</mat-form-field>
-
-<div id="check-boxes">
-    <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptOwner" matTooltip="Owner">
-        <mat-icon>person</mat-icon>
-    </mat-checkbox>
-    <mat-checkbox labelPosition="before" [(ngModel)]="filterAcceptMember" matTooltip="Member">
-        <mat-icon>people</mat-icon>
-    </mat-checkbox>
-</div>
-
-<div class="spinner">
-    <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-</div>
-
-<mat-nav-list *ngIf="!loading">
-    <div *ngFor="let repository of repositories">
-        <app-pipelines-repository-item [repository]="repository" *ngIf="accept(repository)"></app-pipelines-repository-item>
+<div id="root">
+    <div id="root">
+        <app-filter-list [filters]="filters" [elements]="repositories">
+            <ng-template let-element>
+                <app-pipelines-repository-item [repository]="element"></app-pipelines-repository-item>
+            </ng-template>
+        </app-filter-list>
     </div>
-</mat-nav-list>
+</div>

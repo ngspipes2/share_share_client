@@ -5,6 +5,8 @@ import { AccessTokenService } from '../../../../../services/access-token.service
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { SessionService } from '../../../../../services/session.service';
 
+import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -22,14 +24,20 @@ export class ListComponent implements OnInit, OnDestroy {
     tokens : AccessToken[] = [];
     loading : boolean;
     creating : boolean;
-    filterText : string = "";
-    filterAcceptWriteAccess : boolean = true;
+
+    filters : Filter[];
 
 
 
     constructor(private accessTokenService : AccessTokenService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager) {
+        this.filters = [
+            new TextFilter(this.acceptName.bind(this), "", "TokenName"),
+            new IconFilter(this.acceptReadAccess.bind(this), true, "Read Access", null, "pencil-off"),
+            new IconFilter(this.acceptWriteAccess.bind(this), true, "Write Access", null, "pencil")
+        ];
+    }
 
 
 
@@ -43,6 +51,7 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     load() {
+        this.tokens = undefined;
         this.loading = true;
 
         let userName = this.sessionService.getCurrentCredentials()[0];
@@ -102,21 +111,29 @@ export class ListComponent implements OnInit, OnDestroy {
         this.selectedTokenIdChange.emit(tokenId);
     }
 
-    filter(token : AccessToken) {
-        let filter = this.filterText.toLowerCase();
+    isSelected(token : AccessToken) {
+        return this.selectedTokenId === token.id;
+    }
+
+    acceptName(token : AccessToken, text : string) {
         let name = token.name.toLowerCase();
+        text = text.toLowerCase();
 
-        if(name.indexOf(filter) === -1)
-            return false;
+        return name.indexOf(text) !== -1;
+    }
 
-        if(!this.filterAcceptWriteAccess && token.writeAccess)
+    acceptReadAccess(token : AccessToken, accept : boolean) : boolean {
+        if(!accept && !token.writeAccess)
             return false;
 
         return true;
     }
 
-    isSelected(token : AccessToken) {
-        return this.selectedTokenId === token.id;
+    acceptWriteAccess(token : AccessToken, accept : boolean) : boolean {
+        if(!accept && token.writeAccess)
+            return false;
+
+        return true;
     }
 
 }
