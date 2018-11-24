@@ -10,7 +10,8 @@
         <app-operation-element spinnerDiameter="25" [working]="changingAccess">
             <mat-slide-toggle
                 [checked]="member.writeAccess"
-                (click)="writeAccessClick($event)"></mat-slide-toggle>
+                (click)="writeAccessClick($event)"
+                matTooltip="Write Access"></mat-slide-toggle>
         </app-operation-element>
         <app-operation-element spinnerDiameter="25" [working]="deleting">
             <mat-icon   #deleteIcon
