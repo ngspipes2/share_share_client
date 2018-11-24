@@ -11,8 +11,8 @@
             <div id="repository-profile-container">
                 <app-repository-profile [repositoryName]="repositoryName" [editable]="editable"></app-repository-profile>
             </div>
-            <div id="repository-members-container">
-                <app-repository-members *ngIf="isInternalRepository" [repositoryName]="repositoryName" [editable]="editable"></app-repository-members>
+            <div id="repository-members-container" *ngIf="isInternalRepository()">
+                <app-repository-members [repositoryName]="repositoryName" [editable]="editable"></app-repository-members>
             </div>
         </div>
         <div id="right">
