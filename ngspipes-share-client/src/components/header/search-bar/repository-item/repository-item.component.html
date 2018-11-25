@@ -1,5 +1,7 @@
 <div id="root" (click)="clicked()">
     <app-repository-image [repositoryName]="repositoryName" [spinnerDiameter]=15></app-repository-image>
-    {{repositoryName}}
+    <div [matTooltip]="repositoryName">
+        {{repositoryName}}
+    </div>
     <mat-icon matTooltip="Repository" id="icon" svgIcon="repository"></mat-icon>
 </div>

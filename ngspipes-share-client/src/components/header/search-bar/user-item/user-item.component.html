@@ -1,5 +1,7 @@
 <div id="root" (click)="clicked()">
     <app-user-image [userName]="userName" [spinnerDiameter]=15></app-user-image>
-    {{userName}}
+    <div [matTooltip]="userName">
+        {{userName}}
+    </div>
     <mat-icon matTooltip="User" id="icon">account_circle</mat-icon>
 </div>

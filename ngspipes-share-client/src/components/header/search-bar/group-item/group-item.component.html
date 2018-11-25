@@ -1,5 +1,7 @@
 <div id="root" (click)="clicked()">
     <app-group-image [groupName]="groupName" [spinnerDiameter]=15></app-group-image>
-    {{groupName}}
+    <div [matTooltip]="groupName">
+        {{groupName}}
+    </div>
     <mat-icon matTooltip="Group" id="icon">group</mat-icon>
 </div>
