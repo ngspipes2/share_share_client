@@ -9,6 +9,7 @@
     <div id="icons">
         <app-operation-element spinnerDiameter="25" [working]="changingAccess">
             <mat-slide-toggle
+                [disabled]="!editable"
                 [checked]="member.writeAccess"
                 (click)="writeAccessClick($event)"
                 matTooltip="Write Access"></mat-slide-toggle>

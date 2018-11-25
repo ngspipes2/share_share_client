@@ -47,7 +47,7 @@
                 Is Public:
             </div>
             <div *ngIf="repository">
-                <mat-slide-toggle [(ngModel)]="repository.isPublic" [matTooltip]="repository.isPublic? 'Public' : 'Private'"></mat-slide-toggle>
+                <mat-slide-toggle [(ngModel)]="repository.isPublic" [matTooltip]="repository.isPublic? 'Public' : 'Private'" [disabled]="!editable"></mat-slide-toggle>
                 <mat-icon id="warning" *ngIf="showPublicFieldWarning()" matTooltip="Since this is an External Repository this field only has the porpose of information. If you change this value, no changes will be made on the actual repository. Contact your repository supplier to change your repository access.">warning</mat-icon>
             </div>
         </div>
