@@ -1,0 +1,18 @@
+<ng-template #defaultNameTemplate>
+    {{name}}:
+</ng-template>
+
+<ng-template #defaultValueTemplate>
+    {{value}}
+</ng-template>
+
+<div id="root">
+    <div id="name">
+        <ng-template [ngTemplateOutlet]="nameTemplateRef ? nameTemplateRef : defaultNameTemplate">
+        </ng-template>
+    </div>
+    <div id="value">
+        <ng-template [ngTemplateOutlet]="valueTemplateRef ? valueTemplateRef : defaultValueTemplate">
+        </ng-template>
+    </div>
+</div>

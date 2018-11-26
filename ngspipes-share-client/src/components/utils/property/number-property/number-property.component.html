@@ -1,0 +1,13 @@
+<app-property [name]="name">
+    <ng-template #valueTemplate>
+        <div *ngIf="!editable" [matTooltip]="value">
+            {{value}}
+        </div>
+        <input matInput id="input" *ngIf="editable"
+            [(ngModel)]="value"
+            type="number"
+            [readonly]="!editable"
+            (change)="valueChanged()"
+            [matTooltip]="value">
+    </ng-template>
+</app-property>

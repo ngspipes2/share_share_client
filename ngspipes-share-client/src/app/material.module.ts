@@ -21,7 +21,9 @@ import {
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatTabsModule,
-    MatSelectModule } from '@angular/material';
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule } from '@angular/material';
 
 @NgModule({
     imports: [
@@ -44,7 +46,9 @@ import {
         MatAutocompleteModule,
         MatSlideToggleModule,
         MatTabsModule,
-        MatSelectModule ],
+        MatSelectModule,
+        MatNativeDateModule,
+        MatDatepickerModule ],
     exports: [
         MatToolbarModule,
         MatGridListModule,
@@ -65,7 +69,9 @@ import {
         MatAutocompleteModule,
         MatSlideToggleModule,
         MatTabsModule,
-        MatSelectModule ]
+        MatSelectModule,
+        MatNativeDateModule,
+        MatDatepickerModule]
 })
 
 export class MaterialModule { }

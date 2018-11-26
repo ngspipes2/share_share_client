@@ -1,0 +1,9 @@
+<app-property [name]="name">
+    <ng-template #valueTemplate>
+        <mat-slide-toggle
+            [(ngModel)]="value"
+            (change)="valueChanged()"
+            [disabled]="!editable">
+        </mat-slide-toggle>
+    </ng-template>
+</app-property>

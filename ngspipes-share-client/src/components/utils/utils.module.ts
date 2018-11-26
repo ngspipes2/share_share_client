@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../app/material.module';
 
+import { PropertyModule } from './property/property.module';
+
 import { FrameComponent } from './frame/frame.component';
 import { OperationElementComponent } from './operation-element/operation-element.component';
 import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
@@ -16,7 +18,8 @@ import { FilterListComponent } from './filter-list/filter-list.component';
         BrowserModule,
         BrowserAnimationsModule,
         FormsModule,
-        MaterialModule
+        MaterialModule,
+        PropertyModule
     ],
     declarations: [
         FrameComponent,
@@ -25,6 +28,7 @@ import { FilterListComponent } from './filter-list/filter-list.component';
         FilterListComponent
     ],
     exports: [
+        PropertyModule,
         FrameComponent,
         OperationElementComponent,
         NonExistentEntityComponent,

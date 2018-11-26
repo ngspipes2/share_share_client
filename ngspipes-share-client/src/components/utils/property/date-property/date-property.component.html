@@ -1,0 +1,7 @@
+<app-property [name]="name">
+    <ng-template #valueTemplate>
+        <input matInput [matDatepicker]="dp" [formControl]="dateForm" [readonly]="!editable">
+        <mat-datepicker-toggle matSuffix [for]="dp" *ngIf="editable"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+    </ng-template>
+</app-property>
