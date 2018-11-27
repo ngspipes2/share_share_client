@@ -1,9 +1,22 @@
-app-property ::ng-deep #input {
-    border-radius: 5px;
-    background-color: rgba(182, 182, 182, 0.20);
+app-property ::ng-deep #value {
+    width: -webkit-fill-available;
+    overflow: hidden;
 }
 
-app-property ::ng-deep #value {
-    width: 100%;
+app-property ::ng-deep #single-line-input, app-property ::ng-deep #multiple-line-input {
+    border-radius: 5px;
+    background-color: rgba(182, 182, 182, 0.20);
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+app-property ::ng-deep #single-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+app-property ::ng-deep #multiple-line {
     white-space: pre-line;
+    word-break: break-word;
 }

@@ -1,18 +1,25 @@
 <app-property [name]="name">
     <ng-template #valueTemplate>
-        <div *ngIf="!editable" [matTooltip]="value">
+        <div id="single-line"
+            *ngIf="!editable && !multipleLines"
+            [matTooltip]="value">
             {{value}}
         </div>
-        <input matInput id="input" *ngIf="editable && !multipleLines"
+        <div id="multiple-line"
+            *ngIf="!editable && multipleLines"
+            [matTooltip]="value">
+            {{value}}
+        </div>
+        <input matInput id="single-line-input"
+            *ngIf="editable && !multipleLines"
             [(ngModel)]="value"
             type="text"
-            [readonly]="!editable"
             (change)="valueChanged()"
             [matTooltip]="value">
-        <textarea matInput id="input" *ngIf="editable && multipleLines"
+        <textarea matInput id="multiple-line-input"
+            *ngIf="editable && multipleLines"
             [(ngModel)]="value"
             type="text"
-            [readonly]="!editable"
             (change)="valueChanged()"
             [matTooltip]="value">
         </textarea>
