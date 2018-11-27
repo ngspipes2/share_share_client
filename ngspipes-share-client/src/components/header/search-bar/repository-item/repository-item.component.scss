@@ -1,25 +1,32 @@
 #root {
     display: flex;
+    justify-content: space-between;
+}
+
+#logo, #name, #icon {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
+#name {
+    display: block;
+    width: 80%;
+    justify-content: start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 app-repository-image {
-    vertical-align: sub;
     display: inline-grid;
 
     font-size: 26px;
 
     height: 25px;
     width: 25px;
-
-    margin-right: 10px;
 }
 
 app-repository-image ::ng-deep img {
     border-radius: 50%;
-}
-
-#icon {
-    position: absolute;
-    right: 15px;
 }
