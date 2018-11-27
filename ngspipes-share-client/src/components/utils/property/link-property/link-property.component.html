@@ -1,0 +1,7 @@
+<app-property [name]="name">
+    <ng-template #valueTemplate>
+        <button mat-button [routerLink]="link">
+            {{value}}
+        </button>
+    </ng-template>
+</app-property>
