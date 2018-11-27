@@ -67,6 +67,11 @@ export class UserMemberItemComponent {
     }
 
     writeAccessClick(event : any) {
+        event.stopPropagation();
+
+        if(!this.editable)
+            return;
+            
         this.changingAccess = true;
 
         this.member.writeAccess = !this.member.writeAccess;
@@ -82,8 +87,6 @@ export class UserMemberItemComponent {
             this.dialogManager.openErrorDialog("Error changing access!", error);
             console.error(error);
         });
-
-        event.stopPropagation();
     }
 
     elementClick() {
