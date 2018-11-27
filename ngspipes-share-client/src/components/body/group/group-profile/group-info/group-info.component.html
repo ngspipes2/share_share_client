@@ -1,22 +1,26 @@
 <div id="root">
     <div id="info-container">
         <app-string-property
+            *ngIf="group"
             class="property"
             [name]="'GroupName'"
             [value]="group.groupName">
         </app-string-property>
         <app-date-property
+            *ngIf="group"
             class="property"
             [name]="'Creation date'"
             [value]="group.creationDate">
         </app-date-property>
         <app-link-property
+            *ngIf="group"
             class="property"
             [name]="'Owner'"
             [value]="group.ownerName"
             [link]="'/users/' + group.ownerName">
         </app-link-property>
         <app-string-property
+            *ngIf="group"
             class="property"
             [name]="'Description'"
             [(value)]="group.description"

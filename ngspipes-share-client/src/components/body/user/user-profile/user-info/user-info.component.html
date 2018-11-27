@@ -1,27 +1,32 @@
 <div id="root">
     <div id="info-container">
         <app-string-property
+            *ngIf="user"
             class="property"
             [name]="'UserName'"
             [value]="user.userName">
         </app-string-property>
         <app-date-property
+            *ngIf="user"
             class="property"
             [name]="'User since'"
             [value]="user.creationDate">
         </app-date-property>
         <app-string-property
+            *ngIf="user"
             class="property"
             [name]="'Role'"
             [value]="user.role">
         </app-string-property>
         <app-string-property
+            *ngIf="user"
             class="property"
             [name]="'Name'"
             [(value)]="user.name"
             [editable]="editable">
         </app-string-property>
         <app-string-property
+            *ngIf="user"
             class="property"
             [name]="'Email'"
             [(value)]="user.email"

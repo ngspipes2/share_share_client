@@ -1,32 +1,37 @@
 <div id="root">
     <div id="info-container">
         <app-string-property
+            *ngIf="repository"
             class="property"
             [name]="'RepositoryName'"
             [value]="repository.repositoryName">
         </app-string-property>
         <app-string-property
+            *ngIf="repository"
             class="property"
             [name]="'Type'"
             [value]="getType()">
         </app-string-property>
         <app-date-property
+            *ngIf="repository"
             class="property"
             [name]="getDateFieldLabel()"
             [value]="repository.creationDate">
         </app-date-property>
         <app-link-property
+            *ngIf="repository"
             class="property"
             [name]="getOwnerFieldLabel()"
             [value]="repository.ownerName"
             [link]="'/users/' + repository.ownerName">
         </app-link-property>
         <app-string-property
+            *ngIf="repository"
             class="property"
             [name]="'Location'"
             [value]="repository.location">
         </app-string-property>
-        <app-property [name]="'Is Public'" class="property">
+        <app-property [name]="'Is Public'" class="property" *ngIf="repository">
             <ng-template #valueTemplate>
                 <mat-slide-toggle
                     [(ngModel)]="repository.isPublic"
@@ -42,6 +47,7 @@
             </ng-template>
         </app-property>
         <app-string-property
+            *ngIf="repository"
             class="property"
             [name]="'Description'"
             [(value)]="repository.description"
