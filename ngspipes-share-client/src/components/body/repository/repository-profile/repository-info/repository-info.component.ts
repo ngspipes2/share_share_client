@@ -65,16 +65,6 @@ export class RepositoryInfoComponent {
         });
     }
 
-    dateToString(date : Date) : string {
-        let day = date.getDate() > 10 ? date.getDate().toString() : '0'+date.getDate().toString();
-        let month = (date.getMonth()+1) > 10 ? (date.getMonth()+1).toString() : '0'+(date.getMonth()+1).toString();;
-        let year = date.getFullYear();
-        let hour = date.getHours() > 10 ? date.getHours().toString() : '0'+date.getHours().toString();
-        let minutes = date.getMinutes() > 10 ? date.getMinutes().toString() : '0'+date.getMinutes().toString();
-
-        return day + "-" + month + "-" + year + " " + hour + ":" + minutes;
-    }
-
     changeImage(file : any) {
         if(!file)
             return;
@@ -145,16 +135,16 @@ export class RepositoryInfoComponent {
 
     getDateFieldLabel() {
         if(!this.repository || this.repository.locationType === LocationType.INTERNAL)
-            return "Creation Date:";
+            return "Creation Date";
 
-        return "Publication Date:";
+        return "Publication Date";
     }
 
     getOwnerFieldLabel() {
         if(!this.repository || this.repository.locationType === LocationType.INTERNAL)
-            return "Owner:";
+            return "Owner";
 
-        return "Publisher:";
+        return "Publisher";
     }
 
     getType() {

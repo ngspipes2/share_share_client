@@ -1,72 +1,47 @@
 <div id="root">
     <div id="info-container">
-        <div class="field">
-            <div class="label">
-                UserName:
-            </div>
-            <div *ngIf="user">
-                {{user.userName}}
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                User since:
-            </div>
-            <div *ngIf="user">
-                {{dateToString(user.creationDate)}}
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Role:
-            </div>
-            <div *ngIf="user">
-                {{user.role}}
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Name:
-            </div>
-            <div *ngIf="user">
-                <div *ngIf="editable">
-                    <mat-form-field>
-                        <input matInput placeholder="" [(ngModel)]="user.name">
-                    </mat-form-field>
-                </div>
-                <div *ngIf="!editable">
-                    {{user.name}}
-                </div>
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Email:
-            </div>
-            <div *ngIf="user">
-                <div *ngIf="editable">
-                    <mat-form-field>
-                        <input matInput placeholder="" [(ngModel)]="user.email">
-                    </mat-form-field>
-                </div>
-                <div *ngIf="!editable">
-                    {{user.email}}
-                </div>
-            </div>
-        </div>
-        <div class="field-button" *ngIf="editable">
+        <app-string-property
+            class="property"
+            [name]="'UserName'"
+            [value]="user.userName">
+        </app-string-property>
+        <app-date-property
+            class="property"
+            [name]="'User since'"
+            [value]="user.creationDate">
+        </app-date-property>
+        <app-string-property
+            class="property"
+            [name]="'Role'"
+            [value]="user.role">
+        </app-string-property>
+        <app-string-property
+            class="property"
+            [name]="'Name'"
+            [(value)]="user.name"
+            [editable]="editable">
+        </app-string-property>
+        <app-string-property
+            class="property"
+            [name]="'Email'"
+            [(value)]="user.email"
+            [editable]="editable">
+        </app-string-property>
+        <div class="button-container" *ngIf="editable">
             <app-operation-element spinnerDiameter="25" [working]="saving">
                 <button mat-button (click)="saveClick()">Save</button>
             </app-operation-element>
         </div>
     </div>
+
     <mat-divider vertical="true"></mat-divider>
+
     <div id="image-container">
         <div id="image">
             <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
             <app-user-image *ngIf="!loading" [userName]="user.userName" spinnerDiameter="75"></app-user-image>
         </div>
-        <div class="field-button" *ngIf="editable">
+        <div class="button-container" *ngIf="editable">
             <input type="file" (change)="changeImage($event.target.files[0])" #selectFile hidden="true">
             <app-operation-element spinnerDiameter="25" [working]="changingImage">
                 <button mat-button (click)="selectFile.click()">Change</button>

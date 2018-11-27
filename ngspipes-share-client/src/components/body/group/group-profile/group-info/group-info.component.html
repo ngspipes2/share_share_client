@@ -1,59 +1,43 @@
 <div id="root">
     <div id="info-container">
-        <div class="field">
-            <div class="label">
-                GroupName:
-            </div>
-            <div *ngIf="group">
-                {{group.groupName}}
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Creation date:
-            </div>
-            <div *ngIf="group">
-                {{dateToString(group.creationDate)}}
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Owner:
-            </div>
-            <div *ngIf="group">
-                <button mat-button routerLink="/users/{{group.ownerName}}">
-                    {{group.ownerName}}
-                </button>
-            </div>
-        </div>
-        <div class="field">
-            <div class="label">
-                Description:
-            </div>
-            <div *ngIf="group">
-                <div *ngIf="editable">
-                    <mat-form-field>
-                        <input matInput placeholder="" [(ngModel)]="group.description">
-                    </mat-form-field>
-                </div>
-                <div *ngIf="!editable">
-                    {{group.description}}
-                </div>
-            </div>
-        </div>
-        <div class="field-button" *ngIf="editable">
+        <app-string-property
+            class="property"
+            [name]="'GroupName'"
+            [value]="group.groupName">
+        </app-string-property>
+        <app-date-property
+            class="property"
+            [name]="'Creation date'"
+            [value]="group.creationDate">
+        </app-date-property>
+        <app-link-property
+            class="property"
+            [name]="'Owner'"
+            [value]="group.ownerName"
+            [link]="'/users/' + group.ownerName">
+        </app-link-property>
+        <app-string-property
+            class="property"
+            [name]="'Description'"
+            [(value)]="group.description"
+            [multipleLines]="true"
+            [editable]="editable">
+        </app-string-property>
+        <div class="button-container" *ngIf="editable">
             <app-operation-element spinnerDiameter="25" [working]="saving">
                 <button mat-button (click)="saveClick()">Save</button>
             </app-operation-element>
         </div>
     </div>
+
     <mat-divider vertical="true"></mat-divider>
+
     <div id="image-container">
         <div id="image">
             <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
             <app-group-image *ngIf="!loading" [groupName]="group.groupName" spinnerDiameter="75"></app-group-image>
         </div>
-        <div class="field-button" *ngIf="editable">
+        <div class="button-container" *ngIf="editable">
             <input type="file" (change)="changeImage($event.target.files[0])" #selectFile hidden="true">
             <app-operation-element spinnerDiameter="25" [working]="changingImage">
                 <button mat-button (click)="selectFile.click()">Change</button>
