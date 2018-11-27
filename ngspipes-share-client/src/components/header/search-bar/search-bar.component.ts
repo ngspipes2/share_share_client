@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -32,7 +33,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     constructor(private dialogManager : DialogManager,
                 private userService : UserService,
                 private repositoryService : RepositoryService,
-                private groupService : GroupService) { }
+                private groupService : GroupService,
+                private router : Router) { }
 
 
 
@@ -57,7 +59,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.repositorySubscription.unsubscribe();
     }
 
-    filter(value: string): any[] {
+    filter(value: any): any[] {
+        if(value && value.name)
+            return [];
+
         const filterValue = value.toLowerCase();
         return this.entities.filter(entity => entity.name.toLowerCase().indexOf(filterValue) !== -1);
     }
@@ -113,6 +118,24 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
             return 0;
         });
+    }
+
+    optionSelected(entity : any) {
+        if(entity.type === "USER")
+            this.router.navigate(["/users/" + entity.name]);
+        else if(entity.type === "GROUP")
+            this.router.navigate(["/groups/" + entity.name]);
+        else if(entity.type === "REPOSITORY")
+            this.router.navigate(["/repositories/" + entity.name]);
+        else
+            console.error("Unkown entity type " + entity.type);
+    }
+
+    entityToString(entity : any) : string {
+        if(!entity)
+            return entity;
+
+        return entity.name;
     }
 
 }

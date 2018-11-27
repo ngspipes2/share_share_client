@@ -2,11 +2,23 @@
     <form>
         <mat-form-field class="fill">
             <input matInput placeholder="Search" [formControl]="entitiesControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let entity of filteredOptions | async" [value]="entity.name">
-                    <app-user-item *ngIf="entity.type === 'USER'" [userName]="entity.name" class="fill"></app-user-item>
-                    <app-group-item *ngIf="entity.type === 'GROUP'" [groupName]="entity.name" class="fill"></app-group-item>
-                    <app-repository-item *ngIf="entity.type === 'REPOSITORY'" [repositoryName]="entity.name" class="fill"></app-repository-item>
+            <mat-autocomplete
+                #auto="matAutocomplete"
+                (optionSelected)="optionSelected($event.option.value)"
+                [displayWith]="entityToString">
+                <mat-option *ngFor="let entity of filteredOptions | async" [value]="entity">
+                    <app-user-item
+                        *ngIf="entity.type === 'USER'"
+                        [userName]="entity.name">
+                    </app-user-item>
+                    <app-group-item
+                        *ngIf="entity.type === 'GROUP'"
+                        [groupName]="entity.name">
+                    </app-group-item>
+                    <app-repository-item
+                        *ngIf="entity.type === 'REPOSITORY'"
+                        [repositoryName]="entity.name">
+                    </app-repository-item>
                 </mat-option>
             </mat-autocomplete>
             <mat-icon matSuffix>search</mat-icon>

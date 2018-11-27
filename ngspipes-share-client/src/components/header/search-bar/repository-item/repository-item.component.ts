@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-repository-item',
@@ -13,12 +12,6 @@ export class RepositoryItemComponent {
 
 
 
-    constructor(private router : Router) { }
-
-
-
-    clicked() {
-        this.router.navigate(['/repositories/' + this.repositoryName]);
-    }
+    constructor() { }
 
 }
