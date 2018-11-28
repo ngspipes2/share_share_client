@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserService } from '../../../../services/user.service';
+import { User } from '../../../../entities/user';
 import { SessionService } from '../../../../services/session.service';
 import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
     selector: 'app-delete-account-option',
@@ -13,35 +14,20 @@ import { DialogManager } from '../../../dialog/dialog.manager';
 export class DeleteAccountOptionComponent {
 
     constructor(private router : Router,
-                private userService : UserService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private operationsManager : OperationsManager) { }
 
 
 
     deleteAccountClick() {
-        this.dialogManager.openWarningDialog(
-            "Delete Account",
-            "Are you sure you want to delete this account?",
-            ["Yes", "No"]
-        ).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteAccount();
-        });
-    }
-
-    deleteAccount() {
         let userName = this.sessionService.getCurrentCredentials()[0];
-        this.userService.deleteUser(userName)
+        let user = new User(userName, null, null, null, null, null);
+
+        this.operationsManager.deleteUser(user)
         .then(result => {
             if(result)
                 this.logout();
-            else
-                this.dialogManager.openErrorDialog("Account could not be deleted!", "This account could not be deleted! Please try again later.");
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting account!", error);
-            console.error(error);
         });
     }
 

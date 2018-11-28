@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
-
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -27,7 +27,8 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private dialogManager : DialogManager,
-                private groupService : GroupService) { }
+                private groupService : GroupService,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -65,39 +66,17 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
         this.changingImage = true;
 
-        this.groupService.changeGroupImage(this.group.groupName, file)
-        .then((response) => {
-            this.changingImage = false;
-
-            if(response)
-                this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
-            else
-                this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
-        })
-        .catch((error) => {
-            this.changingImage = false;
-            this.dialogManager.openErrorDialog("Error uploading image!", error);
-            console.error(error);
-        });
+        this.operationsManager.changeGroupImage(this.group, file)
+        .then(() => this.changingImage = false)
+        .catch(() => this.changingImage = false);
     }
 
     saveClick() {
         this.saving = true;
 
-        this.groupService.updateGroup(this.group)
-        .then(result => {
-            this.saving = false;
-
-            if(!result)
-                this.dialogManager.openErrorDialog("Group could not be saved!", "Group could not be saved! Please try again latter.");
-            else
-                this.dialogManager.openSuccessDialog("Saved successfully", null);
-        })
-        .catch(error => {
-            this.saving = false;
-            this.dialogManager.openErrorDialog("Error saving group!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveGroup(this.group)
+        .then(() => this.saving = false)
+        .catch(() => this.saving = false);
     }
 
 }

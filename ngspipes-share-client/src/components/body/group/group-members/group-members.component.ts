@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { GroupMember } from '../../../../entities/group-member';
 import { GroupMemberService } from '../../../../services/group-member.service';
 import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
     selector: 'app-group-members',
@@ -21,33 +22,18 @@ export class GroupMembersComponent {
 
 
 
-    constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     addMemberClick() {
-        this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
-            if(userName)
-                this.createMember(userName);
-        });
-    }
-
-    createMember(userName : string) {
         this.creating = true;
 
-        let member = new GroupMember(0, null, userName, this.groupName, false);
-        this.groupMemberService.createMember(member)
-        .then(id => {
-            this.creating = false;
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
-        })
-        .catch(error => {
-            this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-        });
+        let member = new GroupMember(0, null, null, this.groupName, false);
+
+        this.operationsManager.createGroupMember(member)
+        .then(() => this.creating = false)
+        .catch(() => this.creating = false);
     }
 
 }

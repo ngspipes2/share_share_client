@@ -3,6 +3,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { AccessToken } from '../../../../entities/access-token';
 import { AccessTokenService } from '../../../../services/access-token.service';
 import { SessionService } from '../../../../services/session.service';
+import { OperationsManager } from '../../../operations.manager';
 import { DialogManager } from '../../../dialog/dialog.manager';
 
 @Component({
@@ -26,7 +27,8 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     constructor(private accessTokensService : AccessTokenService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+                private dialogManager : DialogManager,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -67,47 +69,17 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     saveClick() {
         this.saving = true;
 
-        this.accessTokensService.updateAccessToken(this.token)
-        .then(result => {
-            this.saving = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Access Token could not be saved!", "Access Token could not be saved! Please try again latter.");
-            else
-                this.dialogManager.openSuccessDialog("Access Token saved successfully!", "");
-        })
-        .catch(error => {
-            this.saving = false;
-            this.dialogManager.openErrorDialog("Error saving Access Token!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveAccessToken(this.token)
+        .then(() => this.saving = false)
+        .catch(() => this.saving = false);
     }
 
     deleteClick() {
-        let title = "Delete Access Token";
-        let message = "Are you sure you wnat to delete Access Token: " + this.token.name + " ?";
-        let options = ["Yes", "No"];
-        this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteToken();
-        });
-    }
-
-    deleteToken() {
         this.deleting = true;
 
-        this.accessTokensService.deleteAccessToken(this.tokenId)
-        .then(result => {
-            this.deleting = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Access Token could not be deleted!", "Access Token could not be deleted! Please try again latter.");
-            else
-                this.dialogManager.openSuccessDialog("Access Token deleted successfully!", "");
-        })
-        .catch(error => {
-            this.deleting = false;
-            this.dialogManager.openErrorDialog("Error deleting Access Token!", error);
-            console.error(error);
-        });
+        this.operationsManager.deleteAccessToken(this.token)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
     }
 
 }

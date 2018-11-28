@@ -8,6 +8,8 @@ import { RepositoryGroupMemberService }  from '../../../../services/repository-g
 
 import { DialogManager } from '../../../dialog/dialog.manager';
 
+import { OperationsManager } from '../../../operations.manager';
+
 @Component({
   selector: 'app-repository-members',
   templateUrl: './repository-members.component.html',
@@ -25,57 +27,28 @@ export class RepositoryMembersComponent {
 
 
 
-    constructor(private userMemberService : RepositoryUserMemberService,
-                private groupMemberService : RepositoryGroupMemberService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     addUserMemberClick() {
-        this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
-            if(userName)
-            this.createUserMember(userName);
-        });
-    }
-
-    createUserMember(userName : string) {
         this.creatingUserMember = true;
 
-        let member = new RepositoryUserMember(0, null, userName, this.repositoryName, false);
-        this.userMemberService.createMember(member)
-        .then(id => {
-            this.creatingUserMember = false;
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
-        })
-        .catch(error => {
-            this.creatingUserMember = false;
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-        });
+        let member = new RepositoryUserMember(0, null, null, this.repositoryName, false);
+
+        this.operationsManager.createRepositoryUserMember(member)
+        .then(() => this.creatingUserMember = false)
+        .catch(() => this.creatingUserMember = false);
     }
 
     addGroupMemberClick() {
-        this.dialogManager.openSelectGroupDialog().afterClosed().subscribe(groupName => {
-            if(groupName)
-                this.createGroupMember(groupName);
-        });
-    }
-
-    createGroupMember(groupName : string) {
         this.creatingGroupMember = true;
 
-        let member = new RepositoryGroupMember(0, null, groupName, this.repositoryName, false);
-        this.groupMemberService.createMember(member)
-        .then(id => {
-            this.creatingGroupMember = false;
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
-        })
-        .catch(error => {
-            this.creatingGroupMember = false;
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-        });
+        let member = new RepositoryGroupMember(0, null, null, this.repositoryName, false);
+
+        this.operationsManager.createRepositoryGroupMember(member)
+        .then(() => this.creatingGroupMember= false)
+        .catch(() => this.creatingGroupMember = false);
     }
 
 }

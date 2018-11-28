@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { RepositoryUserMember } from '../../../../../entities/repository-user-member';
 import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
-
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -28,7 +29,8 @@ export class UserMemberItemComponent {
 
     constructor(private userMemberService : RepositoryUserMemberService,
                 private dialogManager : DialogManager,
-                private router : Router) { }
+                private router : Router,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -38,32 +40,13 @@ export class UserMemberItemComponent {
     }
 
     deleteClick(event : any) {
-        this.dialogManager.openWarningDialog(
-            "Delete Member",
-            "Are you sure you want to delete " + this.member.userName + "?",
-            ["Yes", "No"]
-        ).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteMember();
-        });
-
         event.stopPropagation();
-    }
 
-    deleteMember() {
         this.deleting = true;
 
-        this.userMemberService.deleteMember(this.member.id)
-        .then(result => {
-            this.deleting = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted. Please try again later.");
-        })
-        .catch(error => {
-            this.deleting = false;
-            this.dialogManager.openErrorDialog("Error deleting Member!", error);
-            console.error(error);
-        });
+        this.operationsManager.deleteRepositoryUserMember(this.member)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
     }
 
     writeAccessClick(event : any) {
@@ -71,22 +54,14 @@ export class UserMemberItemComponent {
 
         if(!this.editable)
             return;
-            
+
         this.changingAccess = true;
 
         this.member.writeAccess = !this.member.writeAccess;
 
-        this.userMemberService.updateMember(this.member)
-        .then(result => {
-            this.changingAccess = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Access could not be changed!", "Access could not be changed! Please try again latter.");
-        })
-        .catch(error => {
-            this.changingAccess = false;
-            this.dialogManager.openErrorDialog("Error changing access!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveRepositoryUserMember(this.member)
+        .then(() => this.changingAccess = false)
+        .catch(() => this.changingAccess = false);
     }
 
     elementClick() {

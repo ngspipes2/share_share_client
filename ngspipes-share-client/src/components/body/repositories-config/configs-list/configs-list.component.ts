@@ -3,6 +3,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { RepositoryConfig } from '../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../services/repository-config.service';
 import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
     selector: 'app-configs-list',
@@ -20,39 +21,21 @@ export class ConfigsListComponent {
 
 
 
-    constructor(private repositoryConfigService: RepositoryConfigService,
-                private dialogManager : DialogManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     createConfigClick() {
-        this.dialogManager.openNewRepositoryConfigNameDialog().afterClosed().subscribe(name => {
-            if(!name)
-                return;
-
-            this.createConfig(name);
-        });
-    }
-
-    createConfig(name : string) {
-        let config = new RepositoryConfig(name, "", "", []);
-
         this.creating = true;
 
-        this.repositoryConfigService.createConfig(config)
-        .then(result => {
-            this.creating = false;
+        let config = new RepositoryConfig(null, "", "", []);
 
-            if(!result)
-                this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config could not be created! Please try again latter.");
-            else
-                this.selectConfig(config.name);
-        })
-        .catch(error => {
+        this.operationsManager.createRepositoryConfig(config)
+        .then((result) => {
             this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating Repository Config!", error);
-            console.error(error);
-        });
+            this.selectConfig(config.name);
+        })
+        .catch(() => this.creating = false);
     }
 
     selectConfig(name : string) {

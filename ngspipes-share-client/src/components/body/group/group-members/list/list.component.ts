@@ -3,6 +3,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../../operations.manager';
 
 import { Filter, IconFilter, TextFilter } from '../../../../utils/filter-list/filter-list.component';
 
@@ -29,7 +30,8 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager) {
+                private dialogManager : DialogManager,
+                private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "MemberName"),
             new IconFilter(this.acceptReadAccess.bind(this), true, "Read Access", null, "pencil-off"),
@@ -107,17 +109,11 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     createMember(userName : string) {
         this.creating = true;
 
-        let member = new GroupMember(0, null, userName, this.groupName, false);
-        this.groupMemberService.createMember(member)
-        .then(id => {
-            this.creating = false;
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
-        })
-        .catch(error => {
-            this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-        });
+        let member = new GroupMember(0, null, null, this.groupName, false);
+
+        this.operationsManager.createGroupMember(member)
+        .then(() => this.creating = false)
+        .catch(() => this.creating = false);
     }
 
 }

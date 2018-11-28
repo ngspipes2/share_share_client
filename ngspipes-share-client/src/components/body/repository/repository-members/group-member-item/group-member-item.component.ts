@@ -1,8 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
 import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
-
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -28,7 +29,8 @@ export class GroupMemberItemComponent {
 
     constructor(private groupMemberService : RepositoryGroupMemberService,
                 private dialogManager : DialogManager,
-                private router : Router) { }
+                private router : Router,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -38,32 +40,13 @@ export class GroupMemberItemComponent {
     }
 
     deleteClick(event : any) {
-        this.dialogManager.openWarningDialog(
-            "Delete Member",
-            "Are you sure you want to delete " + this.member.groupName + "?",
-            ["Yes", "No"]
-        ).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteMember();
-        });
-
         event.stopPropagation();
-    }
 
-    deleteMember() {
         this.deleting = true;
 
-        this.groupMemberService.deleteMember(this.member.id)
-        .then(result => {
-            this.deleting = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted. Please try again later.");
-        })
-        .catch(error => {
-            this.deleting = false;
-            this.dialogManager.openErrorDialog("Error deleting Member!", error);
-            console.error(error);
-        });
+        this.operationsManager.deleteRepositoryGroupMember(this.member)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
     }
 
     writeAccessClick(event : any) {
@@ -76,17 +59,9 @@ export class GroupMemberItemComponent {
 
         this.member.writeAccess = !this.member.writeAccess;
 
-        this.groupMemberService.updateMember(this.member)
-        .then(result => {
-            this.changingAccess = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Access could not be changed!", "Access could not be changed! Please try again latter.");
-        })
-        .catch(error => {
-            this.changingAccess = false;
-            this.dialogManager.openErrorDialog("Error changing access!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveRepositoryGroupMember(this.member)
+        .then(() => this.changingAccess = false)
+        .catch(() => this.changingAccess = false);
     }
 
     elementClick() {

@@ -5,7 +5,7 @@ import { RepositoryService } from '../../../../../services/repository.service';
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';
 import { ToolsRepositoryFacadeService } from '../../../../../services/tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from '../../../../../services/pipelines-repository-facade.service';
-
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -33,7 +33,8 @@ export class RepositoryInfoComponent {
                 private repositoryService : RepositoryService,
                 private repositoryConfigService : RepositoryConfigService,
                 private toolsRepositoryFacadeService : ToolsRepositoryFacadeService,
-                private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService) { }
+                private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -71,66 +72,17 @@ export class RepositoryInfoComponent {
 
         this.changingImage = true;
 
-        this.repositoryConfigService.getConfigsForLocation(this.repository.location)
-        .then(configs => {
-            if(configs.length === 0)
-                this.dialogManager.openWarningDialog("No config found!", "You have no configs to access this repository!");
-            else
-                if(this.repository.entityType === EntityType.TOOLS)
-                    this.toolsRepositoryFacadeService.setRepositoryImage(configs[0], file)
-                    .then(result => {
-                        this.changingImage = false;
-
-                        if(result)
-                            this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
-                        else
-                            this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
-                    })
-                    .catch(error => {
-                        this.changingImage = false;
-                        this.dialogManager.openErrorDialog("Error uploading image!", error);
-                        console.error(error);
-                    });
-                else
-                    this.pipelinesRepositoryFacadeService.setRepositoryImage(configs[0], file)
-                    .then(result => {
-                        this.changingImage = false;
-
-                        if(result)
-                            this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
-                        else
-                            this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
-                    })
-                    .catch(error => {
-                        this.changingImage = false;
-                        this.dialogManager.openErrorDialog("Error uploading image!", error);
-                        console.error(error);
-                    });
-        })
-        .catch(error => {
-            this.changingImage = false;
-            this.dialogManager.openErrorDialog("Error gettings configs for current repository!", error);
-            console.error(error);
-        });
+        this.operationsManager.changeRepositoryImage(this.repository, file)
+        .then(() => this.changingImage = false)
+        .catch(() => this.changingImage = false);
     }
 
     saveClick() {
         this.saving = true;
 
-        this.repositoryService.updateRepository(this.repository)
-        .then(result => {
-            this.saving = false;
-
-            if(!result)
-                this.dialogManager.openErrorDialog("Repository could not be saved!", "Repository could not be saved! Please try again latter.");
-            else
-                this.dialogManager.openSuccessDialog("Saved successfully", null);
-        })
-        .catch(error => {
-            this.saving = false;
-            this.dialogManager.openErrorDialog("Error saving repository!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveRepository(this.repository)
+        .then(() => this.saving = false)
+        .catch(() => this.saving = false);
     }
 
     getDateFieldLabel() {

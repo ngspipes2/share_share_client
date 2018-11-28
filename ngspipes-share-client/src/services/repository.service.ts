@@ -77,7 +77,7 @@ export class RepositoryService {
         return repo;
     }
 
-    public createRepository(repository : Repository) : Promise<boolean> {
+    public createRepository(repository : Repository) : Promise<string> {
         let url = ServersRoutes.CREATE_REPOSITORY_ROUTE;
 
         let data = this.clientRepositoryToServerRepository(repository);
@@ -85,7 +85,7 @@ export class RepositoryService {
         return this.httpService.post(url, data)
             .then((response) => {
                 this.fireCreateEvent(repository.repositoryName);
-                return true;
+                return repository.repositoryName;
             });
     }
 

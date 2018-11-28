@@ -5,6 +5,7 @@ import { User, UserRole } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
 import { SessionService } from '../../../services/session.service';
 import { DialogManager } from '../../dialog/dialog.manager';
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
     selector: 'app-login',
@@ -26,7 +27,8 @@ export class LoginComponent implements OnInit {
     constructor(private userService : UserService,
                 private sessionService : SessionService,
                 private dialogManager : DialogManager,
-                private router : Router) { }
+                private router : Router,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -60,20 +62,16 @@ export class LoginComponent implements OnInit {
     }
 
     createAccountClick() {
-        let user = new User(this.userName, this.password, null, null, null, UserRole.NORMAL);
-
         this.creatingAccount = true;
 
-        this.userService.createUser(user)
-        .then((response) => {
+        let user = new User(this.userName, this.password, null, null, null, UserRole.NORMAL);
+
+        this.operationsManager.createUser(user, false)
+        .then((result) => {
             this.creatingAccount = false;
             this.login(user.userName, user.password);
         })
-        .catch((error) => {
-            this.creatingAccount = false;
-            this.dialogManager.openErrorDialog("Error", error);
-            console.error(error);
-        });
+        .catch(() => this.creatingAccount = false);
     }
 
     login(userName : string, password : string) {

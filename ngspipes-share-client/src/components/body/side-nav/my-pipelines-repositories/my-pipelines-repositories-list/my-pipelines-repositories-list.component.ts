@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
 import { SessionService } from '../../../../../services/session.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
+import { OperationsManager } from '../../../../operations.manager';
 
 @Component({
   selector: 'app-my-pipelines-repositories-list',
@@ -30,7 +30,7 @@ export class MyPipelinesRepositoriesListComponent implements OnInit, OnDestroy {
     constructor(private sessionService : SessionService,
                 private repositoryService : RepositoryService,
                 private dialogManager : DialogManager,
-                private router : Router) {
+                private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "RepositoryName"),
             new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
@@ -99,59 +99,23 @@ export class MyPipelinesRepositoriesListComponent implements OnInit, OnDestroy {
     }
 
     publishRepositoryClick() {
-        this.dialogManager.openNewRepositoryNameDialog().afterClosed().subscribe(name => {
-            if(!name)
-                return;
+        this.publishing = true;
 
-                this.dialogManager.openNewRepositoryLocationDialog().afterClosed().subscribe(location => {
-                    if(!location)
-                        return;
+        let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
 
-                    let userName = this.sessionService.getCurrentCredentials()[0];
-                    let repository = new Repository(name, EntityType.PIPELINES, LocationType.EXTERNAL, null, null, false, userName, location);
-
-                    this.createRepository(repository);
-                });
-        });
+        this.operationsManager.publishRepository(repository)
+        .then(() => this.publishing = false)
+        .catch(() => this.publishing = false);
     }
 
     createRepositoryClick() {
-        this.dialogManager.openNewRepositoryNameDialog().afterClosed().subscribe(name => {
-            if(!name)
-                return;
+        this.creating = true;
 
-            let userName = this.sessionService.getCurrentCredentials()[0];
-            let repository = new Repository(name, EntityType.PIPELINES, LocationType.INTERNAL, null, null, false, userName, null);
+        let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
 
-            this.createRepository(repository);
-        });
-    }
-
-    createRepository(repository : Repository) {
-        if(repository.locationType === LocationType.EXTERNAL)
-            this.publishing = true;
-        else
-            this.creating = true;
-
-        this.repositoryService.createRepository(repository)
-        .then(() => {
-            if(repository.locationType === LocationType.EXTERNAL)
-                this.publishing = false;
-            else
-                this.creating = false;
-
-            this.dialogManager.openSuccessDialog("Repository created successfully!", null);
-            this.router.navigate(['/repositories/' + repository.repositoryName]);
-        })
-        .catch(error => {
-            if(repository.locationType === LocationType.EXTERNAL)
-                this.publishing = false;
-            else
-                this.creating = false;
-
-            this.dialogManager.openErrorDialog("Error creating Repository!", error);
-            console.error(error);
-        });
+        this.operationsManager.createRepository(repository)
+        .then(() => this.creating = false)
+        .catch(() => this.creating = false);
     }
 
 }

@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { User } from '../../../../../entities/user';
 import { UserService } from '../../../../../services/user.service';
-
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -27,7 +27,8 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private dialogManager : DialogManager,
-                private userService : UserService) { }
+                private userService : UserService,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -65,39 +66,17 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
         this.changingImage = true;
 
-        this.userService.changeUserImage(this.user.userName, file)
-        .then((response) => {
-            this.changingImage = false;
-
-            if(response)
-                this.dialogManager.openSuccessDialog("Image uploaded successfully!", "");
-            else
-                this.dialogManager.openWarningDialog("Error uploading image!", "Image could not be uploaded try again later.");
-        })
-        .catch((error) => {
-            this.changingImage = false;
-            this.dialogManager.openErrorDialog("Error uploading image!", error);
-            console.error(error);
-        });
+        this.operationsManager.changeUserImage(this.user, file)
+        .then(() => this.changingImage = false)
+        .catch(() => this.changingImage = false);
     }
 
     saveClick() {
         this.saving = true;
 
-        this.userService.updateUser(this.user)
-        .then(result => {
-            this.saving = false;
-
-            if(!result)
-                this.dialogManager.openErrorDialog("User could not be saved!", "User could not be saved! Please try again latter.");
-            else
-                this.dialogManager.openSuccessDialog("Saved successfully", null);
-        })
-        .catch(error => {
-            this.saving = false;
-            this.dialogManager.openErrorDialog("Error saving user!", error);
-            console.error(error);
-        });
+        this.operationsManager.saveUser(this.user)
+        .then(() => this.saving = false)
+        .catch(() => this.saving = false);
     }
 
 }

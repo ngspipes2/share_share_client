@@ -24,6 +24,8 @@ import { UserComponent } from './body/user/user.component';
 import { GroupComponent } from './body/group/group.component';
 import { RepositoryComponent } from './body/repository/repository.component';
 
+import { OperationsManager } from './operations.manager';
+
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
@@ -56,6 +58,7 @@ const appRoutes: Routes = [
         BodyComponent
     ],
     providers: [
+        OperationsManager
     ],
     entryComponents : [
     ]

@@ -4,6 +4,7 @@ import { RepositoryConfig } from '../../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
+import { OperationsManager } from '../../../../operations.manager';
 
 @Component({
     selector: 'app-list',
@@ -28,7 +29,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
 
     constructor(private repositoryConfigService : RepositoryConfigService,
-                private dialogManager : DialogManager) {
+                private dialogManager : DialogManager,
+                private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "ConfigName")
         ];
@@ -70,33 +72,16 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     createConfigClick() {
-        this.dialogManager.openNewRepositoryConfigNameDialog().afterClosed().subscribe(name => {
-            if(!name)
-                return;
-
-           this.createConfig(name);
-        });
-    }
-
-    createConfig(name : string) {
-        let config = new RepositoryConfig(name, "", "", []);
-
         this.creating = true;
 
-        this.repositoryConfigService.createConfig(config)
-        .then(result => {
-            this.creating = false;
+        let config = new RepositoryConfig(null, "", "", []);
 
-            if(!result)
-                this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config could not be created! Please try again latter.");
-            else
-                this.selectConfig(name);
-        })
-        .catch(error => {
+        this.operationsManager.createRepositoryConfig(config)
+        .then((result) => {
             this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating Repository Config!", error);
-            console.error(error);
-        });
+            this.selectConfig(config.name);
+        })
+        .catch(() => this.creating = false);
     }
 
     configClick(config : RepositoryConfig) {

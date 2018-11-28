@@ -1,9 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 import { AccessToken } from '../../../../entities/access-token';
-import { AccessTokenService } from '../../../../services/access-token.service';
-import { SessionService } from '../../../../services/session.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
   selector: 'app-tokens-list',
@@ -21,37 +19,21 @@ export class TokensListComponent {
 
 
 
-    constructor(private accessTokenService : AccessTokenService,
-                private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     createTokenClick() {
-        this.dialogManager.openNewAccessTokenNameDialog().afterClosed().subscribe(name => {
-            if(name)
-                this.createToken(name);
-        });
-    }
-
-    createToken(name : string) {
-        let userName = this.sessionService.getCurrentCredentials()[0];
-        let accessToken = new AccessToken(0, userName, null, name, null, false);
-
         this.creating = true;
 
-        this.accessTokenService.createAccessToken(accessToken)
-        .then(data => {
-            this.creating = false;
+        let accessToken = new AccessToken(0, null, null, null, null, false);
 
+        this.operationsManager.crerateAccessToken(accessToken)
+        .then((data) => {
+            this.creating = false
             this.selectToken(data.id);
-            this.dialogManager.openShowTokenDialog(data.token);
         })
-        .catch(error => {
-            this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating Access Token!", error);
-            console.error(error);
-        });
+        .catch(() => this.creating = false);
     }
 
     selectToken(tokenId : number) {

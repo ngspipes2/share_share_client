@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
-import { RepositoryService } from '../../../../../services/repository.service';
 
+import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
@@ -27,9 +27,8 @@ export class ListItemComponent implements OnInit {
 
 
 
-    constructor(private repositoryService : RepositoryService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+    constructor(private router : Router,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -41,32 +40,13 @@ export class ListItemComponent implements OnInit {
     }
 
     deleteClick(event : any) {
-        this.dialogManager.openWarningDialog(
-            "Delete Repository",
-            "Are you sure you want to delete " + this.repository.repositoryName + "?",
-            ["Yes", "No"]
-        ).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteRepository();
-        });
-
         event.stopPropagation();
-    }
 
-    deleteRepository() {
         this.deleting = true;
 
-        this.repositoryService.deleteRepository(this.repository.repositoryName)
-        .then(result => {
-            this.deleting = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Repository could not be deleted!", "Repository could not be deleted. Please try again later.");
-        })
-        .catch(error => {
-            this.deleting = false;
-            this.dialogManager.openErrorDialog("Error deleting Repository!", error);
-            console.error(error);
-        });
+        this.operationsManager.deleteRepository(this.repository)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
     }
 
     elementClick() {

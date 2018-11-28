@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Group } from '../../../../entities/group';
-import { GroupService } from '../../../../services/group.service';
-import { SessionService } from '../../../../services/session.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
     selector: 'app-my-groups',
@@ -17,34 +15,18 @@ export class MyGroupsComponent {
 
 
 
-    constructor(private router : Router,
-                private groupService : GroupService,
-                private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     createGroupClick() {
-        this.dialogManager.openNewGroupNameDialog().afterClosed().subscribe((groupName) => {
-            if(!groupName)
-                return;
+        this.creating = true;
 
-            let userName = this.sessionService.getCurrentCredentials()[0];
-            let group = new Group(groupName, null, null, userName);
+        let group = new Group(null, null, null, null);
 
-            this.creating = true;
-            this.groupService.createGroup(group)
-            .then(() => {
-                this.creating = false;
-                this.dialogManager.openSuccessDialog("Group created successfully!", null);
-                this.router.navigate(['/groups/' + groupName]);
-            })
-            .catch(error => {
-                this.creating = false;
-                this.dialogManager.openErrorDialog("Error creating Group!", error);
-                console.error(error);
-            });
-        });
+        this.operationsManager.createGroup(group)
+        .then(() => this.creating = false)
+        .catch(() => this.creating = false);
     }
 
 }

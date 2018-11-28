@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Group } from '../../../../../entities/group';
-import { GroupService } from '../../../../../services/group.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../../operations.manager';
 
 @Component({
     selector: 'app-list-item',
@@ -24,9 +24,8 @@ export class ListItemComponent {
 
 
 
-    constructor(private groupService : GroupService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+    constructor(private router : Router,
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -36,32 +35,13 @@ export class ListItemComponent {
     }
 
     deleteClick(event : any) {
-        this.dialogManager.openWarningDialog(
-            "Delete Group",
-            "Are you sure you want to delete " + this.group.groupName + "?",
-            ["Yes", "No"]
-        ).afterClosed().subscribe(response => {
-            if(response === "Yes")
-                this.deleteGroup();
-        });
-
         event.stopPropagation();
-    }
 
-    deleteGroup() {
         this.deleting = true;
 
-        this.groupService.deleteGroup(this.group.groupName)
-        .then(result => {
-            this.deleting = false;
-            if(!result)
-                this.dialogManager.openErrorDialog("Group could not be deleted!", "Grouup could not be deleted. Please try again later.");
-        })
-        .catch(error => {
-            this.deleting = false;
-            this.dialogManager.openErrorDialog("Error deleting Group!", error);
-            console.error(error);
-        });
+        this.operationsManager.deleteGroup(this.group)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
     }
 
     elementClick() {

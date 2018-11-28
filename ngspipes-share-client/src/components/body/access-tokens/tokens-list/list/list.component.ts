@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 
 import { AccessToken } from '../../../../../entities/access-token';
 import { AccessTokenService } from '../../../../../services/access-token.service';
+import { OperationsManager } from '../../../../operations.manager';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { SessionService } from '../../../../../services/session.service';
 
@@ -31,7 +32,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
     constructor(private accessTokenService : AccessTokenService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager) {
+                private dialogManager : DialogManager,
+                private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "TokenName"),
             new IconFilter(this.acceptReadAccess.bind(this), true, "Read Access", null, "pencil-off"),
@@ -76,30 +78,16 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     createTokenClick() {
-        this.dialogManager.openNewAccessTokenNameDialog().afterClosed().subscribe(name => {
-            if(name)
-                this.createToken(name);
-        });
-    }
-
-    createToken(name : string) {
-        let userName = this.sessionService.getCurrentCredentials()[0];
-        let accessToken = new AccessToken(0, userName, null, name, null, false);
-
         this.creating = true;
 
-        this.accessTokenService.createAccessToken(accessToken)
+        let accessToken = new AccessToken(0, null, null, null, null, false);
+
+        this.operationsManager.crerateAccessToken(accessToken)
         .then(data => {
             this.creating = false;
-
             this.selectToken(data.id);
-            this.dialogManager.openShowTokenDialog(data.token);
         })
-        .catch(error => {
-            this.creating = false;
-            this.dialogManager.openErrorDialog("Error creating Access Token!", error);
-            console.error(error);
-        });
+        .catch(() => this.creating = false);
     }
 
     tokenClick(token : AccessToken) {

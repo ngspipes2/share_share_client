@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
 import { SessionService } from '../../../../../services/session.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../../operations.manager';
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
@@ -30,7 +30,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     constructor(private sessionService : SessionService,
                 private groupService : GroupService,
                 private dialogManager : DialogManager,
-                private router : Router) {
+                private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "GroupName"),
             new IconFilter(this.acceptOwner.bind(this), true, "Owner", "person", null),
@@ -99,26 +99,13 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     }
 
     createGroupClick() {
-        this.dialogManager.openNewGroupNameDialog().afterClosed().subscribe((groupName) => {
-            if(!groupName)
-                return;
+        this.creating = true;
 
-            let userName = this.sessionService.getCurrentCredentials()[0];
-            let group = new Group(groupName, null, null, userName);
+        let group = new Group(null, null, null, null);
 
-            this.creating = true;
-            this.groupService.createGroup(group)
-            .then(() => {
-                this.creating = false;
-                this.dialogManager.openSuccessDialog("Group created successfully!", null);
-                this.router.navigate(['/groups/' + groupName]);
-            })
-            .catch(error => {
-                this.creating = false;
-                this.dialogManager.openErrorDialog("Error creating Group!", error);
-                console.error(error);
-            });
-        });
+        this.operationsManager.createGroup(group)
+        .then(() => this.creating = false)
+        .catch(() => this.creating = false);
     }
 
 }
