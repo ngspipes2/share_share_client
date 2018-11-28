@@ -19,7 +19,9 @@ export class MyToolsRepositoriesComponent {
 
 
 
-    publishRepositoryClick() {
+    publishRepositoryClick(event : any) {
+        event.stopPropagation();
+        
         this.publishing = true;
 
         let repository = new Repository(name, EntityType.TOOLS, null, null, null, false, null, null);
@@ -29,7 +31,9 @@ export class MyToolsRepositoriesComponent {
         .catch(() => this.publishing = false);
     }
 
-    createRepositoryClick() {
+    createRepositoryClick(event : any) {
+        event.stopPropagation();
+
         this.creating = true;
 
         let repository = new Repository(name, EntityType.TOOLS, null, null, null, false, null, null);

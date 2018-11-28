@@ -19,7 +19,9 @@ export class MyGroupsComponent {
 
 
 
-    createGroupClick() {
+    createGroupClick(event : any) {
+        event.stopPropagation();
+        
         this.creating = true;
 
         let group = new Group(null, null, null, null);

@@ -12,7 +12,7 @@
                         <button
                             mat-icon-button
                             matTooltip="Publish Repository"
-                            (click)="publishRepositoryClick()"
+                            (click)="publishRepositoryClick($event)"
                             #publishRepositoryButton
                             (mouseenter)="publishRepositoryButton.color='accent'"
                             (mouseleave)="publishRepositoryButton.color=''">
@@ -23,7 +23,7 @@
                         <button
                             mat-icon-button
                             matTooltip="Create Repository"
-                            (click)="createRepositoryClick()"
+                            (click)="createRepositoryClick($event)"
                             #createRepositoryButton
                             (mouseenter)="createRepositoryButton.color='accent'"
                             (mouseleave)="createRepositoryButton.color=''">

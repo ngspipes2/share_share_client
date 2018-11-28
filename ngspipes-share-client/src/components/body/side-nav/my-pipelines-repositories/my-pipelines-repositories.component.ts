@@ -19,7 +19,9 @@ export class MyPipelinesRepositoriesComponent {
 
 
 
-    publishRepositoryClick() {
+    publishRepositoryClick(event : any) {
+        event.stopPropagation();
+
         this.publishing = true;
 
         let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
@@ -29,7 +31,9 @@ export class MyPipelinesRepositoriesComponent {
         .catch(() => this.publishing = false);
     }
 
-    createRepositoryClick() {
+    createRepositoryClick(envet : any) {
+        event.stopPropagation();
+
         this.creating = true;
 
         let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
@@ -38,5 +42,5 @@ export class MyPipelinesRepositoriesComponent {
         .then(() => this.creating = false)
         .catch(() => this.creating = false);
     }
-    
+
 }
