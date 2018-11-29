@@ -1,3 +1,4 @@
+<input type="file" (change)="clicked($event.target.files[0], event)" #selectFile hidden="true">
 <app-operation-element spinnerDiameter="25" [working]="working">
     <button mat-button *ngIf="!raised"
         #button
@@ -5,7 +6,7 @@
         (mouseenter)="button.color=accentColor"
         (mouseleave)="button.color=color"
         (mouseup)="button.color=color"
-        (click)="clicked($event)">
+        (click)="selectFile.click()">
         {{label}}
     </button>
     <button mat-raised-button *ngIf="raised"
@@ -14,7 +15,7 @@
         (mouseenter)="button.color=accentColor"
         (mouseleave)="button.color=color"
         (mouseup)="button.color=color"
-        (click)="clicked($event)">
+        (click)="selectFile.click()">
         {{label}}
     </button>
 </app-operation-element>

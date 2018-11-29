@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class OperationIconButtonComponent {
 
     @Input()
-    action : () => Promise<any>;
+    action : (event : any) => Promise<any>;
     @Input()
     icon : string;
     @Input()
@@ -26,10 +26,10 @@ export class OperationIconButtonComponent {
 
 
 
-    clicked() {
+    clicked(event : any) {
         this.working = true;
 
-        this.action()
+        this.action(event)
         .then(() => this.working = false)
         .catch(() => this.working = false);
     }

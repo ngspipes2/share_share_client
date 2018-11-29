@@ -1,0 +1,8 @@
+<app-operation-element spinnerDiameter="25" [working]="working">
+    <mat-slide-toggle
+        [disabled]="disabled"
+        [checked]="value"
+        [color]="color"
+        (click)="clicked($event)">
+    </mat-slide-toggle>
+</app-operation-element>

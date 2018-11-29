@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-operation-text-button',
-  templateUrl: './operation-text-button.component.html',
-  styleUrls: ['./operation-text-button.component.scss']
+    selector: 'app-operation-select-file-text-button',
+    templateUrl: './operation-select-file-text-button.component.html',
+    styleUrls: ['./operation-select-file-text-button.component.scss']
 })
-export class OperationTextButtonComponent {
+export class OperationSelectFileTextButtonComponent {
 
     @Input()
-    action : (event : any) => Promise<any>;
+    action : (file : any, event : any) => Promise<any>;
     @Input()
     label : string;
     @Input()
@@ -26,10 +26,10 @@ export class OperationTextButtonComponent {
 
 
 
-    clicked(event : any) {
+    clicked(file : any, event : any) {
         this.working = true;
 
-        this.action(event)
+        this.action(file, event)
         .then(() => this.working = false)
         .catch(() => this.working = false);
     }
