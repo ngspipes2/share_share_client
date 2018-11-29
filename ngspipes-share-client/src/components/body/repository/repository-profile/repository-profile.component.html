@@ -1,4 +1,16 @@
 <app-frame headerTitle="Profile" svgIcon="repository">
+    <div *ngIf="editable" frame-header-buttons>
+        <app-operation-element spinnerDiameter="25" [working]="deleting">
+            <button mat-icon-button
+                matTooltip="Delete"
+                (click)="deleteClick()"
+                #deleteButton
+                (mouseenter)="deleteButton.color='warn'"
+                (mouseleave)="deleteButton.color=''">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </app-operation-element>
+    </div>
     <app-repository-info frame-body
         [repositoryName]="repositoryName"
         [editable]="editable">

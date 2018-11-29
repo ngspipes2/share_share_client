@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { Group } from '../../../../entities/group';
+import { OperationsManager } from '../../../operations.manager';
+
 @Component({
     selector: 'app-group-profile',
     templateUrl: './group-profile.component.html',
@@ -12,8 +15,22 @@ export class GroupProfileComponent {
     @Input()
     editable : boolean;
 
+    deleting : boolean;
 
 
-    constructor() { }
+
+    constructor(private operationsManager : OperationsManager) { }
+
+
+
+    deleteClick() {
+        this.deleting = true;
+
+        let group = new Group(this.groupName, null, null, null);
+
+        this.operationsManager.deleteGroup(group)
+        .then(() => this.deleting = false)
+        .catch(() => this.deleting = false);
+    }
 
 }
