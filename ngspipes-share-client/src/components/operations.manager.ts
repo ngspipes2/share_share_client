@@ -77,6 +77,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config could not be created! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Repository Config created successfully!", null);
 
             return result;
         })
@@ -115,6 +117,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config not deleted!", "Repository Config could not be deleted! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Repository Config deleted successfully!", null);
 
             return result;
         })
@@ -131,6 +135,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Repository Config could not be saved!", "Repository Config could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Repository Config saved successfully!", null);
 
             return result;
         })
@@ -208,6 +214,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Access Token not deleted!", "Access Token could not be deleted! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Access Token deleted successfully!", null);
 
             return result;
         })
@@ -224,6 +232,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Access Token could not be saved!", "Access Token could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Access Token saved successfully!", null);
 
             return result;
         })
@@ -240,6 +250,8 @@ export class OperationsManager {
         .then((response) => {
             if(redirect)
                 this.router.navigate(["/users/" + user.userName]);
+
+            this.dialogManager.openSuccessDialog("User created successfully!", null);
 
             return response;
         })
@@ -278,6 +290,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Account could not be deleted!", "This account could not be deleted! Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("User deleted successfully!", null);
 
             return result;
         })
@@ -294,6 +308,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("User could not be saved!", "User could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("User saved successfully!", null);
 
             return result;
         })
@@ -354,6 +370,8 @@ export class OperationsManager {
             if(redirect)
                 this.router.navigate(['/groups/' + group.groupName]);
 
+            this.dialogManager.openSuccessDialog("Group created successfully!", null);
+
             return result;
         })
         .catch(error => {
@@ -391,8 +409,10 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Group could not be deleted!", "Group could not be deleted. Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Group deleted successfully!", null);
 
-                return result;
+            return result;
         })
         .catch(error => {
             this.dialogManager.openErrorDialog("Error deleting Group!", error);
@@ -407,6 +427,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Group could not be saved!", "Group could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Group saved successfully!", null);
 
             return result;
         })
@@ -499,6 +521,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted. Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
 
             return result;
         })
@@ -515,6 +539,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
 
             return result;
         })
@@ -576,6 +602,8 @@ export class OperationsManager {
         .then(result => {
             if(redirect)
                 this.router.navigate(['/repositories/' + repository.repositoryName]);
+
+            this.dialogManager.openSuccessDialog("Repository created successfully!", null);
 
             return result;
         })
@@ -659,6 +687,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Repository could not be deleted!", "Repository could not be deleted. Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Repository deleted successfully!", null);
 
             return result;
         })
@@ -675,6 +705,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Repository could not be saved!", "Repository could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Repository saved successfully!", null);
 
             return result;
         })
@@ -801,6 +833,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted! Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
 
             return result;
         })
@@ -817,6 +851,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
 
             return result;
         })
@@ -883,6 +919,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted! Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
 
             return result;
         })
@@ -899,6 +937,8 @@ export class OperationsManager {
         .then(result => {
             if(!result)
                 this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+            else
+                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
 
             return result;
         })
