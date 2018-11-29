@@ -22,8 +22,6 @@ export class UserMemberItemComponent {
 
     isRead : boolean;
     isWrite : boolean;
-    deleting : boolean;
-    changingAccess : boolean;
 
 
 
@@ -39,29 +37,14 @@ export class UserMemberItemComponent {
         this.isWrite = this.member.writeAccess;
     }
 
-    deleteClick(event : any) {
+    deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        this.deleting = true;
-
-        this.operationsManager.deleteRepositoryUserMember(this.member)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteRepositoryUserMember(this.member);
     }
 
-    writeAccessClick(event : any) {
+    writeAccessClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        if(!this.editable)
-            return;
-
-        this.changingAccess = true;
-
-        this.member.writeAccess = !this.member.writeAccess;
-
-        this.operationsManager.saveRepositoryUserMember(this.member)
-        .then(() => this.changingAccess = false)
-        .catch(() => this.changingAccess = false);
+        return this.operationsManager.saveRepositoryUserMember(this.member);
     }
 
     elementClick() {

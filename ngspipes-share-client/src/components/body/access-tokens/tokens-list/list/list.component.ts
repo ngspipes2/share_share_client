@@ -24,7 +24,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
     tokens : AccessToken[] = [];
     loading : boolean;
-    creating : boolean;
 
     filters : Filter[];
 
@@ -77,17 +76,14 @@ export class ListComponent implements OnInit, OnDestroy {
         });
     }
 
-    createTokenClick() {
-        this.creating = true;
-
+    createTokenClick() : Promise<any> {
         let accessToken = new AccessToken(0, null, null, null, null, false);
 
-        this.operationsManager.crerateAccessToken(accessToken)
+        return this.operationsManager.crerateAccessToken(accessToken)
         .then(data => {
-            this.creating = false;
             this.selectToken(data.id);
-        })
-        .catch(() => this.creating = false);
+            return data;
+        });
     }
 
     tokenClick(token : AccessToken) {

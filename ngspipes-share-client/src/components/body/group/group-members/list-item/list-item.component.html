@@ -7,25 +7,19 @@
     </div>
 
     <div id="icons">
-        <app-operation-element spinnerDiameter="25" [working]="changingAccess">
-            <mat-slide-toggle
-                [disabled]="!editable"
-                [checked]="member.writeAccess"
-                (click)="writeAccessClick($event)"
-                matTooltip="Write Access">
-            </mat-slide-toggle>
-        </app-operation-element>
-        <app-operation-element spinnerDiameter="25" [working]="deleting">
-            <mat-icon #deleteIcon
-                id="delete-icon"
-                *ngIf="editable && !deleting"
-                matTooltip="Delete"
-                (mouseenter)="deleteIcon.color='warn'"
-                (mouseleave)="deleteIcon.color=''"
-                (click)="deleteClick($event)">
-                delete
-            </mat-icon>
-        </app-operation-element>
+        <app-operation-slide-toggle
+            *ngIf="editable"
+            matTooltip="Write Access"
+            [(value)]="member.writeAccess"
+            [action]="writeAccessClick.bind(this)">
+        </app-operation-slide-toggle>
+        <app-operation-icon-button
+            *ngIf="editable"
+            matTooltip="Delete Member"
+            icon="delete"
+            accentColor="warn"
+            [action]="deleteClick.bind(this)">
+        </app-operation-icon-button>
         <mat-icon *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
         <mat-icon *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
     </div>

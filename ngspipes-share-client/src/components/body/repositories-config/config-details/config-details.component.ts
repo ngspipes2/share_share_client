@@ -19,8 +19,6 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     config : RepositoryConfig;
     loading : boolean;
-    saving : boolean;
-    deleting : boolean;
 
 
 
@@ -64,20 +62,12 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    saveClick() {
-        this.saving = true;
-
-        this.operationsManager.saveRepositoryConfig(this.config)
-        .then(() => this.saving = false)
-        .catch(() => this.saving = false);
+    saveClick() : Promise<any> {
+        return this.operationsManager.saveRepositoryConfig(this.config);
     }
 
-    deleteClick() {
-        this.deleting = true;
-
-        this.operationsManager.deleteRepositoryConfig(this.config)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+    deleteClick() : Promise<any> {
+        return this.operationsManager.deleteRepositoryConfig(this.config);
     }
 
 }

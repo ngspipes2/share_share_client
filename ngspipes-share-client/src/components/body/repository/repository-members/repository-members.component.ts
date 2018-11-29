@@ -22,33 +22,20 @@ export class RepositoryMembersComponent {
     @Input()
     editable : boolean;
 
-    creatingUserMember : boolean;
-    creatingGroupMember : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    addUserMemberClick() {
-        this.creatingUserMember = true;
-
+    addUserMemberClick() : Promise<any> {
         let member = new RepositoryUserMember(0, null, null, this.repositoryName, false);
-
-        this.operationsManager.createRepositoryUserMember(member)
-        .then(() => this.creatingUserMember = false)
-        .catch(() => this.creatingUserMember = false);
+        return this.operationsManager.createRepositoryUserMember(member);
     }
 
-    addGroupMemberClick() {
-        this.creatingGroupMember = true;
-
+    addGroupMemberClick() : Promise<any> {
         let member = new RepositoryGroupMember(0, null, null, this.repositoryName, false);
-
-        this.operationsManager.createRepositoryGroupMember(member)
-        .then(() => this.creatingGroupMember= false)
-        .catch(() => this.creatingGroupMember = false);
+        return this.operationsManager.createRepositoryGroupMember(member);
     }
 
 }

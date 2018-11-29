@@ -10,15 +10,12 @@
             </ng-template>
             <div id="empty-list" empty-list>
                 <p>You currently have no Access Token.<p>
-                <app-operation-element spinnerDiameter="25" [working]="creating">
-                  <button mat-raised-button
-                      #createFirstTokenButton
-                      (mouseenter)="createFirstTokenButton.color='primary'"
-                      (mouseleave)="createFirstTokenButton.color=''"
-                      (click)="createTokenClick()">
-                      Create Token
-                  </button>
-                </app-operation-element>
+                <app-operation-text-button
+                    [raised]="true"
+                    label="Create Token"
+                    accentColor="accent"
+                    [action]="createTokenClick.bind(this)">
+                </app-operation-text-button>
             </div>
         </app-filter-list>
     </div>

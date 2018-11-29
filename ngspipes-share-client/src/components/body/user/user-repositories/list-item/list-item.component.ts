@@ -23,7 +23,6 @@ export class ListItemComponent implements OnInit {
     isMember : boolean;
     isToolsRepository : boolean;
     isPipelinesRepository : boolean;
-    deleting : boolean;
 
 
 
@@ -39,14 +38,9 @@ export class ListItemComponent implements OnInit {
         this.isPipelinesRepository = this.repository.entityType === EntityType.PIPELINES;
     }
 
-    deleteClick(event : any) {
+    deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        this.deleting = true;
-
-        this.operationsManager.deleteRepository(this.repository)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteRepository(this.repository);
     }
 
     elementClick() {

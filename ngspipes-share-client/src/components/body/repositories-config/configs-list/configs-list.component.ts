@@ -17,25 +17,20 @@ export class ConfigsListComponent {
 
     selectedConfigName : string;
 
-    creating : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    createConfigClick() {
-        this.creating = true;
-
+    createConfigClick() : Promise<any> {
         let config = new RepositoryConfig(null, "", "", []);
 
-        this.operationsManager.createRepositoryConfig(config)
+        return this.operationsManager.createRepositoryConfig(config)
         .then((result) => {
-            this.creating = false;
             this.selectConfig(config.name);
-        })
-        .catch(() => this.creating = false);
+            return result;
+        });
     }
 
     selectConfig(name : string) {

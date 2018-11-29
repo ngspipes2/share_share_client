@@ -15,33 +15,20 @@ export class UserRepositoriesComponent {
     @Input()
     editable : boolean;
 
-    creating : boolean;
-    publishing : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    publishRepositoryClick() {
-        this.publishing = true;
-
+    publishRepositoryClick() : Promise<any> {
         let repository = new Repository(null, null, null, null, null, false, null, null);
-
-        this.operationsManager.publishRepository(repository)
-        .then(() => this.publishing = false)
-        .catch(() => this.publishing = false);
+        return this.operationsManager.publishRepository(repository);
     }
 
-    createRepositoryClick() {
-        this.creating = true;
-
+    createRepositoryClick() : Promise<any> {
         let repository = new Repository(null, null, null, null, null, false, null, null);
-
-        this.operationsManager.createRepository(repository)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createRepository(repository);
     }
 
 }

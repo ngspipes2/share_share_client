@@ -13,11 +13,15 @@
         <app-token-info [token]="token"></app-token-info>
     </mat-card-content>
     <mat-card-actions align="center" *ngIf="token">
-        <app-operation-element spinnerDiameter="20" [working]="saving">
-            <button mat-button (click)="saveClick()">Save</button>
-        </app-operation-element>
-        <app-operation-element spinnerDiameter="20" [working]="deleting">
-            <button mat-button color="warn" (click)="deleteClick()">Delete</button>
-        </app-operation-element>
+        <app-operation-text-button
+            label="Save"
+            [action]="saveClick.bind(this)">
+        </app-operation-text-button>
+        <app-operation-text-button
+            label="Delete"
+            color="warn"
+            accentColor="warn"
+            [action]="deleteClick.bind(this)">
+        </app-operation-text-button>
     </mat-card-actions>
 </mat-card>

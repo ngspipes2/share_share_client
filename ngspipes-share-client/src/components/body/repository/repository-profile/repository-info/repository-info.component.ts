@@ -24,8 +24,6 @@ export class RepositoryInfoComponent {
 
     repository : Repository;
     loading : boolean;
-    saving : boolean;
-    changingImage : boolean;
 
 
 
@@ -66,23 +64,15 @@ export class RepositoryInfoComponent {
         });
     }
 
-    changeImage(file : any) {
+    changeImage(file : any) : Promise<any> {
         if(!file)
-            return;
+            return Promise.resolve(true);
 
-        this.changingImage = true;
-
-        this.operationsManager.changeRepositoryImage(this.repository, file)
-        .then(() => this.changingImage = false)
-        .catch(() => this.changingImage = false);
+        return this.operationsManager.changeRepositoryImage(this.repository, file);
     }
 
-    saveClick() {
-        this.saving = true;
-
-        this.operationsManager.saveRepository(this.repository)
-        .then(() => this.saving = false)
-        .catch(() => this.saving = false);
+    saveClick() : Promise<any> {
+        return this.operationsManager.saveRepository(this.repository);
     }
 
     getDateFieldLabel() {

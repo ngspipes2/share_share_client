@@ -18,22 +18,16 @@ export class GroupMembersComponent {
     @Input()
     editable : boolean;
 
-    creating : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    addMemberClick() {
-        this.creating = true;
-
+    addMemberClick() : Promise<any> {
         let member = new GroupMember(0, null, null, this.groupName, false);
 
-        this.operationsManager.createGroupMember(member)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroupMember(member);
     }
 
 }

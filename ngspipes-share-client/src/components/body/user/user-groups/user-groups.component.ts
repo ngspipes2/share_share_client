@@ -15,22 +15,15 @@ export class UserGroupsComponent {
     @Input()
     editable : boolean;
 
-    creating : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    createGroupClick() {
-        this.creating = true;
-
+    createGroupClick() : Promise<string> {
         let group = new Group(null, null, null, null);
-
-        this.operationsManager.createGroup(group)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroup(group);
     }
 
 }

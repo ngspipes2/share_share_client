@@ -16,24 +16,20 @@
         </ng-template>
         <div id="empty-list" empty-list>
             <p>This Repository has no members.</p>
-            <app-operation-element spinnerDiameter="25" [working]="creatingUserMember" *ngIf="editable">
-              <button mat-raised-button
-                  #addUserButton
-                  (mouseenter)="addUserButton.color='primary'"
-                  (mouseleave)="addUserButton.color=''"
-                  (click)="addUserMemberClick()">
-                  Add User Member
-              </button>
-            </app-operation-element>
-            <app-operation-element spinnerDiameter="25" [working]="creatingGroupMember">
-                <button mat-raised-button
-                    #addGroupButton
-                    (mouseenter)="addGroupButton.color='primary'"
-                    (mouseleave)="addGroupButton.color=''"
-                    (click)="addGroupMemberClick()">
-                    Add Group Member
-                </button>
-            </app-operation-element>
+            <app-operation-text-button
+                *ngIf="editable"
+                label="Add User Member"
+                [raised]="true"
+                accentColor="accent"
+                [action]="addUserMemberClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                *ngIf="editable"
+                label="Add Group Member"
+                [raised]="true"
+                accentColor="accent"
+                [action]="addGroupMemberClick.bind(this)">
+            </app-operation-text-button>
         </div>
     </app-filter-list>
 </div>

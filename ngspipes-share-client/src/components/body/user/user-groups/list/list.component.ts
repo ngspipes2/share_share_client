@@ -22,7 +22,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     groupSubscription : any;
 
     loading : boolean;
-    creating : boolean;
     groups : Group[] = [];
 
     filters : Filter[];
@@ -100,14 +99,9 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         return true;
     }
 
-    createGroupClick() {
-        this.creating = true;
-
+    createGroupClick() : Promise<any> {
         let group = new Group(null, null, null, null);
-
-        this.operationsManager.createGroup(group)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroup(group);
     }
 
 }

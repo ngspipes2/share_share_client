@@ -20,8 +20,6 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     token : AccessToken;
     loading : boolean;
-    saving : boolean;
-    deleting : boolean;
 
 
 
@@ -66,20 +64,12 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    saveClick() {
-        this.saving = true;
-
-        this.operationsManager.saveAccessToken(this.token)
-        .then(() => this.saving = false)
-        .catch(() => this.saving = false);
+    saveClick() : Promise<any> {
+        return this.operationsManager.saveAccessToken(this.token);
     }
 
-    deleteClick() {
-        this.deleting = true;
-
-        this.operationsManager.deleteAccessToken(this.token)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+    deleteClick() : Promise<any> {
+        return this.operationsManager.deleteAccessToken(this.token);
     }
 
 }

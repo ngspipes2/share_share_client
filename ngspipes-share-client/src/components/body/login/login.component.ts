@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
     password : string;
     hide : boolean = true;
     loading : boolean;
-    logingIn : boolean;
-    creatingAccount : boolean;
 
 
 
@@ -57,40 +55,33 @@ export class LoginComponent implements OnInit {
             });
     }
 
-    loginClick() {
-        this.login(this.userName, this.password);
+    loginClick() : Promise<any> {
+        return this.login(this.userName, this.password);
     }
 
-    createAccountClick() {
-        this.creatingAccount = true;
-
+    createAccountClick() : Promise<any> {
         let user = new User(this.userName, this.password, null, null, null, UserRole.NORMAL);
 
-        this.operationsManager.createUser(user, false)
+        return this.operationsManager.createUser(user, false)
         .then((result) => {
-            this.creatingAccount = false;
-            this.login(user.userName, user.password);
-        })
-        .catch(() => this.creatingAccount = false);
+            return this.login(user.userName, user.password);
+        });
     }
 
-    login(userName : string, password : string) {
-        this.logingIn = true;
-
-        this.sessionService.login(userName, password)
+    login(userName : string, password : string) : Promise<any> {
+        return this.sessionService.login(userName, password)
         .then((result) => {
-            this.logingIn = false;
-
             if(!result)
                 this.dialogManager.openErrorDialog("Invalid credentials!", "");
             else
                 this.router.navigate(['/users/' + userName]);
+
+            return result;
         })
         .catch((error) => {
-            this.logingIn = false;
-
             this.dialogManager.openErrorDialog("Error while login!", "");
             console.error(error);
+            throw error;
         });
     }
 

@@ -21,8 +21,6 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
     user : User;
     loading : boolean;
-    changingImage : boolean;
-    saving : boolean;
 
 
 
@@ -60,23 +58,15 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    changeImage(file : any) {
+    changeImage(file : any) : Promise<any> {
         if(!file)
-            return;
+            return Promise.resolve(true);
 
-        this.changingImage = true;
-
-        this.operationsManager.changeUserImage(this.user, file)
-        .then(() => this.changingImage = false)
-        .catch(() => this.changingImage = false);
+        return this.operationsManager.changeUserImage(this.user, file);
     }
 
-    saveClick() {
-        this.saving = true;
-
-        this.operationsManager.saveUser(this.user)
-        .then(() => this.saving = false)
-        .catch(() => this.saving = false);
+    saveClick() : Promise<any> {
+        return this.operationsManager.saveUser(this.user);
     }
 
 }

@@ -22,7 +22,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
     configs : RepositoryConfig[] = [];
     loading : boolean;
-    creating : boolean;
 
     filters : Filter[];
 
@@ -71,17 +70,14 @@ export class ListComponent implements OnInit, OnDestroy {
         });
     }
 
-    createConfigClick() {
-        this.creating = true;
-
+    createConfigClick() : Promise<any> {
         let config = new RepositoryConfig(null, "", "", []);
 
-        this.operationsManager.createRepositoryConfig(config)
+        return this.operationsManager.createRepositoryConfig(config)
         .then((result) => {
-            this.creating = false;
             this.selectConfig(config.name);
-        })
-        .catch(() => this.creating = false);
+            return result;
+        });
     }
 
     configClick(config : RepositoryConfig) {

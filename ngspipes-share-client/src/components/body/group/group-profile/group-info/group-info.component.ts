@@ -21,8 +21,6 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
     group : Group;
     loading : boolean;
-    saving : boolean;
-    changingImage : boolean;
 
 
 
@@ -60,23 +58,15 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
         });
     }
 
-    changeImage(file : any) {
+    changeImage(file : any) : Promise<any> {
         if(!file)
-            return;
+            return Promise.resolve(true);
 
-        this.changingImage = true;
-
-        this.operationsManager.changeGroupImage(this.group, file)
-        .then(() => this.changingImage = false)
-        .catch(() => this.changingImage = false);
+        return this.operationsManager.changeGroupImage(this.group, file);
     }
 
-    saveClick() {
-        this.saving = true;
-
-        this.operationsManager.saveGroup(this.group)
-        .then(() => this.saving = false)
-        .catch(() => this.saving = false);
+    saveClick() : Promise<any> {
+        return this.operationsManager.saveGroup(this.group);
     }
 
 }

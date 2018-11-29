@@ -1,15 +1,11 @@
 <app-frame headerTitle="Profile" icon="people">
     <div *ngIf="editable" frame-header-buttons>
-        <app-operation-element spinnerDiameter="25" [working]="deleting">
-            <button mat-icon-button
-                matTooltip="Delete"
-                (click)="deleteClick()"
-                #deleteButton
-                (mouseenter)="deleteButton.color='warn'"
-                (mouseleave)="deleteButton.color=''">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </app-operation-element>
+        <app-operation-icon-button
+            matTooltip="Delete"
+            accentColor="warn"
+            icon="delete"
+            [action]="deleteClick.bind(this)">
+        </app-operation-icon-button>
     </div>
     <app-group-info  frame-body
         [groupName]="groupName"

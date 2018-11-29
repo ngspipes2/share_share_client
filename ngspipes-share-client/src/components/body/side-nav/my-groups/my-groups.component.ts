@@ -11,24 +11,16 @@ import { OperationsManager } from '../../../operations.manager';
 })
 export class MyGroupsComponent {
 
-    creating : boolean;
-
-
-
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    createGroupClick(event : any) {
+    createGroupClick(event : any) : Promise<any> {
         event.stopPropagation();
-        
-        this.creating = true;
 
         let group = new Group(null, null, null, null);
 
-        this.operationsManager.createGroup(group)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroup(group);
     }
 
 }

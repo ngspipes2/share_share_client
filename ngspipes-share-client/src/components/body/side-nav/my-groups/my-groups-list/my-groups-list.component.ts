@@ -19,7 +19,6 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     groupSubscription : any;
 
     loading : boolean;
-    creating : boolean;
     userName : string;
     groups : Group[] = [];
 
@@ -98,14 +97,9 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
         return true;
     }
 
-    createGroupClick() {
-        this.creating = true;
-
+    createGroupClick() : Promise<any> {
         let group = new Group(null, null, null, null);
-
-        this.operationsManager.createGroup(group)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroup(group);
     }
 
 }

@@ -33,9 +33,10 @@
             [editable]="editable">
         </app-string-property>
         <div class="button-container" *ngIf="editable">
-            <app-operation-element spinnerDiameter="25" [working]="saving">
-                <button mat-button (click)="saveClick()">Save</button>
-            </app-operation-element>
+            <app-operation-text-button
+                label="Save"
+                [action]="saveClick.bind(this)">
+            </app-operation-text-button>
         </div>
     </div>
 
@@ -47,10 +48,10 @@
             <app-user-image *ngIf="!loading" [userName]="user.userName" spinnerDiameter="75"></app-user-image>
         </div>
         <div class="button-container" *ngIf="editable">
-            <input type="file" (change)="changeImage($event.target.files[0])" #selectFile hidden="true">
-            <app-operation-element spinnerDiameter="25" [working]="changingImage">
-                <button mat-button (click)="selectFile.click()">Change</button>
-            </app-operation-element>
+            <app-operation-select-file-text-button
+                label="Change"
+                [action]="changeImage.bind(this)">
+            </app-operation-select-file-text-button>
         </div>
     </div>
 </div>

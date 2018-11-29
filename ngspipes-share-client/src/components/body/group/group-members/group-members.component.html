@@ -1,15 +1,11 @@
 <app-frame headerTitle="Members" icon="people">
     <div *ngIf="editable" frame-header-buttons>
-        <app-operation-element spinnerDiameter="25" [working]="creating">
-            <button mat-icon-button
-                matTooltip="Add Member"
-                (click)="addMemberClick()"
-                #addButton
-                (mouseenter)="addButton.color='accent'"
-                (mouseleave)="addButton.color=''">
-                <mat-icon>person_add</mat-icon>
-            </button>
-        </app-operation-element>
+        <app-operation-icon-button
+            matTooltip="Add Member"
+            icon="add"
+            accentColor="accent"
+            [action]="addMemberClick.bind(this)">
+        </app-operation-icon-button>
     </div>
     <app-list frame-body
         [groupName]="groupName"

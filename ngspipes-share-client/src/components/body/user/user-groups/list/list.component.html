@@ -11,15 +11,13 @@
             <div id="empty-list" empty-list>
                 <p *ngIf="!editable">This User has no Groups.</p>
                 <p *ngIf="editable">You currently have no Groups.</p>
-                <app-operation-element spinnerDiameter="25" [working]="creating" *ngIf="editable">
-                  <button mat-raised-button
-                      #createFirstGroupButton
-                      (mouseenter)="createFirstGroupButton.color='primary'"
-                      (mouseleave)="createFirstGroupButton.color=''"
-                      (click)="createGroupClick()">
-                      Create Group
-                  </button>
-                </app-operation-element>
+                <app-operation-text-button
+                    *ngIf="editable"
+                    label="Create Group"
+                    [raised]="true"
+                    accentColor="accent"
+                    [action]="createGroupClick.bind(this)">
+                </app-operation-text-button>
             </div>
         </app-filter-list>
     </div>

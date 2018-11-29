@@ -15,25 +15,20 @@ export class TokensListComponent {
 
     selectedTokenId : number;
 
-    creating : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    createTokenClick() {
-        this.creating = true;
-
+    createTokenClick() : Promise<any> {
         let accessToken = new AccessToken(0, null, null, null, null, false);
-
-        this.operationsManager.crerateAccessToken(accessToken)
+        
+        return this.operationsManager.crerateAccessToken(accessToken)
         .then((data) => {
-            this.creating = false
             this.selectToken(data.id);
-        })
-        .catch(() => this.creating = false);
+            return data;
+        });
     }
 
     selectToken(tokenId : number) {

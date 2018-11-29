@@ -7,17 +7,13 @@
     </div>
 
     <div id="icons">
-        <app-operation-element spinnerDiameter="25" [working]="deleting">
-            <mat-icon   #deleteIcon
-                id="delete-icon"
-                *ngIf="isOwner && !deleting"
-                matTooltip="Delete"
-                (mouseenter)="deleteIcon.color='warn'"
-                (mouseleave)="deleteIcon.color=''"
-                (click)="deleteClick($event)">
-                delete
-            </mat-icon>
-        </app-operation-element>
+        <app-operation-icon-button
+            *ngIf="isOwner"
+            matTooltip="Delete"
+            icon="delete"
+            accentColor="warn"
+            [action]="deleteClick.bind(this)">
+        </app-operation-icon-button>
         <mat-icon *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
         <mat-icon *ngIf="isMember" matTooltip="Member">people</mat-icon>
     </div>

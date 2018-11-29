@@ -10,15 +10,12 @@
                 [matTooltip]="token.writeAccess? 'Write Acceess' : 'Read Access'"
                 [svgIcon]="token.writeAccess? 'pencil' : 'pencil-off'">
             </mat-icon>
-            <app-operation-element spinnerDiameter="25" [working]="deleting">
-                <mat-icon #deleteIcon *ngIf="!deleting"
-                    (mouseenter)="deleteIcon.color='warn'"
-                    (mouseleave)="deleteIcon.color=''"
-                    matTooltip="Delete Token"
-                    (click)="deleteClick($event)">
-                    delete
-                </mat-icon>
-            </app-operation-element>
+            <app-operation-icon-button
+                matTooltip="Delete Token"
+                icon="delete"
+                accentColor="warn"
+                [action]="deleteClick.bind(this)">
+            </app-operation-icon-button>
         </div>
     </div>
 </button>
@@ -32,15 +29,12 @@
                 [matTooltip]="token.writeAccess? 'Write Acceess' : 'Read Access'"
                 [svgIcon]="token.writeAccess? 'pencil' : 'pencil-off'">
             </mat-icon>
-            <app-operation-element spinnerDiameter="25" [working]="deleting">
-                <mat-icon #deleteIcon *ngIf="!deleting"
-                    (mouseenter)="deleteIcon.color='warn'"
-                    (mouseleave)="deleteIcon.color=''"
-                    matTooltip="Delete Token"
-                    (click)="deleteClick($event)">
-                    delete
-                </mat-icon>
-            </app-operation-element>
+            <app-operation-icon-button
+                matTooltip="Delete Token"
+                icon="delete"
+                accentColor="warn"
+                [action]="deleteClick.bind(this)">
+            </app-operation-icon-button>
         </div>
     </div>
 </button>

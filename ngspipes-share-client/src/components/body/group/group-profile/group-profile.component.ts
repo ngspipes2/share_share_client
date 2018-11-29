@@ -15,22 +15,16 @@ export class GroupProfileComponent {
     @Input()
     editable : boolean;
 
-    deleting : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    deleteClick() {
-        this.deleting = true;
-
+    deleteClick() : Promise<any> {
         let group = new Group(this.groupName, null, null, null);
 
-        this.operationsManager.deleteGroup(group)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteGroup(group);
     }
 
 }

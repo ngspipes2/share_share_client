@@ -18,8 +18,6 @@ export class UserProfileComponent {
     @Input()
     editable : boolean;
 
-    deleting : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager,
@@ -29,21 +27,18 @@ export class UserProfileComponent {
 
 
 
-    deleteClick() {
-        this.deleting = true;
-
+    deleteClick() : Promise<any> {
         let user = new User(this.userName, null, null, null, null, null);
 
-        this.operationsManager.deleteUser(user)
+        return this.operationsManager.deleteUser(user)
         .then((result) => {
-            this.deleting = false;
-
             if(result) {
                 if(this.sessionService.getCurrentCredentials()[0] === this.userName)
                     this.logout();
             }
-        })
-        .catch(() => this.deleting = false);
+
+            return result;
+        });
     }
 
     logout() {

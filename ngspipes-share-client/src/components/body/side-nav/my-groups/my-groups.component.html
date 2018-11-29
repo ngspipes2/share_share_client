@@ -7,17 +7,12 @@
             </mat-panel-title>
             <mat-panel-description>
                 My Groups
-                <app-operation-element spinnerDiameter="25" [working]="creating">
-                    <button
-                        mat-icon-button
-                        matTooltip="Create Group"
-                        (click)="createGroupClick($event)"
-                        #addGroupButton
-                        (mouseenter)="addGroupButton.color='accent'"
-                        (mouseleave)="addGroupButton.color=''">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </app-operation-element>
+                <app-operation-icon-button
+                    matTooltip="Create Group"
+                    icon="add"
+                    accentColor="accent"
+                    [action]="createGroupClick.bind(this)">
+                </app-operation-icon-button>
             </mat-panel-description>
         </mat-expansion-panel-header>
         <app-my-groups-list></app-my-groups-list>

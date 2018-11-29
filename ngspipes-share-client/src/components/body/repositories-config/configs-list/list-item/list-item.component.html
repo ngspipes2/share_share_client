@@ -5,15 +5,12 @@
         <div class="config-name" [matTooltip]="config.name">
             {{config.name}}
         </div>
-        <app-operation-element spinnerDiameter="25" [working]="deleting">
-            <mat-icon #deleteIcon *ngIf="!deleting"
-                (mouseenter)="deleteIcon.color='warn'"
-                (mouseleave)="deleteIcon.color=''"
-                matTooltip="Delete Config"
-                (click)="deleteClick($event)">
-                delete
-            </mat-icon>
-        </app-operation-element>
+        <app-operation-icon-button
+            matTooltip="Delete Config"
+            accentColor="warn"
+            icon="delete"
+            [action]="deleteClick.bind(this)">
+        </app-operation-icon-button>
     </div>
 </button>
 <button mat-raised-button *ngIf="selected" color="primary">
@@ -21,14 +18,11 @@
         <div class="config-name" [matTooltip]="config.name">
             {{config.name}}
         </div>
-        <app-operation-element spinnerDiameter="25" [working]="deleting">
-            <mat-icon #deleteIcon *ngIf="!deleting"
-                (mouseenter)="deleteIcon.color='warn'"
-                (mouseleave)="deleteIcon.color=''"
-                matTooltip="Delete Config"
-                (click)="deleteClick($event)">
-                delete
-            </mat-icon>
-        </app-operation-element>
+        <app-operation-icon-button
+            matTooltip="Delete Config"
+            icon="delete"
+            accentColor="warn"
+            [action]="deleteClick.bind(this)">
+        </app-operation-icon-button>
     </div>
 </button>

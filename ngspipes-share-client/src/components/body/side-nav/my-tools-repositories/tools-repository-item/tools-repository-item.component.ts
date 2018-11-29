@@ -19,7 +19,6 @@ export class ToolsRepositoryItemComponent {
     userName : string;
     isOwner : boolean;
     isMember : boolean;
-    deleting : boolean;
 
 
 
@@ -44,14 +43,9 @@ export class ToolsRepositoryItemComponent {
         this.isMember = this.repository.ownerName !== this.userName;
     }
 
-    deleteClick(event : any) {
+    deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        this.deleting = true;
-
-        this.operationsManager.deleteRepository(this.repository)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteRepository(this.repository);
     }
 
     elementClick() {

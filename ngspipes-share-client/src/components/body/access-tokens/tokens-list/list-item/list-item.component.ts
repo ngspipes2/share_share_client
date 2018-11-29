@@ -16,22 +16,16 @@ export class ListItemComponent {
     @Input()
     selected : boolean;
 
-    deleting : boolean;
-
 
 
     constructor(private operationsManager : OperationsManager) { console.log(operationsManager); }
 
 
 
-    deleteClick(event : any) {
+    deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
 
-        this.deleting = true;
-
-        this.operationsManager.deleteAccessToken(this.token)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteAccessToken(this.token);
     }
 
 }

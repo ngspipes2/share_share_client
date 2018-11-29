@@ -18,12 +18,20 @@
         </mat-card-content>
 
         <mat-card-actions align="center">
-            <app-operation-element spinnerDiameter="25" [working]="logingIn">
-                <button mat-raised-button (click)="loginClick()" color="primary">Login</button>
-            </app-operation-element>
-            <app-operation-element spinnerDiameter="25" [working]="creatingAccount">
-                <button mat-raised-button (click)="createAccountClick()" color="primary">Create Account</button>
-            </app-operation-element>
+            <app-operation-text-button
+                [raised]="true"
+                label="Login"
+                color="primary"
+                accentColor="primary"
+                [action]="loginClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                [raised]="true"
+                label="Create Account"
+                color="primary"
+                accentColor="primary"
+                [action]="createAccountClick.bind(this)">
+            </app-operation-text-button>
         </mat-card-actions>
     </mat-card>
 </div>

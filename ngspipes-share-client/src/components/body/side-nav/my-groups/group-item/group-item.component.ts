@@ -19,7 +19,6 @@ export class GroupItemComponent implements OnInit, OnDestroy {
     userName : string;
     isOwner : boolean;
     isMember : boolean;
-    deleting : boolean;
 
 
 
@@ -44,14 +43,9 @@ export class GroupItemComponent implements OnInit, OnDestroy {
         this.isMember = this.group.ownerName !== this.userName;
     }
 
-    deleteClick(event : any) {
+    deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        this.deleting = true;
-
-        this.operationsManager.deleteGroup(this.group)
-        .then(() => this.deleting = false)
-        .catch(() => this.deleting = false);
+        return this.operationsManager.deleteGroup(this.group);
     }
 
     elementClick() {

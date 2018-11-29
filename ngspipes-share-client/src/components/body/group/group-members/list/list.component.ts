@@ -22,7 +22,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     memberSubscription : any;
 
     loading : boolean;
-    creating : boolean;
     members : GroupMember[] = [];
 
     filters : Filter[];
@@ -100,20 +99,8 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     addMemberClick() {
-        this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
-            if(userName)
-                this.createMember(userName);
-        });
-    }
-
-    createMember(userName : string) {
-        this.creating = true;
-
         let member = new GroupMember(0, null, null, this.groupName, false);
-
-        this.operationsManager.createGroupMember(member)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createGroupMember(member);
     }
 
 }

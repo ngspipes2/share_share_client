@@ -8,28 +8,18 @@
             <mat-panel-description>
                 My Pipelines Repositories
                 <div class="buttons">
-                    <app-operation-element spinnerDiameter="25" [working]="publishing">
-                        <button
-                            mat-icon-button
-                            matTooltip="Publish Repository"
-                            (click)="publishRepositoryClick($event)"
-                            #publishRepositoryButton
-                            (mouseenter)="publishRepositoryButton.color='accent'"
-                            (mouseleave)="publishRepositoryButton.color=''">
-                            <mat-icon>publish</mat-icon>
-                        </button>
-                    </app-operation-element>
-                    <app-operation-element spinnerDiameter="25" [working]="creating">
-                        <button
-                            mat-icon-button
-                            matTooltip="Create Repository"
-                            (click)="createRepositoryClick($event)"
-                            #createRepositoryButton
-                            (mouseenter)="createRepositoryButton.color='accent'"
-                            (mouseleave)="createRepositoryButton.color=''">
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </app-operation-element>
+                    <app-operation-icon-button
+                        matTooltip="Publish Repository"
+                        icon="publish"
+                        accentColor="accent"
+                        [action]="publishRepositoryClick.bind(this)">
+                    </app-operation-icon-button>
+                    <app-operation-icon-button
+                        matTooltip="Create Repository"
+                        icon="add"
+                        accentColor="accent"
+                        [action]="createRepositoryClick.bind(this)">
+                    </app-operation-icon-button>
                 </div>
             </mat-panel-description>
         </mat-expansion-panel-header>

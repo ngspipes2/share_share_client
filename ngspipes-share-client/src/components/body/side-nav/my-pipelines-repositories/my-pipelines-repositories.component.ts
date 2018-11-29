@@ -10,37 +10,24 @@ import { OperationsManager } from '../../../operations.manager';
 })
 export class MyPipelinesRepositoriesComponent {
 
-    publishing : boolean;
-    creating : boolean;
-
-
-
     constructor(private operationsManager : OperationsManager) { }
 
 
 
-    publishRepositoryClick(event : any) {
+    publishRepositoryClick(event : any) : Promise<any> {
         event.stopPropagation();
-
-        this.publishing = true;
 
         let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
 
-        this.operationsManager.publishRepository(repository)
-        .then(() => this.publishing = false)
-        .catch(() => this.publishing = false);
+        return this.operationsManager.publishRepository(repository);
     }
 
-    createRepositoryClick(envet : any) {
+    createRepositoryClick(envet : any) : Promise<any> {
         event.stopPropagation();
-
-        this.creating = true;
 
         let repository = new Repository(name, EntityType.PIPELINES, null, null, null, false, null, null);
 
-        this.operationsManager.createRepository(repository)
-        .then(() => this.creating = false)
-        .catch(() => this.creating = false);
+        return this.operationsManager.createRepository(repository);
     }
 
 }

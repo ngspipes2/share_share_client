@@ -9,15 +9,13 @@
         </ng-template>
         <div id="empty-list" empty-list>
             <p>This Group has no members.<p>
-            <app-operation-element spinnerDiameter="25" [working]="creating" *ngIf="editable">
-              <button mat-raised-button
-                  #addMemberButton
-                  (mouseenter)="addMemberButton.color='primary'"
-                  (mouseleave)="addMemberButton.color=''"
-                  (click)="addMemberClick()">
-                  Add Member
-              </button>
-            </app-operation-element>
+            <app-operation-text-button
+                *ngIf="editable"
+                label="Add Member"
+                [raised]="true"
+                accentColor="accent"
+                [action]="addMemberClick.bind(this)">
+            </app-operation-text-button>
         </div>
     </app-filter-list>
 </div>
