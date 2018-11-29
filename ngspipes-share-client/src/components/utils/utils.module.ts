@@ -6,9 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../app/material.module';
 
 import { PropertyModule } from './property/property.module';
+import { OperationElementModule } from './operation-element/operation-element.module';
 
 import { FrameComponent } from './frame/frame.component';
-import { OperationElementComponent } from './operation-element/operation-element.component';
 import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
 import { FilterListComponent } from './filter-list/filter-list.component';
 
@@ -19,18 +19,18 @@ import { FilterListComponent } from './filter-list/filter-list.component';
         BrowserAnimationsModule,
         FormsModule,
         MaterialModule,
-        PropertyModule
+        PropertyModule,
+        OperationElementModule
     ],
     declarations: [
         FrameComponent,
-        OperationElementComponent,
         NonExistentEntityComponent,
         FilterListComponent
     ],
     exports: [
         PropertyModule,
+        OperationElementModule,
         FrameComponent,
-        OperationElementComponent,
         NonExistentEntityComponent,
         FilterListComponent
     ]
