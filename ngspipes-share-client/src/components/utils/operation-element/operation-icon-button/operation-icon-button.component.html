@@ -1,12 +1,20 @@
 <app-operation-element spinnerDiameter="25" [working]="working">
-    <button mat-icon-button
+    <mat-icon *ngIf="icon"
         #button
         [color]="color"
         (mouseenter)="button.color=accentColor"
         (mouseleave)="button.color=color"
         (mouseup)="button.color=color"
         (click)="clicked($event)">
-        <mat-icon *ngIf="icon">{{icon}}</mat-icon>
-        <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon"></mat-icon>
-    </button>
+        {{icon}}
+    </mat-icon>
+    <mat-icon *ngIf="svgIcon"
+        [svgIcon]="svgIcon"
+        #button
+        [color]="color"
+        (mouseenter)="button.color=accentColor"
+        (mouseleave)="button.color=color"
+        (mouseup)="button.color=color"
+        (click)="clicked($event)">
+    </mat-icon>
 </app-operation-element>
