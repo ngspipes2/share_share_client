@@ -1,0 +1,13 @@
+<div id="root" [class]="selected? 'selected' : ''" (click)="clicked()">
+    <div id="label">
+        <div id="image">
+            <ng-content select="[list-option-image]"></ng-content>
+        </div>
+        <div id="name" [matTooltip]="name">
+            {{name}}
+        </div>
+    </div>
+    <div id="icons">
+        <ng-content select="[list-option-icons]"></ng-content>
+    </div>
+</div>

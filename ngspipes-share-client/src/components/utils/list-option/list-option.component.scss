@@ -1,0 +1,28 @@
+#root {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 5px 10px;
+    border-radius: 3px;
+}
+
+#root:hover, .selected {
+    background-color: rgba(182, 182, 182, 0.20);
+}
+
+#label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

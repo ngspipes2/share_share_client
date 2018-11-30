@@ -11,6 +11,7 @@ import { OperationElementModule } from './operation-element/operation-element.mo
 import { FrameComponent } from './frame/frame.component';
 import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
 import { FilterListComponent } from './filter-list/filter-list.component';
+import { ListOptionComponent } from './list-option/list-option.component';
 
 @NgModule({
     imports: [
@@ -25,14 +26,16 @@ import { FilterListComponent } from './filter-list/filter-list.component';
     declarations: [
         FrameComponent,
         NonExistentEntityComponent,
-        FilterListComponent
+        FilterListComponent,
+        ListOptionComponent
     ],
     exports: [
         PropertyModule,
         OperationElementModule,
         FrameComponent,
         NonExistentEntityComponent,
-        FilterListComponent
+        FilterListComponent,
+        ListOptionComponent
     ]
 })
 export class UtilsModule { }
