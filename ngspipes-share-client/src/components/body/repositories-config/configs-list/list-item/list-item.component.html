@@ -1,28 +1,9 @@
-<button mat-button *ngIf="!selected" #itemButton
-    (mouseenter)="itemButton.color='primary'"
-    (mouseleave)="itemButton.color=''">
-    <div class="button-content">
-        <div class="config-name" [matTooltip]="config.name">
-            {{config.name}}
-        </div>
-        <app-operation-icon-button
-            matTooltip="Delete Config"
-            accentColor="warn"
-            icon="delete"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
-</button>
-<button mat-raised-button *ngIf="selected" color="primary">
-    <div class="button-content">
-        <div class="config-name" [matTooltip]="config.name">
-            {{config.name}}
-        </div>
-        <app-operation-icon-button
-            matTooltip="Delete Config"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
-</button>
+<app-list-option [name]="config.name" [selected]="selected">
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Delete Config"
+        accentColor="warn"
+        icon="delete"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+</app-list-option>

@@ -1,16 +1,4 @@
-#root {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 3px;
-}
-
-#root:hover {
-    background-color: rgba(182, 182, 182, 0.20);
-}
-
-app-group-image {
+app-list-option ::ng-deep app-group-image ::ng-deep .content {
     font-size: 20px;
 
     height: 25px;
@@ -19,22 +7,10 @@ app-group-image {
     margin-right: 10px;
 }
 
-app-group-image ::ng-deep img {
+app-list-option ::ng-deep app-group-image ::ng-deep img {
     border-radius: 50%;
 }
 
-#icons, #label {
-    display: flex;
-    align-items: center;
-}
-
-#delete-icon {
-    margin-right: 5px;
-    margin-left: 5px;
-}
-
-#name {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+app-list-option ::ng-deep #name {
+    max-width: 20vw;
 }

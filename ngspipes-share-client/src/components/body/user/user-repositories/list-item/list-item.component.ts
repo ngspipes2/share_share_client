@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { OperationsManager } from '../../../../operations.manager';
@@ -26,8 +25,7 @@ export class ListItemComponent implements OnInit {
 
 
 
-    constructor(private router : Router,
-                private operationsManager : OperationsManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
@@ -41,10 +39,6 @@ export class ListItemComponent implements OnInit {
     deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.deleteRepository(this.repository);
-    }
-
-    elementClick() {
-        this.router.navigate(["/repositories/" + this.repository.repositoryName]);
     }
 
 }

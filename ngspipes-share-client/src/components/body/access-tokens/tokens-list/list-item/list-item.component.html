@@ -1,40 +1,14 @@
-<button mat-button *ngIf="!selected" #itemButton
-    (mouseenter)="itemButton.color='primary'"
-    (mouseleave)="itemButton.color=''">
-    <div class="button-content">
-        <div class="token-name" [matTooltip]="token.name">
-            {{token.name}}
-        </div>
-        <div class="icons">
-            <mat-icon
-                [matTooltip]="token.writeAccess? 'Write Acceess' : 'Read Access'"
-                [svgIcon]="token.writeAccess? 'pencil' : 'pencil-off'">
-            </mat-icon>
-            <app-operation-icon-button
-                matTooltip="Delete Token"
-                icon="delete"
-                accentColor="warn"
-                [action]="deleteClick.bind(this)">
-            </app-operation-icon-button>
-        </div>
-    </div>
-</button>
-<button mat-raised-button *ngIf="selected" color="primary">
-    <div class="button-content">
-        <div class="token-name" [matTooltip]="token.name">
-            {{token.name}}
-        </div>
-        <div class="icons">
-            <mat-icon
-                [matTooltip]="token.writeAccess? 'Write Acceess' : 'Read Access'"
-                [svgIcon]="token.writeAccess? 'pencil' : 'pencil-off'">
-            </mat-icon>
-            <app-operation-icon-button
-                matTooltip="Delete Token"
-                icon="delete"
-                accentColor="warn"
-                [action]="deleteClick.bind(this)">
-            </app-operation-icon-button>
-        </div>
-    </div>
-</button>
+<app-list-option [name]="token.name" [selected]="selected">
+    <mat-icon
+        list-option-icons
+        [matTooltip]="token.writeAccess? 'Write Acceess' : 'Read Access'"
+        [svgIcon]="token.writeAccess? 'pencil' : 'pencil-off'">
+    </mat-icon>
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Delete Token"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+</app-list-option>

@@ -1,27 +1,25 @@
-<div id="root" (click)="elementClick()">
-    <div id="label">
-        <app-group-image *ngIf="!loading" class="image" [groupName]="member.groupName" [spinnerDiameter]="15"></app-group-image>
-        <div id="name" [matTooltip]="member.groupName">
-            {{member.groupName}}
-        </div>
-    </div>
-
-    <div id="icons">
-        <app-operation-slide-toggle
-            *ngIf="editable"
-            matTooltip="Write Access"
-            [(value)]="member.writeAccess"
-            [action]="writeAccessClick.bind(this)">
-        </app-operation-slide-toggle>
-        <app-operation-icon-button
-            *ngIf="editable"
-            matTooltip="Delete Member"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-        <mat-icon *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
-        <mat-icon *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
-        <mat-icon matTooltip="Group">people</mat-icon>
-    </div>
-</div>
+<app-list-option [name]="member.groupName" [link]="'/groups/' + member.groupName">
+    <app-group-image
+        list-option-image
+        [groupName]="member.groupName"
+        [spinnerDiameter]="15">
+    </app-group-image>
+    <app-operation-slide-toggle
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Write Access"
+        [(value)]="member.writeAccess"
+        [action]="writeAccessClick.bind(this)">
+    </app-operation-slide-toggle>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Delete Member"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+    <mat-icon list-option-icons *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
+    <mat-icon list-option-icons *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
+    <mat-icon list-option-icons matTooltip="Group">people</mat-icon>
+</app-list-option>

@@ -1,26 +1,24 @@
-<div id="root" (click)="elementClick()">
-    <div id="label">
-        <app-user-image *ngIf="!loading" class="image" [userName]="member.userName" [spinnerDiameter]="15"></app-user-image>
-        <div id="name" [matTooltip]="member.userName">
-            {{member.userName}}
-        </div>
-    </div>
-
-    <div id="icons">
-        <app-operation-slide-toggle
-            *ngIf="editable"
-            matTooltip="Write Access"
-            [(value)]="member.writeAccess"
-            [action]="writeAccessClick.bind(this)">
-        </app-operation-slide-toggle>
-        <app-operation-icon-button
-            *ngIf="editable"
-            matTooltip="Delete Member"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-        <mat-icon *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
-        <mat-icon *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
-    </div>
-</div>
+<app-list-option [name]="member.userName" [link]="'/users/' + member.userName">
+    <app-user-image
+        list-option-image
+        [userName]="member.userName"
+        [spinnerDiameter]="15">
+    </app-user-image>
+    <app-operation-slide-toggle
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Write Access"
+        [(value)]="member.writeAccess"
+        [action]="writeAccessClick.bind(this)">
+    </app-operation-slide-toggle>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Delete Member"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+    <mat-icon list-option-icons *ngIf="isRead" matTooltip="Read Access" svgIcon="pencil-off"></mat-icon>
+    <mat-icon list-option-icons *ngIf="isWrite" matTooltip="Write Access" svgIcon="pencil"></mat-icon>
+</app-list-option>

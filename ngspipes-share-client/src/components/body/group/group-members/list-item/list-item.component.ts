@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
@@ -27,7 +26,6 @@ export class ListItemComponent implements OnInit {
 
     constructor(private groupMemberService : GroupMemberService,
                 private dialogManager : DialogManager,
-                private router : Router,
                 private operationsManager : OperationsManager) { }
 
 
@@ -46,9 +44,5 @@ export class ListItemComponent implements OnInit {
         event.stopPropagation();
         return this.operationsManager.saveGroupMember(this.member);
     }
-
-    elementClick() {
-        this.router.navigate(["/users/" + this.member.userName]);
-    }
-
+    
 }

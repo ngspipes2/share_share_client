@@ -1,20 +1,18 @@
-<div id="root" (click)="elementClick()">
-    <div id="label">
-        <app-repository-image class="image" [repositoryName]="repository.repositoryName" [spinnerDiameter]="15"></app-repository-image>
-        <div id="name" [matTooltip]="repository.repositoryName">
-            {{repository.repositoryName}}
-        </div>
-    </div>
-
-    <div id="icons">
-        <app-operation-icon-button
-            *ngIf="isOwner"
-            matTooltip="Delete"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-        <mat-icon *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
-        <mat-icon *ngIf="isMember" matTooltip="Member">people</mat-icon>
-    </div>
-</div>
+<app-list-option [name]="repository.repositoryName" [link]="'/repositories/' + repository.repositoryName">
+    <app-repository-image
+        list-option-image
+        [repositoryName]="repository.repositoryName"
+        [spinnerDiameter]="15">
+    </app-repository-image>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="isOwner"
+        matTooltip="Delete"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+    <mat-icon list-option-icons *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
+    <mat-icon list-option-icons
+    *ngIf="isMember" matTooltip="Member">people</mat-icon>
+</app-list-option>

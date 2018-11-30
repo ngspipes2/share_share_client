@@ -1,20 +1,17 @@
-<div id="root" (click)="elementClick()">
-    <div id="label">
-        <app-group-image class="image" [groupName]="group.groupName" [spinnerDiameter]="15"></app-group-image>
-        <div id="name" [matTooltip]="group.groupName">
-            {{group.groupName}}
-        </div>
-    </div>
-
-    <div id="icons">
-        <app-operation-icon-button
-            *ngIf="editable"
-            matTooltip="Delete"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-        <mat-icon *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
-        <mat-icon *ngIf="isMember" matTooltip="Member">people</mat-icon>
-    </div>
-</div>
+<app-list-option [name]="group.groupName" [link]="'/group/' + group.groupName">
+    <app-group-image
+        list-option-image
+        [groupName]="group.groupName"
+        [spinnerDiameter]="15">
+    </app-group-image>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Delete"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+    <mat-icon list-option-icons *ngIf="isOwner" matTooltip="Owner">person</mat-icon>
+    <mat-icon list-option-icons *ngIf="isMember" matTooltip="Member">people</mat-icon>
+</app-list-option>

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Group } from '../../../../../entities/group';
 import { OperationsManager } from '../../../../operations.manager';
@@ -23,8 +22,7 @@ export class ListItemComponent {
 
 
 
-    constructor(private router : Router,
-                private operationsManager : OperationsManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
@@ -36,10 +34,6 @@ export class ListItemComponent {
     deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.deleteGroup(this.group);
-    }
-
-    elementClick() {
-        this.router.navigate(["/groups/" + this.group.groupName]);
     }
 
 }

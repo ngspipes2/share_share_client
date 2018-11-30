@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Repository } from '../../../../../entities/repository';
 import { SessionService } from '../../../../../services/session.service';
@@ -23,7 +22,6 @@ export class ToolsRepositoryItemComponent {
 
 
     constructor(private sessionService : SessionService,
-                private router : Router,
                 private operationsManager : OperationsManager) { }
 
 
@@ -46,10 +44,6 @@ export class ToolsRepositoryItemComponent {
     deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.deleteRepository(this.repository);
-    }
-
-    elementClick() {
-        this.router.navigate(["/repositories/" + this.repository.repositoryName]);
     }
 
 }

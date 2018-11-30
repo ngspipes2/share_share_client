@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Group } from '../../../../../entities/group';
 import { SessionService } from '../../../../../services/session.service';
@@ -22,8 +21,7 @@ export class GroupItemComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private router : Router,
-                private sessionService : SessionService,
+    constructor(private sessionService : SessionService,
                 private operationsManager : OperationsManager) { }
 
 
@@ -46,10 +44,6 @@ export class GroupItemComponent implements OnInit, OnDestroy {
     deleteClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.deleteGroup(this.group);
-    }
-
-    elementClick() {
-        this.router.navigate(["/groups/" + this.group.groupName]);
     }
 
 }

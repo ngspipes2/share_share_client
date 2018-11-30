@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
 import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
@@ -27,7 +26,6 @@ export class GroupMemberItemComponent {
 
     constructor(private groupMemberService : RepositoryGroupMemberService,
                 private dialogManager : DialogManager,
-                private router : Router,
                 private operationsManager : OperationsManager) { }
 
 
@@ -45,10 +43,6 @@ export class GroupMemberItemComponent {
     writeAccessClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.saveRepositoryGroupMember(this.member);
-    }
-
-    elementClick() {
-        this.router.navigate(["/groups/" + this.member.groupName]);
     }
 
 }

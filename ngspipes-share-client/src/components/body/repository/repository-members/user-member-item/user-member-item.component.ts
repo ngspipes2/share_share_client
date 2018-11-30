@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { RepositoryUserMember } from '../../../../../entities/repository-user-member';
 import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
@@ -27,7 +26,6 @@ export class UserMemberItemComponent {
 
     constructor(private userMemberService : RepositoryUserMemberService,
                 private dialogManager : DialogManager,
-                private router : Router,
                 private operationsManager : OperationsManager) { }
 
 
@@ -45,10 +43,6 @@ export class UserMemberItemComponent {
     writeAccessClick(event : any) : Promise<any> {
         event.stopPropagation();
         return this.operationsManager.saveRepositoryUserMember(this.member);
-    }
-
-    elementClick() {
-        this.router.navigate(["/users/" + this.member.userName]);
     }
 
 }
