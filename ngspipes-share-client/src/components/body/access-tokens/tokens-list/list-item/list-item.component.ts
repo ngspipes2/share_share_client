@@ -18,7 +18,7 @@ export class ListItemComponent {
 
 
 
-    constructor(private operationsManager : OperationsManager) { console.log(operationsManager); }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
