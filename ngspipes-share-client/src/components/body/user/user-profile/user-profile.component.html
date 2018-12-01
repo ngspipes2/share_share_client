@@ -1,12 +1,11 @@
 <app-frame headerTitle="Profile" icon="account_circle">
-    <div *ngIf="editable" frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Deleter"
-            icon="delete"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Deleter"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
     <app-user-info frame-body
         [userName]="userName"
         [editable]="editable">

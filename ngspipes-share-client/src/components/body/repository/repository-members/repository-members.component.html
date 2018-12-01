@@ -1,18 +1,18 @@
 <app-frame headerTitle="Members" icon="people">
-    <div *ngIf="editable" frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Add User Member"
-            icon="person_add"
-            accentColor="accent"
-            [action]="addUserMemberClick.bind(this)">
-        </app-operation-icon-button>
-        <app-operation-icon-button
-            matTooltip="Add Group Member"
-            icon="group_add"
-            accentColor="accent"
-            [action]="addGroupMemberClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Add User Member"
+        icon="person_add"
+        accentColor="accent"
+        [action]="addUserMemberClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Add Group Member"
+        icon="group_add"
+        accentColor="accent"
+        [action]="addGroupMemberClick.bind(this)">
+    </app-operation-icon-button>
     <app-list frame-body
         [repositoryName]="repositoryName"
         [editable]="editable">

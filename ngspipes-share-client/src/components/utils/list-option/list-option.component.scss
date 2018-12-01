@@ -26,3 +26,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#icons ::ng-deep > * {
+    margin-left: 3px;
+    margin-right: 3px;
+}

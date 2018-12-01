@@ -1,12 +1,11 @@
 <app-frame headerTitle="Profile" icon="people">
-    <div *ngIf="editable" frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Delete"
-            accentColor="warn"
-            icon="delete"
-            [action]="deleteClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Delete"
+        accentColor="warn"
+        icon="delete"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
     <app-group-info  frame-body
         [groupName]="groupName"
         [editable]="editable">

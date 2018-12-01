@@ -1,12 +1,10 @@
 <app-frame headerTitle="Access Tokens" svgIcon="ticket">
-    <div frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Create Access Token"
-            icon="add"
-            accentColor="accent"
-            [action]="createTokenClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        matTooltip="Create Access Token"
+        icon="add"
+        accentColor="accent"
+        [action]="createTokenClick.bind(this)">
+    </app-operation-icon-button>
     <app-list frame-body
         [selectedTokenId]="selectedTokenId"
         (selectedTokenIdChange)="selectToken($event)">

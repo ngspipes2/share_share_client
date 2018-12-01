@@ -28,3 +28,8 @@
 #header-title {
     font-size: 22px;
 }
+
+#header-buttons ::ng-deep > * {
+    margin-left: 3px;
+    margin-right: 3px;
+}

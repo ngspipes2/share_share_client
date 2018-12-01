@@ -1,12 +1,11 @@
 <app-frame headerTitle="Groups" icon="people">
-    <div *ngIf="editable" frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Create Group"
-            icon="add"
-            accentColor="accent"
-            [action]="createGroupClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Create Group"
+        icon="add"
+        accentColor="accent"
+        [action]="createGroupClick.bind(this)">
+    </app-operation-icon-button>
     <app-list frame-body
         [userName]="userName"
         [editable]="editable">

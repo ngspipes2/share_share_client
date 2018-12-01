@@ -1,12 +1,10 @@
 <app-frame headerTitle="Repositories Config" svgIcon="repository-config">
-    <div frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Create Config"
-            icon="add"
-            accentColor="accent"
-            [action]="createConfigClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        matTooltip="Create Config"
+        icon="add"
+        accentColor="accent"
+        [action]="createConfigClick.bind(this)">
+    </app-operation-icon-button>
     <app-list frame-body
         [selectedConfigName]="selectedConfigName"
         (selectedConfigNameChange)="selectConfig($event)">

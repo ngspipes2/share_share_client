@@ -1,18 +1,18 @@
 <app-frame headerTitle="Repositories" svgIcon="repository">
-    <div *ngIf="editable" frame-header-buttons>
-        <app-operation-icon-button
-            matTooltip="Publish Repository"
-            icon="publish"
-            accentColor="accent"
-            [action]="publishRepositoryClick.bind(this)">
-        </app-operation-icon-button>
-        <app-operation-icon-button
-            matTooltip="Create Repository"
-            icon="add"
-            accentColor="accent"
-            [action]="createRepositoryClick.bind(this)">
-        </app-operation-icon-button>
-    </div>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Publish Repository"
+        icon="publish"
+        accentColor="accent"
+        [action]="publishRepositoryClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Create Repository"
+        icon="add"
+        accentColor="accent"
+        [action]="createRepositoryClick.bind(this)">
+    </app-operation-icon-button>
     <app-list frame-body
         [userName]="userName"
         [editable]="editable">
