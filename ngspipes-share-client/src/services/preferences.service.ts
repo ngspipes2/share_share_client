@@ -43,7 +43,7 @@ export class PreferencesService {
     }
 
     private getCurrentUserName() : string {
-        let credentials = this.sessionService.getCurrentCredentials;
+        let credentials = this.sessionService.getCurrentCredentials();
 
         if(credentials)
             return credentials[0];
