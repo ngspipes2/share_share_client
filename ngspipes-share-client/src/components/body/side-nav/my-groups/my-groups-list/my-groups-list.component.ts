@@ -47,8 +47,8 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.loginSubscription.unsunscribe();
-        this.groupSubscription.unsunscribe();
+        this.loginSubscription.unsubscribe();
+        this.groupSubscription.unsubscribe();
     }
 
     load() {

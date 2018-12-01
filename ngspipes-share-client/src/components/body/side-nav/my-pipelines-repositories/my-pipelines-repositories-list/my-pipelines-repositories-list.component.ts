@@ -46,8 +46,8 @@ export class MyPipelinesRepositoriesListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.loginSubscription.unsunscribe();
-        this.repositorySubscription.unsunscribe();
+        this.loginSubscription.unsubscribe();
+        this.repositorySubscription.unsubscribe();
     }
 
     load() {

@@ -46,8 +46,8 @@ export class MyToolsRepositoriesListComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.loginSubscription.unsunscribe();
-        this.repositorySubscription.unsunscribe();
+        this.loginSubscription.unsubscribe();
+        this.repositorySubscription.unsubscribe();
     }
 
     load() {
