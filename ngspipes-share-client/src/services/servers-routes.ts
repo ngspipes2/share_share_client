@@ -1,7 +1,7 @@
 export class ServersRoutes {
 
-    public static TOOLS_SERVER_URI : string = "http://localhost:1111";
-    public static PIPELINES_SERVER_URI : string = "http://localhost:1112";
+    public static TOOLS_SERVER_URI : string = "http://localhost:1111/server";
+    public static PIPELINES_SERVER_URI : string = "http://localhost:1112/server";
     public static REPOSITORY_FACADE_SERVER_URI : string = "http://localhost:1113";
     public static API_SERVER_URI : string = "http://localhost:1114";
 
