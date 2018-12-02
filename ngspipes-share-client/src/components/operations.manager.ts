@@ -749,9 +749,9 @@ export class OperationsManager {
         let promise = null;
 
         if(repository.entityType === EntityType.TOOLS)
-            this.toolsRepositoryFacadeService.setRepositoryImage(config, file);
+            promise = this.toolsRepositoryFacadeService.setRepositoryImage(config, file);
         else
-            this.pipelinesRepositoryFacadeService.setRepositoryImage(config, file);
+            promise = this.pipelinesRepositoryFacadeService.setRepositoryImage(config, file);
 
         return promise
         .then((response) => {
