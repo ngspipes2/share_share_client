@@ -49,10 +49,10 @@ export class RepositoryImageComponent implements OnInit, OnDestroy {
                 this.loadImage.update();
         });
 
-        this.configSubscription = this.repositoryConfigService.configEvent.subscribe((configName) => {
+        this.configSubscription = this.repositoryConfigService.configEvent.subscribe((configRepositoryName) => {
             if(!this.repositoryConfig)
                 this.loadImage.update();
-            else if(this.repositoryConfig.name === configName)
+            else if(this.repositoryConfig.repositoryName === configRepositoryName)
                 this.loadImage.update();
         });
     }
@@ -71,15 +71,9 @@ export class RepositoryImageComponent implements OnInit, OnDestroy {
     }
 
     getRepositoryConfig() : Promise<RepositoryConfig> {
-        let location = this.repository.location;
-
-        return this.repositoryConfigService.getConfigsForLocation(location)
-        .then(configs => {
-            this.repositoryConfig = undefined;
-
-            if(configs.length > 0)
-                this.repositoryConfig = configs[0];
-
+        return this.repositoryConfigService.getConfig(this.repositoryName)
+        .then(config => {
+            this.repositoryConfig = config ? config : undefined;
             return this.repositoryConfig;
         });
     }

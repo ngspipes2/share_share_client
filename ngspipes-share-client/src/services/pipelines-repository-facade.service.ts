@@ -4,31 +4,47 @@ import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
 
 import { RepositoryConfig, Config } from '../entities/repository-config';
+import { Repository } from '../entities/repository';
+import { RepositoryService } from './repository.service';
 
 @Injectable()
 export class PipelinesRepositoryFacadeService {
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService,
+                private repositoryService : RepositoryService) { }
 
 
 
     public getRepositoryImage(repositoryConfig : RepositoryConfig) : Promise<any> {
-        let url = ServersRoutes.PIPELINES_FACADE_GET_LOGO_ROUTE;
-        let data = {
-            repositoryLocation : repositoryConfig.location,
-            repositoryConfig : this.createConfig(repositoryConfig.configs)
-        };
+        return this.getRepository(repositoryConfig.repositoryName)
+        .then(repository => {
+            let url = ServersRoutes.PIPELINES_FACADE_GET_LOGO_ROUTE;
+            let data = {
+                repositoryLocation : repository.location,
+                repositoryConfig : this.createServerConfig(repositoryConfig.configs)
+            };
 
-        return this.httpService.post(url, data)
-        .then(response => {
-            if(!response.text() || response.status===404)
-                return null;
+            return this.httpService.post(url, data)
+            .then(response => {
+                if(!response.text() || response.status===404)
+                    return null;
 
-            return response.text();
+                return response.text();
+            });
         });
     }
 
-    private createConfig(configs : Config[] ) : any {
+    private getRepository(repositoryName : string) : Promise<Repository> {
+        return this.repositoryService.getRepository(repositoryName)
+        .then(repository => {
+            if(!repository)
+                throw "There is no Repository:" + repositoryName;
+
+            return repository;
+        });
+    }
+
+    private createServerConfig(configs : Config[] ) : any {
         let config = {};
 
         configs.forEach(c => config[c.name] = c.value);
@@ -40,16 +56,19 @@ export class PipelinesRepositoryFacadeService {
     public setRepositoryImage(repositoryConfig : RepositoryConfig, file : any) : Promise<boolean> {
         return this.readFile(file)
         .then(content => {
-            let url = ServersRoutes.PIPELINES_FACADE_SET_LOGO_ROUTE;
-            let data = {
-                data : content,
-                repositoryLocation : repositoryConfig.location,
-                repositoryConfig : this.createConfig(repositoryConfig.configs)
-            };
+            return this.getRepository(repositoryConfig.repositoryName)
+            .then(repository => {
+                let url = ServersRoutes.PIPELINES_FACADE_SET_LOGO_ROUTE;
+                let data = {
+                    data : content,
+                    repositoryLocation : repository.location,
+                    repositoryConfig : this.createServerConfig(repositoryConfig.configs)
+                };
 
-            return this.httpService.post(url, data)
-            .then(response => {
-                return response.status === 200;
+                return this.httpService.post(url, data)
+                .then(response => {
+                    return response.status === 200;
+                });
             });
         });
     }

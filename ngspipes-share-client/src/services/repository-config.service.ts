@@ -19,9 +19,9 @@ export class RepositoryConfigService {
 
 
     constructor(private preferencesService : PreferencesService) {
-        this.configCreateEvent.subscribe(name => this.configEvent.next(name));
-        this.configUpdateEvent.subscribe(name => this.configEvent.next(name));
-        this.configDeleteEvent.subscribe(name => this.configEvent.next(name));
+        this.configCreateEvent.subscribe(repositoryName => this.configEvent.next(repositoryName));
+        this.configUpdateEvent.subscribe(repositoryName => this.configEvent.next(repositoryName));
+        this.configDeleteEvent.subscribe(repositoryName => this.configEvent.next(repositoryName));
     }
 
 
@@ -40,16 +40,16 @@ export class RepositoryConfigService {
         return JSON.parse(configsStr);
     }
 
-    public getConfig(name : string) : Promise<RepositoryConfig> {
+    public getConfig(repositoryName : string) : Promise<RepositoryConfig> {
         return this.getAllConfigs()
-        .then(configs => configs.find(config => config.name === name));
+        .then(configs => configs.find(config => config.repositoryName === repositoryName));
     }
 
     public createConfig(config : RepositoryConfig) : Promise<boolean> {
         return this.getAllConfigs()
         .then(configs => {
-            if(configs.find(c => c.name === config.name))
-                throw "There is already an config with name:" + config.name;
+            if(configs.find(c => c.repositoryName === config.repositoryName))
+                throw "There is already an config for Repository:" + config.repositoryName;
 
             configs.push(config);
 
@@ -59,7 +59,7 @@ export class RepositoryConfigService {
             return this.preferencesService.setPreference(key, value)
             .then((result) => {
                 if(result)
-                    this.fireCreateEvent(config.name);
+                    this.fireCreateEvent(config.repositoryName);
 
                 return result;
             });
@@ -69,12 +69,11 @@ export class RepositoryConfigService {
     public updateConfig(config : RepositoryConfig) : Promise<boolean> {
         return this.getAllConfigs()
         .then(configs => {
-            if(!configs.find(c => c.name === config.name))
-                throw "There is no config with name:" + config.name;
+            if(!configs.find(c => c.repositoryName === config.repositoryName))
+                throw "There is no config for Repository:" + config.repositoryName;
 
-            let storedConfig = configs.find(c => c.name === config.name);
+            let storedConfig = configs.find(c => c.repositoryName === config.repositoryName);
             storedConfig.description = config.description;
-            storedConfig.location = config.location;
             storedConfig.configs = config.configs;
 
             let key = RepositoryConfigService.CONFIGS_KEY;
@@ -83,20 +82,20 @@ export class RepositoryConfigService {
             return this.preferencesService.setPreference(key, value)
             .then((result) => {
                 if(result)
-                    this.fireUpdateEvent(config.name);
+                    this.fireUpdateEvent(config.repositoryName);
 
                 return result;
             });
         });
     }
 
-    public deleteConfig(name : string) : Promise<boolean> {
+    public deleteConfig(repositoryName : string) : Promise<boolean> {
         return this.getAllConfigs()
         .then(configs => {
-            if(!configs.find(c => c.name === name))
-                throw "There is no config with name:" + name;
+            if(!configs.find(c => c.repositoryName === repositoryName))
+                throw "There is no config for Repository:" + repositoryName;
 
-            configs = configs.filter(config => config.name !== name);
+            configs = configs.filter(config => config.repositoryName !== repositoryName);
 
             let key = RepositoryConfigService.CONFIGS_KEY;
             let value = JSON.stringify(configs);
@@ -104,29 +103,24 @@ export class RepositoryConfigService {
             return this.preferencesService.setPreference(key, value)
             .then((result) => {
                 if(result)
-                    this.fireDeleteEvent(name);
+                    this.fireDeleteEvent(repositoryName);
 
                 return result;
             });
         });
     }
 
-    public getConfigsForLocation(location : string) : Promise<RepositoryConfig[]> {
-        return this.getAllConfigs()
-        .then(configs => configs.filter(config => config.location === location));
+
+    fireCreateEvent(repositoryName: string) {
+        this.configCreateEvent.next(repositoryName);
     }
 
-
-    fireCreateEvent(name: string) {
-        this.configCreateEvent.next(name);
+    fireUpdateEvent(repositoryName: string) {
+        this.configUpdateEvent.next(repositoryName);
     }
 
-    fireUpdateEvent(name: string) {
-        this.configUpdateEvent.next(name);
-    }
-
-    fireDeleteEvent(name: string) {
-        this.configDeleteEvent.next(name);
+    fireDeleteEvent(repositoryName: string) {
+        this.configDeleteEvent.next(repositoryName);
     }
 
 }

@@ -13,7 +13,7 @@ import { OperationsManager } from '../../../operations.manager';
 export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     @Input()
-    configName : string;
+    configRepositoryName : string;
 
     configSubscription : any;
 
@@ -30,16 +30,16 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
     ngOnInit() {
         this.configSubscription = this.repositoryConfigService.configEvent.subscribe(() => {
-            if(this.configName)
+            if(this.configRepositoryName)
                 this.load()
         });
 
-        if(this.configName)
+        if(this.configRepositoryName)
             this.load();
     }
 
     ngOnChanges() {
-        if(this.configName)
+        if(this.configRepositoryName)
             this.load();
     }
 
@@ -50,7 +50,7 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
     load() {
         this.loading = true;
 
-        this.repositoryConfigService.getConfig(this.configName)
+        this.repositoryConfigService.getConfig(this.configRepositoryName)
         .then(config => {
             this.loading = false;
             this.config = config;

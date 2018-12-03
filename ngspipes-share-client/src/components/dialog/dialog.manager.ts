@@ -7,7 +7,6 @@ import { EntityType } from '../../entities/repository';
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
-import { NewRepositoryConfigNameDialogComponent } from './new-repository-config-name-dialog/new-repository-config-name-dialog.component';
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
 import { NewAccessTokenNameDialogComponent } from './new-access-token-name-dialog/new-access-token-name-dialog.component';
 import { ShowTokenDialogComponent } from './show-token-dialog/show-token-dialog.component';
@@ -69,10 +68,6 @@ export class DialogManager {
 
     public openNewGroupNameDialog() : MatDialogRef<NewGroupNameDialogComponent, string> {
         return this.dialog.open(NewGroupNameDialogComponent);
-    }
-
-    public openNewRepositoryConfigNameDialog() : MatDialogRef<NewRepositoryConfigNameDialogComponent, string> {
-        return this.dialog.open(NewRepositoryConfigNameDialogComponent);
     }
 
     public openSelectRepostiroyConfigDialog() : MatDialogRef<SelectRepositoryConfigDialogComponent, string> {

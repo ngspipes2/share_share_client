@@ -12,9 +12,9 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
 
     configSubscription : any;
 
-    names : string[];
+    repositoriesNames : string[];
     loading : boolean;
-    selectedName : string;
+    selectedRepositoryName : string;
 
 
 
@@ -38,7 +38,7 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
         this.repositoryConfigService.getAllConfigs()
         .then(configs => {
             this.loading = false;
-            this.names = configs.map(config => config.name);
+            this.repositoriesNames = configs.map(config => config.repositoryName);
         })
         .catch(error => {
             this.loading = false;
@@ -47,7 +47,7 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
     }
 
     okClick() {
-        this.dialogRef.close(this.selectedName);
+        this.dialogRef.close(this.selectedRepositoryName);
     }
 
 }

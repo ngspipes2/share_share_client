@@ -1,8 +1,8 @@
 <div id="root">
     <div id="list-col">
-        <app-configs-list (selectedConfigNameChange)="selectConfig($event)"></app-configs-list>
+        <app-configs-list (selectedConfigRepositoryNameChange)="selectConfig($event)"></app-configs-list>
     </div>
     <div id="item-col">
-       <app-config-details [configName]="selectedConfigName"></app-config-details>
+       <app-config-details [configRepositoryName]="selectedConfigRepositoryName"></app-config-details>
     </div>
 </div>

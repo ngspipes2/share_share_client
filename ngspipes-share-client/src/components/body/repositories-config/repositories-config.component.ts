@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class RepositoriesConfigComponent {
 
-    selectedConfigName : string;
+    selectedConfigRepositoryName : string;
 
 
 
@@ -15,8 +15,8 @@ export class RepositoriesConfigComponent {
 
 
 
-    selectConfig(selectedConfigName : string) {
-        this.selectedConfigName = selectedConfigName;
+    selectConfig(selectedConfigRepositoryName : string) {
+        this.selectedConfigRepositoryName = selectedConfigRepositoryName;
     }
 
 }

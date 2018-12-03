@@ -51,23 +51,23 @@ export class OperationsManager {
 
 
     public createRepositoryConfig(config : RepositoryConfig) : Promise<boolean> {
-        let promise = config.name ? Promise.resolve(config.name) : this.getNewRepositoryConfigName();
+        let promise = config.repositoryName ? Promise.resolve(config.repositoryName) : this.selectRepositoryName();
 
         return promise
-        .then(name => {
-            if(!name)
+        .then(repositoryName => {
+            if(!repositoryName)
                 return false;
 
-            config.name = name;
+            config.repositoryName = repositoryName;
 
             return this.createConfig(config);
         });
     }
 
-    private getNewRepositoryConfigName() : Promise<string> {
+    private selectRepositoryName() : Promise<string> {
         return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewRepositoryConfigNameDialog().afterClosed().subscribe(name => {
-                resolve(name);
+            this.dialogManager.openSelectRepositoryDialog().afterClosed().subscribe(repositoryName => {
+                resolve(repositoryName);
             });
         });
     }
@@ -102,7 +102,7 @@ export class OperationsManager {
 
     private askForRepositoryConfigDeleteAuthorization(config : RepositoryConfig) : Promise<boolean> {
         let title = "Delete Repository Config";
-        let message = "Are you sure you want delete Repository Cofig: " + config.name + " ?";
+        let message = "Are you sure you want delete config for Repository: " + config.repositoryName + " ?";
         let options = ["Yes", "No"];
 
         return new Promise<boolean>((resolve, reject) => {
@@ -113,7 +113,7 @@ export class OperationsManager {
     }
 
     private internalDeleteRepositoryConfig(config : RepositoryConfig) : Promise<boolean> {
-        return this.repositoryConfigService.deleteConfig(config.name)
+        return this.repositoryConfigService.deleteConfig(config.repositoryName)
         .then(result => {
             if(!result)
                 this.dialogManager.openErrorDialog("Repository Config not deleted!", "Repository Config could not be deleted! Please try again latter.");
@@ -719,7 +719,7 @@ export class OperationsManager {
 
 
     public changeRepositoryImage(repository : Repository, file : any) : Promise<boolean> {
-        return this.getConfigForLocation(repository.location)
+        return this.getConfigForRepository(repository.repositoryName)
         .then(config => {
             if(!config)
                 return false;
@@ -728,18 +728,18 @@ export class OperationsManager {
         });
     }
 
-    private getConfigForLocation(location : string) : Promise<RepositoryConfig> {
-        return this.repositoryConfigService.getConfigsForLocation(location)
-        .then(configs => {
-            if(configs.length === 0) {
-                this.dialogManager.openWarningDialog("No config found!", "You have no configs to access this repository!");
+    private getConfigForRepository(repositoryName : string) : Promise<RepositoryConfig> {
+        return this.repositoryConfigService.getConfig(repositoryName)
+        .then(config => {
+            if(!config) {
+                this.dialogManager.openWarningDialog("No config found!", "You have no config to access this Repository:" + repositoryName + "!");
                 return null;
             }
 
-            return configs[0];
+            return config;
         })
         .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting configs for Repository!", error);
+            this.dialogManager.openErrorDialog("Error getting config for Repository:" + repositoryName + "!", error);
             console.error(error);
             throw error;
         });

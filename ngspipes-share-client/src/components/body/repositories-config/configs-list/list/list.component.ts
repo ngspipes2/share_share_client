@@ -14,9 +14,9 @@ import { OperationsManager } from '../../../../operations.manager';
 export class ListComponent implements OnInit, OnDestroy {
 
     @Output()
-    selectedConfigNameChange : EventEmitter<string> = new EventEmitter<string>();
+    selectedConfigRepositoryNameChange : EventEmitter<string> = new EventEmitter<string>();
     @Input()
-    selectedConfigName : string;
+    selectedConfigRepositoryName : string;
 
     configSubscription : any;
 
@@ -31,7 +31,7 @@ export class ListComponent implements OnInit, OnDestroy {
                 private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
-            new TextFilter(this.acceptName.bind(this), "", "ConfigName")
+            new TextFilter(this.acceptName.bind(this), "", "RepositoryName")
         ];
     }
 
@@ -55,9 +55,9 @@ export class ListComponent implements OnInit, OnDestroy {
             this.loading = false;
 
             this.configs = configs.sort((a,b) => {
-                if (a.name < b.name)
+                if (a.repositoryName < b.repositoryName)
                     return -1;
-                if (a.name > b.name)
+                if (a.repositoryName > b.repositoryName)
                     return 1;
 
                 return 0;
@@ -71,30 +71,30 @@ export class ListComponent implements OnInit, OnDestroy {
     }
 
     createConfigClick() : Promise<any> {
-        let config = new RepositoryConfig(null, "", "", []);
+        let config = new RepositoryConfig(null, "", []);
 
         return this.operationsManager.createRepositoryConfig(config)
         .then((result) => {
-            this.selectConfig(config.name);
+            this.selectConfig(config.repositoryName);
             return result;
         });
     }
 
     configClick(config : RepositoryConfig) {
-        this.selectConfig(config.name);
+        this.selectConfig(config.repositoryName);
     }
 
-    selectConfig(name : string) {
-        this.selectedConfigName = name;
-        this.selectedConfigNameChange.emit(name);
+    selectConfig(repositoryName : string) {
+        this.selectedConfigRepositoryName = repositoryName;
+        this.selectedConfigRepositoryNameChange.emit(repositoryName);
     }
 
     isSelected(config : RepositoryConfig) {
-        return this.selectedConfigName === config.name;
+        return this.selectedConfigRepositoryName === config.repositoryName;
     }
 
     acceptName(config : RepositoryConfig, text : string) {
-        let name = config.name.toLowerCase();
+        let name = config.repositoryName.toLowerCase();
         text = text.toLowerCase();
 
         return name.indexOf(text) !== -1;

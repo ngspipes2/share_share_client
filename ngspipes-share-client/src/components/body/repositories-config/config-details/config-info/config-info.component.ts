@@ -40,10 +40,10 @@ export class ConfigInfoComponent {
         });
     }
 
-    cloneConfig(configName : string) {
+    cloneConfig(repositoryName : string) {
         this.cloning = true;
 
-        this.repositoryConfigService.getConfig(configName)
+        this.repositoryConfigService.getConfig(repositoryName)
         .then(config => {
             this.cloning = false;
             this.config.configs = config.configs;

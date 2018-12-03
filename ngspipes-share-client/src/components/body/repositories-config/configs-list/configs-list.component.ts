@@ -13,9 +13,9 @@ import { OperationsManager } from '../../../operations.manager';
 export class ConfigsListComponent {
 
     @Output()
-    selectedConfigNameChange : EventEmitter<string> = new EventEmitter<string>();
+    selectedConfigRepositoryNameChange : EventEmitter<string> = new EventEmitter<string>();
 
-    selectedConfigName : string;
+    selectedConfigRepositoryName : string;
 
 
 
@@ -24,18 +24,18 @@ export class ConfigsListComponent {
 
 
     createConfigClick() : Promise<any> {
-        let config = new RepositoryConfig(null, "", "", []);
+        let config = new RepositoryConfig(null, "", []);
 
         return this.operationsManager.createRepositoryConfig(config)
         .then((result) => {
-            this.selectConfig(config.name);
+            this.selectConfig(config.repositoryName);
             return result;
         });
     }
 
-    selectConfig(name : string) {
-        this.selectedConfigName = name;
-        this.selectedConfigNameChange.emit(name);
+    selectConfig(repositoryName : string) {
+        this.selectedConfigRepositoryName = repositoryName;
+        this.selectedConfigRepositoryNameChange.emit(repositoryName);
     }
 
 }
