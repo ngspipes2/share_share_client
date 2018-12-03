@@ -67,7 +67,12 @@ export class ToolsRepositoryFacadeService {
 
                 return this.httpService.post(url, data)
                 .then(response => {
-                    return response.status === 200;
+                    let success = response.status === 200;
+
+                    if(success)
+                        this.repositoryService.fireUpdateEvent(repositoryConfig.repositoryName);
+
+                    return success;
                 });
             });
         });
