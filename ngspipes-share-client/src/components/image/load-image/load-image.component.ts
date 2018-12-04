@@ -59,7 +59,7 @@ export class LoadImageComponent implements OnInit, OnDestroy {
             this.imageData = image;
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
             this.loading = false;
             this.imageData = undefined;
         });
