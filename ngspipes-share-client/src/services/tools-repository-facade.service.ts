@@ -103,7 +103,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private serverToolsToClientTools(tools : any[]) : Tool[] {
-        return tools.map(this.serverToolToClientTool);
+        return tools.map(this.serverToolToClientTool.bind(this));
     }
 
     private serverToolToClientTool(tool: any) : Tool {
@@ -120,7 +120,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private serverCommandsToClientCommands(commands : any[]) : Command[] {
-        return commands.map(this.serverCommandToClientCommand);
+        return commands.map(this.serverCommandToClientCommand.bind(this));
     }
 
     private serverCommandToClientCommand(command : any) : Command {
@@ -137,7 +137,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private serverParametersToClientParameters(parameters : any[]) : Parameter[] {
-        return parameters.map(this.serverParameterToClientParameter);
+        return parameters.map(this.serverParameterToClientParameter.bind(this));
     }
 
     private serverParameterToClientParameter(parameter : any) : Parameter {
@@ -152,12 +152,12 @@ export class ToolsRepositoryFacadeService {
             parameter.separator,
             parameter.depends,
             parameter.dependentValues,
-            this.serverParametersToClientParameters(parameter.subParameters)
+            parameter.subParameters ? this.serverParametersToClientParameters(parameter.subParameters) : []
         );
     }
 
     private serverOutputsToClientOutputs(outputs : any[]) : Output[] {
-        return outputs.map(this.serverOutputToClientOutput);
+        return outputs.map(this.serverOutputToClientOutput.bind(this));
     }
 
     private serverOutputToClientOutput(output : any) : Output {
@@ -170,7 +170,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private serverExecutionContextsToClientExecutionContexts(contexts : any[]) : ExecutionContext[] {
-        return contexts.map(this.serverExecutionContextToClientExecutionContext);
+        return contexts.map(this.serverExecutionContextToClientExecutionContext.bind(this));
     }
 
     private serverExecutionContextToClientExecutionContext(context : any) : ExecutionContext {
@@ -206,7 +206,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private clientToolsToServerTools(tools : Tool[]) : any[] {
-        return tools.map(this.clientToolToServerTool);
+        return tools.map(this.clientToolToServerTool.bind(this));
     }
 
     private clientToolToServerTool(tool: Tool) : any {
@@ -223,7 +223,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private clientCommandsToServerCommands(commands : Command[]) : any[] {
-        return commands.map(this.clientCommandToServerCommand);
+        return commands.map(this.clientCommandToServerCommand.bind(this));
     }
 
     private clientCommandToServerCommand(command : Command) : any {
@@ -240,7 +240,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private clientParametersToServerParameters(parameters : Parameter[]) : any[] {
-        return parameters.map(this.clientParameterToServerParameter);
+        return parameters.map(this.clientParameterToServerParameter.bind(this));
     }
 
     private clientParameterToServerParameter(parameter : Parameter) : any {
@@ -260,7 +260,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private clientOutputsToServerOutputs(outputs : Output[]) : any[] {
-        return outputs.map(this.clientOutputToServerOutput);
+        return outputs.map(this.clientOutputToServerOutput.bind(this));
     }
 
     private clientOutputToServerOutput(output : Output) : any {
@@ -273,7 +273,7 @@ export class ToolsRepositoryFacadeService {
     }
 
     private clientExecutionContextsToServerExecutionContexts(contexts : ExecutionContext[]) : any[] {
-        return contexts.map(this.clientExecutionContextToServerExecutionContext);
+        return contexts.map(this.clientExecutionContextToServerExecutionContext.bind(this));
     }
 
     private clientExecutionContextToServerExecutionContext(context : ExecutionContext) : any {

@@ -114,7 +114,7 @@ export class PipelinesRepositoryFacadeService {
     }
 
     private serverPipelinesToClientPipelines(pipelines : any[]) : Pipeline[] {
-        return pipelines.map(this.serverPipelineToClientPipeline);
+        return pipelines.map(this.serverPipelineToClientPipeline.bind(this));
     }
 
     private serverPipelineToClientPipeline(pipeline : any) : Pipeline {
@@ -146,7 +146,7 @@ export class PipelinesRepositoryFacadeService {
     }
 
     private clientPipelinesToServerPipelines(pipelines : Pipeline[]) : any[] {
-        return pipelines.map(this.clientPipelineToServerPipeline);
+        return pipelines.map(this.clientPipelineToServerPipeline.bind(this));
     }
 
     private clientPipelineToServerPipeline(pipeline : Pipeline) : any {
