@@ -98,7 +98,7 @@ export class ServersRoutes {
     public static PIPELINES_FACADE_GET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getlogo";
     public static PIPELINES_FACADE_SET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/setlogo";
     public static PIPELINES_FACADE_GET_ALL_PIPELINES_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipelines";
-    public static PIPELINES_FACADE_GET_PIPELINE_URI : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipeline/{pipelineName}";
+    public static PIPELINES_FACADE_GET_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipeline/{pipelineName}";
     public static PIPELINES_FACADE_INSERT_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/insertpipeline";
     public static PIPELINES_FACADE_UPDATE_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/updatepipeline/{pipelineName}";
     public static PIPELINES_FACADE_DELETE_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/deletepipeline/{pipelineName}";

@@ -3,6 +3,18 @@ import { Injectable }    from '@angular/core';
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
 
+import {
+    Pipeline,
+    Output,
+    Parameter,
+    RepositoryType,
+    ValueType, Value, ParameterValue, SimpleValue,
+    Step,
+    ExecType, Exec,
+    CommandExec, PipelineExec,
+    InputType, Input, ChainInput, ParameterInput, SimpleInput,
+    Spread, StrategyType, Strategy, InputStrategy, OneToOneStratey, OneToManyStrategy
+} from '../entities/pipeline';
 import { RepositoryConfig, Config } from '../entities/repository-config';
 import { Repository } from '../entities/repository';
 import { RepositoryService } from './repository.service';
@@ -16,21 +28,13 @@ export class PipelinesRepositoryFacadeService {
 
 
     public getRepositoryImage(repositoryConfig : RepositoryConfig) : Promise<any> {
-        return this.getRepository(repositoryConfig.repositoryName)
-        .then(repository => {
-            let url = ServersRoutes.PIPELINES_FACADE_GET_LOGO_ROUTE;
-            let data = {
-                repositoryLocation : repository.location,
-                repositoryConfig : this.createServerConfig(repositoryConfig.configs)
-            };
+        let url = ServersRoutes.PIPELINES_FACADE_GET_LOGO_ROUTE;
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            if(!response.text() || response.status===404)
+                return null;
 
-            return this.httpService.post(url, data)
-            .then(response => {
-                if(!response.text() || response.status===404)
-                    return null;
-
-                return response.text();
-            });
+            return response.text();
         });
     }
 
@@ -52,29 +56,33 @@ export class PipelinesRepositoryFacadeService {
         return config;
     }
 
+    private execute(repositoryConfig : RepositoryConfig, url : string, dataContent : any) : Promise<any> {
+        return this.getRepository(repositoryConfig.repositoryName)
+        .then(repository => {
+            let data = {
+                data: dataContent,
+                repositoryLocation : repository.location,
+                repositoryConfig : this.createServerConfig(repositoryConfig.configs)
+            };
+
+            return this.httpService.post(url, data);
+        });
+    }
+
 
     public setRepositoryImage(repositoryConfig : RepositoryConfig, file : any) : Promise<boolean> {
         return this.readFile(file)
         .then(content => {
-            return this.getRepository(repositoryConfig.repositoryName)
-            .then(repository => {
-                let url = ServersRoutes.PIPELINES_FACADE_SET_LOGO_ROUTE;
-                let data = {
-                    data : content,
-                    repositoryLocation : repository.location,
-                    repositoryConfig : this.createServerConfig(repositoryConfig.configs)
-                };
+            let url = ServersRoutes.PIPELINES_FACADE_SET_LOGO_ROUTE;
+            return this.execute(repositoryConfig, url, content)
+            .then(response => {
+                let success = response.status === 200;
 
-                return this.httpService.post(url, data)
-                .then(response => {
-                    let success = response.status === 200;
+                if(success)
+                    this.repositoryService.fireUpdateEvent(repositoryConfig.repositoryName);
 
-                    if(success)
-                        this.repositoryService.fireUpdateEvent(repositoryConfig.repositoryName);
-
-                    return success;
-                });
-            });
+                return success;
+            });;
         });
     }
 
@@ -88,6 +96,79 @@ export class PipelinesRepositoryFacadeService {
             };
             fileReader.onerror = e => reject(e);
             fileReader.readAsArrayBuffer(file);
+        });
+    }
+
+
+    public getPipelines(repositoryConfig : RepositoryConfig) : Promise<Pipeline[]> {
+        let url = ServersRoutes.PIPELINES_FACADE_GET_ALL_PIPELINES_ROUTE;
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            if(!response.text())
+                return [];
+
+            let data : any = response.json();
+
+            return this.serverPipelinesToClientPipelines(data);
+        });
+    }
+
+    private serverPipelinesToClientPipelines(pipelines : any[]) : Pipeline[] {
+        return pipelines.map(this.serverPipelineToClientPipeline);
+    }
+
+    private serverPipelineToClientPipeline(pipeline : any) : Pipeline {
+        return pipeline;
+    }
+
+
+    public getPipeline(repositoryConfig : RepositoryConfig, pipelineName : string) : Promise<Pipeline> {
+        let url = ServersRoutes.PIPELINES_FACADE_GET_PIPELINE_ROUTE.replace("{pipelineName}", pipelineName);
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            if(!response.text() || response.status===404)
+                return null;
+
+            let data : any = response.json();
+
+            return this.serverPipelineToClientPipeline(data);
+        });
+    }
+
+
+    public createPipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<string> {
+        let url = ServersRoutes.PIPELINES_FACADE_INSERT_PIPELINE_ROUTE;
+        let data = this.clientPipelineToServerPipeline(pipeline);
+        return this.execute(repositoryConfig, url, data)
+        .then(response => {
+            return pipeline.name;
+        });
+    }
+
+    private clientPipelinesToServerPipelines(pipelines : Pipeline[]) : any[] {
+        return pipelines.map(this.clientPipelineToServerPipeline);
+    }
+
+    private clientPipelineToServerPipeline(pipeline : Pipeline) : any {
+        return pipeline;
+    }
+
+
+    public updatePipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<boolean> {
+        let url = ServersRoutes.PIPELINES_FACADE_UPDATE_PIPELINE_ROUTE.replace("{pipelineName}", pipeline.name);
+        let data = this.clientPipelineToServerPipeline(pipeline);
+        return this.execute(repositoryConfig, url, data)
+        .then(response => {
+            return true;
+        });
+    }
+
+
+    public deletePipeline(repositoryConfig : RepositoryConfig, pipelineName : string) : Promise<boolean> {
+        let url = ServersRoutes.PIPELINES_FACADE_DELETE_PIPELINE_ROUTE.replace("{pipelineName}", pipelineName);
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            return true;
         });
     }
 
