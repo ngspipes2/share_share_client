@@ -1,4 +1,5 @@
 import { Injectable }    from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
@@ -22,8 +23,19 @@ import { RepositoryService } from './repository.service';
 @Injectable()
 export class PipelinesRepositoryFacadeService {
 
+    pipelineEvent = new Subject<string[]>();
+    pipelineCreateEvent = new Subject<string[]>();
+    pipelineUpdateEvent = new Subject<string[]>();
+    pipelineDeleteEvent = new Subject<string[]>();
+
+
+
     constructor(private httpService: HttpService,
-                private repositoryService : RepositoryService) { }
+                private repositoryService : RepositoryService) {
+        this.pipelineCreateEvent.subscribe(id => this.pipelineEvent.next(id));
+        this.pipelineUpdateEvent.subscribe(id => this.pipelineEvent.next(id));
+        this.pipelineDeleteEvent.subscribe(id => this.pipelineEvent.next(id));
+    }
 
 
 
@@ -141,6 +153,7 @@ export class PipelinesRepositoryFacadeService {
         let data = this.clientPipelineToServerPipeline(pipeline);
         return this.execute(repositoryConfig, url, data)
         .then(response => {
+            this.fireCreateEvent([repositoryConfig.repositoryName, pipeline.name]);
             return pipeline.name;
         });
     }
@@ -159,6 +172,7 @@ export class PipelinesRepositoryFacadeService {
         let data = this.clientPipelineToServerPipeline(pipeline);
         return this.execute(repositoryConfig, url, data)
         .then(response => {
+            this.fireUpdateEvent([repositoryConfig.repositoryName, pipeline.name]);
             return true;
         });
     }
@@ -168,8 +182,22 @@ export class PipelinesRepositoryFacadeService {
         let url = ServersRoutes.PIPELINES_FACADE_DELETE_PIPELINE_ROUTE.replace("{pipelineName}", pipelineName);
         return this.execute(repositoryConfig, url, null)
         .then(response => {
+            this.fireDeleteEvent([repositoryConfig.repositoryName, pipelineName]);
             return true;
         });
+    }
+
+
+    fireCreateEvent(id: string[]) {
+        this.pipelineCreateEvent.next(id);
+    }
+
+    fireUpdateEvent(id: string[]) {
+        this.pipelineUpdateEvent.next(id);
+    }
+
+    fireDeleteEvent(id: string[]) {
+        this.pipelineDeleteEvent.next(id);
     }
 
 }

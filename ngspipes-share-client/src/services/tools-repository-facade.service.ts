@@ -1,4 +1,5 @@
 import { Injectable }    from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
@@ -7,12 +8,22 @@ import { Tool, Command, Parameter, Output, ExecutionContext } from '../entities/
 import { RepositoryConfig, Config } from '../entities/repository-config';
 import { Repository } from '../entities/repository';
 import { RepositoryService } from './repository.service';
-
 @Injectable()
 export class ToolsRepositoryFacadeService {
 
+    toolEvent = new Subject<string[]>();
+    toolCreateEvent = new Subject<string[]>();
+    toolUpdateEvent = new Subject<string[]>();
+    toolDeleteEvent = new Subject<string[]>();
+
+
+
     constructor(private httpService: HttpService,
-                private repositoryService : RepositoryService) { }
+                private repositoryService : RepositoryService) {
+        this.toolCreateEvent.subscribe(id => this.toolEvent.next(id));
+        this.toolUpdateEvent.subscribe(id => this.toolEvent.next(id));
+        this.toolDeleteEvent.subscribe(id => this.toolEvent.next(id));
+    }
 
 
 
@@ -201,6 +212,7 @@ export class ToolsRepositoryFacadeService {
         let data = this.clientToolToServerTool(tool);
         return this.execute(repositoryConfig, url, data)
         .then(response => {
+            this.fireCreateEvent([repositoryConfig.repositoryName, tool.name]);
             return tool.name;
         });
     }
@@ -290,6 +302,7 @@ export class ToolsRepositoryFacadeService {
         let data = this.clientToolToServerTool(tool);
         return this.execute(repositoryConfig, url, data)
         .then(response => {
+            this.fireUpdateEvent([repositoryConfig.repositoryName, tool.name]);
             return true;
         });
     }
@@ -299,8 +312,22 @@ export class ToolsRepositoryFacadeService {
         let url = ServersRoutes.TOOLS_FACADE_DELETE_TOOL_ROUTE.replace("{toolName}", toolName);
         return this.execute(repositoryConfig, url, null)
         .then(response => {
+            this.fireDeleteEvent([repositoryConfig.repositoryName, toolName]);
             return true;
         });
+    }
+
+
+    fireCreateEvent(id: string[]) {
+        this.toolCreateEvent.next(id);
+    }
+
+    fireUpdateEvent(id: string[]) {
+        this.toolUpdateEvent.next(id);
+    }
+
+    fireDeleteEvent(id: string[]) {
+        this.toolDeleteEvent.next(id);
     }
 
 }
