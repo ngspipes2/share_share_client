@@ -1,0 +1,11 @@
+<div class="container">
+    <p>Insert name for Tool</p>
+    <div mat-dialog-content>
+        <mat-form-field class="fill">
+            <input matInput placeholder="Name" type="text" [(ngModel)]="toolName">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="actions" align="center" *ngIf="toolName">
+        <button mat-button (click)="okClicked()">Ok</button>
+    </div>
+</div>

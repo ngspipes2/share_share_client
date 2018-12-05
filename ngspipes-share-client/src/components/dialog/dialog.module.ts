@@ -21,6 +21,8 @@ import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-e
 import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
 import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
 import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
+import { NewToolNameDialogComponent } from './new-tool-name-dialog/new-tool-name-dialog.component';
+import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { SelectRepositoryDialogComponent } from './select-repository-dialog/sele
       SelectRepositoryEntityTypeDialogComponent,
       SelectUserDialogComponent,
       SelectGroupDialogComponent,
-      SelectRepositoryDialogComponent
+      SelectRepositoryDialogComponent,
+      NewToolNameDialogComponent,
+      NewPipelineNameDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -58,7 +62,9 @@ import { SelectRepositoryDialogComponent } from './select-repository-dialog/sele
       SelectRepositoryEntityTypeDialogComponent,
       SelectUserDialogComponent,
       SelectGroupDialogComponent,
-      SelectRepositoryDialogComponent
+      SelectRepositoryDialogComponent,
+      NewToolNameDialogComponent,
+      NewPipelineNameDialogComponent
   ],
   providers: [
       DialogManager
@@ -75,7 +81,9 @@ import { SelectRepositoryDialogComponent } from './select-repository-dialog/sele
       SelectRepositoryEntityTypeDialogComponent,
       SelectUserDialogComponent,
       SelectGroupDialogComponent,
-      SelectRepositoryDialogComponent
+      SelectRepositoryDialogComponent,
+      NewToolNameDialogComponent,
+      NewPipelineNameDialogComponent
   ]
 })
 export class DialogModule { }

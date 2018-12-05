@@ -16,6 +16,8 @@ import { SelectRepositoryEntityTypeDialogComponent } from './select-repository-e
 import { SelectUserDialogComponent } from './select-user-dialog/select-user-dialog.component';
 import { SelectGroupDialogComponent } from './select-group-dialog/select-group-dialog.component';
 import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
+import { NewToolNameDialogComponent, NewToolNameDialogData } from './new-tool-name-dialog/new-tool-name-dialog.component';
+import { NewPipelineNameDialogComponent, NewPipelineNameDialogData } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
 
 @Injectable()
 export class DialogManager {
@@ -104,6 +106,18 @@ export class DialogManager {
 
     public openSelectRepositoryDialog() : MatDialogRef<SelectRepositoryDialogComponent, string> {
         return this.dialog.open(SelectRepositoryDialogComponent);
+    }
+
+    public openNewToolNameDialog(repositoryName : string) : MatDialogRef<NewToolNameDialogComponent, string> {
+        return this.dialog.open(NewToolNameDialogComponent, {
+            data: { repositoryName : repositoryName }
+        });
+    }
+
+    public openNewPipelineNameDialog(repositoryName : string) : MatDialogRef<NewPipelineNameDialogComponent, string> {
+        return this.dialog.open(NewPipelineNameDialogComponent, {
+            data: { repositoryName : repositoryName }
+        });
     }
 
 }
