@@ -100,6 +100,20 @@ export class ToolsRepositoryFacadeService {
     }
 
 
+    public getToolsNames(repositoryConfig : RepositoryConfig) : Promise<string[]> {
+        let url = ServersRoutes.TOOLS_FACADE_GET_TOOLS_NAMES_ROUTE;
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            if(!response.text())
+                return [];
+
+            let data : any = response.json();
+
+            return data;
+        });
+    }
+
+
     public getTools(repositoryConfig : RepositoryConfig) : Promise<Tool[]> {
         let url = ServersRoutes.TOOLS_FACADE_GET_ALL_TOOLS_ROUTE;
         return this.execute(repositoryConfig, url, null)

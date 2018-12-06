@@ -112,6 +112,20 @@ export class PipelinesRepositoryFacadeService {
     }
 
 
+    public getPipelinesNames(repositoryConfig : RepositoryConfig) : Promise<string[]> {
+        let url = ServersRoutes.PIPELINES_FACADE_GET_PIPELINES_NAMES_ROUTE;
+        return this.execute(repositoryConfig, url, null)
+        .then(response => {
+            if(!response.text())
+                return [];
+
+            let data : any = response.json();
+
+            return data;
+        });
+    }
+
+
     public getPipelines(repositoryConfig : RepositoryConfig) : Promise<Pipeline[]> {
         let url = ServersRoutes.PIPELINES_FACADE_GET_ALL_PIPELINES_ROUTE;
         return this.execute(repositoryConfig, url, null)

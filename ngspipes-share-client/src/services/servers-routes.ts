@@ -86,6 +86,7 @@ export class ServersRoutes {
 
     public static TOOLS_FACADE_GET_LOGO_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/getlogo";
     public static TOOLS_FACADE_SET_LOGO_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/setlogo";
+    public static TOOLS_FACADE_GET_TOOLS_NAMES_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/gettoolsnames";
     public static TOOLS_FACADE_GET_ALL_TOOLS_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/gettools";
     public static TOOLS_FACADE_GET_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/gettool/{toolName}";
     public static TOOLS_FACADE_INSERT_TOOL_ROUTE : string = ServersRoutes.TOOLS_REPOSITORY_FACADE_ROUTE + "/inserttool";
@@ -97,6 +98,7 @@ export class ServersRoutes {
 
     public static PIPELINES_FACADE_GET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getlogo";
     public static PIPELINES_FACADE_SET_LOGO_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/setlogo";
+    public static PIPELINES_FACADE_GET_PIPELINES_NAMES_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipelinesnames";
     public static PIPELINES_FACADE_GET_ALL_PIPELINES_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipelines";
     public static PIPELINES_FACADE_GET_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/getpipeline/{pipelineName}";
     public static PIPELINES_FACADE_INSERT_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/insertpipeline";
