@@ -22,7 +22,9 @@ import { RepositoryGroupMemberService } from '../services/repository-group-membe
 import { RepositoryUserMember } from '../entities/repository-user-member';
 import { RepositoryUserMemberService } from '../services/repository-user-member.service';
 
+import { Tool } from '../entities/tool';
 import { ToolsRepositoryFacadeService } from '../services/tools-repository-facade.service';
+import { Pipeline } from '../entities/pipeline';
 import { PipelinesRepositoryFacadeService } from '../services/pipelines-repository-facade.service';
 
 import { SessionService } from '../services/session.service';
@@ -48,6 +50,25 @@ export class OperationsManager {
         private router : Router
     ) { }
 
+
+    public getAllRepositoriesConfigs() : Promise<RepositoryConfig[]> {
+        return this.repositoryConfigService.getAllConfigs()
+        .catch(this.createErrorHandler("Error getting Repositories Configs!"));
+    }
+
+    private createErrorHandler(errorTitle : string, showError : boolean = true) :  (error : any) => Promise<any> {
+        return error => {
+            this.dialogManager.openErrorDialog(errorTitle, showError ? error : null);
+            console.error(error);
+            throw error;
+        };
+    }
+
+
+    public getRepositoryConfig(repositoryName : string) : Promise<RepositoryConfig> {
+        return this.repositoryConfigService.getConfig(repositoryName)
+        .catch(this.createErrorHandler("Error getting Config for Repository: " + repositoryName + "!"));
+    }
 
 
     public createRepositoryConfig(config : RepositoryConfig) : Promise<boolean> {
@@ -76,17 +97,13 @@ export class OperationsManager {
         return this.repositoryConfigService.createConfig(config)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config could not be created! Please try again latter.");
+                this.dialogManager.openErrorDialog("Repository Config not created!", "Repository Config: " + config.repositoryName + " could not be created! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Repository Config created successfully!", null);
+                this.dialogManager.openSuccessDialog("Repository Config: " + config.repositoryName + " created successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating Repository Config!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Repository Config: " + config.repositoryName + "!"));
     }
 
 
@@ -116,17 +133,13 @@ export class OperationsManager {
         return this.repositoryConfigService.deleteConfig(config.repositoryName)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Repository Config not deleted!", "Repository Config could not be deleted! Please try again latter.");
+                this.dialogManager.openErrorDialog("Repository Config not deleted!", "Repository Config: " + config.repositoryName + " could not be deleted! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Repository Config deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Repository Config: " + config.repositoryName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Repository Config!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Repository Config: " + config.repositoryName + "!"));
     }
 
 
@@ -134,17 +147,25 @@ export class OperationsManager {
         return this.repositoryConfigService.updateConfig(config)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Repository Config could not be saved!", "Repository Config could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Repository Config could not be saved!", "Repository Config: " + config.repositoryName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Repository Config saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Repository Config: " + config.repositoryName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Repository Config!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Repository Config: " + config.repositoryName + "!"));
+    }
+
+
+    public getAccessTokensOfUser(userName : string) : Promise<AccessToken> {
+        return this.accessTokenService.getAccessTokensOfUser(userName)
+        .catch(this.createErrorHandler("Error getting Access Tokens of User: " + userName + "!"));
+    }
+
+
+    public getAccessToken(id : number) : Promise<AccessToken> {
+        return this.accessTokenService.getAccessToken(id)
+        .catch(this.createErrorHandler("Error getting AccessToken: " + id + "!"));
     }
 
 
@@ -179,11 +200,7 @@ export class OperationsManager {
             this.dialogManager.openShowTokenDialog(data.token);
             return data;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating Access Token!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Access Token: " + token.name + "!"));
     }
 
 
@@ -213,17 +230,13 @@ export class OperationsManager {
         return this.accessTokenService.deleteAccessToken(token.id)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Access Token not deleted!", "Access Token could not be deleted! Please try again latter.");
+                this.dialogManager.openErrorDialog("Access Token not deleted!", "Access Token: " + token.name + " could not be deleted! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Access Token deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Access Token: " + token.name + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Access Token!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Access Token: " + token.name + "!"));
     }
 
 
@@ -231,17 +244,31 @@ export class OperationsManager {
         return this.accessTokenService.updateAccessToken(token)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Access Token could not be saved!", "Access Token could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Access Token could not be saved!", "Access Token: " + token.name + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Access Token saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Access Token: " + token.name + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Access Token!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Access Token: " + token.name + "!"));
+    }
+
+
+    public getUsersNames() : Promise<string[]> {
+        return this.userService.getUsersNames()
+        .catch(this.createErrorHandler("Error getting Users names!"));
+    }
+
+
+    public getAllUsers() : Promise<User[]> {
+        return this.userService.getAllUsers()
+        .catch(this.createErrorHandler("Error getting all Users!"));
+    }
+
+
+    public getUser(userName : string) : Promise<User> {
+        return this.userService.getUser(userName)
+        .catch(this.createErrorHandler("Error getting User: " + userName + "!"));
     }
 
 
@@ -251,15 +278,11 @@ export class OperationsManager {
             if(redirect)
                 this.router.navigate(["/users/" + user.userName]);
 
-            this.dialogManager.openSuccessDialog("User created successfully!", null);
+            this.dialogManager.openSuccessDialog("User: " + user.userName + " created successfully!", null);
 
             return response;
         })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error creating new User!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating User: " + user.userName + "!"));
     }
 
 
@@ -295,11 +318,7 @@ export class OperationsManager {
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting account!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting account!"));
     }
 
 
@@ -307,17 +326,13 @@ export class OperationsManager {
         return this.userService.updateUser(user)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("User could not be saved!", "User could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("User could not be saved!", "User: " + user.userName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("User saved successfully!", null);
+                this.dialogManager.openSuccessDialog("User: " + user.userName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving User!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving User: " + user.userName + "!"));
     }
 
 
@@ -331,11 +346,69 @@ export class OperationsManager {
 
             return response;
         })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error uploading User's image!", error);
-            console.error(error);
-            throw error;
+        .catch(this.createErrorHandler("Error uploading User's image!"));
+    }
+
+
+    public deleteUserImage(userName : string) : Promise<boolean> {
+        return this.userService.deleteUserImage(userName)
+        .catch(this.createErrorHandler("Error deleting image of User: " + userName + "!"))
+    }
+
+
+    public changeUserPassword(userName : string, currentPassword : string, newPassword : string) : Promise<boolean> {
+        let promise = (currentPassword && newPassword) ? Promise.resolve([currentPassword, newPassword]) : this.getNewPasswordData();
+
+        return promise
+        .then(data => {
+            if(!data)
+                return;
+
+            return this.internalChangeUserPassword(userName, data[0], data[1]);
         });
+    }
+
+    private getNewPasswordData() : Promise<string[]> {
+        return new Promise<string[]>((resolve, reject) => {
+            this.dialogManager.openChangePasswordDialog().afterClosed().subscribe((data) => {
+                resolve(data);
+            });
+        });
+    }
+
+    private internalChangeUserPassword(userName : string, currentPassword : string, newPassword : string) : Promise<boolean> {
+        return this.userService.changeUserPassword(userName, currentPassword, newPassword)
+        .catch(this.createErrorHandler("Error changing User's password!"));
+    }
+
+
+    public getGroupsNames() : Promise<string[]> {
+        return this.groupService.getGroupsNames()
+        .catch(this.createErrorHandler("Error getting Groups names!"));
+    }
+
+
+    public getAllGroups() : Promise<Group[]> {
+        return this.groupService.getAllGroups()
+        .catch(this.createErrorHandler("Error getting all Groups!"));
+    }
+
+
+    public getGroupsOfUser(userName : string) : Promise<Group[]> {
+        return this.groupService.getGroupsOfUser(userName)
+        .catch(this.createErrorHandler("Error getting Groups of User: " + userName + "!"));
+    }
+
+
+    public getGroupsAccessibleByUser(userName : string) : Promise<Group[]> {
+        return this.groupService.getGroupsAccessibleByUser(userName)
+        .catch(this.createErrorHandler("Error getting Groups accessible by User: " + userName + "!"));
+    }
+
+
+    public getGroup(groupName : string) : Promise<Group> {
+        return this.groupService.getGroup(groupName)
+        .catch(this.createErrorHandler("Error getting Group: " + groupName + "!"));
     }
 
 
@@ -370,15 +443,11 @@ export class OperationsManager {
             if(redirect)
                 this.router.navigate(['/groups/' + group.groupName]);
 
-            this.dialogManager.openSuccessDialog("Group created successfully!", null);
+            this.dialogManager.openSuccessDialog("Group: " + group.groupName + " created successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating Group!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Group: " + group.groupName + "!"));
     }
 
 
@@ -408,17 +477,13 @@ export class OperationsManager {
         return this.groupService.deleteGroup(group.groupName)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Group could not be deleted!", "Group could not be deleted. Please try again later.");
+                this.dialogManager.openErrorDialog("Group could not be deleted!", "Group: " + group.groupName + " could not be deleted. Please try again later.");
             else
-                this.dialogManager.openSuccessDialog("Group deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Group: " + group.groupName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Group!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Group: " + group.groupName + "!"));
     }
 
 
@@ -426,17 +491,13 @@ export class OperationsManager {
         return this.groupService.updateGroup(group)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Group could not be saved!", "Group could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Group could not be saved!", "Group: " + group.groupName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Group saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Group: " + group.groupName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Group!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Group: " + group.groupName + "!"));
     }
 
 
@@ -450,11 +511,37 @@ export class OperationsManager {
 
             return response;
         })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error uploading Group's image!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error uploading Group's image!"));
+    }
+
+
+    public deleteGroupImage(groupName : string) : Promise<boolean> {
+        return this.groupService.deleteGroupImage(groupName)
+        .catch(this.createErrorHandler("Error deleting image of Group: " + groupName + "!"));
+    }
+
+
+    public getAllGroupsMembers() : Promise<GroupMember[]> {
+        return this.groupMemberService.getAllMembers()
+        .catch(this.createErrorHandler("Error getting all Groups Members!"));
+    }
+
+
+    public getMembersOfGroup(groupName : string) : Promise<GroupMember[]> {
+        return this.groupMemberService.getMembersOfGroup(groupName)
+        .catch(this.createErrorHandler("Error getting Members of Group: " + groupName + "!"));
+    }
+
+
+    public getGroupMembersWtihUser(userName : string) : Promise<GroupMember[]> {
+        return this.groupMemberService.getMembersWithUser(userName)
+        .catch(this.createErrorHandler("Error getting Group Members with User: " + userName + "!"));
+    }
+
+
+    public getGroupMember(id : number) : Promise<GroupMember> {
+        return this.groupMemberService.getMember(id)
+        .catch(this.createErrorHandler("Error getting Group Member with id: " + id + "!"));
     }
 
 
@@ -483,14 +570,10 @@ export class OperationsManager {
     private internalCreateGroupMember(member : GroupMember) : Promise<number> {
         return this.groupMemberService.createMember(member)
         .then(id => {
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
+            this.dialogManager.openSuccessDialog("Member: " + member.userName + " created successfully!", null);
             return id;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Member: " + member.userName + "!"));
     }
 
 
@@ -520,17 +603,13 @@ export class OperationsManager {
         return this.groupMemberService.deleteMember(member.id)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted. Please try again later.");
+                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member: " + member.userName + " could not be deleted. Please try again later.");
             else
-                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.userName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Member: " + member.userName + "!"));
     }
 
 
@@ -538,17 +617,43 @@ export class OperationsManager {
         return this.groupMemberService.updateMember(member)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Member could not be saved!", "Member: " + member.userName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.userName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Member: " + member.userName + "!"));
+    }
+
+
+    public getRepositoriesNames() : Promise<string[]> {
+        return this.repositoryService.getRepositoriesNames()
+        .catch(this.createErrorHandler("Error getting Repositories names!"));
+    }
+
+
+    public getAllRepositories() : Promise<Repository[]> {
+        return this.repositoryService.getAllRepositories()
+        .catch(this.createErrorHandler("Error getting all Repositories!"));
+    }
+
+
+    public getRepositoriesOfUser(userName : string) : Promise<Repository[]> {
+        return this.repositoryService.getRepositoriesOfUser(userName)
+        .catch(this.createErrorHandler("Error getting Repositories of User:  " + userName + "!"));
+    }
+
+
+    public getRepositoriesAccessibleByUser(userName : string) : Promise<Repository[]> {
+        return this.repositoryService.getRepositoriesAccessibleByUser(userName)
+        .catch(this.createErrorHandler("Error getting Repositories accessible by User: " + userName + "!"));
+    }
+
+
+    public getRepository(repositoryName : string) : Promise<Repository> {
+        return this.repositoryService.getRepository(repositoryName)
+        .catch(this.createErrorHandler("Error getting Repository: " + repositoryName + "!"));
     }
 
 
@@ -603,15 +708,11 @@ export class OperationsManager {
             if(redirect)
                 this.router.navigate(['/repositories/' + repository.repositoryName]);
 
-            this.dialogManager.openSuccessDialog("Repository created successfully!", null);
+            this.dialogManager.openSuccessDialog("Repository: " + repository.repositoryName + " created successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating Repository!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Repository: " + repository.repositoryName + "!"));
     }
 
 
@@ -686,17 +787,13 @@ export class OperationsManager {
         return this.repositoryService.deleteRepository(repository.repositoryName)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Repository could not be deleted!", "Repository could not be deleted. Please try again later.");
+                this.dialogManager.openErrorDialog("Repository could not be deleted!", "Repository: " + repository.repositoryName + " could not be deleted. Please try again later.");
             else
-                this.dialogManager.openSuccessDialog("Repository deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Repository: " + repository.repositoryName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Repository!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Repository: " + repository.repositoryName + "!"));
     }
 
 
@@ -704,17 +801,27 @@ export class OperationsManager {
         return this.repositoryService.updateRepository(repository)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Repository could not be saved!", "Repository could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Repository could not be saved!", "Repository: " + repository.repositoryName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Repository saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Repository: " + repository.repositoryName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Repository!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Repository: " + repository.repositoryName + "!"));
+    }
+
+
+    public getConfigForRepository(repositoryName : string) : Promise<RepositoryConfig> {
+        return this.repositoryConfigService.getConfig(repositoryName)
+        .then(config => {
+            if(!config) {
+                this.dialogManager.openWarningDialog("No config found!", "You have no config to access Repository: " + repositoryName + "!");
+                return null;
+            }
+
+            return config;
+        })
+        .catch(this.createErrorHandler("Error getting config for Repository: " + repositoryName + "!"));
     }
 
 
@@ -725,23 +832,6 @@ export class OperationsManager {
                 return false;
 
             return this.internalChangeRepositoryImage(repository, file, config);
-        });
-    }
-
-    private getConfigForRepository(repositoryName : string) : Promise<RepositoryConfig> {
-        return this.repositoryConfigService.getConfig(repositoryName)
-        .then(config => {
-            if(!config) {
-                this.dialogManager.openWarningDialog("No config found!", "You have no config to access this Repository:" + repositoryName + "!");
-                return null;
-            }
-
-            return config;
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting config for Repository:" + repositoryName + "!", error);
-            console.error(error);
-            throw error;
         });
     }
 
@@ -762,11 +852,31 @@ export class OperationsManager {
 
             return response;
         })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error uploading Repository's image!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error uploading Repository's image!"));
+    }
+
+
+    public getAllRepositoryGroupsMembers() : Promise<RepositoryGroupMember[]> {
+        return this.repositoryGroupMemberService.getAllMembers()
+        .catch(this.createErrorHandler("Error getting all Repositories Groups Members!"));
+    }
+
+
+    public getGroupsMembersOfRepository(repositoryName : string) : Promise<RepositoryGroupMember[]> {
+        return this.repositoryGroupMemberService.getMembersOfRepository(repositoryName)
+        .catch(this.createErrorHandler("Error getting Groups Members of Repository: " + repositoryName + "!"));
+    }
+
+
+    public getGroupMembersWithGroup(groupName : string) : Promise<RepositoryGroupMember[]> {
+        return this.repositoryGroupMemberService.getMembersWithGroup(groupName)
+        .catch(this.createErrorHandler("Error getting Repositories Members with Group: " + groupName + "!"));
+    }
+
+
+    public getRepositoryGroupMember(id : number) : Promise<RepositoryGroupMember> {
+        return this.repositoryGroupMemberService.getMember(id)
+        .catch(this.createErrorHandler("Error getting Repository Group Member with id: " + id + "!"));
     }
 
 
@@ -795,14 +905,10 @@ export class OperationsManager {
     private internalCreateRepositoryGroupMember(member : RepositoryGroupMember) : Promise<number> {
         return this.repositoryGroupMemberService.createMember(member)
         .then(id => {
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
+            this.dialogManager.openSuccessDialog("Member: " + member.groupName + " created successfully!", null);
             return id;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating Member: " + member.groupName + "!"));
     }
 
 
@@ -832,17 +938,13 @@ export class OperationsManager {
         return this.repositoryGroupMemberService.deleteMember(member.id)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted! Please try again later.");
+                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member: " + member.groupName + " could not be deleted! Please try again later.");
             else
-                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.groupName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Member: " + member.groupName + "!"));
     }
 
 
@@ -850,17 +952,37 @@ export class OperationsManager {
         return this.repositoryGroupMemberService.updateMember(member)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Member could not be saved!", "Member: " + member.groupName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.groupName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error saving Member: " + member.groupName + "!"));
+    }
+
+
+    public getAllRepositoryUsersMembers() : Promise<RepositoryUserMember[]> {
+        return this.repositoryUserMemberService.getAllMembers()
+        .catch(this.createErrorHandler("Error getting all Repositories Users Members!"));
+    }
+
+
+    public getUsersMembersOfRepository(repositoryName : string) : Promise<RepositoryUserMember[]> {
+        return this.repositoryUserMemberService.getMembersOfRepository(repositoryName)
+        .catch(this.createErrorHandler("Error getting Users Members of Repository: " + repositoryName + "!"));
+    }
+
+
+    public getUserMembersWithUser(userName : string) : Promise<RepositoryUserMember[]> {
+        return this.repositoryUserMemberService.getMembersWithUser(userName)
+        .catch(this.createErrorHandler("Error getting Repositories Members with User: " + userName + "!"));
+    }
+
+
+    public getRepositoryUserMember(id : number) : Promise<RepositoryUserMember> {
+        return this.repositoryUserMemberService.getMember(id)
+        .catch(this.createErrorHandler("Error getting Repository User Member with id: " + id + "!"));
     }
 
 
@@ -881,14 +1003,10 @@ export class OperationsManager {
     private internalCreateRepositoryUserMember(member : RepositoryUserMember) : Promise<number> {
         return this.repositoryUserMemberService.createMember(member)
         .then(id => {
-            this.dialogManager.openSuccessDialog("Member created successfully!", null);
+            this.dialogManager.openSuccessDialog("Member: " + member.userName + " created successfully!", null);
             return id;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error creating member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error creating member: " + member.userName + "!"));
     }
 
 
@@ -918,17 +1036,13 @@ export class OperationsManager {
         return this.repositoryUserMemberService.deleteMember(member.id)
         .then(result => {
             if(!result)
-                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member could not be deleted! Please try again later.");
+                this.dialogManager.openErrorDialog("Member could not be deleted!", "Member: " + member.userName + " could not be deleted! Please try again later.");
             else
-                this.dialogManager.openSuccessDialog("Member deleted successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.userName + " deleted successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error deleting Member!", error);
-            console.error(error);
-            throw error;
-        });
+        .catch(this.createErrorHandler("Error deleting Member: " + member.userName + "!"));
     }
 
 
@@ -936,17 +1050,273 @@ export class OperationsManager {
         return this.repositoryUserMemberService.updateMember(member)
         .then(result => {
             if(!result)
-                this.dialogManager.openWarningDialog("Member could not be saved!", "Member could not be saved! Please try again latter.");
+                this.dialogManager.openWarningDialog("Member could not be saved!", "Member: " + member.userName + " could not be saved! Please try again latter.");
             else
-                this.dialogManager.openSuccessDialog("Member saved successfully!", null);
+                this.dialogManager.openSuccessDialog("Member: " + member.userName + " saved successfully!", null);
 
             return result;
         })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error saving Member!", error);
-            console.error(error);
-            throw error;
+        .catch(this.createErrorHandler("Error saving Member: " + member.userName + "!"));
+    }
+
+
+    public getToolsNames(repository : Repository) : Promise<string[]> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.toolsRepositoryFacadeService.getToolsNames(config)
+               .catch(this.createErrorHandler("Error getting Tools names of Repository: " + repository.repositoryName + "!"));
         });
+    }
+
+
+    public getAllTools(repository : Repository) : Promise<Tool[]> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.toolsRepositoryFacadeService.getTools(config)
+               .catch(this.createErrorHandler("Error getting Tools of Repository: " + repository.repositoryName + "!"));
+        });
+    }
+
+
+    public getTool(repository : Repository, toolName : string) : Promise<Tool> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.toolsRepositoryFacadeService.getTool(config, toolName)
+               .catch(this.createErrorHandler("Error getting Tool: " + toolName + " of Repository: " + repository.repositoryName + "!"));
+        });
+    }
+
+
+    public createTool(repository : Repository, tool : Tool) : Promise<string> {
+        let namePromise = tool.name ? Promise.resolve(tool.name) : this.getNewToolName(repository);
+
+        return namePromise
+        .then(name => {
+            if(!name)
+                return null;
+
+            tool.name = name;
+
+            return this.getConfigForRepository(repository.repositoryName)
+            .then(config => {
+                if(!config)
+                    return null;
+
+                return this.internalCreateTool(config, tool);
+            });
+        });
+    }
+
+    private getNewToolName(repository : Repository) : Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            this.dialogManager.openNewToolNameDialog(repository.repositoryName).afterClosed().subscribe(name => {
+                resolve(name);
+            });
+        });
+    }
+
+    private internalCreateTool(repositoryConfig : RepositoryConfig, tool : Tool) : Promise<string> {
+        return this.toolsRepositoryFacadeService.createTool(repositoryConfig, tool)
+        .then(result => {
+            this.dialogManager.openSuccessDialog("Tool: " + tool.name + " created successfully!", null);
+            return result;
+        })
+        .catch(this.createErrorHandler("Error creating Tool: " +  tool.name + "!"));
+    }
+
+
+    private updateTool(repository : Repository, tool : Tool) : Promise<boolean> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(!config)
+                return false;
+
+            return this.toolsRepositoryFacadeService.updateTool(config, tool)
+            .then(result => {
+                if(!result)
+                    this.dialogManager.openWarningDialog("Tool could not be saved!", "Tool: " +  tool.name + " could not be saved! Please try again latter.");
+                else
+                    this.dialogManager.openSuccessDialog("Tool: " +  tool.name + " saved successfully!", null);
+
+                return result;
+            })
+            .catch(this.createErrorHandler("Error saving Tool: " +  tool.name + "!"));
+        });
+    }
+
+
+    private deleteTool(repository : Repository, tool : Tool) : Promise<boolean> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(!config)
+                return false;
+
+            return this.askForToolDeleteAuthorization(tool)
+            .then(response => {
+                if(!response)
+                    return false;
+
+                return this.internalDeleteTool(config, tool);
+            });
+        });
+    }
+
+    private askForToolDeleteAuthorization(tool : Tool) : Promise<boolean> {
+        let title = "Delete Tool";
+        let message = "Are you sure you want to delete Tool: " + tool.name + " ?";
+        let options = ["Yes", "No"];
+
+        return new Promise<boolean>((resolve, reject) => {
+            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
+                resolve(response === "Yes");
+            });
+        });
+    }
+
+    private internalDeleteTool(repositoryConfig : RepositoryConfig, tool : Tool) : Promise<boolean> {
+        return this.toolsRepositoryFacadeService.deleteTool(repositoryConfig, tool.name)
+        .then(result => {
+            if(!result)
+                this.dialogManager.openErrorDialog("Tool could not be deleted!", "Tool: " +  tool.name + " could not be deleted! Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Tool: " +  tool.name + " deleted successfully!", null);
+
+            return result;
+        })
+        .catch(this.createErrorHandler("Error deleting Tool: " +  tool.name + "!"));
+    }
+
+
+    public getPipelinesNames(repository : Repository) : Promise<string[]> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.pipelinesRepositoryFacadeService.getPipelinesNames(config)
+               .catch(this.createErrorHandler("Error getting Pipelines names of Repository: " + repository.repositoryName + "!"));
+        });
+    }
+
+
+    public getAllPipelines(repository : Repository) : Promise<Pipeline[]> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.pipelinesRepositoryFacadeService.getPipelines(config)
+               .catch(this.createErrorHandler("Error getting Pipelines of Repository: " + repository.repositoryName + "!"));
+        });
+    }
+
+
+    public getPipeline(repository : Repository, pipelineName : string) : Promise<Pipeline> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(config)
+               return this.pipelinesRepositoryFacadeService.getPipeline(config, pipelineName)
+               .catch(this.createErrorHandler("Error getting Pipeline: " + pipelineName + " of Repository: " + repository.repositoryName + "!"));
+        });
+    }
+
+
+    public createPipeline(repository : Repository, pipeline : Pipeline) : Promise<string> {
+        let namePromise = pipeline.name ? Promise.resolve(pipeline.name) : this.getNewPipelineName(repository);
+
+        return namePromise
+        .then(name => {
+            if(!name)
+                return null;
+
+            pipeline.name = name;
+
+            return this.getConfigForRepository(repository.repositoryName)
+            .then(config => {
+                if(!config)
+                    return null;
+
+                return this.internalCreatePipeline(config, pipeline);
+            });
+        });
+    }
+
+    private getNewPipelineName(repository : Repository) : Promise<string> {
+        return new Promise<string>((resolve, reject) => {
+            this.dialogManager.openNewPipelineNameDialog(repository.repositoryName).afterClosed().subscribe(name => {
+                resolve(name);
+            });
+        });
+    }
+
+    private internalCreatePipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<string> {
+        return this.pipelinesRepositoryFacadeService.createPipeline(repositoryConfig, pipeline)
+        .then(result => {
+            this.dialogManager.openSuccessDialog("Pipeline: " +  pipeline.name + " created successfully!", null);
+            return result;
+        })
+        .catch(this.createErrorHandler("Error creating Pipeline: " +  pipeline.name + "!"));
+    }
+
+
+    private updatePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(!config)
+                return false;
+
+            return this.pipelinesRepositoryFacadeService.updatePipeline(config, pipeline)
+            .then(result => {
+                if(!result)
+                    this.dialogManager.openWarningDialog("Pipeline could not be saved!", "Pipeline: " +  pipeline.name + " could not be saved! Please try again latter.");
+                else
+                    this.dialogManager.openSuccessDialog("Pipeline: " +  pipeline.name + " saved successfully!", null);
+
+                return result;
+            })
+            .catch(this.createErrorHandler("Error saving Pipeline: " +  pipeline.name + "!"));
+        });
+    }
+
+
+    private deletePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
+        return this.getConfigForRepository(repository.repositoryName)
+        .then(config => {
+            if(!config)
+                return false;
+
+            return this.askForPipelineDeleteAuthorization(pipeline)
+            .then(response => {
+                if(!response)
+                    return false;
+
+                return this.internalDeletePipeline(config, pipeline);
+            });
+        });
+    }
+
+    private askForPipelineDeleteAuthorization(pipeline : Pipeline) : Promise<boolean> {
+        let title = "Delete Pipeline";
+        let message = "Are you sure you want to delete Pipeline: " + pipeline.name + " ?";
+        let options = ["Yes", "No"];
+
+        return new Promise<boolean>((resolve, reject) => {
+            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
+                resolve(response === "Yes");
+            });
+        });
+    }
+
+    private internalDeletePipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<boolean> {
+        return this.pipelinesRepositoryFacadeService.deletePipeline(repositoryConfig, pipeline.name)
+        .then(result => {
+            if(!result)
+                this.dialogManager.openErrorDialog("Pipeline could not be deleted!", "Pipeline: " +  pipeline.name + " could not be deleted! Please try again later.");
+            else
+                this.dialogManager.openSuccessDialog("Pipeline: " +  pipeline.name + " deleted successfully!", null);
+
+            return result;
+        })
+        .catch(this.createErrorHandler("Error deleting Pipeline: " +  pipeline.name + "!"));
     }
 
 }
