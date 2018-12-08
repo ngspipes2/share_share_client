@@ -19,4 +19,13 @@ export class SelectRepositoryEntityTypeDialogComponent {
 
     constructor(private dialogRef : MatDialogRef<SelectRepositoryEntityTypeDialogComponent>) { }
 
+
+
+    select(type : EntityType) {
+        this.dialogRef.close({
+            result: type,
+            error: null
+        });
+    }
+
 }

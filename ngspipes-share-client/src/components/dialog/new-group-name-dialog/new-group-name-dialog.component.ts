@@ -45,7 +45,10 @@ export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
         })
         .catch(error => {
             this.loading = false;
-            console.error("Could not load groups names!", error);
+            this.dialogRef.close({
+                result: null,
+                error: "Error getting Groups names! " + error
+            });
         });
     }
 
@@ -66,7 +69,10 @@ export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
     }
 
     okClicked() {
-        this.dialogRef.close(this.groupName);
+        this.dialogRef.close({
+            result: this.groupName,
+            error: null
+        });
     }
 
 }

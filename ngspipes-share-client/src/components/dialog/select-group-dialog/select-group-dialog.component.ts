@@ -58,7 +58,17 @@ export class SelectGroupDialogComponent implements OnInit {
         })
         .catch(error => {
             this.loading = false;
-            console.error(error);
+            this.dialogRef.close({
+                result: null,
+                error: "Error getting Groups names! " + error
+            });
+        });
+    }
+
+    select(groupName : string) {
+        this.dialogRef.close({
+            result: groupName,
+            error: null
         });
     }
 

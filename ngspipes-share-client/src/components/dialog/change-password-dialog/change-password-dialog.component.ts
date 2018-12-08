@@ -21,8 +21,11 @@ export class ChangePasswordDialogComponent {
 
     changePasswordClick() {
         this.dialogRef.close({
-            currentPassword : this.currentPassword,
-            newPassword : this.newPassword
+            result: {
+                currentPassword : this.currentPassword,
+                newPassword : this.newPassword
+            },
+            error: null
         });
     }
 

@@ -53,4 +53,11 @@ export class SimpleDialogComponent {
             return 'check_circle';
     }
 
+    responseClicked(response : string) {
+        this.dialogRef.close({
+            result: response,
+            error: null
+        });
+    }
+
 }

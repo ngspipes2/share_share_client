@@ -42,12 +42,18 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
         })
         .catch(error => {
             this.loading = false;
-            console.error(error);
+            this.dialogRef.close({
+                result: null,
+                error: "Error getting Repositories Configs! " + error
+            });
         });
     }
 
     okClick() {
-        this.dialogRef.close(this.selectedRepositoryName);
+        this.dialogRef.close({
+            result: this.selectedRepositoryName,
+            error: null
+        });
     }
 
 }

@@ -45,7 +45,10 @@ export class NewRepositoryNameDialogComponent implements OnInit {
         })
         .catch(error => {
             this.loading = false;
-            console.error("Could not load repositories names!", error);
+            this.dialogRef.close({
+                result: null,
+                error: "Could not load repositories names! " + error
+            });
         });
     }
 
@@ -69,7 +72,10 @@ export class NewRepositoryNameDialogComponent implements OnInit {
     }
 
     okClicked() {
-        this.dialogRef.close(this.repositoryName);
+        this.dialogRef.close({
+            result: this.repositoryName,
+            error: null
+        });
     }
 
 }

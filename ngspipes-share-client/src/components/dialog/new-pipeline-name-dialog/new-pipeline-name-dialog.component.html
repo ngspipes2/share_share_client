@@ -1,11 +1,12 @@
 <div class="container">
-    <p>Insert name for Pipeline</p>
+    <p>Pipeline name can only contain: Letters, Numbers, '-' or '_'</p>
     <div mat-dialog-content>
         <mat-form-field class="fill">
-            <input matInput placeholder="Name" type="text" [(ngModel)]="pipelineName">
+            <input matInput placeholder="PipelineName" type="text" [(ngModel)]="pipelineName" (input)="pipelineNameChanged()">
         </mat-form-field>
     </div>
-    <div mat-dialog-actions class="actions" align="center" *ngIf="pipelineName">
-        <button mat-button (click)="okClicked()">Ok</button>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="okClicked()" *ngIf="validName">Ok</button>
+        <button mat-button *ngIf="!validName" color="warn">{{invalidMessage}}</button>
     </div>
 </div>

@@ -7,6 +7,6 @@
         {{message}}
     </div>
     <div mat-dialog-actions class="actions">
-        <button mat-button *ngFor="let response of responses" [mat-dialog-close]="response" cdkFocusInitial>{{response}}</button>
+        <button mat-button *ngFor="let response of responses" (click)="responseClicked(response)" cdkFocusInitial>{{response}}</button>
     </div>
 </div>

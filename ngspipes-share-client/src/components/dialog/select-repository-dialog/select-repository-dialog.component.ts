@@ -58,7 +58,17 @@ export class SelectRepositoryDialogComponent implements OnInit, OnDestroy {
         })
         .catch(error => {
             this.loading = false;
-            console.error(error);
+            this.dialogRef.close({
+                result: null,
+                error: "Error getting Repositories names! " + error
+            });
+        });
+    }
+
+    select(repositoryName : string) {
+        this.dialogRef.close({
+            result: repositoryName,
+            error: null
         });
     }
 

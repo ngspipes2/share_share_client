@@ -58,7 +58,17 @@ export class SelectUserDialogComponent implements OnInit, OnDestroy {
         })
         .catch(error => {
             this.loading = false;
-            console.error(error);
+            this.dialogRef.close({
+                result: null,
+                error: "Error getting Users names! " + error
+            });
+        });
+    }
+
+    select(userName : string) {
+        this.dialogRef.close({
+            result: userName,
+            error: null
         });
     }
 

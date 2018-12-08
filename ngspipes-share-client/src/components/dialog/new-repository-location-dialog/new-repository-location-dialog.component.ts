@@ -17,7 +17,10 @@ export class NewRepositoryLocationDialogComponent {
 
 
     okClicked() {
-        this.dialogRef.close(this.location);
+        this.dialogRef.close({
+            result: this.location,
+            error: null
+        });
     }
 
 }
