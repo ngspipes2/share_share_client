@@ -86,11 +86,8 @@ export class OperationsManager {
     }
 
     private selectRepositoryName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openSelectRepositoryDialog().afterClosed().subscribe(repositoryName => {
-                resolve(repositoryName);
-            });
-        });
+        return this.dialogManager.openSelectRepositoryDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting Repository!"));
     }
 
     private createConfig(config : RepositoryConfig) : Promise<boolean> {
@@ -122,11 +119,9 @@ export class OperationsManager {
         let message = "Are you sure you want delete config for Repository: " + config.repositoryName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Config for Repository: " + config.repositoryName + "!"));
     }
 
     private internalDeleteRepositoryConfig(config : RepositoryConfig) : Promise<boolean> {
@@ -184,11 +179,8 @@ export class OperationsManager {
     }
 
     private getNewAccessTokenName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewAccessTokenNameDialog().afterClosed().subscribe(name => {
-                resolve(name);
-            });
-        });
+        return this.dialogManager.openNewAccessTokenNameDialogAsPromise()
+        .catch(this.createErrorHandler("Error getting name for new Access Token!"));
     }
 
     private createToken(token : AccessToken) : Promise<NewAccessTokenData> {
@@ -219,11 +211,9 @@ export class OperationsManager {
         let message = "Are you sure you want delete Access Token: " + token.name + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe((response) => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Access Token: " + token.name + "!"));
     }
 
     private internalDeleteAccessToken(token : AccessToken) : Promise<boolean> {
@@ -301,11 +291,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete account: " + user.userName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Account: " + user.userName + "!"));
     }
 
     private internalDeleteUser(user : User) : Promise<boolean> {
@@ -369,11 +357,8 @@ export class OperationsManager {
     }
 
     private getNewPasswordData() : Promise<string[]> {
-        return new Promise<string[]>((resolve, reject) => {
-            this.dialogManager.openChangePasswordDialog().afterClosed().subscribe((data) => {
-                resolve(data);
-            });
-        });
+        return this.dialogManager.openChangePasswordDialogAsPromise()
+        .catch(this.createErrorHandler("Error getting new Password data!"));
     }
 
     private internalChangeUserPassword(userName : string, currentPassword : string, newPassword : string) : Promise<boolean> {
@@ -427,11 +412,8 @@ export class OperationsManager {
     }
 
     private getNewGroupName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewGroupNameDialog().afterClosed().subscribe(name => {
-                resolve(name);
-            });
-        });
+        return this.dialogManager.openNewGroupNameDialogAsPromise()
+        .catch(this.createErrorHandler("Error getting new Group's name!"));
     }
 
     private internalCreateGroup(group : Group, redirect : boolean) : Promise<string> {
@@ -466,11 +448,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Group: " + group.groupName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Group: " + group.groupName + "!"));
     }
 
     private internalDeleteGroup(group : Group) : Promise<boolean> {
@@ -560,11 +540,8 @@ export class OperationsManager {
     }
 
     private selectUserName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openSelectUserDialog().afterClosed().subscribe(userName => {
-                resolve(userName);
-            });
-        });
+        return this.dialogManager.openSelectUserDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting User!"));
     }
 
     private internalCreateGroupMember(member : GroupMember) : Promise<number> {
@@ -592,11 +569,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Member: " + member.userName + "?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Group's Member: " + member.userName + "!"));
     }
 
     private internalDeleteGroupMember(member : GroupMember) : Promise<boolean> {
@@ -684,19 +659,13 @@ export class OperationsManager {
     }
 
     private getNewRepositoryName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewRepositoryNameDialog().afterClosed().subscribe(name => {
-                resolve(name);
-            });
-        });
+        return this.dialogManager.openNewRepositoryNameDialogAsPromise()
+        .catch(this.createErrorHandler("Error getting new User name!"));
     }
 
     private getRepositoryEntityType() : Promise<EntityType> {
-        return new Promise<EntityType>((resolve, reject) => {
-            this.dialogManager.openSelectRepositoryEntityTypeDialog().afterClosed().subscribe(type => {
-                resolve(type);
-            });
-        });
+        return this.dialogManager.openSelectRepositoryEntityTypeDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting Repository type!"));
     }
 
     private internalCreateRepository(repository : Repository, redirect : boolean) : Promise<string> {
@@ -753,11 +722,8 @@ export class OperationsManager {
     }
 
     private getNewRepositoryLocation() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewRepositoryLocationDialog().afterClosed().subscribe(location => {
-                resolve(location);
-            });
-        });
+        return this.dialogManager.openNewRepositoryLocationDialogAsPromise()
+        .catch(this.createErrorHandler("Error getting new Repository's location!"));
     }
 
 
@@ -776,11 +742,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Repository: " + repository.repositoryName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Repository: " + repository.repositoryName + "!"));
     }
 
     private internalDeleteRepository(repository : Repository) : Promise<boolean> {
@@ -895,11 +859,8 @@ export class OperationsManager {
     }
 
     private selectGroupName() : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openSelectGroupDialog().afterClosed().subscribe(groupName => {
-                resolve(groupName);
-            });
-        });
+        return this.dialogManager.openSelectGroupDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting Group!"));
     }
 
     private internalCreateRepositoryGroupMember(member : RepositoryGroupMember) : Promise<number> {
@@ -927,11 +888,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Member: " + member.groupName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Repository's Member: " + member.groupName + "!"));
     }
 
     private internalDeleteRepositoryGroupMember(member : RepositoryGroupMember) : Promise<boolean> {
@@ -1025,11 +984,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Member: " + member.userName + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Repository's Member: " + member.userName + "!"));
     }
 
     private internalDeleteRepositoryUserMember(member : RepositoryUserMember) : Promise<boolean> {
@@ -1111,11 +1068,8 @@ export class OperationsManager {
     }
 
     private getNewToolName(repository : Repository) : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewToolNameDialog(repository.repositoryName).afterClosed().subscribe(name => {
-                resolve(name);
-            });
-        });
+        return this.dialogManager.openNewToolNameDialogAsPromise(repository.repositoryName)
+        .catch(this.createErrorHandler("Error getting new Tool's name!"));
     }
 
     private internalCreateTool(repositoryConfig : RepositoryConfig, tool : Tool) : Promise<string> {
@@ -1169,11 +1123,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Tool: " + tool.name + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Tool: " + tool.name + "!"));
     }
 
     private internalDeleteTool(repositoryConfig : RepositoryConfig, tool : Tool) : Promise<boolean> {
@@ -1241,11 +1193,8 @@ export class OperationsManager {
     }
 
     private getNewPipelineName(repository : Repository) : Promise<string> {
-        return new Promise<string>((resolve, reject) => {
-            this.dialogManager.openNewPipelineNameDialog(repository.repositoryName).afterClosed().subscribe(name => {
-                resolve(name);
-            });
-        });
+        return this.dialogManager.openNewPipelineNameDialogAsPromise(repository.repositoryName)
+        .catch(this.createErrorHandler("Error getting new Pipeline's name!"));
     }
 
     private internalCreatePipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<string> {
@@ -1299,11 +1248,9 @@ export class OperationsManager {
         let message = "Are you sure you want to delete Pipeline: " + pipeline.name + " ?";
         let options = ["Yes", "No"];
 
-        return new Promise<boolean>((resolve, reject) => {
-            this.dialogManager.openWarningDialog(title, message, options).afterClosed().subscribe(response => {
-                resolve(response === "Yes");
-            });
-        });
+        return this.dialogManager.openWarningDialogAsPromise(title, message, options)
+        .then(result => result === "Yes")
+        .catch(this.createErrorHandler("Error getting permition to delete Pipeline: " + pipeline.name + "!"));
     }
 
     private internalDeletePipeline(repositoryConfig : RepositoryConfig, pipeline : Pipeline) : Promise<boolean> {
