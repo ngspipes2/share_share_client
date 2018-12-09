@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 
 import { SessionService } from './session.service';
-
-
 
 @Injectable()
 export class PreferencesService {

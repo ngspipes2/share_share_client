@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
@@ -12,7 +12,7 @@ import { Utils } from '../../../../utils/utils';
   templateUrl: './my-tools-repositories-list.component.html',
   styleUrls: ['./my-tools-repositories-list.component.scss']
 })
-export class MyToolsRepositoriesListComponent implements OnInit {
+export class MyToolsRepositoriesListComponent implements OnInit, OnDestroy {
 
     loginSubscription : any;
     repositorySubscription : any;

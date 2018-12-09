@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 import { RepositoryConfig, Config } from '../../../../../entities/repository-config';
-import { RepositoryConfigService } from '../../../../../services/repository-config.service';
-
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../../operations.manager';
 
@@ -20,8 +18,7 @@ export class ConfigInfoComponent {
 
 
 
-    constructor(private repositoryConfigService : RepositoryConfigService,
-                private operationsManager : OperationsManager,
+    constructor(private operationsManager : OperationsManager,
                 private dialogManager : DialogManager) { }
 
 

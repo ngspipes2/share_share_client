@@ -1,8 +1,6 @@
-import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { GroupMember } from '../../../../../entities/group-member';
-import { GroupMemberService } from '../../../../../services/group-member.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../../operations.manager';
 
 @Component({
@@ -24,9 +22,7 @@ export class ListItemComponent implements OnInit {
 
 
 
-    constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager,
-                private operationsManager : OperationsManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
@@ -44,5 +40,5 @@ export class ListItemComponent implements OnInit {
         event.stopPropagation();
         return this.operationsManager.saveGroupMember(this.member);
     }
-    
+
 }

@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { User, UserRole } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
 import { SessionService } from '../../../services/session.service';
-import { DialogManager } from '../../dialog/dialog.manager';
 import { OperationsManager } from '../../operations.manager';
 
 @Component({
@@ -23,7 +22,6 @@ export class LoginComponent implements OnInit {
 
     constructor(private userService : UserService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) { }
 
 

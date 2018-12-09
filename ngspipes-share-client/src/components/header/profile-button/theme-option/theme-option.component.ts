@@ -8,7 +8,7 @@ import { ThemeService } from '../../../../services/theme.service';
     templateUrl: './theme-option.component.html',
     styleUrls: ['./theme-option.component.scss']
 })
-export class ThemeOptionComponent implements OnInit{
+export class ThemeOptionComponent implements OnInit {
 
     currentTheme : string;
 

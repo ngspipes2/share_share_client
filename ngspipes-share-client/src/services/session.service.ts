@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-
 import { Subject } from 'rxjs';
 
 import { LoginService } from './login.service';
-
-
 
 @Injectable()
 export class SessionService {

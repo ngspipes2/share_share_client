@@ -1,9 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { GroupMember } from '../../../../entities/group-member';
-import { GroupMemberService } from '../../../../services/group-member.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../operations.manager';
 
 @Component({

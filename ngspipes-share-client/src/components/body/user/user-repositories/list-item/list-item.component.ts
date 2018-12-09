@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-list-item',

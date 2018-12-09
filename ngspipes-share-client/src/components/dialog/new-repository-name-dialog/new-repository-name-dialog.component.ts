@@ -8,7 +8,7 @@ import { RepositoryService } from '../../../services/repository.service';
   templateUrl: './new-repository-name-dialog.component.html',
   styleUrls: ['./new-repository-name-dialog.component.scss']
 })
-export class NewRepositoryNameDialogComponent implements OnInit {
+export class NewRepositoryNameDialogComponent implements OnInit, OnDestroy {
 
     validCharactersRegex : RegExp = new RegExp(/[a-zA-Z0-9\-_]+$/);
     repositorySubscription : any;

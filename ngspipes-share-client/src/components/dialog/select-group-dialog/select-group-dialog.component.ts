@@ -11,7 +11,7 @@ import { GroupService } from '../../../services/group.service';
     templateUrl: './select-group-dialog.component.html',
     styleUrls: ['./select-group-dialog.component.scss']
 })
-export class SelectGroupDialogComponent implements OnInit {
+export class SelectGroupDialogComponent implements OnInit, OnDestroy {
 
     groupNames : string[] = [];
 

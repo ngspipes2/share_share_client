@@ -2,8 +2,6 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
-import { SessionService } from '../../../../../services/session.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
 import { Utils } from '../../../../utils/utils';
@@ -30,8 +28,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private groupService : GroupService,
-                private dialogManager : DialogManager,
-                private sessionService : SessionService,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "GroupName"),

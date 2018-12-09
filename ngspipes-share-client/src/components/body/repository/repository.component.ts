@@ -12,7 +12,7 @@ import { OperationsManager } from '../../operations.manager';
   templateUrl: './repository.component.html',
   styleUrls: ['./repository.component.scss']
 })
-export class RepositoryComponent implements OnInit {
+export class RepositoryComponent implements OnInit, OnDestroy {
 
     loginSubscription : any;
     logoutSubscription : any;

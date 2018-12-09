@@ -3,8 +3,6 @@ import { Subject } from 'rxjs';
 
 import { PreferencesService } from './preferences.service';
 
-
-
 @Injectable()
 export class ThemeService {
 

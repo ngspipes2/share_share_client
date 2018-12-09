@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Group } from '../../../../entities/group';
 import { OperationsManager } from '../../../operations.manager';

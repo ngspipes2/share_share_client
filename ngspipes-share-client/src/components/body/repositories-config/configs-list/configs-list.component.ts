@@ -1,8 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 import { RepositoryConfig } from '../../../../entities/repository-config';
-import { RepositoryConfigService } from '../../../../services/repository-config.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../operations.manager';
 
 @Component({

@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { Headers, Http } from '@angular/http';
 
 import { ServersRoutes } from './servers-routes';
-
-
 
 @Injectable()
 export class LoginService {
@@ -16,7 +13,7 @@ export class LoginService {
     login(userName: string, password: string) : Promise<boolean> {
         let headers = new Headers();
         headers.append("Authorization", "Basic " + btoa(userName+":"+password));
-        
+
         return this.http.post(ServersRoutes.LOGIN_ROUTE, null, {headers: headers})
             .toPromise()
             .then(response => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter,Input, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter, Input, Output } from '@angular/core';
 
 import { RepositoryConfig } from '../../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';

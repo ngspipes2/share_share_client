@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, OnDestroy, ElementRef } from '@angular/core';
-import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-load-image',

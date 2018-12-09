@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { User } from '../../../../entities/user';
 import { SessionService } from '../../../../services/session.service';
@@ -20,8 +19,7 @@ export class UserProfileComponent {
 
 
     constructor(private operationsManager : OperationsManager,
-                private sessionService : SessionService,
-                private router : Router) { }
+                private sessionService : SessionService) { }
 
 
 

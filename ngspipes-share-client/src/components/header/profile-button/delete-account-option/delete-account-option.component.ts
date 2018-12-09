@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { User } from '../../../../entities/user';
 import { SessionService } from '../../../../services/session.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../operations.manager';
 
 @Component({
@@ -13,9 +11,7 @@ import { OperationsManager } from '../../../operations.manager';
 })
 export class DeleteAccountOptionComponent {
 
-    constructor(private router : Router,
-                private sessionService : SessionService,
-                private dialogManager : DialogManager,
+    constructor(private sessionService : SessionService,
                 private operationsManager : OperationsManager) { }
 
 

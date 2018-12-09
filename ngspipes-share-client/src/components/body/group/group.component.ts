@@ -12,7 +12,7 @@ import { OperationsManager } from '../../operations.manager';
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit {
+export class GroupComponent implements OnInit, OnDestroy {
 
     loginSubscription : any;
     logoutSubscription : any;
