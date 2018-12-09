@@ -123,12 +123,12 @@ export class DialogManager {
     }
 
 
-    public openSelectRepostiroyConfigDialog() : MatDialogRef<SelectRepositoryConfigDialogComponent, DialogResult<string>> {
+    public openSelectRepositoryConfigDialog() : MatDialogRef<SelectRepositoryConfigDialogComponent, DialogResult<string>> {
         return this.dialog.open(SelectRepositoryConfigDialogComponent);
     }
 
-    public openSelectRepostiroyConfigDialogAsPromise() : Promise<string> {
-        return this.toPromise(this.openSelectRepostiroyConfigDialog());
+    public openSelectRepositoryConfigDialogAsPromise() : Promise<string> {
+        return this.toPromise(this.openSelectRepositoryConfigDialog());
     }
 
 
