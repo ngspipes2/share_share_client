@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { RepositoryUserMember } from '../../../../../entities/repository-user-member';
-import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-user-member-item',
@@ -24,9 +22,7 @@ export class UserMemberItemComponent {
 
 
 
-    constructor(private userMemberService : RepositoryUserMemberService,
-                private dialogManager : DialogManager,
-                private operationsManager : OperationsManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 

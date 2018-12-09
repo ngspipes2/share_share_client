@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angu
 import { AccessToken } from '../../../../../entities/access-token';
 import { AccessTokenService } from '../../../../../services/access-token.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 import { SessionService } from '../../../../../services/session.service';
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
@@ -31,7 +30,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
     constructor(private accessTokenService : AccessTokenService,
                 private sessionService : SessionService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "TokenName"),
@@ -56,7 +54,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         let userName = this.sessionService.getCurrentCredentials()[0];
-        this.accessTokenService.getAccessTokensOfUser(userName)
+        this.operationsManager.getAccessTokensOfUser(userName)
         .then(tokens => {
             this.loading = false;
 
@@ -69,11 +67,7 @@ export class ListComponent implements OnInit, OnDestroy {
                 return 0;
             });
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting Access Tokens!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     createTokenClick() : Promise<any> {

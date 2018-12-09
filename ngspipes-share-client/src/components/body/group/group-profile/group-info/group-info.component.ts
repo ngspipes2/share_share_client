@@ -3,7 +3,6 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-group-info',
@@ -24,8 +23,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
 
-    constructor(private dialogManager : DialogManager,
-                private groupService : GroupService,
+    constructor(private groupService : GroupService,
                 private operationsManager : OperationsManager) { }
 
 
@@ -46,16 +44,12 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
     load() {
         this.loading = true;
 
-        this.groupService.getGroup(this.groupName)
+        this.operationsManager.getGroup(this.groupName)
         .then(group => {
             this.loading = false;
             this.group = group;
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting group!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     changeImage(file : any) : Promise<any> {

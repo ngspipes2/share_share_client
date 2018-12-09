@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
+
 import { OperationsManager } from '../../../../operations.manager';
 
 import { Filter, IconFilter, TextFilter } from '../../../../utils/filter-list/filter-list.component';
@@ -29,7 +29,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private groupMemberService : GroupMemberService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "MemberName"),
@@ -57,7 +56,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         this.members = undefined;
         this.loading = true;
 
-        this.groupMemberService.getMembersOfGroup(this.groupName)
+        this.operationsManager.getMembersOfGroup(this.groupName)
         .then(members => {
             this.loading = false;
             this.members = members;
@@ -70,11 +69,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
                 return 0;
             });
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting members of group " + this.groupName + "!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     acceptName(member : GroupMember, text : string) {

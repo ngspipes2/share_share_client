@@ -2,11 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
-import { RepositoryConfigService } from '../../../../../services/repository-config.service';
-import { ToolsRepositoryFacadeService } from '../../../../../services/tools-repository-facade.service';
-import { PipelinesRepositoryFacadeService } from '../../../../../services/pipelines-repository-facade.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-repository-info',
@@ -27,11 +23,7 @@ export class RepositoryInfoComponent {
 
 
 
-    constructor(private dialogManager : DialogManager,
-                private repositoryService : RepositoryService,
-                private repositoryConfigService : RepositoryConfigService,
-                private toolsRepositoryFacadeService : ToolsRepositoryFacadeService,
-                private pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService,
+    constructor(private repositoryService : RepositoryService,
                 private operationsManager : OperationsManager) { }
 
 
@@ -52,16 +44,12 @@ export class RepositoryInfoComponent {
     load() {
         this.loading = true;
 
-        this.repositoryService.getRepository(this.repositoryName)
+        this.operationsManager.getRepository(this.repositoryName)
         .then(repository => {
             this.loading = false;
             this.repository = repository;
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting repository!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     changeImage(file : any) : Promise<any> {

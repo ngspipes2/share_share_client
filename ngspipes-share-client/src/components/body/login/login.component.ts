@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
 
 import { User, UserRole } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
     constructor(private userService : UserService,
                 private sessionService : SessionService,
                 private dialogManager : DialogManager,
-                private router : Router,
                 private operationsManager : OperationsManager) { }
 
 
@@ -44,15 +42,15 @@ export class LoginComponent implements OnInit {
         this.loading = true;
 
         this.userService.getUser(this.userName)
-            .then((user) => {
-                this.loading = false;
-                this.user = user;
-            })
-            .catch((error) => {
-                this.loading = false;
-                console.log("Error getting user with userName:" + this.userName);
-                console.error(error);
-            });
+        .then((user) => {
+            this.loading = false;
+            this.user = user;
+        })
+        .catch((error) => {
+            this.loading = false;
+            console.log("Error getting user with userName:" + this.userName);
+            console.error(error);
+        });
     }
 
     loginClick() : Promise<any> {
@@ -69,20 +67,7 @@ export class LoginComponent implements OnInit {
     }
 
     login(userName : string, password : string) : Promise<any> {
-        return this.sessionService.login(userName, password)
-        .then((result) => {
-            if(!result)
-                this.dialogManager.openErrorDialog("Invalid credentials!", "");
-            else
-                this.router.navigate(['/users/' + userName]);
-
-            return result;
-        })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error while login!", "");
-            console.error(error);
-            throw error;
-        });
+        return this.operationsManager.login(userName, password);
     }
 
     userNameChanged() {

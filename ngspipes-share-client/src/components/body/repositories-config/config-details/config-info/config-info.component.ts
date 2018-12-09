@@ -4,6 +4,7 @@ import { RepositoryConfig, Config } from '../../../../../entities/repository-con
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';
 
 import { DialogManager } from '../../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../../operations.manager';
 
 @Component({
     selector: 'app-config-info',
@@ -19,8 +20,9 @@ export class ConfigInfoComponent {
 
 
 
-    constructor(private dialogManager : DialogManager,
-                private repositoryConfigService : RepositoryConfigService) { }
+    constructor(private repositoryConfigService : RepositoryConfigService,
+                private operationsManager : OperationsManager,
+                private dialogManager : DialogManager) { }
 
 
 
@@ -34,24 +36,24 @@ export class ConfigInfoComponent {
     }
 
     cloneConfigClick() {
-        this.dialogManager.openSelectRepostiroyConfigDialog().afterClosed().subscribe(result => {
+        this.dialogManager.openSelectRepositoryConfigDialogAsPromise()
+        .then(result => {
             if(result)
                 this.cloneConfig(result);
+        })
+        .catch(error => {
+            this.dialogManager.openErrorDialog("Error selecting Repository!", error);
         });
     }
 
     cloneConfig(repositoryName : string) {
         this.cloning = true;
 
-        this.repositoryConfigService.getConfig(repositoryName)
+        this.operationsManager.getRepositoryConfig(repositoryName)
         .then(config => {
             this.cloning = false;
             this.config.configs = config.configs;
         })
-        .catch(error => {
-            this.cloning = false;
-            this.dialogManager.openErrorDialog("Error cloning Repository Config!", error);
-            console.error(error);
-        });
+        .catch(error => this.cloning = false);
     }
 }

@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
-import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-group-member-item',
@@ -24,9 +22,7 @@ export class GroupMemberItemComponent {
 
 
 
-    constructor(private groupMemberService : RepositoryGroupMemberService,
-                private dialogManager : DialogManager,
-                private operationsManager : OperationsManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 

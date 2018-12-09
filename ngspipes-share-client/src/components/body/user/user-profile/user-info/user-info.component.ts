@@ -3,7 +3,6 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { User } from '../../../../../entities/user';
 import { UserService } from '../../../../../services/user.service';
 import { OperationsManager } from '../../../../operations.manager';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-user-info',
@@ -24,8 +23,7 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
 
-    constructor(private dialogManager : DialogManager,
-                private userService : UserService,
+    constructor(private userService : UserService,
                 private operationsManager : OperationsManager) { }
 
 
@@ -46,16 +44,12 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
     load() {
         this.loading = true;
 
-        this.userService.getUser(this.userName)
+        this.operationsManager.getUser(this.userName)
         .then(user => {
             this.loading = false;
             this.user = user;
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting user!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     changeImage(file : any) : Promise<any> {

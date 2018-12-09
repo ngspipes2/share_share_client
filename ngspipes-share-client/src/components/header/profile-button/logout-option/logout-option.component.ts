@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
-import { SessionService } from '../../../../services/session.service';
-import { DialogManager } from '../../../dialog/dialog.manager';
+import { OperationsManager } from '../../../operations.manager';
 
 @Component({
     selector: 'app-logout-option',
@@ -11,24 +9,12 @@ import { DialogManager } from '../../../dialog/dialog.manager';
 })
 export class LogoutOptionComponent {
 
-    constructor(private router : Router,
-                private sessionService : SessionService,
-                private dialogManager : DialogManager) { }
+    constructor(private operationsManager : OperationsManager) { }
 
 
 
     logoutClick() {
-        this.sessionService.logout()
-        .then((response) => {
-            if(response)
-                this.router.navigate(['/login']);
-            else
-                this.dialogManager.openWarningDialog("Could not logout!", null);
-        })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error while logout!", error);
-            console.error(error);
-        });
+        this.operationsManager.logout();
     }
 
 }

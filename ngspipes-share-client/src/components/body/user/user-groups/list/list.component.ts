@@ -58,7 +58,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         this.groups = undefined;
         this.loading = true;
 
-        this.groupService.getGroupsAccessibleByUser(this.userName)
+        this.operationsManager.getGroupsAccessibleByUser(this.userName)
         .then(groups => {
             this.loading = false;
             this.groups = groups;
@@ -71,11 +71,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
                 return 0;
             });
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting groups of user " + this.userName + "!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     acceptName(group : Group, text : string) {

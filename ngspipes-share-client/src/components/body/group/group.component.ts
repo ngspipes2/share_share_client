@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Group } from '../../../entities/group';
 import { SessionService } from '../../../services/session.service';
 import { GroupService } from '../../../services/group.service';
 
-import { DialogManager } from '../../dialog/dialog.manager';
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
     selector: 'app-group',
@@ -31,18 +31,17 @@ export class GroupComponent implements OnInit {
     constructor(private sessionService : SessionService,
                 private activatedRoute : ActivatedRoute,
                 private groupService : GroupService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+                private operationsManager : OperationsManager) { }
 
 
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.logoutSubscription = this.sessionService.logoutEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
@@ -75,29 +74,17 @@ export class GroupComponent implements OnInit {
         this.loading = true;
 
         this.loadGroup()
-        .then(() => {
-            this.loading = false;
-            this.checkEditable();
-        })
-        .catch(() => {
-            this.loading = false;
-        });
+        .then(() => this.loading = false)
+        .catch(() => this.loading = false);
+
+        this.checkEditable();
     }
 
     loadGroup() : Promise<Group> {
-        return this.groupService.getGroup(this.groupName)
+        return this.operationsManager.getGroup(this.groupName)
         .then(group => {
             this.group = group;
-
-            if(!group)
-                this.dialogManager.openWarningDialog("There is no Group " + this.groupName, null);
-
             return group;
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting Group!", error);
-            console.error(error);
-            throw error;
         });
     }
 

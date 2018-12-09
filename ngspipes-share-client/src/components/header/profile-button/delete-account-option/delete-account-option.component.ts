@@ -32,17 +32,7 @@ export class DeleteAccountOptionComponent {
     }
 
     logout() {
-        this.sessionService.logout()
-        .then((response) => {
-            if(response)
-                this.router.navigate(['/login']);
-            else
-                this.dialogManager.openWarningDialog("Could not logout!", null);
-        })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error while logout!", error);
-            console.error(error);
-        });
+        this.operationsManager.logout();
     }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, EventEmitter,Input, Output } from '@angul
 
 import { RepositoryConfig } from '../../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../../services/repository-config.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
+
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
 
@@ -28,7 +28,6 @@ export class ListComponent implements OnInit, OnDestroy {
 
 
     constructor(private repositoryConfigService : RepositoryConfigService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "RepositoryName")
@@ -50,7 +49,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.configs = undefined;
         this.loading = true;
 
-        this.repositoryConfigService.getAllConfigs()
+        this.operationsManager.getAllRepositoriesConfigs()
         .then(configs => {
             this.loading = false;
 
@@ -63,11 +62,7 @@ export class ListComponent implements OnInit, OnDestroy {
                 return 0;
             });
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting Repositories Config!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     createConfigClick() : Promise<any> {

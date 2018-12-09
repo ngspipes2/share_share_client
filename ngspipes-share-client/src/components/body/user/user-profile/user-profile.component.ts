@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { User } from '../../../../entities/user';
 import { SessionService } from '../../../../services/session.service';
 import { OperationsManager } from '../../../operations.manager';
-import { DialogManager } from '../../../dialog/dialog.manager';
 
 @Component({
     selector: 'app-user-profile',
@@ -22,8 +21,7 @@ export class UserProfileComponent {
 
     constructor(private operationsManager : OperationsManager,
                 private sessionService : SessionService,
-                private router : Router,
-                private dialogManager : DialogManager) { }
+                private router : Router) { }
 
 
 
@@ -42,17 +40,7 @@ export class UserProfileComponent {
     }
 
     logout() {
-        this.sessionService.logout()
-        .then((response) => {
-            if(response)
-                this.router.navigate(['/login']);
-            else
-                this.dialogManager.openWarningDialog("Could not logout!", null);
-        })
-        .catch((error) => {
-            this.dialogManager.openErrorDialog("Error while logout!", error);
-            console.error(error);
-        });
+        this.operationsManager.logout();
     }
 
 }

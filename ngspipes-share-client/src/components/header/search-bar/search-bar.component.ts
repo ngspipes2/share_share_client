@@ -7,7 +7,8 @@ import { map, startWith } from 'rxjs/operators';
 import { UserService } from '../../../services/user.service';
 import { GroupService } from '../../../services/group.service';
 import { RepositoryService } from '../../../services/repository.service';
-import { DialogManager } from '../../dialog/dialog.manager';
+
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
     selector: 'app-search-bar',
@@ -30,10 +31,10 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private dialogManager : DialogManager,
-                private userService : UserService,
+    constructor(private userService : UserService,
                 private repositoryService : RepositoryService,
                 private groupService : GroupService,
+                private operationsManager : OperationsManager,
                 private router : Router) { }
 
 
@@ -68,38 +69,26 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
 
     loadUserNames() {
-        this.userService.getUsersNames()
+        this.operationsManager.getUsersNames()
         .then(userNames => {
             this.userNames = userNames;
             this.buildEntities();
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting users names!", error);
-            console.error(error);
         });
     }
 
     loadGroupNames() {
-        this.groupService.getGroupsNames()
+        this.operationsManager.getGroupsNames()
         .then(groupNames => {
             this.groupNames = groupNames;
             this.buildEntities();
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting groups names!", error);
-            console.error(error);
         });
     }
 
     loadRepositoryNames() {
-        this.repositoryService.getRepositoriesNames()
+        this.operationsManager.getRepositoriesNames()
         .then(repositoryNames => {
             this.repositoryNames = repositoryNames;
             this.buildEntities();
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting repositories names!", error);
-            console.error(error);
         });
     }
 

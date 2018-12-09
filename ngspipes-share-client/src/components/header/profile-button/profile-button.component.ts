@@ -3,7 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
 import { SessionService } from '../../../services/session.service';
-import { DialogManager } from '../../dialog/dialog.manager';
+
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
     selector: 'app-profile-button',
@@ -23,7 +24,7 @@ export class ProfileButtonComponent implements OnInit, OnDestroy {
 
     constructor(private sessionService : SessionService,
                 private userService : UserService,
-                private dialogManager : DialogManager) { }
+                private operationsManager : OperationsManager) { }
 
 
 
@@ -42,16 +43,15 @@ export class ProfileButtonComponent implements OnInit, OnDestroy {
 
     loaduser() {
         this.loading = true;
-        this.userService.getUser(this.sessionService.getCurrentCredentials()[0])
-            .then(user => {
-                this.loading = false;
-                this.user = user;
-            })
-            .catch(error => {
-                this.loading = false;
-                this.dialogManager.openErrorDialog("Error getting user " + this.user.userName, error);
-                console.error(error);
-            });
+
+        let currentUserName = this.sessionService.getCurrentCredentials()[0];
+
+        this.operationsManager.getUser(this.sessionService.getCurrentCredentials()[0])
+        .then(user => {
+            this.loading = false;
+            this.user = user;
+        })
+        .catch(error => this.loading = false);
     }
 
 }

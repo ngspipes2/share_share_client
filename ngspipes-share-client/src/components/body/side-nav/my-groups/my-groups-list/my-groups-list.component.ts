@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
 import { SessionService } from '../../../../../services/session.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 import { OperationsManager } from '../../../../operations.manager';
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
@@ -28,7 +27,6 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
 
     constructor(private sessionService : SessionService,
                 private groupService : GroupService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "GroupName"),
@@ -56,7 +54,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
         this.groups = undefined;
         this.loading = true;
 
-        this.groupService.getGroupsAccessibleByUser(this.userName)
+        this.operationsManager.getGroupsAccessibleByUser(this.userName)
         .then(groups => {
             this.loading = false;
             this.groups = groups;
@@ -69,11 +67,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
                 return 0;
             });
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting groups of current user!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     acceptName(group : Group, text : string) {

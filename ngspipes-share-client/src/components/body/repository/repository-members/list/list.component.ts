@@ -4,7 +4,7 @@ import { RepositoryUserMember } from '../../../../../entities/repository-user-me
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
 import { RepositoryUserMemberService } from '../../../../../services/repository-user-member.service';
 import { RepositoryGroupMemberService } from '../../../../../services/repository-group-member.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
+
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
 
@@ -34,7 +34,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
     constructor(private userMemberService : RepositoryUserMemberService,
                 private groupMemberService : RepositoryGroupMemberService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "MemberName"),
@@ -72,33 +71,25 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     loadUserMembers() {
         this.loading = true;
 
-        this.userMemberService.getMembersOfRepository(this.repositoryName)
+        this.operationsManager.getUsersMembersOfRepository(this.repositoryName)
         .then(members => {
             this.loading = false;
             this.userMembers = members;
             this.buildMembers();
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting members of repository " + this.repositoryName + "!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     loadGroupMembers() {
         this.loading = true;
 
-        this.groupMemberService.getMembersOfRepository(this.repositoryName)
+        this.operationsManager.getGroupsMembersOfRepository(this.repositoryName)
         .then(members => {
             this.loading = false;
             this.groupMembers = members;
             this.buildMembers();
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting members of repository " + this.repositoryName + "!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     buildMembers() {

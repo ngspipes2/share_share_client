@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Repository, LocationType } from '../../../entities/repository';
 import { SessionService } from '../../../services/session.service';
 import { RepositoryService } from '../../../services/repository.service';
 
-import { DialogManager } from '../../dialog/dialog.manager';
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
   selector: 'app-repository',
@@ -31,18 +31,17 @@ export class RepositoryComponent implements OnInit {
     constructor(private sessionService : SessionService,
                 private activatedRoute : ActivatedRoute,
                 private repositoryService : RepositoryService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+                private operationsManager : OperationsManager) { }
 
 
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.logoutSubscription = this.sessionService.logoutEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
@@ -75,29 +74,17 @@ export class RepositoryComponent implements OnInit {
         this.loading = true;
 
         this.loadRepository()
-        .then(() => {
-            this.loading = false;
-            this.checkEditable();
-        })
-        .catch(() => {
-            this.loading = false;
-        });
+        .then(() => this.loading = false)
+        .catch(() => this.loading = false);
+
+        this.checkEditable();
     }
 
     loadRepository() : Promise<Repository> {
-        return this.repositoryService.getRepository(this.repositoryName)
+        return this.operationsManager.getRepository(this.repositoryName)
         .then(repository => {
             this.repository = repository;
-
-            if(!repository)
-                this.dialogManager.openWarningDialog("There is no Repository " + this.repositoryName, null);
-
             return repository;
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting Repository!", error);
-            console.error(error);
-            throw error;
         });
     }
 

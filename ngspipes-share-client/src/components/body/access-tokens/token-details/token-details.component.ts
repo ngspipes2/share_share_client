@@ -2,9 +2,7 @@ import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
 
 import { AccessToken } from '../../../../entities/access-token';
 import { AccessTokenService } from '../../../../services/access-token.service';
-import { SessionService } from '../../../../services/session.service';
 import { OperationsManager } from '../../../operations.manager';
-import { DialogManager } from '../../../dialog/dialog.manager';
 
 @Component({
   selector: 'app-token-details',
@@ -24,8 +22,6 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
 
     constructor(private accessTokensService : AccessTokenService,
-                private sessionService : SessionService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) { }
 
 
@@ -52,16 +48,12 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     load() {
         this.loading = true;
 
-        this.accessTokensService.getAccessToken(this.tokenId)
+        this.operationsManager.getAccessToken(this.tokenId)
         .then(token => {
             this.loading = false;
             this.token = token;
         })
-        .catch(error => {
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting Access Token!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     saveClick() : Promise<any> {

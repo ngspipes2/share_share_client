@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
 import { SessionService } from '../../../services/session.service';
 
-import { DialogManager } from '../../dialog/dialog.manager';
+import { OperationsManager } from '../../operations.manager';
 
 @Component({
     selector: 'app-user',
@@ -31,18 +31,17 @@ export class UserComponent implements OnInit, OnDestroy {
     constructor(private sessionService : SessionService,
                 private activatedRoute : ActivatedRoute,
                 private userService : UserService,
-                private dialogManager : DialogManager,
-                private router : Router) { }
+                private operationsManager : OperationsManager) { }
 
 
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.logoutSubscription = this.sessionService.logoutEvent.subscribe(() => {
-            this.load();
+            this.checkEditable();
         });
 
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
@@ -75,29 +74,17 @@ export class UserComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         this.loadUser()
-        .then(() => {
-            this.loading = false;
-            this.checkEditable();
-        })
-        .catch(() => {
-            this.loading = false;
-        });
+        .then(() => this.loading = false)
+        .catch(() => this.loading = false);
+
+        this.checkEditable();
     }
 
     loadUser() : Promise<User> {
-        return this.userService.getUser(this.userName)
+        return this.operationsManager.getUser(this.userName)
         .then(user => {
             this.user = user;
-
-            if(!user)
-                this.dialogManager.openWarningDialog("There is no User " + this.userName, null);
-
             return user;
-        })
-        .catch(error => {
-            this.dialogManager.openErrorDialog("Error getting User!", error);
-            console.error(error);
-            throw error;
         });
     }
 

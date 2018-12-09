@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
 import { SessionService } from '../../../../../services/session.service';
-import { DialogManager } from '../../../../dialog/dialog.manager';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
 
@@ -27,7 +26,6 @@ export class MyToolsRepositoriesListComponent implements OnInit {
 
     constructor(private sessionService : SessionService,
                 private repositoryService : RepositoryService,
-                private dialogManager : DialogManager,
                 private operationsManager : OperationsManager) {
         this.filters = [
             new TextFilter(this.acceptName.bind(this), "", "RepositoryName"),
@@ -55,7 +53,7 @@ export class MyToolsRepositoriesListComponent implements OnInit {
         this.repositories = undefined;
         this.loading = true;
 
-        this.repositoryService.getRepositoriesAccessibleByUser(this.userName)
+        this.operationsManager.getRepositoriesAccessibleByUser(this.userName)
         .then(repositories => {
             this.loading = false;
             this.repositories = repositories.filter(repository => repository.entityType === EntityType.TOOLS);
@@ -68,11 +66,7 @@ export class MyToolsRepositoriesListComponent implements OnInit {
                 return 0;
             });
         })
-        .catch(error=>{
-            this.loading = false;
-            this.dialogManager.openErrorDialog("Error getting repositories of current user!", error);
-            console.error(error);
-        });
+        .catch(error => this.loading = false);
     }
 
     acceptName(repository : Repository, text : string) {
