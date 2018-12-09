@@ -51,9 +51,17 @@ export class OperationsManager {
     ) { }
 
 
-    public getAllRepositoriesConfigs() : Promise<RepositoryConfig[]> {
-        return this.repositoryConfigService.getAllConfigs()
-        .catch(this.createErrorHandler("Error getting Repositories Configs!"));
+    private login(userName : string, password : string) : Promise<boolean> {
+        return this.sessionService.login(userName, password)
+        .then((result) => {
+            if(!result)
+                this.dialogManager.openErrorDialog("Invalid credentials!", null);
+            else
+                this.router.navigate(['/users/' + userName]);
+
+            return result;
+        })
+        .catch(this.createErrorHandler("Error while login!"));
     }
 
     private createErrorHandler(errorTitle : string, showError : boolean = true) :  (error : any) => Promise<any> {
@@ -63,6 +71,26 @@ export class OperationsManager {
             throw error;
         };
     }
+
+    public logout() : Promise<boolean> {
+        return this.sessionService.logout()
+        .then((response) => {
+            if(response)
+                this.router.navigate(['/login']);
+            else
+                this.dialogManager.openWarningDialog("Could not logout!", null);
+
+            return response;
+        })
+        .catch(this.createErrorHandler("Error while logout!"));
+    }
+
+
+    public getAllRepositoriesConfigs() : Promise<RepositoryConfig[]> {
+        return this.repositoryConfigService.getAllConfigs()
+        .catch(this.createErrorHandler("Error getting Repositories Configs!"));
+    }
+
 
 
     public getRepositoryConfig(repositoryName : string) : Promise<RepositoryConfig> {
@@ -363,6 +391,12 @@ export class OperationsManager {
 
     private internalChangeUserPassword(userName : string, currentPassword : string, newPassword : string) : Promise<boolean> {
         return this.userService.changeUserPassword(userName, currentPassword, newPassword)
+        .then(result => {
+            if(result)
+                this.dialogManager.openSuccessDialog("Password changed successfully!", null);
+            else
+                this.dialogManager.openSuccessDialog("Password could not be changed!", "Password could not be changed! Please try again later.");
+        })
         .catch(this.createErrorHandler("Error changing User's password!"));
     }
 
