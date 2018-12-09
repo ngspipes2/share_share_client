@@ -51,7 +51,7 @@ export class OperationsManager {
     ) { }
 
 
-    private login(userName : string, password : string) : Promise<boolean> {
+    public login(userName : string, password : string) : Promise<boolean> {
         return this.sessionService.login(userName, password)
         .then((result) => {
             if(!result)
@@ -92,9 +92,14 @@ export class OperationsManager {
     }
 
 
-
     public getRepositoryConfig(repositoryName : string) : Promise<RepositoryConfig> {
         return this.repositoryConfigService.getConfig(repositoryName)
+        .then(config => {
+            if(!config)
+                this.dialogManager.openErrorDialog("There is no Config for Repository: " + repositoryName + "!", null);
+
+            return config;
+        })
         .catch(this.createErrorHandler("Error getting Config for Repository: " + repositoryName + "!"));
     }
 
@@ -180,7 +185,7 @@ export class OperationsManager {
     }
 
 
-    public getAccessTokensOfUser(userName : string) : Promise<AccessToken> {
+    public getAccessTokensOfUser(userName : string) : Promise<AccessToken[]> {
         return this.accessTokenService.getAccessTokensOfUser(userName)
         .catch(this.createErrorHandler("Error getting Access Tokens of User: " + userName + "!"));
     }
@@ -188,6 +193,12 @@ export class OperationsManager {
 
     public getAccessToken(id : number) : Promise<AccessToken> {
         return this.accessTokenService.getAccessToken(id)
+        .then(token => {
+            if(!token)
+                this.dialogManager.openErrorDialog("There is no Access Token with id: " + id + "!", null);
+
+            return token;
+        })
         .catch(this.createErrorHandler("Error getting AccessToken: " + id + "!"));
     }
 
@@ -286,6 +297,12 @@ export class OperationsManager {
 
     public getUser(userName : string) : Promise<User> {
         return this.userService.getUser(userName)
+        .then(user => {
+            if(!user)
+                this.dialogManager.openErrorDialog("There is no User: " + userName + "!", null);
+
+            return user;
+        })
         .catch(this.createErrorHandler("Error getting User: " + userName + "!"));
     }
 
@@ -427,6 +444,12 @@ export class OperationsManager {
 
     public getGroup(groupName : string) : Promise<Group> {
         return this.groupService.getGroup(groupName)
+        .then(group => {
+            if(!group)
+                this.dialogManager.openErrorDialog("There is no Group: " + groupName + "!", null);
+
+            return group;
+        })
         .catch(this.createErrorHandler("Error getting Group: " + groupName + "!"));
     }
 
@@ -555,6 +578,12 @@ export class OperationsManager {
 
     public getGroupMember(id : number) : Promise<GroupMember> {
         return this.groupMemberService.getMember(id)
+        .then(member => {
+            if(!member)
+                this.dialogManager.openErrorDialog("There is no Group Member with id: " + id + "!", null);
+
+            return member;
+        })
         .catch(this.createErrorHandler("Error getting Group Member with id: " + id + "!"));
     }
 
@@ -662,6 +691,12 @@ export class OperationsManager {
 
     public getRepository(repositoryName : string) : Promise<Repository> {
         return this.repositoryService.getRepository(repositoryName)
+        .then(repository => {
+            if(!repository)
+                this.dialogManager.openErrorDialog("There is no Repository: " + repositoryName + "!", null);
+
+            return repository;
+        })
         .catch(this.createErrorHandler("Error getting Repository: " + repositoryName + "!"));
     }
 
@@ -812,10 +847,8 @@ export class OperationsManager {
     public getConfigForRepository(repositoryName : string) : Promise<RepositoryConfig> {
         return this.repositoryConfigService.getConfig(repositoryName)
         .then(config => {
-            if(!config) {
+            if(!config)
                 this.dialogManager.openWarningDialog("No config found!", "You have no config to access Repository: " + repositoryName + "!");
-                return null;
-            }
 
             return config;
         })
@@ -874,6 +907,12 @@ export class OperationsManager {
 
     public getRepositoryGroupMember(id : number) : Promise<RepositoryGroupMember> {
         return this.repositoryGroupMemberService.getMember(id)
+        .then(member => {
+            if(!member)
+                this.dialogManager.openErrorDialog("There is no Repository Member with id: " + id + "!", null);
+
+            return member;
+        })
         .catch(this.createErrorHandler("Error getting Repository Group Member with id: " + id + "!"));
     }
 
@@ -975,6 +1014,12 @@ export class OperationsManager {
 
     public getRepositoryUserMember(id : number) : Promise<RepositoryUserMember> {
         return this.repositoryUserMemberService.getMember(id)
+        .then(member => {
+            if(!member)
+                this.dialogManager.openErrorDialog("There is no Repository Member with id: " + id + "!", null);
+
+            return member;
+        })
         .catch(this.createErrorHandler("Error getting Repository User Member with id: " + id + "!"));
     }
 
@@ -1076,6 +1121,12 @@ export class OperationsManager {
         .then(config => {
             if(config)
                return this.toolsRepositoryFacadeService.getTool(config, toolName)
+               .then(tool => {
+                   if(!tool)
+                       this.dialogManager.openErrorDialog("There is no Tool: " + toolName + "!", null);
+
+                   return tool;
+               })
                .catch(this.createErrorHandler("Error getting Tool: " + toolName + " of Repository: " + repository.repositoryName + "!"));
         });
     }
@@ -1201,6 +1252,12 @@ export class OperationsManager {
         .then(config => {
             if(config)
                return this.pipelinesRepositoryFacadeService.getPipeline(config, pipelineName)
+               .then(pipeline => {
+                   if(!pipeline)
+                       this.dialogManager.openErrorDialog("There is no Pipeline: " + pipelineName + "!", null);
+
+                   return pipeline;
+               })
                .catch(this.createErrorHandler("Error getting Pipeline: " + pipelineName + " of Repository: " + repository.repositoryName + "!"));
         });
     }
