@@ -5,6 +5,7 @@ import { RepositoryService } from '../../../../../services/repository.service';
 import { SessionService } from '../../../../../services/session.service';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
+import { Utils } from '../../../../utils/utils';
 
 @Component({
   selector: 'app-my-pipelines-repositories-list',
@@ -57,14 +58,7 @@ export class MyPipelinesRepositoriesListComponent implements OnInit, OnDestroy {
         .then(repositories => {
             this.loading = false;
             this.repositories = repositories.filter(repository => repository.entityType === EntityType.PIPELINES);
-            this.repositories = this.repositories.sort((a,b) => {
-                if (a.repositoryName < b.repositoryName)
-                    return -1;
-                if (a.repositoryName > b.repositoryName)
-                    return 1;
-
-                return 0;
-            });
+            this.repositories = Utils.sort(this.repositories, repository => repository.repositoryName);
         })
         .catch(error => this.loading = false);
     }

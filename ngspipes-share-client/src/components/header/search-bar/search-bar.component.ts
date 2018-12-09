@@ -9,6 +9,7 @@ import { GroupService } from '../../../services/group.service';
 import { RepositoryService } from '../../../services/repository.service';
 
 import { OperationsManager } from '../../operations.manager';
+import { Utils } from '../../utils/utils';
 
 @Component({
     selector: 'app-search-bar',
@@ -99,14 +100,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.groupNames.forEach(name => this.entities.push({type: "GROUP", name : name}));
         this.repositoryNames.forEach(name => this.entities.push({type: "REPOSITORY", name : name}));
 
-        this.entities = this.entities.sort((a,b) => {
-            if (a.name < b.name)
-                return -1;
-            if (a.name > b.name)
-                return 1;
-
-            return 0;
-        });
+        this.entities = Utils.sort(this.entities, entity => entity.name);
     }
 
     optionSelected(entity : any) {

@@ -7,6 +7,8 @@ import { SessionService } from '../../../../../services/session.service';
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
+import { Utils } from '../../../../utils/utils';
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -57,15 +59,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.operationsManager.getAccessTokensOfUser(userName)
         .then(tokens => {
             this.loading = false;
-
-            this.tokens = tokens.sort((a, b) => {
-                if (a.name < b.name)
-                    return -1;
-                if (a.name > b.name)
-                    return 1;
-
-                return 0;
-            });
+            this.tokens = Utils.sort(tokens, token => token.name);
         })
         .catch(error => this.loading = false);
     }

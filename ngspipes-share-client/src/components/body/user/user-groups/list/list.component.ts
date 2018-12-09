@@ -6,6 +6,7 @@ import { SessionService } from '../../../../../services/session.service';
 import { DialogManager } from '../../../../dialog/dialog.manager';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
+import { Utils } from '../../../../utils/utils';
 
 @Component({
     selector: 'app-list',
@@ -61,15 +62,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         this.operationsManager.getGroupsAccessibleByUser(this.userName)
         .then(groups => {
             this.loading = false;
-            this.groups = groups;
-            this.groups = this.groups.sort((a,b) => {
-                if (a.groupName < b.groupName)
-                    return -1;
-                if (a.groupName > b.groupName)
-                    return 1;
-
-                return 0;
-            });
+            this.groups = Utils.sort(groups, group => group.groupName);
         })
         .catch(error => this.loading = false);
     }

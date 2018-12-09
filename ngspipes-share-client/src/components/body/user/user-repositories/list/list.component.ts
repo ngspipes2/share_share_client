@@ -6,6 +6,7 @@ import { RepositoryService } from '../../../../../services/repository.service';
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 
 import { OperationsManager } from '../../../../operations.manager';
+import { Utils } from '../../../../utils/utils';
 
 @Component({
     selector: 'app-list',
@@ -61,15 +62,7 @@ export class ListComponent implements OnInit {
         this.operationsManager.getRepositoriesAccessibleByUser(this.userName)
         .then(repositories => {
             this.loading = false;
-            this.repositories = repositories;
-            this.repositories = this.repositories.sort((a,b) => {
-                if (a.repositoryName < b.repositoryName)
-                    return -1;
-                if (a.repositoryName > b.repositoryName)
-                    return 1;
-
-                return 0;
-            });
+            this.repositories = Utils.sort(repositories, repository => repository.repositoryName);
         })
         .catch(error => this.loading = false);
     }

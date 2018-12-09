@@ -6,6 +6,7 @@ import { SessionService } from '../../../../../services/session.service';
 import { OperationsManager } from '../../../../operations.manager';
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
+import { Utils } from '../../../../utils/utils';
 
 @Component({
     selector: 'app-my-groups-list',
@@ -57,15 +58,7 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
         this.operationsManager.getGroupsAccessibleByUser(this.userName)
         .then(groups => {
             this.loading = false;
-            this.groups = groups;
-            this.groups = this.groups.sort((a,b) => {
-                if (a.groupName < b.groupName)
-                    return -1;
-                if (a.groupName > b.groupName)
-                    return 1;
-
-                return 0;
-            });
+            this.groups = Utils.sort(groups, group => group.groupName);
         })
         .catch(error => this.loading = false);
     }

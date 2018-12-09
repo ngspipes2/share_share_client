@@ -7,6 +7,7 @@ import { RepositoryGroupMemberService } from '../../../../../services/repository
 
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
+import { Utils } from '../../../../utils/utils';
 
 @Component({
     selector: 'app-list',
@@ -98,17 +99,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         this.userMembers.forEach(member => this.members.push(member));
         this.groupMembers.forEach(member => this.members.push(member))
 
-        this.members = this.members.sort((a, b) => {
-            let aName = a.userName ? a.userName : a.groupName;
-            let bName = b.userName ? b.userName : b.groupName;
-
-            if (aName < bName)
-                return -1;
-            if (aName > bName)
-                return 1;
-
-            return 0;
-        });
+        this.members = Utils.sort(this.members, member => member.userName ? member.userName : member.groupName);
     }
 
     acceptName(member : any, text : string) {

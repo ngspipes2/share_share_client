@@ -4,8 +4,9 @@ import { GroupMember } from '../../../../../entities/group-member';
 import { GroupMemberService } from '../../../../../services/group-member.service';
 
 import { OperationsManager } from '../../../../operations.manager';
-
 import { Filter, IconFilter, TextFilter } from '../../../../utils/filter-list/filter-list.component';
+
+import { Utils } from '../../../../utils/utils';
 
 @Component({
     selector: 'app-list',
@@ -59,15 +60,7 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
         this.operationsManager.getMembersOfGroup(this.groupName)
         .then(members => {
             this.loading = false;
-            this.members = members;
-            this.members = this.members.sort((a,b) => {
-                if (a.groupName < b.groupName)
-                    return -1;
-                if (a.groupName > b.groupName)
-                    return 1;
-
-                return 0;
-            });
+            this.members = Utils.sort(members, member => member.groupName);
         })
         .catch(error => this.loading = false);
     }

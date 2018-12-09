@@ -6,6 +6,8 @@ import { RepositoryConfigService } from '../../../../../services/repository-conf
 import { Filter, TextFilter, IconFilter } from '../../../../utils/filter-list/filter-list.component';
 import { OperationsManager } from '../../../../operations.manager';
 
+import { Utils } from '../../../../utils/utils';
+
 @Component({
     selector: 'app-list',
     templateUrl: './list.component.html',
@@ -52,15 +54,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.operationsManager.getAllRepositoriesConfigs()
         .then(configs => {
             this.loading = false;
-
-            this.configs = configs.sort((a,b) => {
-                if (a.repositoryName < b.repositoryName)
-                    return -1;
-                if (a.repositoryName > b.repositoryName)
-                    return 1;
-
-                return 0;
-            });
+            this.configs = Utils.sort(configs, config => config.repositoryName);
         })
         .catch(error => this.loading = false);
     }
