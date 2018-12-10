@@ -18,7 +18,7 @@ export class OperationIconButtonComponent {
     @Input()
     accentColor : string;
     @Input()
-    spinnerDiameter : number = 100;
+    spinnerDiameter : number = 25;
     @Input()
     spinnerColor : string = "accent";
 
