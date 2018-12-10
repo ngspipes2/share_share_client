@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../app/material.module';
 
 import { PropertyModule } from './property/property.module';
-import { OperationElementModule } from './operation-element/operation-element.module';
+import { WaitElementModule } from './wait-element/wait-element.module';
 
 import { FrameComponent } from './frame/frame.component';
 import { NonExistentEntityComponent } from './non-existent-entity/non-existent-entity.component';
@@ -21,7 +21,7 @@ import { ListOptionComponent } from './list-option/list-option.component';
         FormsModule,
         MaterialModule,
         PropertyModule,
-        OperationElementModule
+        WaitElementModule
     ],
     declarations: [
         FrameComponent,
@@ -31,7 +31,7 @@ import { ListOptionComponent } from './list-option/list-option.component';
     ],
     exports: [
         PropertyModule,
-        OperationElementModule,
+        WaitElementModule,
         FrameComponent,
         NonExistentEntityComponent,
         FilterListComponent,

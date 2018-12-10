@@ -1,4 +1,7 @@
-<app-operation-element spinnerDiameter="25" [working]="working">
+<app-wait-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [waitting]="working">
     <mat-icon *ngIf="icon"
         #button
         [color]="color"
@@ -17,4 +20,4 @@
         (mouseup)="button.color=color"
         (click)="clicked($event)">
     </mat-icon>
-</app-operation-element>
+</app-wait-element>

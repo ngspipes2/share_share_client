@@ -1,4 +1,7 @@
-<app-operation-element spinnerDiameter="25" [working]="working">
+<app-wait-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [waitting]="working">
     <button mat-button *ngIf="!raised"
         #button
         [color]="color"
@@ -17,4 +20,4 @@
         (click)="clicked($event)">
         {{label}}
     </button>
-</app-operation-element>
+</app-wait-element>

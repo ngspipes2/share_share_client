@@ -1,5 +1,8 @@
 <input type="file" (change)="clicked($event.target.files[0], event)" #selectFile hidden="true">
-<app-operation-element spinnerDiameter="25" [working]="working">
+<app-wait-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [waitting]="working">
     <button mat-button *ngIf="!raised"
         #button
         [color]="color"
@@ -18,4 +21,4 @@
         (click)="selectFile.click()">
         {{label}}
     </button>
-</app-operation-element>
+</app-wait-element>

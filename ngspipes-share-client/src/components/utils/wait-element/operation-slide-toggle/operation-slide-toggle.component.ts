@@ -15,6 +15,10 @@ export class OperationSlideToggleComponent {
     disabled : boolean;
     @Input()
     value : boolean;
+    @Input()
+    spinnerDiameter : number = 100;
+    @Input()
+    spinnerColor : string = "accent";
 
     @Output()
     valueChange : EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -30,7 +34,7 @@ export class OperationSlideToggleComponent {
     clicked(event : any) {
         if(this.disabled)
             return;
-       
+
         this.value = !this.value;
         this.valueChange.emit(this.value);
 

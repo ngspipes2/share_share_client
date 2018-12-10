@@ -1,22 +1,26 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-operation-text-button',
-  templateUrl: './operation-text-button.component.html',
-  styleUrls: ['./operation-text-button.component.scss']
+  selector: 'app-operation-icon-button',
+  templateUrl: './operation-icon-button.component.html',
+  styleUrls: ['./operation-icon-button.component.scss']
 })
-export class OperationTextButtonComponent {
+export class OperationIconButtonComponent {
 
     @Input()
     action : (event : any) => Promise<any>;
     @Input()
-    label : string;
+    icon : string;
+    @Input()
+    svgIcon : string;
     @Input()
     color : string;
     @Input()
     accentColor : string;
     @Input()
-    raised : boolean;
+    spinnerDiameter : number = 100;
+    @Input()
+    spinnerColor : string = "accent";
 
     working : boolean;
 

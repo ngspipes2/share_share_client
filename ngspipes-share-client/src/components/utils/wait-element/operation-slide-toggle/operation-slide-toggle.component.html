@@ -1,8 +1,11 @@
-<app-operation-element spinnerDiameter="25" [working]="working">
+<app-wait-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [waitting]="working">
     <mat-slide-toggle
         [disabled]="disabled"
         [checked]="value"
         [color]="color"
         (click)="clicked($event)">
     </mat-slide-toggle>
-</app-operation-element>
+</app-wait-element>

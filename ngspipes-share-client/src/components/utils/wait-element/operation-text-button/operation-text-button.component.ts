@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'app-operation-select-file-text-button',
-    templateUrl: './operation-select-file-text-button.component.html',
-    styleUrls: ['./operation-select-file-text-button.component.scss']
+  selector: 'app-operation-text-button',
+  templateUrl: './operation-text-button.component.html',
+  styleUrls: ['./operation-text-button.component.scss']
 })
-export class OperationSelectFileTextButtonComponent {
+export class OperationTextButtonComponent {
 
     @Input()
-    action : (file : any, event : any) => Promise<any>;
+    action : (event : any) => Promise<any>;
     @Input()
     label : string;
     @Input()
@@ -17,6 +17,10 @@ export class OperationSelectFileTextButtonComponent {
     accentColor : string;
     @Input()
     raised : boolean;
+    @Input()
+    spinnerDiameter : number = 25;
+    @Input()
+    spinnerColor : string = "accent";
 
     working : boolean;
 
@@ -26,10 +30,10 @@ export class OperationSelectFileTextButtonComponent {
 
 
 
-    clicked(file : any, event : any) {
+    clicked(event : any) {
         this.working = true;
 
-        this.action(file, event)
+        this.action(event)
         .then(() => this.working = false)
         .catch(() => this.working = false);
     }

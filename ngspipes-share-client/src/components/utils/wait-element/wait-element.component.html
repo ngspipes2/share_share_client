@@ -1,7 +1,7 @@
 <div id="root">
-    <mat-spinner *ngIf="working"
+    <mat-spinner *ngIf="waitting"
         [diameter]="spinnerDiameter"
         [color]="spinnerColor">
     </mat-spinner>
-    <ng-content *ngIf="!working"></ng-content>
+    <ng-content *ngIf="!waitting"></ng-content>
 </div>
