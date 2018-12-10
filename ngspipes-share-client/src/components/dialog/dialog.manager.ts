@@ -33,7 +33,9 @@ export class DialogManager {
     public toPromise<T>(dialog : MatDialogRef<any, DialogResult<T>>) : Promise<T> {
         return new Promise<T>((resolve, reject) => {
              dialog.afterClosed().subscribe(result => {
-                 if(result.error)
+                 if(!result)
+                    resolve(undefined);
+                 else if(result.error)
                      reject(result.error);
                  else
                      resolve(result.result);
