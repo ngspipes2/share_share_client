@@ -54,10 +54,13 @@ export class OperationsManager {
     public login(userName : string, password : string) : Promise<boolean> {
         return this.sessionService.login(userName, password)
         .then((result) => {
-            if(!result)
+            if(!result) {
                 this.dialogManager.openErrorDialog("Invalid credentials!", null);
-            else
-                this.router.navigate(['/users/' + userName]);
+            } else {
+                let route = this.sessionService.redirectUrl ? this.sessionService.redirectUrl : ('/users/' + userName);
+                this.sessionService.redirectUrl = "";
+                this.router.navigate([route]);
+            }
 
             return result;
         })
