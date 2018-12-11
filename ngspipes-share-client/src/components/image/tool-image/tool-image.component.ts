@@ -25,6 +25,8 @@ export class ToolImageComponent implements OnInit, OnDestroy {
     spinnerDiameter : number = 100;
     @Input()
     spinnerColor : string = "accent";
+    @Input()
+    circular : boolean = true;
 
     configSubscription : any;
     toolSubscription : any;

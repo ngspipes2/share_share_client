@@ -35,10 +35,6 @@ app-user-image, mat-icon {
     width: 175px;
 }
 
-app-user-image ::ng-deep img {
-    border-radius: 50%;
-}
-
 .button-container {
     display: flex;
     align-items: center;

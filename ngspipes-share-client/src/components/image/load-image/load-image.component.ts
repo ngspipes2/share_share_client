@@ -18,6 +18,8 @@ export class LoadImageComponent implements OnInit, OnDestroy {
     icon : string;
     @Input()
     svgIcon : string;
+    @Input()
+    circular : boolean;
 
     imageData : any;
     inited : boolean = false;

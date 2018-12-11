@@ -20,6 +20,8 @@ export class UserImageComponent implements OnInit, OnDestroy {
     spinnerDiameter : number = 100;
     @Input()
     spinnerColor : string = "accent";
+    @Input()
+    circular : boolean = true;
 
     userSubscription : any;
 

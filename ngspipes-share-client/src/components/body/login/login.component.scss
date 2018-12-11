@@ -31,10 +31,6 @@ app-user-image, .image > mat-icon {
     width: 100px;
 }
 
-app-user-image ::ng-deep img {
-    border-radius: 50%;
-}
-
 mat-card-actions {
     display: contents;
 }

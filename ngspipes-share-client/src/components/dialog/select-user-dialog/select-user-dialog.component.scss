@@ -26,10 +26,6 @@ app-user-image {
     width: 25px;
 }
 
-app-user-image ::ng-deep img {
-    border-radius: 50%;
-}
-
 app-user-image ::ng-deep .mat-icon {
     margin: 0px;
 }

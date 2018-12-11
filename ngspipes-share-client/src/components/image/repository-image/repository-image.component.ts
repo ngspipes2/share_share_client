@@ -25,6 +25,8 @@ export class RepositoryImageComponent implements OnInit, OnDestroy {
     spinnerDiameter : number = 100;
     @Input()
     spinnerColor : string = "accent";
+    @Input()
+    circular : boolean = true;
 
     repositorySubscription : any;
     configSubscription : any;

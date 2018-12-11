@@ -9,3 +9,7 @@ app-event-load-element ::ng-deep #content, app-event-load-element ::ng-deep mat-
 app-event-load-element ::ng-deep mat-icon {
     font-size: inherit;
 }
+
+.circular {
+    border-radius: 50%;
+}
