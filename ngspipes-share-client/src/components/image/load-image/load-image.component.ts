@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-load-image',
@@ -19,8 +20,8 @@ export class LoadImageComponent implements OnInit, OnDestroy {
     svgIcon : string;
 
     imageData : any;
-    loading : boolean;
     inited : boolean = false;
+    loadEvent : Subject<any> = new Subject<any>();
 
     observer: IntersectionObserver;
 
@@ -44,29 +45,25 @@ export class LoadImageComponent implements OnInit, OnDestroy {
         entries.forEach((entry: IntersectionObserverEntry) => {
             if (entry.isIntersecting && !this.inited) {
                 this.inited = true;
-                this.load();
+                this.loadEvent.next();
             }
         });
     }
 
-    load() {
-        this.loading = true;
-
-        this.imageSupplier()
+    load() : Promise<any> {
+        return this.imageSupplier()
         .then(image => {
-            this.loading = false;
             this.imageData = image;
         })
         .catch(error => {
             console.error(error);
-            this.loading = false;
             this.imageData = undefined;
         });
     }
 
     public update() {
         if(this.inited)
-            this.load();
+            this.loadEvent.next();
     }
 
 }

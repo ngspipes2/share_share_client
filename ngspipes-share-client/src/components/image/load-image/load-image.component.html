@@ -1,6 +1,11 @@
-<div class="content">
-    <mat-spinner *ngIf="loading" [diameter]="spinnerDiameter" [color]="spinnerColor"></mat-spinner>
-    <img *ngIf="!loading && imageData" [src]="'data:image/jpeg;base64,' + imageData">
-    <mat-icon *ngIf="!loading && !imageData && icon">{{icon}}</mat-icon>
-    <mat-icon *ngIf="!loading && !imageData && svgIcon" [svgIcon]="svgIcon"></mat-icon>
-</div>
+<app-event-load-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [loader]="load.bind(this)"
+    [event]="loadEvent">
+    <div id="root">
+        <img *ngIf="!loading && imageData" [src]="'data:image/jpeg;base64,' + imageData">
+        <mat-icon *ngIf="!loading && !imageData && icon">{{icon}}</mat-icon>
+        <mat-icon *ngIf="!loading && !imageData && svgIcon" [svgIcon]="svgIcon"></mat-icon>
+    </div>
+</app-event-load-element>

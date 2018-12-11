@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../app/material.module';
 
+import {  UtilsModule } from '../utils/utils.module';
+
 import { LoadImageComponent } from './load-image/load-image.component';
 import { UserImageComponent } from './user-image/user-image.component';
 import { GroupImageComponent } from './group-image/group-image.component';
@@ -23,7 +25,8 @@ import { PipelineImageComponent } from './pipeline-image/pipeline-image.componen
   imports: [
       BrowserModule,
       BrowserAnimationsModule,
-      MaterialModule
+      MaterialModule,
+      UtilsModule
   ],
   exports: [
       LoadImageComponent,
