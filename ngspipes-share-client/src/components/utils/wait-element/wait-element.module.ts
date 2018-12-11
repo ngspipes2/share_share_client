@@ -11,6 +11,7 @@ import { OperationIconButtonComponent } from './operation-icon-button/operation-
 import { OperationSelectFileTextButtonComponent } from './operation-select-file-text-button/operation-select-file-text-button.component';
 import { OperationSlideToggleComponent } from './operation-slide-toggle/operation-slide-toggle.component';
 import { OperationTextButtonComponent } from './operation-text-button/operation-text-button.component';
+import { EventLoadElementComponent } from './event-load-element/event-load-element.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { OperationTextButtonComponent } from './operation-text-button/operation-
         OperationIconButtonComponent,
         OperationSelectFileTextButtonComponent,
         OperationSlideToggleComponent,
-        OperationTextButtonComponent
+        OperationTextButtonComponent,
+        EventLoadElementComponent
     ],
     exports: [
         WaitElementComponent,
@@ -34,7 +36,8 @@ import { OperationTextButtonComponent } from './operation-text-button/operation-
         OperationIconButtonComponent,
         OperationSelectFileTextButtonComponent,
         OperationSlideToggleComponent,
-        OperationTextButtonComponent
+        OperationTextButtonComponent,
+        EventLoadElementComponent
     ]
 })
 export class WaitElementModule { }
