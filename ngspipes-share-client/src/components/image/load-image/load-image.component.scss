@@ -1,6 +1,9 @@
-app-event-load-element ::ng-deep mat-icon, app-event-load-element ::ng-deep img {
+app-event-load-element ::ng-deep #content, app-event-load-element ::ng-deep mat-icon, app-event-load-element ::ng-deep img {
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 app-event-load-element ::ng-deep mat-icon {
