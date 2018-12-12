@@ -74,10 +74,12 @@ export class GroupComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         this.loadGroup()
-        .then(() => this.loading = false)
+        .then(() => {
+            this.loading = false;
+            this.checkEditable();
+        })
         .catch(() => this.loading = false);
 
-        this.checkEditable();
     }
 
     loadGroup() : Promise<Group> {

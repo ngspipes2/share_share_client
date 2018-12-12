@@ -74,10 +74,12 @@ export class RepositoryComponent implements OnInit, OnDestroy {
         this.loading = true;
 
         this.loadRepository()
-        .then(() => this.loading = false)
+        .then(() =>{
+            this.loading = false;
+            this.checkEditable();
+        })
         .catch(() => this.loading = false);
 
-        this.checkEditable();
     }
 
     loadRepository() : Promise<Repository> {
