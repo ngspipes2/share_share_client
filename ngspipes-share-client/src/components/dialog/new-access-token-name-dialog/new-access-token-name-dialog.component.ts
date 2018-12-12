@@ -18,6 +18,6 @@ export class NewAccessTokenNameDialogComponent {
 
 
     okClicked() {
-        this.dialogRef.close({result: null, error: null});
+        this.dialogRef.close({result: this.name, error: null});
     }
 }
