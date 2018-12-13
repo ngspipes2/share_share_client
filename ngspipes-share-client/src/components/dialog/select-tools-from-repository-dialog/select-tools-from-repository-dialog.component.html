@@ -1,0 +1,21 @@
+<div class="container">
+    <p>Select Tools:</p>
+    <mat-dialog-content>
+        <app-filter-list [filters]="[]" [elements]="tools">
+            <ng-template let-element>
+                <app-list-option [name]="element.name">
+                    <app-tool-image
+                        list-option-image
+                        [repositoryName]="repositoryName"
+                        [toolName]="element.name"
+                        [spinnerDiameter]="15">
+                    </app-tool-image>
+                    <mat-checkbox list-option-icons [(ngModel)]="element.selected"></mat-checkbox>
+                </app-list-option>
+            </ng-template>
+        </app-filter-list>
+    </mat-dialog-content>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="selectClicked()">Select</button>
+    </div>
+</div>

@@ -18,6 +18,9 @@ import { SelectGroupDialogComponent } from './select-group-dialog/select-group-d
 import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
 import { NewToolNameDialogComponent, NewToolNameDialogData } from './new-tool-name-dialog/new-tool-name-dialog.component';
 import { NewPipelineNameDialogComponent, NewPipelineNameDialogData } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
+import { SelectToolsFromRepositoryDialogComponent, SelectToolsFromRepositoryDialogData } from './select-tools-from-repository-dialog/select-tools-from-repository-dialog.component';
+import { SelectPipelinesFromRepositoryDialogComponent, SelectPipelinesFromRepositoryDialogData } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
+
 
 export class DialogResult<T> {
     public constructor(public result : T, public error : any) { }
@@ -225,6 +228,28 @@ export class DialogManager {
 
     public openNewPipelineNameDialogAsPromise(repositoryName : string) : Promise<string> {
         return this.toPromise(this.openNewPipelineNameDialog(repositoryName));
+    }
+
+
+    public openSelectToolsFromRepositoryDialog(repositoryName : string) : MatDialogRef<SelectToolsFromRepositoryDialogComponent, DialogResult<string[]>> {
+        return this.dialog.open(SelectToolsFromRepositoryDialogComponent, {
+            data: { repositoryName : repositoryName }
+        });
+    }
+
+    public openSelectToolsFromRepositoryDialogAsPromise(repositoryName : string) : Promise<string[]> {
+        return this.toPromise(this.openSelectToolsFromRepositoryDialog(repositoryName));
+    }
+
+
+    public openSelectPipelinesFromRepositoryDialog(repositoryName : string) : MatDialogRef<SelectPipelinesFromRepositoryDialogComponent, DialogResult<string[]>> {
+        return this.dialog.open(SelectPipelinesFromRepositoryDialogComponent, {
+            data: { repositoryName : repositoryName }
+        });
+    }
+
+    public openSelectPipelinesFromRepositoryDialogAsPromise(repositoryName : string) : Promise<string[]> {
+        return this.toPromise(this.openSelectPipelinesFromRepositoryDialog(repositoryName));
     }
 
 }

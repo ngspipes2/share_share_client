@@ -24,6 +24,8 @@ import { SelectGroupDialogComponent } from './select-group-dialog/select-group-d
 import { SelectRepositoryDialogComponent } from './select-repository-dialog/select-repository-dialog.component';
 import { NewToolNameDialogComponent } from './new-tool-name-dialog/new-tool-name-dialog.component';
 import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
+import { SelectToolsFromRepositoryDialogComponent } from './select-tools-from-repository-dialog/select-tools-from-repository-dialog.component';
+import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-p
       SelectGroupDialogComponent,
       SelectRepositoryDialogComponent,
       NewToolNameDialogComponent,
-      NewPipelineNameDialogComponent
+      NewPipelineNameDialogComponent,
+      SelectToolsFromRepositoryDialogComponent,
+      SelectPipelinesFromRepositoryDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -66,7 +70,9 @@ import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-p
       SelectGroupDialogComponent,
       SelectRepositoryDialogComponent,
       NewToolNameDialogComponent,
-      NewPipelineNameDialogComponent
+      NewPipelineNameDialogComponent,
+      SelectToolsFromRepositoryDialogComponent,
+      SelectPipelinesFromRepositoryDialogComponent
   ],
   providers: [
       DialogManager
@@ -85,7 +91,9 @@ import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-p
       SelectGroupDialogComponent,
       SelectRepositoryDialogComponent,
       NewToolNameDialogComponent,
-      NewPipelineNameDialogComponent
+      NewPipelineNameDialogComponent,
+      SelectToolsFromRepositoryDialogComponent,
+      SelectPipelinesFromRepositoryDialogComponent
   ]
 })
 export class DialogModule { }

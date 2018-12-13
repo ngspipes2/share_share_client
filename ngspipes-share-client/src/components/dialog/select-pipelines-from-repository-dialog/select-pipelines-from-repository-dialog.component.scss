@@ -1,0 +1,14 @@
+.container {
+    padding: 10px;
+    min-width: 25vw;
+    max-width: 50vw;
+}
+
+app-filter-list ::ng-deep #list {
+    min-height: 15vh;
+    max-height: 30vh;
+}
+
+mat-checkbox ::ng-deep label {
+    margin: 0px;
+}

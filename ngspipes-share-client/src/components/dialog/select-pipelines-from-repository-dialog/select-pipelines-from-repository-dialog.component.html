@@ -1,0 +1,21 @@
+<div class="container">
+    <p>Select Pipelines:</p>
+    <mat-dialog-content>
+        <app-filter-list [filters]="[]" [elements]="pipelines">
+            <ng-template let-element>
+                <app-list-option [name]="element.name">
+                    <app-pipeline-image
+                        list-option-image
+                        [repositoryName]="repositoryName"
+                        [pipelineName]="element.name"
+                        [spinnerDiameter]="15">
+                    </app-pipeline-image>
+                    <mat-checkbox list-option-icons [(ngModel)]="element.selected"></mat-checkbox>
+                </app-list-option>
+            </ng-template>
+        </app-filter-list>
+    </mat-dialog-content>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="selectClicked()">Select</button>
+    </div>
+</div>
