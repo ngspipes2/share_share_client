@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { RepositoryUserMember } from '../../../../../entities/repository-user-member';
 import { OperationsManager } from '../../../../operations.manager';
@@ -8,7 +8,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './user-member-item.component.html',
     styleUrls: ['./user-member-item.component.scss']
 })
-export class UserMemberItemComponent {
+export class UserMemberItemComponent implements OnInit, OnChanges {
 
     @Input()
     repositoryName : string;
@@ -27,6 +27,14 @@ export class UserMemberItemComponent {
 
 
     ngOnInit() {
+        this.load();
+    }
+
+    ngOnChanges() {
+        this.load();
+    }
+
+    load() {
         this.isRead = !this.member.writeAccess;
         this.isWrite = this.member.writeAccess;
     }

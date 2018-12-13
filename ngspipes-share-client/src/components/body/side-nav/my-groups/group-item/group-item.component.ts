@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
 
 import { Group } from '../../../../../entities/group';
 import { SessionService } from '../../../../../services/session.service';
@@ -9,7 +9,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './group-item.component.html',
     styleUrls: ['./group-item.component.scss']
 })
-export class GroupItemComponent implements OnInit, OnDestroy {
+export class GroupItemComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input()
     group : Group;
@@ -28,6 +28,10 @@ export class GroupItemComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => this.load());
+        this.load();
+    }
+
+    ngOnChanges() {
         this.load();
     }
 

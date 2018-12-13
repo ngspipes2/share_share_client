@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { GroupMember } from '../../../../../entities/group-member';
 import { OperationsManager } from '../../../../operations.manager';
@@ -8,7 +8,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './list-item.component.html',
     styleUrls: ['./list-item.component.scss']
 })
-export class ListItemComponent implements OnInit {
+export class ListItemComponent implements OnInit, OnChanges {
 
     @Input()
     groupName : string;
@@ -27,6 +27,14 @@ export class ListItemComponent implements OnInit {
 
 
     ngOnInit() {
+        this.load();
+    }
+
+    ngOnChanges() {
+        this.load();
+    }
+
+    load() {
         this.isRead = !this.member.writeAccess;
         this.isWrite = this.member.writeAccess;
     }

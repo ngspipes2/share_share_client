@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { RepositoryGroupMember } from '../../../../../entities/repository-group-member';
 import { OperationsManager } from '../../../../operations.manager';
@@ -8,7 +8,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './group-member-item.component.html',
     styleUrls: ['./group-member-item.component.scss']
 })
-export class GroupMemberItemComponent {
+export class GroupMemberItemComponent implements OnInit, OnChanges {
 
     @Input()
     repositoryName : string;
@@ -27,6 +27,14 @@ export class GroupMemberItemComponent {
 
 
     ngOnInit() {
+        this.load();
+    }
+
+    ngOnChanges() {
+        this.load();
+    }
+
+    load() {
         this.isRead = !this.member.writeAccess;
         this.isWrite = this.member.writeAccess;
     }

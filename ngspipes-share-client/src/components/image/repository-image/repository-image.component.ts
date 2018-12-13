@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 
 import { Repository, EntityType, LocationType  } from '../../../entities/repository';
 import { RepositoryService } from '../../../services/repository.service';
@@ -14,7 +14,7 @@ import { LoadImageComponent } from '../load-image/load-image.component';
   templateUrl: './repository-image.component.html',
   styleUrls: ['./repository-image.component.scss']
 })
-export class RepositoryImageComponent implements OnInit, OnDestroy {
+export class RepositoryImageComponent implements OnInit, OnChanges, OnDestroy {
 
     @ViewChild("loadImage")
     loadImage : LoadImageComponent;
@@ -57,6 +57,10 @@ export class RepositoryImageComponent implements OnInit, OnDestroy {
             else if(this.repositoryConfig.repositoryName === configRepositoryName)
                 this.loadImage.update();
         });
+    }
+
+    ngOnChanges() {
+        this.loadImage.update();
     }
 
     ngOnDestroy() {

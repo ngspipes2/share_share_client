@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 
 import { UserService } from '../../../services/user.service';
 
@@ -9,7 +9,7 @@ import { LoadImageComponent } from '../load-image/load-image.component';
     templateUrl: './user-image.component.html',
     styleUrls: ['./user-image.component.scss']
 })
-export class UserImageComponent implements OnInit, OnDestroy {
+export class UserImageComponent implements OnInit, OnChanges, OnDestroy {
 
     @ViewChild("loadImage")
     loadImage : LoadImageComponent;
@@ -36,6 +36,10 @@ export class UserImageComponent implements OnInit, OnDestroy {
             if(userName === this.userName)
                 this.loadImage.update();
         });
+    }
+
+    ngOnChanges() {
+        this.loadImage.update();
     }
 
     ngOnDestroy(): void {

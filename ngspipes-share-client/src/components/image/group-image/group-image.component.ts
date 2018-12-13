@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 
 import { GroupService } from '../../../services/group.service';
 
@@ -9,7 +9,7 @@ import { LoadImageComponent } from '../load-image/load-image.component';
     templateUrl: './group-image.component.html',
     styleUrls: ['./group-image.component.scss']
 })
-export class GroupImageComponent implements OnInit, OnDestroy {
+export class GroupImageComponent implements OnInit, OnChanges, OnDestroy {
 
     @ViewChild("loadImage")
     loadImage : LoadImageComponent;
@@ -36,6 +36,10 @@ export class GroupImageComponent implements OnInit, OnDestroy {
             if(groupName === this.groupName)
                 this.loadImage.update();
         });
+    }
+
+    ngOnChanges() {
+        this.loadImage.update();
     }
 
     ngOnDestroy() {

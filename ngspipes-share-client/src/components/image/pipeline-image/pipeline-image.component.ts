@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges,OnDestroy, ViewChild } from '@angular/core';
 
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
@@ -12,7 +12,7 @@ import { LoadImageComponent } from '../load-image/load-image.component';
     templateUrl: './pipeline-image.component.html',
     styleUrls: ['./pipeline-image.component.scss']
 })
-export class PipelineImageComponent implements OnInit, OnDestroy {
+export class PipelineImageComponent implements OnInit, OnChanges, OnDestroy {
 
     @ViewChild("loadImage")
     loadImage : LoadImageComponent;
@@ -53,6 +53,10 @@ export class PipelineImageComponent implements OnInit, OnDestroy {
             if(id[0] === this.repositoryName && id[1] === this.pipelineName)
                 this.loadImage.update();
         });
+    }
+
+    ngOnChanges() {
+        this.loadImage.update();
     }
 
     ngOnDestroy() {

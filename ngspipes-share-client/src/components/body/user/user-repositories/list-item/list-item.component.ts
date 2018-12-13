@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { OperationsManager } from '../../../../operations.manager';
@@ -8,7 +8,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './list-item.component.html',
     styleUrls: ['./list-item.component.scss']
 })
-export class ListItemComponent implements OnInit {
+export class ListItemComponent implements OnInit, OnChanges {
 
     @Input()
     userName : string;
@@ -29,6 +29,14 @@ export class ListItemComponent implements OnInit {
 
 
     ngOnInit() {
+        this.load();
+    }
+
+    ngOnChanges() {
+        this.load();
+    }
+
+    load() {
         this.isOwner = this.repository.ownerName === this.userName;
         this.isMember = this.repository.ownerName !== this.userName;
         this.isToolsRepository = this.repository.entityType === EntityType.TOOLS;

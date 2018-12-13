@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
 
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
@@ -12,7 +12,7 @@ import { LoadImageComponent } from '../load-image/load-image.component';
     templateUrl: './tool-image.component.html',
     styleUrls: ['./tool-image.component.scss']
 })
-export class ToolImageComponent implements OnInit, OnDestroy {
+export class ToolImageComponent implements OnInit, OnChanges, OnDestroy {
 
     @ViewChild("loadImage")
     loadImage : LoadImageComponent;
@@ -53,6 +53,10 @@ export class ToolImageComponent implements OnInit, OnDestroy {
             if(id[0] === this.repositoryName && id[1] === this.toolName)
                 this.loadImage.update();
         });
+    }
+
+    ngOnChanges() {
+        this.loadImage.update();
     }
 
     ngOnDestroy() {

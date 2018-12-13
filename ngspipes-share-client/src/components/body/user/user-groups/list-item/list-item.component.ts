@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 
 import { Group } from '../../../../../entities/group';
 import { OperationsManager } from '../../../../operations.manager';
@@ -8,7 +8,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './list-item.component.html',
     styleUrls: ['./list-item.component.scss']
 })
-export class ListItemComponent {
+export class ListItemComponent implements OnInit, OnChanges {
 
     @Input()
     userName : string;
@@ -27,6 +27,14 @@ export class ListItemComponent {
 
 
     ngOnInit() {
+        this.load();
+    }
+
+    ngOnChanges() {
+        this.load();
+    }
+
+    load() {
         this.isOwner = this.group.ownerName === this.userName;
         this.isMember = this.group.ownerName !== this.userName;
     }

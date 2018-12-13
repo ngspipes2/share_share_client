@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy } from '@angular/core';
 
 import { Repository } from '../../../../../entities/repository';
 import { SessionService } from '../../../../../services/session.service';
@@ -9,7 +9,7 @@ import { OperationsManager } from '../../../../operations.manager';
     templateUrl: './tools-repository-item.component.html',
     styleUrls: ['./tools-repository-item.component.scss']
 })
-export class ToolsRepositoryItemComponent {
+export class ToolsRepositoryItemComponent implements OnInit, OnChanges, OnDestroy {
 
     @Input()
     repository : Repository;
@@ -28,6 +28,10 @@ export class ToolsRepositoryItemComponent {
 
     ngOnInit() {
         this.loginSubscription = this.sessionService.loginEvent.subscribe(() => this.load());
+        this.load();
+    }
+
+    ngOnChanges() {
         this.load();
     }
 
