@@ -182,6 +182,9 @@ export class UserService {
     }
 
     fireDeleteEvent(userName: string) {
+        if(userName === this.sessionService.getCurrentCredentials()[0])
+            return;
+
         this.userDeleteEvent.next(userName);
     }
 
