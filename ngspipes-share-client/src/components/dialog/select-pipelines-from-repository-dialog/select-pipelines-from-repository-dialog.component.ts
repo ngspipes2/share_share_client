@@ -5,8 +5,6 @@ import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 import { PipelinesRepositoryFacadeService } from '../../../services/pipelines-repository-facade.service';
 
-import { SimpleDialogComponent, SimpleDialogData, Type } from '../simple-dialog/simple-dialog.component';
-
 export interface SelectPipelinesFromRepositoryDialogData {
     repositoryName: string;
 }

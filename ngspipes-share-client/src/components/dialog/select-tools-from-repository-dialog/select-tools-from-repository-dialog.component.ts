@@ -5,8 +5,6 @@ import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 import { ToolsRepositoryFacadeService } from '../../../services/tools-repository-facade.service';
 
-import { SimpleDialogComponent, SimpleDialogData, Type } from '../simple-dialog/simple-dialog.component';
-
 export interface SelectToolsFromRepositoryDialogData {
     repositoryName: string;
 }
