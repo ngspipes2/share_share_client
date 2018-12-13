@@ -29,7 +29,7 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.configSubscription = this.repositoryConfigService.configEvent.subscribe(() => {
+        this.configSubscription = this.repositoryConfigService.configUpdateEvent.subscribe(() => {
             if(this.configRepositoryName)
                 this.loadEvent.next();
         });

@@ -29,7 +29,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.loadEvent.next());
+        this.groupSubscription = this.groupService.groupUpdateEvent.subscribe(() => this.loadEvent.next());
         setTimeout(() => this.loadEvent.next());
     }
 

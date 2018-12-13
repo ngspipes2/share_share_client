@@ -30,7 +30,7 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.userSubscription = this.userService.userEvent.subscribe(() => this.loadEvent.next());
+        this.userSubscription = this.userService.userUpdateEvent.subscribe(() => this.loadEvent.next());
         setTimeout(() => this.loadEvent.next());
     }
 

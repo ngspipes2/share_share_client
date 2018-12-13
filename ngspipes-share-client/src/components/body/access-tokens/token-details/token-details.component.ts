@@ -28,7 +28,7 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.tokenSubscription = this.accessTokensService.tokenEvent.subscribe(() => {
+        this.tokenSubscription = this.accessTokensService.tokenUpdateEvent.subscribe(() => {
             if(this.tokenId)
                 this.loadEvent.next();
         });

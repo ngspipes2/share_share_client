@@ -29,7 +29,7 @@ export class RepositoryInfoComponent {
 
 
     ngOnInit() {
-        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadEvent.next());
+        this.repositorySubscription = this.repositoryService.repositoryUpdateEvent.subscribe(() => this.loadEvent.next());
         setTimeout(() => this.loadEvent.next());
     }
 
