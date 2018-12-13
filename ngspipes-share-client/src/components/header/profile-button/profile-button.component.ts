@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
@@ -13,12 +14,11 @@ import { OperationsManager } from '../../operations.manager';
 })
 export class ProfileButtonComponent implements OnInit, OnDestroy {
 
-    loading : boolean;
-
     userUpdateSubscription : any;
 
     currentTheme : string;
     user : User;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -31,27 +31,21 @@ export class ProfileButtonComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.userUpdateSubscription = this.userService.userUpdateEvent.subscribe((userName) => {
             if(userName === this.sessionService.getCurrentCredentials()[0])
-                this.loaduser();
+                this.loadEvent.next();
         });
 
-        this.loaduser();
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
         this.userUpdateSubscription.unsubscribe();
     }
 
-    loaduser() {
-        this.loading = true;
-
+    load() : Promise<any> {
         let currentUserName = this.sessionService.getCurrentCredentials()[0];
 
-        this.operationsManager.getUser(this.sessionService.getCurrentCredentials()[0])
-        .then(user => {
-            this.loading = false;
-            this.user = user;
-        })
-        .catch(error => this.loading = false);
+        return this.operationsManager.getUser(currentUserName)
+        .then(user => this.user = user);
     }
 
 }

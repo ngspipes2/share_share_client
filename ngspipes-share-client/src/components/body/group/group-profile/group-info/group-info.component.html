@@ -1,52 +1,56 @@
-<div id="root">
-    <div id="info-container">
-        <app-string-property
-            *ngIf="group"
-            class="property"
-            [name]="'GroupName'"
-            [value]="group.groupName">
-        </app-string-property>
-        <app-date-property
-            *ngIf="group"
-            class="property"
-            [name]="'Creation date'"
-            [value]="group.creationDate">
-        </app-date-property>
-        <app-link-property
-            *ngIf="group"
-            class="property"
-            [name]="'Owner'"
-            [value]="group.ownerName"
-            [link]="'/users/' + group.ownerName">
-        </app-link-property>
-        <app-string-property
-            *ngIf="group"
-            class="property"
-            [name]="'Description'"
-            [(value)]="group.description"
-            [multipleLines]="true"
-            [editable]="editable">
-        </app-string-property>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-text-button
-                label="Save"
-                [action]="saveClick.bind(this)">
-            </app-operation-text-button>
+<app-event-load-element
+    [spinnerDiameter]="50"
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <div id="root" *ngIf="group">
+        <div id="info-container">
+            <app-string-property
+                *ngIf="group"
+                class="property"
+                [name]="'GroupName'"
+                [value]="group.groupName">
+            </app-string-property>
+            <app-date-property
+                *ngIf="group"
+                class="property"
+                [name]="'Creation date'"
+                [value]="group.creationDate">
+            </app-date-property>
+            <app-link-property
+                *ngIf="group"
+                class="property"
+                [name]="'Owner'"
+                [value]="group.ownerName"
+                [link]="'/users/' + group.ownerName">
+            </app-link-property>
+            <app-string-property
+                *ngIf="group"
+                class="property"
+                [name]="'Description'"
+                [(value)]="group.description"
+                [multipleLines]="true"
+                [editable]="editable">
+            </app-string-property>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-text-button
+                    label="Save"
+                    [action]="saveClick.bind(this)">
+                </app-operation-text-button>
+            </div>
+        </div>
+
+        <mat-divider vertical="true"></mat-divider>
+
+        <div id="image-container">
+            <div id="image">
+                <app-group-image [groupName]="group.groupName" spinnerDiameter="75"></app-group-image>
+            </div>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-select-file-text-button
+                    label="Change"
+                    [action]="changeImage.bind(this)">
+                </app-operation-select-file-text-button>
+            </div>
         </div>
     </div>
-
-    <mat-divider vertical="true"></mat-divider>
-
-    <div id="image-container">
-        <div id="image">
-            <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
-            <app-group-image *ngIf="!loading" [groupName]="group.groupName" spinnerDiameter="75"></app-group-image>
-        </div>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-select-file-text-button
-                label="Change"
-                [action]="changeImage.bind(this)">
-            </app-operation-select-file-text-button>
-        </div>
-    </div>
-</div>
+</app-event-load-element>

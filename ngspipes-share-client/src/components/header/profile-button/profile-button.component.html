@@ -1,16 +1,20 @@
-<div id="root">
-    <mat-spinner color="accent" [diameter]="25" *ngIf="loading"></mat-spinner>
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="!loading && user" id="optionsButton">
-        <app-user-image [userName]="user.userName" [spinnerDiameter]="25"></app-user-image>
-        {{user.userName}}
-    </button>
-    <mat-menu #menu="matMenu">
-        <app-profile-option></app-profile-option>
-        <app-my-tokens-option></app-my-tokens-option>
-        <app-repositories-config-option></app-repositories-config-option>
-        <app-change-password-option></app-change-password-option>
-        <app-delete-account-option></app-delete-account-option>
-        <app-theme-option></app-theme-option>
-        <app-logout-option></app-logout-option>
-    </mat-menu>
-</div>
+<app-event-load-element
+    [spinnerDiameter]="25"
+    [loader]="load.bind(this)"
+    [event]="loadEvent">
+    <div id="root">
+        <button mat-button [matMenuTriggerFor]="menu" *ngIf="user" id="optionsButton">
+            <app-user-image [userName]="user.userName" [spinnerDiameter]="25"></app-user-image>
+            {{user.userName}}
+        </button>
+        <mat-menu #menu="matMenu">
+            <app-profile-option></app-profile-option>
+            <app-my-tokens-option></app-my-tokens-option>
+            <app-repositories-config-option></app-repositories-config-option>
+            <app-change-password-option></app-change-password-option>
+            <app-delete-account-option></app-delete-account-option>
+            <app-theme-option></app-theme-option>
+            <app-logout-option></app-logout-option>
+        </mat-menu>
+    </div>
+</app-event-load-element>

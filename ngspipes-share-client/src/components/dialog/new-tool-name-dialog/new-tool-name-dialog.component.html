@@ -1,9 +1,14 @@
 <div class="container">
     <p>Tool name can only contain: Letters, Numbers, '-' or '_'</p>
     <div mat-dialog-content>
-        <mat-form-field class="fill">
-            <input matInput placeholder="ToolName" type="text" [(ngModel)]="toolName" (input)="toolNameChanged()">
-        </mat-form-field>
+        <app-event-load-element
+            [spinnerDiameter]="50"
+            [event]="loadEvent"
+            [loader]="load.bind(this)">
+            <mat-form-field class="fill">
+                <input matInput placeholder="ToolName" type="text" [(ngModel)]="toolName" (input)="toolNameChanged()">
+            </mat-form-field>
+        </app-event-load-element>
     </div>
     <div mat-dialog-actions class="actions" align="center">
         <button mat-button (click)="okClicked()" *ngIf="validName">Ok</button>

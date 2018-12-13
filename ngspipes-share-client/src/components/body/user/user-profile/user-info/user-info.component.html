@@ -1,57 +1,61 @@
-<div id="root">
-    <div id="info-container">
-        <app-string-property
-            *ngIf="user"
-            class="property"
-            [name]="'UserName'"
-            [value]="user.userName">
-        </app-string-property>
-        <app-date-property
-            *ngIf="user"
-            class="property"
-            [name]="'User since'"
-            [value]="user.creationDate">
-        </app-date-property>
-        <app-string-property
-            *ngIf="user"
-            class="property"
-            [name]="'Role'"
-            [value]="user.role">
-        </app-string-property>
-        <app-string-property
-            *ngIf="user"
-            class="property"
-            [name]="'Name'"
-            [(value)]="user.name"
-            [editable]="editable">
-        </app-string-property>
-        <app-string-property
-            *ngIf="user"
-            class="property"
-            [name]="'Email'"
-            [(value)]="user.email"
-            [editable]="editable">
-        </app-string-property>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-text-button
-                label="Save"
-                [action]="saveClick.bind(this)">
-            </app-operation-text-button>
+<app-event-load-element
+    [spinnerDiameter]="50"
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <div id="root" *ngIf="user">
+        <div id="info-container">
+            <app-string-property
+                *ngIf="user"
+                class="property"
+                [name]="'UserName'"
+                [value]="user.userName">
+            </app-string-property>
+            <app-date-property
+                *ngIf="user"
+                class="property"
+                [name]="'User since'"
+                [value]="user.creationDate">
+            </app-date-property>
+            <app-string-property
+                *ngIf="user"
+                class="property"
+                [name]="'Role'"
+                [value]="user.role">
+            </app-string-property>
+            <app-string-property
+                *ngIf="user"
+                class="property"
+                [name]="'Name'"
+                [(value)]="user.name"
+                [editable]="editable">
+            </app-string-property>
+            <app-string-property
+                *ngIf="user"
+                class="property"
+                [name]="'Email'"
+                [(value)]="user.email"
+                [editable]="editable">
+            </app-string-property>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-text-button
+                    label="Save"
+                    [action]="saveClick.bind(this)">
+                </app-operation-text-button>
+            </div>
+        </div>
+
+        <mat-divider vertical="true"></mat-divider>
+
+        <div id="image-container">
+            <div id="image">
+                <app-user-image [userName]="user.userName" spinnerDiameter="75"></app-user-image>
+            </div>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-select-file-text-button
+                    label="Change"
+                    [action]="changeImage.bind(this)">
+                </app-operation-select-file-text-button>
+            </div>
         </div>
     </div>
-
-    <mat-divider vertical="true"></mat-divider>
-
-    <div id="image-container">
-        <div id="image">
-            <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
-            <app-user-image *ngIf="!loading" [userName]="user.userName" spinnerDiameter="75"></app-user-image>
-        </div>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-select-file-text-button
-                label="Change"
-                [action]="changeImage.bind(this)">
-            </app-operation-select-file-text-button>
-        </div>
-    </div>
-</div>
+</app-event-load-element>

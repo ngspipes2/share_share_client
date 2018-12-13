@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
-
+import { Subject } from 'rxjs';
 import { Group } from '../../../../../entities/group';
 import { GroupService } from '../../../../../services/group.service';
 import { OperationsManager } from '../../../../operations.manager';
@@ -19,7 +19,7 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
     groupSubscription : any;
 
     group : Group;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -29,8 +29,8 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.load());
-        this.load();
+        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -38,18 +38,12 @@ export class GroupInfoComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges() {
-        this.load();
+        this.loadEvent.next();
     }
 
-    load() {
-        this.loading = true;
-
-        this.operationsManager.getGroup(this.groupName)
-        .then(group => {
-            this.loading = false;
-            this.group = group;
-        })
-        .catch(error => this.loading = false);
+    load() : Promise<any> {
+        return this.operationsManager.getGroup(this.groupName)
+        .then(group => this.group = group);
     }
 
     changeImage(file : any) : Promise<any> {

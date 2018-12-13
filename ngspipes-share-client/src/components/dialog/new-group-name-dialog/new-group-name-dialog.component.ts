@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs';
 
 import { GroupService } from '../../../services/group.service';
 
@@ -14,10 +15,10 @@ export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
     groupSubscription : any;
     groupsNames : string[] = [];
 
-    loading : boolean;
     groupName : string;
     validGroupName : boolean = false;
     invalidMessage : string;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -27,24 +28,18 @@ export class NewGroupNameDialogComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.load());
-        this.load();
+        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
         this.groupSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.groupService.getGroupsNames()
-        .then(groupsNames => {
-            this.loading = false;
-            this.groupsNames = groupsNames;
-        })
+    load() : Promise<any> {
+        return this.groupService.getGroupsNames()
+        .then(groupsNames => this.groupsNames = groupsNames)
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Error getting Groups names! " + error

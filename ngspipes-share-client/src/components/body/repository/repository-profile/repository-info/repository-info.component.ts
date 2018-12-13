@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-
+import { Subject } from 'rxjs';
 import { Repository, EntityType, LocationType } from '../../../../../entities/repository';
 import { RepositoryService } from '../../../../../services/repository.service';
 import { OperationsManager } from '../../../../operations.manager';
@@ -19,7 +19,7 @@ export class RepositoryInfoComponent {
     repositorySubscription : any;
 
     repository : Repository;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -29,8 +29,8 @@ export class RepositoryInfoComponent {
 
 
     ngOnInit() {
-        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.load());
-        this.load();
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -38,18 +38,12 @@ export class RepositoryInfoComponent {
     }
 
     ngOnChanges() {
-        this.load();
+        this.loadEvent.next();
     }
 
-    load() {
-        this.loading = true;
-
-        this.operationsManager.getRepository(this.repositoryName)
-        .then(repository => {
-            this.loading = false;
-            this.repository = repository;
-        })
-        .catch(error => this.loading = false);
+    load() : Promise<any> {
+        return this.operationsManager.getRepository(this.repositoryName)
+        .then(repository => this.repository = repository);
     }
 
     changeImage(file : any) : Promise<any> {

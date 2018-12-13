@@ -1,27 +1,30 @@
-<mat-card id="root">
-    <div id="header">
-        <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
-        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
-        <mat-card-title>Repository Config</mat-card-title>
-        <mat-icon svgIcon="repository-config" *ngIf="!loading"></mat-icon>
-        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
-    </div>
+<app-event-load-element
+    [spinnerDiameter]="50"
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <mat-card id="root">
+        <div id="header">
+            <mat-icon svgIcon="repository-config"></mat-icon>
+            <mat-card-title>Repository Config</mat-card-title>
+            <mat-icon svgIcon="repository-config"></mat-icon>
+        </div>
 
-    <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-    <mat-card-content *ngIf="config">
-        <app-config-info [config]="config"></app-config-info>
-    </mat-card-content>
-    <mat-card-actions align="center" *ngIf="config">
-        <app-operation-text-button
-            label="Save"
-            [action]="saveClick.bind(this)">
-        </app-operation-text-button>
-        <app-operation-text-button
-            label="Delete"
-            color="warn"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-text-button>
-    </mat-card-actions>
-</mat-card>
+        <mat-card-content *ngIf="config">
+            <app-config-info [config]="config"></app-config-info>
+        </mat-card-content>
+        <mat-card-actions align="center" *ngIf="config">
+            <app-operation-text-button
+                label="Save"
+                [action]="saveClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                label="Delete"
+                color="warn"
+                accentColor="warn"
+                [action]="deleteClick.bind(this)">
+            </app-operation-text-button>
+        </mat-card-actions>
+    </mat-card>
+</app-event-load-element>

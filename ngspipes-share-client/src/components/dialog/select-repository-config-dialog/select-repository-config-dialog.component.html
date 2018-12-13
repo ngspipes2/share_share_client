@@ -1,13 +1,18 @@
 <div class="container">
     <p>Select Config</p>
     <div mat-dialog-content>
-        <mat-form-field>
-            <mat-select placeholder="RepositoryName" [(ngModel)]="selectedRepositoryName">
-                <mat-option *ngFor="let repositoryName of repositoriesNames" [value]="repositoryName">
-                    {{repositoryName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        <app-event-load-element
+            [spinnerDiameter]="50"
+            [event]="loadEvent"
+            [loader]="load.bind(this)">
+            <mat-form-field>
+                <mat-select placeholder="RepositoryName" [(ngModel)]="selectedRepositoryName">
+                    <mat-option *ngFor="let repositoryName of repositoriesNames" [value]="repositoryName">
+                        {{repositoryName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </app-event-load-element>
     </div>
     <div mat-dialog-actions class="actions" align="center">
         <button mat-button (click)="okClick()" *ngIf="selectedRepositoryName">Ok</button>

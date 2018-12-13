@@ -22,7 +22,6 @@ export class ListComponent implements OnInit {
 
     repositorySubscription : any;
 
-    loading : boolean;
     repositories : Repository[] = [];
 
     filters : Filter[];
@@ -57,14 +56,9 @@ export class ListComponent implements OnInit {
 
     load() {
         this.repositories = undefined;
-        this.loading = true;
 
         this.operationsManager.getRepositoriesAccessibleByUser(this.userName)
-        .then(repositories => {
-            this.loading = false;
-            this.repositories = Utils.sort(repositories, repository => repository.repositoryName);
-        })
-        .catch(error => this.loading = false);
+        .then(repositories => this.repositories = Utils.sort(repositories, repository => repository.repositoryName));
     }
 
     acceptName(repository : Repository, text : string) {

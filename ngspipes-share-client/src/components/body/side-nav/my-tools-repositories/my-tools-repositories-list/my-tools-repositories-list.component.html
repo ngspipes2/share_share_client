@@ -1,24 +1,22 @@
 <div id="root">
-    <div id="root">
-        <app-filter-list [filters]="filters" [elements]="repositories">
-            <ng-template let-element>
-                <app-tools-repository-item [repository]="element"></app-tools-repository-item>
-            </ng-template>
-            <div id="empty-list" empty-list>
-                <p>You currently have no Tools Repositories.</p>
-                <app-operation-text-button
-                    label="Create Tools Repository"
-                    [raised]="true"
-                    accentColor="accent"
-                    [action]="createRepositoryClick.bind(this)">
-                </app-operation-text-button>
-                <app-operation-text-button
-                    label="Publish Tools Repository"
-                    [raised]="true"
-                    accentColor="accent"
-                    [action]="publishRepositoryClick.bind(this)">
-                </app-operation-text-button>
-            </div>
-        </app-filter-list>
-    </div>
+    <app-filter-list [filters]="filters" [elements]="repositories">
+        <ng-template let-element>
+            <app-tools-repository-item [repository]="element"></app-tools-repository-item>
+        </ng-template>
+        <div id="empty-list" empty-list>
+            <p>You currently have no Tools Repositories.</p>
+            <app-operation-text-button
+                label="Create Tools Repository"
+                [raised]="true"
+                accentColor="accent"
+                [action]="createRepositoryClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                label="Publish Tools Repository"
+                [raised]="true"
+                accentColor="accent"
+                [action]="publishRepositoryClick.bind(this)">
+            </app-operation-text-button>
+        </div>
+    </app-filter-list>
 </div>

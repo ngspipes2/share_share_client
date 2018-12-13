@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { RepositoryConfig } from '../../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../../services/repository-config.service';
@@ -18,7 +19,7 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
     configSubscription : any;
 
     config : RepositoryConfig;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -30,31 +31,25 @@ export class ConfigDetailsComponent implements OnInit, OnDestroy, OnChanges {
     ngOnInit() {
         this.configSubscription = this.repositoryConfigService.configEvent.subscribe(() => {
             if(this.configRepositoryName)
-                this.load()
+                this.loadEvent.next();
         });
 
         if(this.configRepositoryName)
-            this.load();
+            setTimeout(() => this.loadEvent.next());
     }
 
     ngOnChanges() {
         if(this.configRepositoryName)
-            this.load();
+            this.loadEvent.next();
     }
 
     ngOnDestroy() {
         this.configSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.operationsManager.getRepositoryConfig(this.configRepositoryName)
-        .then(config => {
-            this.loading = false;
-            this.config = config;
-        })
-        .catch(error => this.loading = false);
+    load() : Promise<any> {
+        return this.operationsManager.getRepositoryConfig(this.configRepositoryName)
+        .then(config => this.config = config);
     }
 
     saveClick() : Promise<any> {

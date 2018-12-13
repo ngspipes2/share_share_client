@@ -22,7 +22,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
     memberSubscription : any;
 
-    loading : boolean;
     members : GroupMember[] = [];
 
     filters : Filter[];
@@ -55,14 +54,9 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
     load() {
         this.members = undefined;
-        this.loading = true;
 
         this.operationsManager.getMembersOfGroup(this.groupName)
-        .then(members => {
-            this.loading = false;
-            this.members = Utils.sort(members, member => member.groupName);
-        })
-        .catch(error => this.loading = false);
+        .then(members => this.members = Utils.sort(members, member => member.groupName));
     }
 
     acceptName(member : GroupMember, text : string) {

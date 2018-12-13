@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { User } from '../../../entities/user';
 import { UserService } from '../../../services/user.service';
@@ -22,7 +23,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
     userName : string;
     editable : boolean;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
     user : User
 
@@ -47,18 +48,18 @@ export class UserComponent implements OnInit, OnDestroy {
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
             if(this.userName !== this.activatedRoute.snapshot.params.userName) {
                 this.userName = this.activatedRoute.snapshot.params.userName;
-                this.load();
+                setTimeout(() => this.loadEvent.next());
             }
         });
 
         this.userCreateSubscription = this.userService.userCreateEvent.subscribe(userName => {
             if(this.userName === userName)
-                this.load();
+                this.loadEvent.next();
         });
 
         this.userDeleteSubscription = this.userService.userDeleteEvent.subscribe(userName => {
             if(this.userName === userName)
-                this.load();
+                this.loadEvent.next();
         });
     }
 
@@ -70,14 +71,9 @@ export class UserComponent implements OnInit, OnDestroy {
         this.userDeleteSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.loadUser()
-        .then(() => this.loading = false)
-        .catch(() => this.loading = false);
-
+    load() : Promise<any> {
         this.checkEditable();
+        return this.loadUser();
     }
 
     loadUser() : Promise<User> {

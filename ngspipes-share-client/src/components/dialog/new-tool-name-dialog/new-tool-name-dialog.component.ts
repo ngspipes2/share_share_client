@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Subject } from 'rxjs';
 
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
@@ -24,10 +25,10 @@ export class NewToolNameDialogComponent implements OnInit, OnDestroy {
     repositoryName : string;
     config : RepositoryConfig;
 
-    loading : boolean;
     toolName : string;
     validName : boolean = false;
     invalidMessage : string;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -43,15 +44,15 @@ export class NewToolNameDialogComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.configSubscription = this.repositoryConfigService.configEvent.subscribe(repositoryName => {
             if(repositoryName === this.repositoryName)
-                this.load();
+                this.loadEvent.next()
         });
 
         this.repositorySubscription = this.toolsRepositoryFacadeService.toolEvent.subscribe(id => {
             if(id[0] === this.repositoryName)
-                this.load();
+                this.loadEvent.next()
         });
 
-        this.load();
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -59,19 +60,12 @@ export class NewToolNameDialogComponent implements OnInit, OnDestroy {
         this.repositorySubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.getRepositoryConfig()
+    load() : Promise<any> {
+        return this.getRepositoryConfig()
         .then(config => {
-            if(!config)
-                this.loading = false;
-            else
-                this.getToolsNames()
-                .then(() => this.loading = false)
-                .catch(() => this.loading = false);
-        })
-        .catch(() => this.loading = false);
+            if(config)
+                return this.getToolsNames();
+        });
     }
 
     getRepositoryConfig() : Promise<RepositoryConfig> {

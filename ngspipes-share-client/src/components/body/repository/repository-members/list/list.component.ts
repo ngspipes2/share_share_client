@@ -24,7 +24,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     userMemberSubscription : any;
     groupMemberSubscription : any;
 
-    loading : boolean;
     userMembers : RepositoryUserMember[] = [];
     groupMembers : RepositoryGroupMember[] = [];
     members : any[];
@@ -70,27 +69,19 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     loadUserMembers() {
-        this.loading = true;
-
         this.operationsManager.getUsersMembersOfRepository(this.repositoryName)
         .then(members => {
-            this.loading = false;
             this.userMembers = members;
             this.buildMembers();
-        })
-        .catch(error => this.loading = false);
+        });
     }
 
     loadGroupMembers() {
-        this.loading = true;
-
         this.operationsManager.getGroupsMembersOfRepository(this.repositoryName)
         .then(members => {
-            this.loading = false;
             this.groupMembers = members;
             this.buildMembers();
-        })
-        .catch(error => this.loading = false);
+        });
     }
 
     buildMembers() {

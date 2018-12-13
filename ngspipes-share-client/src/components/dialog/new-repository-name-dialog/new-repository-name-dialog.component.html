@@ -2,9 +2,14 @@
     <p>RepositoryName can only contain: Letters, Numbers, '-' or '_'</p>
     <p>'Pipelines' and 'Tools' are reserved words for RepositoryName.</p>
     <div mat-dialog-content>
-        <mat-form-field class="fill">
-            <input matInput placeholder="RepositoryName" type="text" [(ngModel)]="repositoryName" (input)="repositoryNameChanged()">
-        </mat-form-field>
+        <app-event-load-element
+            [spinnerDiameter]="50"
+            [event]="loadEvent"
+            [loader]="load.bind(this)">
+            <mat-form-field class="fill">
+                <input matInput placeholder="RepositoryName" type="text" [(ngModel)]="repositoryName" (input)="repositoryNameChanged()">
+            </mat-form-field>
+        </app-event-load-element>
     </div>
     <div mat-dialog-actions class="actions" align="center">
         <button mat-button (click)="okClicked()" *ngIf="validRepositoryName">Ok</button>

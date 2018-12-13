@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { User } from '../../../../../entities/user';
 import { UserService } from '../../../../../services/user.service';
@@ -19,7 +20,7 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
     userSubscription : any;
 
     user : User;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -29,8 +30,8 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
 
 
     ngOnInit() {
-        this.userSubscription = this.userService.userEvent.subscribe(() => this.load());
-        this.load();
+        this.userSubscription = this.userService.userEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -38,18 +39,12 @@ export class UserInfoComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     ngOnChanges() {
-        this.load();
+        this.loadEvent.next();
     }
 
-    load() {
-        this.loading = true;
-
-        this.operationsManager.getUser(this.userName)
-        .then(user => {
-            this.loading = false;
-            this.user = user;
-        })
-        .catch(error => this.loading = false);
+    load() : Promise<any> {
+        return this.operationsManager.getUser(this.userName)
+        .then(user => this.user = user);
     }
 
     changeImage(file : any) : Promise<any> {

@@ -1,79 +1,83 @@
-<div id="root">
-    <div id="info-container">
-        <app-string-property
-            *ngIf="repository"
-            class="property"
-            [name]="'RepositoryName'"
-            [value]="repository.repositoryName">
-        </app-string-property>
-        <app-string-property
-            *ngIf="repository"
-            class="property"
-            [name]="'Type'"
-            [value]="getType()">
-        </app-string-property>
-        <app-date-property
-            *ngIf="repository"
-            class="property"
-            [name]="getDateFieldLabel()"
-            [value]="repository.creationDate">
-        </app-date-property>
-        <app-link-property
-            *ngIf="repository"
-            class="property"
-            [name]="getOwnerFieldLabel()"
-            [value]="repository.ownerName"
-            [link]="'/users/' + repository.ownerName">
-        </app-link-property>
-        <app-string-property
-            *ngIf="repository"
-            class="property"
-            [name]="'Location'"
-            [value]="repository.location">
-        </app-string-property>
-        <app-property [name]="'Is Public'" class="property" *ngIf="repository">
-            <ng-template #valueTemplate>
-                <mat-slide-toggle
-                    [(ngModel)]="repository.isPublic"
-                    [disabled]="!editable"
-                    [matTooltip]="repository.isPublic ? 'Public' : 'Private'">
-                </mat-slide-toggle>
-                <mat-icon
-                    id="warning"
-                    *ngIf="showPublicFieldWarning()"
-                    matTooltip="Since this is an External Repository this field only has the porpose of information. If you change this value, no changes will be made on the actual repository. Contact your repository supplier to change your repository access.">
-                    warning
-                </mat-icon>
-            </ng-template>
-        </app-property>
-        <app-string-property
-            *ngIf="repository"
-            class="property"
-            [name]="'Description'"
-            [(value)]="repository.description"
-            [editable]="editable"
-            [multipleLines]="true">
-        </app-string-property>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-text-button
-                label="Save"
-                [action]="saveClick.bind(this)">
-            </app-operation-text-button>
+<app-event-load-element
+    [spinnerDiameter]="50"
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <div id="root" *ngIf="repository">
+        <div id="info-container">
+            <app-string-property
+                *ngIf="repository"
+                class="property"
+                [name]="'RepositoryName'"
+                [value]="repository.repositoryName">
+            </app-string-property>
+            <app-string-property
+                *ngIf="repository"
+                class="property"
+                [name]="'Type'"
+                [value]="getType()">
+            </app-string-property>
+            <app-date-property
+                *ngIf="repository"
+                class="property"
+                [name]="getDateFieldLabel()"
+                [value]="repository.creationDate">
+            </app-date-property>
+            <app-link-property
+                *ngIf="repository"
+                class="property"
+                [name]="getOwnerFieldLabel()"
+                [value]="repository.ownerName"
+                [link]="'/users/' + repository.ownerName">
+            </app-link-property>
+            <app-string-property
+                *ngIf="repository"
+                class="property"
+                [name]="'Location'"
+                [value]="repository.location">
+            </app-string-property>
+            <app-property [name]="'Is Public'" class="property" *ngIf="repository">
+                <ng-template #valueTemplate>
+                    <mat-slide-toggle
+                        [(ngModel)]="repository.isPublic"
+                        [disabled]="!editable"
+                        [matTooltip]="repository.isPublic ? 'Public' : 'Private'">
+                    </mat-slide-toggle>
+                    <mat-icon
+                        id="warning"
+                        *ngIf="showPublicFieldWarning()"
+                        matTooltip="Since this is an External Repository this field only has the porpose of information. If you change this value, no changes will be made on the actual repository. Contact your repository supplier to change your repository access.">
+                        warning
+                    </mat-icon>
+                </ng-template>
+            </app-property>
+            <app-string-property
+                *ngIf="repository"
+                class="property"
+                [name]="'Description'"
+                [(value)]="repository.description"
+                [editable]="editable"
+                [multipleLines]="true">
+            </app-string-property>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-text-button
+                    label="Save"
+                    [action]="saveClick.bind(this)">
+                </app-operation-text-button>
+            </div>
+        </div>
+
+        <mat-divider vertical="true"></mat-divider>
+
+        <div id="image-container">
+            <div id="image">
+                <app-repository-image [repositoryName]="repository.repositoryName" spinnerDiameter="75"></app-repository-image>
+            </div>
+            <div class="button-container" *ngIf="editable">
+                <app-operation-select-file-text-button
+                    label="Change"
+                    [action]="changeImage.bind(this)">
+                </app-operation-select-file-text-button>
+            </div>
         </div>
     </div>
-
-    <mat-divider vertical="true"></mat-divider>
-
-    <div id="image-container">
-        <div id="image">
-            <mat-spinner *ngIf="loading" color="accent" diameter="75"></mat-spinner>
-            <app-repository-image *ngIf="!loading" [repositoryName]="repository.repositoryName" spinnerDiameter="75"></app-repository-image>
-        </div>
-        <div class="button-container" *ngIf="editable">
-            <app-operation-select-file-text-button
-                label="Change"
-                [action]="changeImage.bind(this)">
-            </app-operation-select-file-text-button>
-        </div>
-    </div>
-</div>
+</app-event-load-element>

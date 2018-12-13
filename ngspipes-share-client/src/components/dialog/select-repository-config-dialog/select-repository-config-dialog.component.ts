@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs';
 
 import { RepositoryConfigService } from '../../../services/repository-config.service';
 
@@ -13,8 +14,8 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
     configSubscription : any;
 
     repositoriesNames : string[];
-    loading : boolean;
     selectedRepositoryName : string;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -24,24 +25,18 @@ export class SelectRepositoryConfigDialogComponent implements OnInit, OnDestroy 
 
 
     ngOnInit() {
-        this.configSubscription = this.repositoryConfigService.configEvent.subscribe(() => this.load());
-        this.load();
+        this.configSubscription = this.repositoryConfigService.configEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
         this.configSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.repositoryConfigService.getAllConfigs()
-        .then(configs => {
-            this.loading = false;
-            this.repositoriesNames = configs.map(config => config.repositoryName);
-        })
+    load() : Promise<any> {
+        return this.repositoryConfigService.getAllConfigs()
+        .then(configs => this.repositoriesNames = configs.map(config => config.repositoryName))
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Error getting Repositories Configs! " + error

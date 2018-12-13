@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { Repository, LocationType } from '../../../entities/repository';
 import { SessionService } from '../../../services/session.service';
@@ -22,7 +23,7 @@ export class RepositoryComponent implements OnInit, OnDestroy {
 
     repositoryName : string;
     editable : boolean;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
     repository : Repository;
 
@@ -47,18 +48,18 @@ export class RepositoryComponent implements OnInit, OnDestroy {
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
             if(this.repositoryName !== this.activatedRoute.snapshot.params.repositoryName) {
                 this.repositoryName = this.activatedRoute.snapshot.params.repositoryName;
-                this.load();
+                setTimeout(() => this.loadEvent.next());
             }
         });
 
         this.repositoryCreateSubscription = this.repositoryService.repositoryCreateEvent.subscribe(repositoryName => {
             if(repositoryName === this.repositoryName)
-                this.load();
+                this.loadEvent.next();
         });
 
         this.repositoryDeleteSubscription = this.repositoryService.repositoryDeleteEvent.subscribe(repositoryName => {
             if(repositoryName === this.repositoryName)
-                this.load();
+                this.loadEvent.next();
         });
     }
 
@@ -70,16 +71,9 @@ export class RepositoryComponent implements OnInit, OnDestroy {
         this.repositoryDeleteSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.loadRepository()
-        .then(() =>{
-            this.loading = false;
-            this.checkEditable();
-        })
-        .catch(() => this.loading = false);
-
+    load() : Promise<any> {
+        return this.loadRepository()
+        .then(() => this.checkEditable());
     }
 
     loadRepository() : Promise<Repository> {

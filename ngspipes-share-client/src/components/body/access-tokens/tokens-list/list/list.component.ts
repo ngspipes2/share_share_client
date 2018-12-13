@@ -24,7 +24,6 @@ export class ListComponent implements OnInit, OnDestroy {
     tokenSubscription : any;
 
     tokens : AccessToken[] = [];
-    loading : boolean;
 
     filters : Filter[];
 
@@ -53,15 +52,10 @@ export class ListComponent implements OnInit, OnDestroy {
 
     load() {
         this.tokens = undefined;
-        this.loading = true;
 
         let userName = this.sessionService.getCurrentCredentials()[0];
         this.operationsManager.getAccessTokensOfUser(userName)
-        .then(tokens => {
-            this.loading = false;
-            this.tokens = Utils.sort(tokens, token => token.name);
-        })
-        .catch(error => this.loading = false);
+        .then(tokens => this.tokens = Utils.sort(tokens, token => token.name));
     }
 
     createTokenClick() : Promise<any> {

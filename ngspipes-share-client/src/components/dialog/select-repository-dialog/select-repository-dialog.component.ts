@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { RepositoryService } from '../../../services/repository.service';
 
@@ -19,7 +20,7 @@ export class SelectRepositoryDialogComponent implements OnInit, OnDestroy {
 
     control = new FormControl();
     filteredOptions: Observable<any[]>;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -34,9 +35,9 @@ export class SelectRepositoryDialogComponent implements OnInit, OnDestroy {
           map(value => this.filter(value))
         );
 
-        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadRepositoryNames());
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadEvent.next());
 
-        this.loadRepositoryNames();
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -48,16 +49,10 @@ export class SelectRepositoryDialogComponent implements OnInit, OnDestroy {
         return this.repositoryNames.filter(name => name.toLowerCase().indexOf(filterValue) !== -1);
     }
 
-    loadRepositoryNames() {
-        this.loading = true;
-
-        this.repositoryService.getRepositoriesNames()
-        .then(repositoryNames => {
-            this.loading = false;
-            this.repositoryNames = repositoryNames;
-        })
+    load() : Promise<any> {
+        return this.repositoryService.getRepositoriesNames()
+        .then(repositoryNames => this.repositoryNames = repositoryNames)
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Error getting Repositories names! " + error

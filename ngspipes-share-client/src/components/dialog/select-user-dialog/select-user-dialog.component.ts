@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { UserService } from '../../../services/user.service';
 
@@ -19,7 +20,7 @@ export class SelectUserDialogComponent implements OnInit, OnDestroy {
 
     control = new FormControl();
     filteredOptions: Observable<any[]>;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -34,9 +35,9 @@ export class SelectUserDialogComponent implements OnInit, OnDestroy {
           map(value => this.filter(value))
         );
 
-        this.userSubscription = this.userService.userEvent.subscribe(() => this.loadUserNames());
+        this.userSubscription = this.userService.userEvent.subscribe(() => this.loadEvent.next());
 
-        this.loadUserNames();
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -48,16 +49,10 @@ export class SelectUserDialogComponent implements OnInit, OnDestroy {
         return this.userNames.filter(name => name.toLowerCase().indexOf(filterValue) !== -1);
     }
 
-    loadUserNames() {
-        this.loading = true;
-
-        this.userService.getUsersNames()
-        .then(userNames => {
-            this.loading = false;
-            this.userNames = userNames;
-        })
+    load() : Promise<any> {
+        return this.userService.getUsersNames()
+        .then(userNames => this.userNames = userNames)
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Error getting Users names! " + error

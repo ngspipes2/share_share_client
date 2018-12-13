@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
 
 import { ImageModule } from '../image/image.module';
+import { UtilsModule } from '../utils/utils.module';
 
 import { SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { DialogManager } from './dialog.manager';
@@ -48,7 +49,8 @@ import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-p
       FormsModule,
       ReactiveFormsModule,
       ClipboardModule,
-      ImageModule
+      ImageModule,
+      UtilsModule
   ],
   exports: [
       SimpleDialogComponent,

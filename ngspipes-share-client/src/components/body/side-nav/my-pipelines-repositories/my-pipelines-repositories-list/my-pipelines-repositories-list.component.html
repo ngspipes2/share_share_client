@@ -1,24 +1,22 @@
 <div id="root">
-    <div id="root">
-        <app-filter-list [filters]="filters" [elements]="repositories">
-            <ng-template let-element>
-                <app-pipelines-repository-item [repository]="element"></app-pipelines-repository-item>
-            </ng-template>
-            <div id="empty-list" empty-list>
-                <p>You currently have no Pipelines Repositories.</p>
-                <app-operation-text-button
-                    label="Create Pipelines Repository"
-                    [raised]="true"
-                    accentColor="accent"
-                    [action]="createRepositoryClick.bind(this)">
-                </app-operation-text-button>
-                <app-operation-text-button
-                    label="Publish Pipelines Repository"
-                    [raised]="true"
-                    accentColor="accent"
-                    [action]="publishRepositoryClick.bind(this)">
-                </app-operation-text-button>
-            </div>
-        </app-filter-list>
-    </div>
+    <app-filter-list [filters]="filters" [elements]="repositories">
+        <ng-template let-element>
+            <app-pipelines-repository-item [repository]="element"></app-pipelines-repository-item>
+        </ng-template>
+        <div id="empty-list" empty-list>
+            <p>You currently have no Pipelines Repositories.</p>
+            <app-operation-text-button
+                label="Create Pipelines Repository"
+                [raised]="true"
+                accentColor="accent"
+                [action]="createRepositoryClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                label="Publish Pipelines Repository"
+                [raised]="true"
+                accentColor="accent"
+                [action]="publishRepositoryClick.bind(this)">
+            </app-operation-text-button>
+        </div>
+    </app-filter-list>
 </div>

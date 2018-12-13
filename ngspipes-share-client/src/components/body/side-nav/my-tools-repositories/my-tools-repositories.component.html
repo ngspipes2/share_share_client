@@ -2,8 +2,7 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <mat-spinner color="accent" *ngIf="loading" [diameter]="25"></mat-spinner>
-                <mat-icon *ngIf="!loading">build</mat-icon>
+                <mat-icon>build</mat-icon>
             </mat-panel-title>
             <mat-panel-description>
                 My Tools Repositories
@@ -19,7 +18,7 @@
                         icon="add"
                         accentColor="accent"
                         [action]="createRepositoryClick.bind(this)">
-                    </app-operation-icon-button>                   
+                    </app-operation-icon-button>
                 </div>
             </mat-panel-description>
         </mat-expansion-panel-header>

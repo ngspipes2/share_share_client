@@ -1,24 +1,27 @@
-<div id="root">
-    <mat-spinner diameter="100" color="accent" *ngIf="loading"></mat-spinner>
-    <div id="non-existent-repository" *ngIf="!loading && !repository">
-        <app-non-existent-entity
-            svgIcon="repository"
-            message="There is no Repository {{repositoryName}}!">
-        </app-non-existent-entity>
-    </div>
-    <div id="existent-repository"  *ngIf="!loading && repository">
-        <div id="left">
-            <div id="repository-profile-container">
-                <app-repository-profile [repositoryName]="repositoryName" [editable]="editable"></app-repository-profile>
+<app-event-load-element
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <div id="root">
+        <div id="non-existent-repository" *ngIf="repository === null">
+            <app-non-existent-entity
+                svgIcon="repository"
+                message="There is no Repository {{repositoryName}}!">
+            </app-non-existent-entity>
+        </div>
+        <div id="existent-repository" *ngIf="repository">
+            <div id="left">
+                <div id="repository-profile-container">
+                    <app-repository-profile [repositoryName]="repositoryName" [editable]="editable"></app-repository-profile>
+                </div>
+                <div id="repository-members-container" *ngIf="isInternalRepository()">
+                    <app-repository-members [repositoryName]="repositoryName" [editable]="editable"></app-repository-members>
+                </div>
             </div>
-            <div id="repository-members-container" *ngIf="isInternalRepository()">
-                <app-repository-members [repositoryName]="repositoryName" [editable]="editable"></app-repository-members>
+            <div id="right">
+                <div id="repository-tools-container">
+                    List tools HERE! :D
+                </div>
             </div>
         </div>
-        <div id="right">
-            <div id="repository-tools-container">
-                List tools HERE! :D
-            </div>
-        </div>
     </div>
-</div>
+</app-event-load-element>

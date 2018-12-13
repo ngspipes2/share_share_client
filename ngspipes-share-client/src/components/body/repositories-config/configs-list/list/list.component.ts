@@ -23,7 +23,6 @@ export class ListComponent implements OnInit, OnDestroy {
     configSubscription : any;
 
     configs : RepositoryConfig[] = [];
-    loading : boolean;
 
     filters : Filter[];
 
@@ -49,14 +48,9 @@ export class ListComponent implements OnInit, OnDestroy {
 
     load() {
         this.configs = undefined;
-        this.loading = true;
 
         this.operationsManager.getAllRepositoriesConfigs()
-        .then(configs => {
-            this.loading = false;
-            this.configs = Utils.sort(configs, config => config.repositoryName);
-        })
-        .catch(error => this.loading = false);
+        .then(configs => this.configs = Utils.sort(configs, config => config.repositoryName));
     }
 
     createConfigClick() : Promise<any> {

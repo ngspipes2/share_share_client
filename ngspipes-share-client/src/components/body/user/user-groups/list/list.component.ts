@@ -20,7 +20,6 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
     groupSubscription : any;
 
-    loading : boolean;
     groups : Group[] = [];
 
     filters : Filter[];
@@ -53,14 +52,9 @@ export class ListComponent implements OnInit, OnDestroy, OnChanges {
 
     load() {
         this.groups = undefined;
-        this.loading = true;
 
         this.operationsManager.getGroupsAccessibleByUser(this.userName)
-        .then(groups => {
-            this.loading = false;
-            this.groups = Utils.sort(groups, group => group.groupName);
-        })
-        .catch(error => this.loading = false);
+        .then(groups => this.groups = Utils.sort(groups, group => group.groupName));
     }
 
     acceptName(group : Group, text : string) {

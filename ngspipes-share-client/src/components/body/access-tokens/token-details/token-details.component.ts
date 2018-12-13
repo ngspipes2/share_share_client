@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, OnChanges } from '@angular/core';
+import { Subject } from 'rxjs';
 
 import { AccessToken } from '../../../../entities/access-token';
 import { AccessTokenService } from '../../../../services/access-token.service';
@@ -17,7 +18,7 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     tokenSubscription : any;
 
     token : AccessToken;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -29,31 +30,25 @@ export class TokenDetailsComponent implements OnInit, OnDestroy, OnChanges {
     ngOnInit() {
         this.tokenSubscription = this.accessTokensService.tokenEvent.subscribe(() => {
             if(this.tokenId)
-                this.load()
+                this.loadEvent.next();
         });
 
         if(this.tokenId)
-            this.load();
+            setTimeout(() => this.loadEvent.next());
     }
 
     ngOnChanges() {
         if(this.tokenId)
-            this.load();
+            this.loadEvent.next();
     }
 
     ngOnDestroy() {
         this.tokenSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.operationsManager.getAccessToken(this.tokenId)
-        .then(token => {
-            this.loading = false;
-            this.token = token;
-        })
-        .catch(error => this.loading = false);
+    load() : Promise<any> {
+        return this.operationsManager.getAccessToken(this.tokenId)
+        .then(token => this.token = token);
     }
 
     saveClick() : Promise<any> {

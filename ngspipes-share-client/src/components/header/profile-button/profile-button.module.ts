@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../../../app/material.module';
 import { ImageModule } from '../../image/image.module';
+import { UtilsModule } from '../../utils/utils.module';
 
 import { ProfileOptionComponent } from './profile-option/profile-option.component';
 import { LogoutOptionComponent } from './logout-option/logout-option.component';
@@ -27,7 +28,8 @@ import { ProfileButtonComponent } from './profile-button.component';
   imports: [
       MaterialModule,
       CommonModule,
-      ImageModule
+      ImageModule,
+      UtilsModule
   ],
   exports : [
       ProfileButtonComponent

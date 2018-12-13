@@ -1,18 +1,16 @@
 <div id="root">
-    <div id="root">
-        <app-filter-list [filters]="filters" [elements]="groups">
-            <ng-template let-element>
-                <app-group-item [group]="element"></app-group-item>
-            </ng-template>
-            <div id="empty-list" empty-list>
-                <p>You currently have no Groups.<p>
-                <app-operation-text-button
-                    label="Create Group"
-                    [raised]="true"
-                    accentColor="accent"
-                    [action]="createGroupClick.bind(this)">
-                </app-operation-text-button>
-            </div>
-        </app-filter-list>
-    </div>
+    <app-filter-list [filters]="filters" [elements]="groups">
+        <ng-template let-element>
+            <app-group-item [group]="element"></app-group-item>
+        </ng-template>
+        <div id="empty-list" empty-list>
+            <p>You currently have no Groups.<p>
+            <app-operation-text-button
+                label="Create Group"
+                [raised]="true"
+                accentColor="accent"
+                [action]="createGroupClick.bind(this)">
+            </app-operation-text-button>
+        </div>
+    </app-filter-list>
 </div>

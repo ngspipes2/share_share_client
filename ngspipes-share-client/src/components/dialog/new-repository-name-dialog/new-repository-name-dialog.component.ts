@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { Subject } from 'rxjs';
 
 import { RepositoryService } from '../../../services/repository.service';
 
@@ -14,10 +15,10 @@ export class NewRepositoryNameDialogComponent implements OnInit, OnDestroy {
     repositorySubscription : any;
     repositoriesNames : string[] = [];
 
-    loading : boolean;
     repositoryName : string;
     validRepositoryName : boolean = false;
     invalidMessage : string;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -27,24 +28,18 @@ export class NewRepositoryNameDialogComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.load());
-        this.load();
+        this.repositorySubscription = this.repositoryService.repositoryEvent.subscribe(() => this.loadEvent.next());
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
         this.repositorySubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.repositoryService.getRepositoriesNames()
-        .then(repositoriesNames => {
-            this.loading = false;
-            this.repositoriesNames = repositoriesNames;
-        })
+    load() : Promise<any> {
+        return this.repositoryService.getRepositoriesNames()
+        .then(repositoriesNames => this.repositoriesNames = repositoriesNames)
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Could not load repositories names! " + error

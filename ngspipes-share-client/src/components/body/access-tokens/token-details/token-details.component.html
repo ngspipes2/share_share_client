@@ -1,27 +1,30 @@
-<mat-card id="root">
-    <div id="header">
-        <mat-icon svgIcon="ticket" *ngIf="!loading"></mat-icon>
-        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
-        <mat-card-title>Access Token</mat-card-title>
-        <mat-icon svgIcon="ticket" *ngIf="!loading"></mat-icon>
-        <mat-spinner diameter="25" color="accent" *ngIf="loading"></mat-spinner>
-    </div>
+<app-event-load-element
+    [spinnerDiameter]="50"
+    [event]="loadEvent"
+    [loader]="load.bind(this)">
+    <mat-card id="root">
+        <div id="header">
+            <mat-icon svgIcon="ticket"></mat-icon>
+            <mat-card-title>Access Token</mat-card-title>
+            <mat-icon svgIcon="ticket"></mat-icon>
+        </div>
 
-    <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
 
-    <mat-card-content *ngIf="token">
-        <app-token-info [token]="token"></app-token-info>
-    </mat-card-content>
-    <mat-card-actions align="center" *ngIf="token">
-        <app-operation-text-button
-            label="Save"
-            [action]="saveClick.bind(this)">
-        </app-operation-text-button>
-        <app-operation-text-button
-            label="Delete"
-            color="warn"
-            accentColor="warn"
-            [action]="deleteClick.bind(this)">
-        </app-operation-text-button>
-    </mat-card-actions>
-</mat-card>
+        <mat-card-content *ngIf="token">
+            <app-token-info [token]="token"></app-token-info>
+        </mat-card-content>
+        <mat-card-actions align="center" *ngIf="token">
+            <app-operation-text-button
+                label="Save"
+                [action]="saveClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-text-button
+                label="Delete"
+                color="warn"
+                accentColor="warn"
+                [action]="deleteClick.bind(this)">
+            </app-operation-text-button>
+        </mat-card-actions>
+    </mat-card>
+</app-event-load-element>

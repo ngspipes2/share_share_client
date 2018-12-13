@@ -17,7 +17,6 @@ export class MyToolsRepositoriesListComponent implements OnInit, OnDestroy {
     loginSubscription : any;
     repositorySubscription : any;
 
-    loading : boolean;
     userName : string;
     repositories : Repository[] = [];
 
@@ -52,15 +51,12 @@ export class MyToolsRepositoriesListComponent implements OnInit, OnDestroy {
     load() {
         this.userName = this.sessionService.getCurrentCredentials()[0];
         this.repositories = undefined;
-        this.loading = true;
 
         this.operationsManager.getRepositoriesAccessibleByUser(this.userName)
         .then(repositories => {
-            this.loading = false;
             this.repositories = repositories.filter(repository => repository.entityType === EntityType.TOOLS);
             this.repositories = Utils.sort(this.repositories, repository => repository.repositoryName);
-        })
-        .catch(error => this.loading = false);
+        });
     }
 
     acceptName(repository : Repository, text : string) {

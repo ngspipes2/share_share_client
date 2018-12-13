@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 import { Group } from '../../../entities/group';
 import { SessionService } from '../../../services/session.service';
@@ -22,7 +23,7 @@ export class GroupComponent implements OnInit, OnDestroy {
 
     groupName : string;
     editable : boolean;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
     group : Group;
 
@@ -47,18 +48,18 @@ export class GroupComponent implements OnInit, OnDestroy {
         this.paramsSubscription = this.activatedRoute.params.subscribe(() => {
             if(this.groupName !== this.activatedRoute.snapshot.params.groupName) {
                 this.groupName = this.activatedRoute.snapshot.params.groupName;
-                this.load();
+                setTimeout(() => this.loadEvent.next());
             }
         });
 
         this.groupCreateSubscription = this.groupService.groupCreateEvent.subscribe((groupName) => {
             if(this.groupName === groupName)
-                this.load();
+                this.loadEvent.next();
         });
 
         this.groupDeleteSubscription = this.groupService.groupDeleteEvent.subscribe((groupName) => {
             if(this.groupName === groupName)
-                this.load();
+                this.loadEvent.next();
         });
     }
 
@@ -70,16 +71,9 @@ export class GroupComponent implements OnInit, OnDestroy {
         this.groupDeleteSubscription.unsubscribe();
     }
 
-    load() {
-        this.loading = true;
-
-        this.loadGroup()
-        .then(() => {
-            this.loading = false;
-            this.checkEditable();
-        })
-        .catch(() => this.loading = false);
-
+    load() : Promise<any> {
+        return this.loadGroup()
+        .then(() => this.checkEditable());
     }
 
     loadGroup() : Promise<Group> {

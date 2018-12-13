@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 import { GroupService } from '../../../services/group.service';
 
@@ -19,7 +20,7 @@ export class SelectGroupDialogComponent implements OnInit, OnDestroy {
 
     control = new FormControl();
     filteredOptions: Observable<any[]>;
-    loading : boolean;
+    loadEvent : Subject<any> = new Subject();
 
 
 
@@ -34,9 +35,9 @@ export class SelectGroupDialogComponent implements OnInit, OnDestroy {
           map(value => this.filter(value))
         );
 
-        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.loadGroupNames());
+        this.groupSubscription = this.groupService.groupEvent.subscribe(() => this.loadEvent.next());
 
-        this.loadGroupNames();
+        setTimeout(() => this.loadEvent.next());
     }
 
     ngOnDestroy() {
@@ -48,16 +49,10 @@ export class SelectGroupDialogComponent implements OnInit, OnDestroy {
         return this.groupNames.filter(name => name.toLowerCase().indexOf(filterValue) !== -1);
     }
 
-    loadGroupNames() {
-        this.loading = true;
-
-        this.groupService.getGroupsNames()
-        .then(groupNames => {
-            this.loading = false;
-            this.groupNames = groupNames;
-        })
+    load() : Promise<any> {
+        return this.groupService.getGroupsNames()
+        .then(groupNames => this.groupNames = groupNames)
         .catch(error => {
-            this.loading = false;
             this.dialogRef.close({
                 result: null,
                 error: "Error getting Groups names! " + error

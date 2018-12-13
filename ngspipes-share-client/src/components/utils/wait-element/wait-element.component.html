@@ -1,4 +1,4 @@
-<div id="root">
+<div id="root" [class]="waitting ? 'spinner' : ''">
     <mat-spinner *ngIf="waitting"
         [diameter]="spinnerDiameter"
         [color]="spinnerColor">

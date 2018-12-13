@@ -18,7 +18,6 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     loginSubscription : any;
     groupSubscription : any;
 
-    loading : boolean;
     userName : string;
     groups : Group[] = [];
 
@@ -53,14 +52,9 @@ export class MyGroupsListComponent implements OnInit, OnDestroy {
     load() {
         this.userName = this.sessionService.getCurrentCredentials()[0];
         this.groups = undefined;
-        this.loading = true;
 
         this.operationsManager.getGroupsAccessibleByUser(this.userName)
-        .then(groups => {
-            this.loading = false;
-            this.groups = Utils.sort(groups, group => group.groupName);
-        })
-        .catch(error => this.loading = false);
+        .then(groups => this.groups = Utils.sort(groups, group => group.groupName));
     }
 
     acceptName(group : Group, text : string) {

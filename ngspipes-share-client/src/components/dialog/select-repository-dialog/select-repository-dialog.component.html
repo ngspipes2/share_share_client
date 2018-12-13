@@ -1,25 +1,27 @@
 <div class="container">
     <p>Select Repository:</p>
     <mat-dialog-content>
-        <div class="spinner" *ngIf="loading">
-            <mat-spinner color="accent" diameter="25"></mat-spinner>
-        </div>
-        <form *ngIf="!loading">
-            <mat-form-field class="fill">
-                <input matInput placeholder="RepositoryName" [formControl]="control" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event.option.value)">
-                    <mat-option *ngFor="let repositoryName of filteredOptions | async" [value]="repositoryName">
-                        <div class="option">
-                            <div class="image">
-                                <app-repository-image [repositoryName]="repositoryName" spinnerDiameter="15"></app-repository-image>
+        <form>
+            <app-event-load-element
+                [spinnerDiameter]="50"
+                [event]="loadEvent"
+                [loader]="load.bind(this)">
+                <mat-form-field class="fill">
+                    <input matInput placeholder="RepositoryName" [formControl]="control" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event.option.value)">
+                        <mat-option *ngFor="let repositoryName of filteredOptions | async" [value]="repositoryName">
+                            <div class="option">
+                                <div class="image">
+                                    <app-repository-image [repositoryName]="repositoryName" spinnerDiameter="15"></app-repository-image>
+                                </div>
+                                <div class="name" [matTooltip]="repositoryName">
+                                    {{repositoryName}}
+                                </div>
                             </div>
-                            <div class="name" [matTooltip]="repositoryName">
-                                {{repositoryName}}
-                            </div>
-                        </div>
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </app-event-load-element>
         </form>
     </mat-dialog-content>
 </div>
