@@ -1,0 +1,21 @@
+.container {
+    padding: 10px;
+    min-width: 25vw;
+    max-width: 50vw;
+}
+
+app-filter-list ::ng-deep #list {
+    min-height: 15vh;
+    max-height: 30vh;
+}
+
+
+#success-icon  {
+    color: rgb(93, 191, 103);
+    vertical-align: sub;
+}
+
+#failure-icon  {
+    color: rgb(208, 85, 85);
+    vertical-align: sub;
+}

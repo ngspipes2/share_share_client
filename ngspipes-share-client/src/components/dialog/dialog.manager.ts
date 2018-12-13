@@ -20,6 +20,8 @@ import { NewToolNameDialogComponent, NewToolNameDialogData } from './new-tool-na
 import { NewPipelineNameDialogComponent, NewPipelineNameDialogData } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
 import { SelectToolsFromRepositoryDialogComponent, SelectToolsFromRepositoryDialogData } from './select-tools-from-repository-dialog/select-tools-from-repository-dialog.component';
 import { SelectPipelinesFromRepositoryDialogComponent, SelectPipelinesFromRepositoryDialogData } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
+import { CloneToolsDialogComponent, CloneToolsDialogData, CloneData as CloneToolDats } from './clone-tools-dialog/clone-tools-dialog.component';
+import { ClonePipelinesDialogComponent, ClonePipelinesDialogData, CloneData as ClonePipelineData } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
 
 
 export class DialogResult<T> {
@@ -250,6 +252,28 @@ export class DialogManager {
 
     public openSelectPipelinesFromRepositoryDialogAsPromise(repositoryName : string) : Promise<string[]> {
         return this.toPromise(this.openSelectPipelinesFromRepositoryDialog(repositoryName));
+    }
+
+
+    public openCloneToolsDialog(clones : CloneToolDats[]) : MatDialogRef<CloneToolsDialogComponent, DialogResult<any>> {
+        return this.dialog.open(CloneToolsDialogComponent, {
+            data: { clones : clones }
+        });
+    }
+
+    public openCloneToolsDialogAsPromise(clones : CloneToolDats[]) : Promise<any> {
+        return this.toPromise(this.openCloneToolsDialog(clones));
+    }
+
+
+    public openClonePipelinesDialog(clones : ClonePipelineData[]) : MatDialogRef<ClonePipelinesDialogComponent, DialogResult<any>> {
+        return this.dialog.open(ClonePipelinesDialogComponent, {
+            data: { clones : clones }
+        });
+    }
+
+    public openClonePipelineDialogAsPromise(clones : ClonePipelineData[]) : Promise<any> {
+        return this.toPromise(this.openClonePipelinesDialog(clones));
     }
 
 }

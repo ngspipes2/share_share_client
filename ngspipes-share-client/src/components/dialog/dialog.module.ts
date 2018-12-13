@@ -26,6 +26,8 @@ import { NewToolNameDialogComponent } from './new-tool-name-dialog/new-tool-name
 import { NewPipelineNameDialogComponent } from './new-pipeline-name-dialog/new-pipeline-name-dialog.component';
 import { SelectToolsFromRepositoryDialogComponent } from './select-tools-from-repository-dialog/select-tools-from-repository-dialog.component';
 import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
+import { CloneToolsDialogComponent } from './clone-tools-dialog/clone-tools-dialog.component';
+import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines
       NewToolNameDialogComponent,
       NewPipelineNameDialogComponent,
       SelectToolsFromRepositoryDialogComponent,
-      SelectPipelinesFromRepositoryDialogComponent
+      SelectPipelinesFromRepositoryDialogComponent,
+      CloneToolsDialogComponent,
+      ClonePipelinesDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -72,7 +76,9 @@ import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines
       NewToolNameDialogComponent,
       NewPipelineNameDialogComponent,
       SelectToolsFromRepositoryDialogComponent,
-      SelectPipelinesFromRepositoryDialogComponent
+      SelectPipelinesFromRepositoryDialogComponent,
+      CloneToolsDialogComponent,
+      ClonePipelinesDialogComponent
   ],
   providers: [
       DialogManager
@@ -93,7 +99,9 @@ import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines
       NewToolNameDialogComponent,
       NewPipelineNameDialogComponent,
       SelectToolsFromRepositoryDialogComponent,
-      SelectPipelinesFromRepositoryDialogComponent
+      SelectPipelinesFromRepositoryDialogComponent,
+      CloneToolsDialogComponent,
+      ClonePipelinesDialogComponent
   ]
 })
 export class DialogModule { }

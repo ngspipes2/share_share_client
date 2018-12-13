@@ -1,0 +1,24 @@
+<div class="container">
+    <p>Clonning Pipelines:</p>
+    <mat-dialog-content>
+        <app-filter-list [filters]="[]" [elements]="clones">
+            <ng-template let-element>
+                <app-list-option [name]="element.pipelineName">
+                    <app-pipeline-image
+                        list-option-image
+                        [repositoryName]="element.repositoryName"
+                        [pipelineName]="element.pipelineName"
+                        [spinnerDiameter]="15">
+                    </app-pipeline-image>
+                    <app-wait-element list-option-icons [spinnerDiameter]="15" [waitting]="!element.finished">
+                        <mat-icon *ngIf="!element.error" id="success-icon" [matTooltip]="'Clonned'">check_circle</mat-icon>
+                        <mat-icon *ngIf="element.error" id="failure-icon" [matTooltip]="element.error">error</mat-icon>
+                    </app-wait-element>
+                </app-list-option>
+            </ng-template>
+        </app-filter-list>
+    </mat-dialog-content>
+    <div mat-dialog-actions class="actions" align="center">
+        <button *ngIf="closable" mat-button (click)="okClicked()">Ok</button>
+    </div>
+</div>
