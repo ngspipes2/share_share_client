@@ -18,6 +18,7 @@ import { RepositoryGroupMemberService } from './repository-group-member.service'
 import { RepositoryConfigService } from './repository-config.service';
 import { ToolsRepositoryFacadeService } from './tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.service';
+import { ImportExportService } from './import-export.service';
 
 @NgModule({
     declarations: [ ],
@@ -41,7 +42,8 @@ import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.
         RepositoryGroupMemberService,
         RepositoryConfigService,
         ToolsRepositoryFacadeService,
-        PipelinesRepositoryFacadeService
+        PipelinesRepositoryFacadeService,
+        ImportExportService
     ]
 })
 
