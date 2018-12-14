@@ -272,7 +272,7 @@ export class DialogManager {
         });
     }
 
-    public openClonePipelineDialogAsPromise(clones : ClonePipelineData[]) : Promise<any> {
+    public openClonePipelinesDialogAsPromise(clones : ClonePipelineData[]) : Promise<any> {
         return this.toPromise(this.openClonePipelinesDialog(clones));
     }
 
