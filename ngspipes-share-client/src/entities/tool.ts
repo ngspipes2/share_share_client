@@ -1,3 +1,8 @@
+export enum ToolFormat {
+    JSON = "JSON",
+    YAML = "YAML"
+}
+
 export class Tool {
 
     constructor(

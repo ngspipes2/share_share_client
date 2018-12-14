@@ -1,3 +1,9 @@
+export enum PipelineFormat {
+    JSON = "JSON",
+    YAML = "YAML",
+    PIPES = "PIPES"
+}
+
 export class Pipeline {
 
     public constructor(
