@@ -12,3 +12,10 @@ app-filter-list ::ng-deep #list {
 mat-checkbox ::ng-deep label {
     margin: 0px;
 }
+
+app-tool-image ::ng-deep #content {
+    font-size: 25px;
+
+    height: 25px;
+    width: 25px;
+}
