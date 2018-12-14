@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 
 import { EntityType } from '../../entities/repository';
+import { ImportExportToolFormat, ImportExportPipelineFormat } from '../../services/import-export.service';
 
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
@@ -22,6 +23,8 @@ import { SelectToolsFromRepositoryDialogComponent, SelectToolsFromRepositoryDial
 import { SelectPipelinesFromRepositoryDialogComponent, SelectPipelinesFromRepositoryDialogData } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
 import { CloneToolsDialogComponent, CloneToolsDialogData, CloneData as CloneToolDats } from './clone-tools-dialog/clone-tools-dialog.component';
 import { ClonePipelinesDialogComponent, ClonePipelinesDialogData, CloneData as ClonePipelineData } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
+import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/select-tool-format-dialog.component';
+import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
 
 
 export class DialogResult<T> {
@@ -274,6 +277,24 @@ export class DialogManager {
 
     public openClonePipelinesDialogAsPromise(clones : ClonePipelineData[]) : Promise<any> {
         return this.toPromise(this.openClonePipelinesDialog(clones));
+    }
+
+
+    public openSelectToolFormatDialog() : MatDialogRef<SelectToolFormatDialogComponent, DialogResult<ImportExportToolFormat>> {
+        return this.dialog.open(SelectToolFormatDialogComponent);
+    }
+
+    public openSelectToolFormatDialogAsPromise() : Promise<ImportExportToolFormat> {
+        return this.toPromise(this.openSelectToolFormatDialog());
+    }
+
+
+    public openSelectPipelineFormatDialog() : MatDialogRef<SelectPipelineFormatDialogComponent, DialogResult<ImportExportPipelineFormat>> {
+        return this.dialog.open(SelectPipelineFormatDialogComponent);
+    }
+
+    public openSelectPipelineFormatDialogAsPromise() : Promise<ImportExportPipelineFormat> {
+        return this.toPromise(this.openSelectPipelineFormatDialog());
     }
 
 }

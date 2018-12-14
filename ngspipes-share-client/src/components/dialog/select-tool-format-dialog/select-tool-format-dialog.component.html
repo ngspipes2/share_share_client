@@ -1,0 +1,56 @@
+<div class="container">
+    <p>Select Tool Format:</p>
+    <mat-dialog-content>
+        <mat-form-field>
+            <mat-select placeholder="Format" [(value)]="selectedFormat">
+                <mat-select-trigger>
+                    <div class="selection">
+                        <div class="label">
+                            {{selectedFormat}}
+                        </div>
+                        <div class="icon">
+                            <mat-icon>{{getFormatIcon(selectedFormat)}}</mat-icon>
+                        </div>
+                    </div>
+                </mat-select-trigger>
+                <mat-option *ngFor="let format of formats" [value]="format">
+                    <div class="option">
+                        <div class="label">
+                            {{format}}
+                        </div>
+                        <div class="icon">
+                            <mat-icon>{{getFormatIcon(format)}}</mat-icon>
+                        </div>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Type" [(value)]="selectedType">
+                <mat-select-trigger>
+                    <div class="selection">
+                        <div class="label">
+                            {{selectedType}}
+                        </div>
+                        <div class="icon">
+                            <mat-icon>{{getTypeIcon(selectedType)}}</mat-icon>
+                        </div>
+                    </div>
+                </mat-select-trigger>
+                <mat-option *ngFor="let type of types" [value]="type">
+                    <div class="option">
+                        <div class="label">
+                            {{type}}
+                        </div>
+                        <div class="icon">
+                            <mat-icon>{{getTypeIcon(type)}}</mat-icon>
+                        </div>
+                    </div>
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-dialog-content>
+    <div mat-dialog-actions align="center">
+        <button mat-button (click)="selectClicked()">Select</button>
+    </div>
+</div>

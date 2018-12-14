@@ -28,6 +28,8 @@ import { SelectToolsFromRepositoryDialogComponent } from './select-tools-from-re
 import { SelectPipelinesFromRepositoryDialogComponent } from './select-pipelines-from-repository-dialog/select-pipelines-from-repository-dialog.component';
 import { CloneToolsDialogComponent } from './clone-tools-dialog/clone-tools-dialog.component';
 import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
+import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/select-tool-format-dialog.component';
+import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pi
       SelectToolsFromRepositoryDialogComponent,
       SelectPipelinesFromRepositoryDialogComponent,
       CloneToolsDialogComponent,
-      ClonePipelinesDialogComponent
+      ClonePipelinesDialogComponent,
+      SelectToolFormatDialogComponent,
+      SelectPipelineFormatDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -78,7 +82,9 @@ import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pi
       SelectToolsFromRepositoryDialogComponent,
       SelectPipelinesFromRepositoryDialogComponent,
       CloneToolsDialogComponent,
-      ClonePipelinesDialogComponent
+      ClonePipelinesDialogComponent,
+      SelectToolFormatDialogComponent,
+      SelectPipelineFormatDialogComponent
   ],
   providers: [
       DialogManager
@@ -101,7 +107,9 @@ import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pi
       SelectToolsFromRepositoryDialogComponent,
       SelectPipelinesFromRepositoryDialogComponent,
       CloneToolsDialogComponent,
-      ClonePipelinesDialogComponent
+      ClonePipelinesDialogComponent,
+      SelectToolFormatDialogComponent,
+      SelectPipelineFormatDialogComponent
   ]
 })
 export class DialogModule { }

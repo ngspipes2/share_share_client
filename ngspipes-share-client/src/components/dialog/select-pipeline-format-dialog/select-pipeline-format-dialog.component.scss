@@ -1,0 +1,21 @@
+.container {
+    padding: 10px;
+}
+
+mat-form-field {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.selection {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
