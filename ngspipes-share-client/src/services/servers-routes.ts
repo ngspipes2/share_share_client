@@ -106,4 +106,16 @@ export class ServersRoutes {
     public static PIPELINES_FACADE_DELETE_PIPELINE_ROUTE : string = ServersRoutes.PIPELINES_REPOSITORY_FACADE_ROUTE + "/deletepipeline/{pipelineName}";
 
 
+    public static IMPORT_ROUTE : string = ServersRoutes.API_SERVER_URI + "/import";
+
+    public static IMPORT_TOOLS_ROUTE : string = ServersRoutes.IMPORT_ROUTE + "/tools";
+    public static IMPORT_PIPELINES_ROUTE : string = ServersRoutes.IMPORT_ROUTE + "/pipelines";
+
+
+    public static EXPORT_ROUTE : string = ServersRoutes.API_SERVER_URI + "/export";
+
+    public static EXPORT_TOOLS_ROUTE : string = ServersRoutes.EXPORT_ROUTE + "/tools";
+    public static EXPORT_PIPELINES_ROUTE : string = ServersRoutes.EXPORT_ROUTE + "/pipelines";
+
+
 }

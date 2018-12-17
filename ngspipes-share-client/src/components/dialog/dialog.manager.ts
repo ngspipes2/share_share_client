@@ -3,7 +3,8 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 
 import { EntityType } from '../../entities/repository';
-import { ImportExportToolFormat, ImportExportPipelineFormat } from '../../services/import-export.service';
+import { ToolFormat } from '../../entities/tool';
+import { PipelineFormat } from '../../entities/pipeline';
 
 import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
@@ -280,20 +281,20 @@ export class DialogManager {
     }
 
 
-    public openSelectToolFormatDialog() : MatDialogRef<SelectToolFormatDialogComponent, DialogResult<ImportExportToolFormat>> {
+    public openSelectToolFormatDialog() : MatDialogRef<SelectToolFormatDialogComponent, DialogResult<ToolFormat>> {
         return this.dialog.open(SelectToolFormatDialogComponent);
     }
 
-    public openSelectToolFormatDialogAsPromise() : Promise<ImportExportToolFormat> {
+    public openSelectToolFormatDialogAsPromise() : Promise<ToolFormat> {
         return this.toPromise(this.openSelectToolFormatDialog());
     }
 
 
-    public openSelectPipelineFormatDialog() : MatDialogRef<SelectPipelineFormatDialogComponent, DialogResult<ImportExportPipelineFormat>> {
+    public openSelectPipelineFormatDialog() : MatDialogRef<SelectPipelineFormatDialogComponent, DialogResult<PipelineFormat>> {
         return this.dialog.open(SelectPipelineFormatDialogComponent);
     }
 
-    public openSelectPipelineFormatDialogAsPromise() : Promise<ImportExportPipelineFormat> {
+    public openSelectPipelineFormatDialogAsPromise() : Promise<PipelineFormat> {
         return this.toPromise(this.openSelectPipelineFormatDialog());
     }
 
