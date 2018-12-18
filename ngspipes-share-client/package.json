@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
+    "file-saver": "^2.0.0",
     "moment": "^2.22.2",
     "ngx-clipboard": "^11.1.9",
     "rxjs": "^6.0.0",

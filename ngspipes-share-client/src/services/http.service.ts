@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { Headers, Http, Response, ResponseContentType } from '@angular/http';
+import saveAs from 'file-saver';
 
 import { SessionService } from './session.service';
 
@@ -7,7 +8,8 @@ class Request {
     method : string;
     url : string;
     headers : Headers;
-    body : any
+    body : any;
+    responseType : ResponseContentType;
 }
 
 @Injectable()
@@ -22,7 +24,8 @@ export class HttpService {
             method : "GET",
             url : url,
             body : null,
-            headers : this.createReadHeaders()
+            headers : this.createReadHeaders(),
+            responseType : null
         });
     }
 
@@ -31,7 +34,8 @@ export class HttpService {
             method : "POST",
             url : url,
             body : body,
-            headers : this.createWriteHeaders()
+            headers : this.createWriteHeaders(),
+            responseType : null
         });
     }
 
@@ -40,7 +44,8 @@ export class HttpService {
             method : "PUT",
             url : url,
             body : body,
-            headers : this.createWriteHeaders()
+            headers : this.createWriteHeaders(),
+            responseType : null
         });
     }
 
@@ -49,7 +54,8 @@ export class HttpService {
             method : "DELETE",
             url : url,
             body : null,
-            headers : this.createWriteHeaders()
+            headers : this.createWriteHeaders(),
+            responseType : null
         });
     }
 
@@ -82,11 +88,37 @@ export class HttpService {
           });
     }
 
+    public downloadFile(url : string, body? : any) : Promise<any> {
+        return this.execute({
+            method : "POST",
+            url : url,
+            body : body,
+            headers : this.createWriteHeaders(),
+            responseType : ResponseContentType.Blob
+        }).then(response => {
+            let file = response.blob();
+            let fileName = this.getFileNameFromResponseContentDisposition(response);
+            saveAs(file, fileName);
+            return response;
+        });;
+    }
+
+    private getFileNameFromResponseContentDisposition(res: any) : string {
+        const contentDisposition = res.headers.get('content-disposition') || '';
+
+        if(contentDisposition === "")
+            return "file";
+
+        const matches = /filename=([^;]+)/ig.exec(contentDisposition);
+        const fileName = (matches[1] || 'untitled').trim();
+        return fileName;
+    };
+
 
     private execute(request : Request) : Promise<Response> {
         let response : Promise<Response> = this.executeRequest(request);
 
-        this.logRequest(request.method, request.url, request.headers, request.body);
+        this.logRequest(request.method, request.url, request.headers, request.body, request.responseType);
 
         return response
             .then(response => {
@@ -107,16 +139,16 @@ export class HttpService {
 
     private executeRequest(request : Request) : Promise<Response> {
         if(request.method === "GET")
-            return this.http.get(request.url, {headers: request.headers}).toPromise();
+            return this.http.get(request.url, {headers: request.headers, responseType: request.responseType}).toPromise();
 
         if(request.method === "POST")
-            return this.http.post(request.url, request.body, {headers: request.headers}).toPromise();
+            return this.http.post(request.url, request.body, {headers: request.headers, responseType: request.responseType}).toPromise();
 
         if(request.method === "PUT")
-            return this.http.put(request.url, request.body, {headers: request.headers}).toPromise();
+            return this.http.put(request.url, request.body, {headers: request.headers, responseType: request.responseType}).toPromise();
 
         if(request.method === "DELETE")
-            return this.http.delete(request.url, {headers: request.headers}).toPromise();
+            return this.http.delete(request.url, {headers: request.headers, responseType: request.responseType}).toPromise();
 
         throw "Unknown request method:" + request.method + "!";
     }
@@ -146,13 +178,14 @@ export class HttpService {
         return headers;
     }
 
-    private logRequest(method : string, url : string, headers : any, body : any) {
+    private logRequest(method : string, url : string, headers : any, body : any, responseType : ResponseContentType) {
         let log = {
             way: "Request",
             method : method,
             url : url,
             headers : headers,
-            body : body
+            body : body,
+            responseType : responseType
         };
 
         console.log(log);
