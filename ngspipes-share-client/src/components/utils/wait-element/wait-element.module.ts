@@ -9,6 +9,7 @@ import { WaitElementComponent } from './wait-element.component';
 import { LoadElementComponent } from './load-element/load-element.component';
 import { OperationIconButtonComponent } from './operation-icon-button/operation-icon-button.component';
 import { OperationSelectFileTextButtonComponent } from './operation-select-file-text-button/operation-select-file-text-button.component';
+import { OperationSelectFileIconButtonComponent } from './operation-select-file-icon-button/operation-select-file-icon-button.component';
 import { OperationSlideToggleComponent } from './operation-slide-toggle/operation-slide-toggle.component';
 import { OperationTextButtonComponent } from './operation-text-button/operation-text-button.component';
 import { EventLoadElementComponent } from './event-load-element/event-load-element.component';
@@ -26,6 +27,7 @@ import { EventLoadElementComponent } from './event-load-element/event-load-eleme
         LoadElementComponent,
         OperationIconButtonComponent,
         OperationSelectFileTextButtonComponent,
+        OperationSelectFileIconButtonComponent,
         OperationSlideToggleComponent,
         OperationTextButtonComponent,
         EventLoadElementComponent
@@ -35,6 +37,7 @@ import { EventLoadElementComponent } from './event-load-element/event-load-eleme
         LoadElementComponent,
         OperationIconButtonComponent,
         OperationSelectFileTextButtonComponent,
+        OperationSelectFileIconButtonComponent,
         OperationSlideToggleComponent,
         OperationTextButtonComponent,
         EventLoadElementComponent

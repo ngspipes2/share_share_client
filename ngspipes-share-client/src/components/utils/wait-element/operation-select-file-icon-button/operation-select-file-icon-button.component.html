@@ -1,0 +1,24 @@
+<input type="file" (change)="clicked($event.target.files[0], event)" #selectFile hidden="true">
+<app-wait-element
+    [spinnerDiameter]="spinnerDiameter"
+    [spinnerColor]="spinnerColor"
+    [waitting]="working">
+    <mat-icon *ngIf="icon"
+        #button
+        [color]="color"
+        (mouseenter)="button.color=accentColor"
+        (mouseleave)="button.color=color"
+        (mouseup)="button.color=color"
+        (click)="selectFile.click()">
+        {{icon}}
+    </mat-icon>
+    <mat-icon *ngIf="svgIcon"
+        [svgIcon]="svgIcon"
+        #button
+        [color]="color"
+        (mouseenter)="button.color=accentColor"
+        (mouseleave)="button.color=color"
+        (mouseup)="button.color=color"
+        (click)="selectFile.click()">
+    </mat-icon>
+</app-wait-element>
