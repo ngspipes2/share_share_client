@@ -19,10 +19,7 @@ export class ImportExportService {
 
         let data = [tool];
 
-        return this.httpService.post(url, data)
-        .then((response) => {
-            return true;
-        });
+        return this.httpService.downloadFile(url, data);
     }
 
     public exportTools(tools : Tool[], format : ToolFormat, outputName : string) : Promise<boolean> {
@@ -32,10 +29,7 @@ export class ImportExportService {
 
         let data = tools;
 
-        return this.httpService.post(url, data)
-        .then((response) => {
-            return true;
-        });
+        return this.httpService.downloadFile(url, data);
     }
 
     public exportPipeline(pipeline : Pipeline, format : PipelineFormat, outputName : string) : Promise<boolean> {
@@ -45,10 +39,7 @@ export class ImportExportService {
 
         let data = [pipeline];
 
-        return this.httpService.post(url, data)
-        .then((response) => {
-            return true;
-        });
+        return this.httpService.downloadFile(url, data);
     }
 
     public exportPipelines(pipelines : Pipeline[], format : PipelineFormat, outputName : string) : Promise<boolean> {
@@ -58,10 +49,7 @@ export class ImportExportService {
 
         let data = pipelines;
 
-        return this.httpService.post(url, data)
-        .then((response) => {
-            return true;
-        });
+        return this.httpService.downloadFile(url, data);
     }
 
 
@@ -69,28 +57,26 @@ export class ImportExportService {
         let url = ServersRoutes.IMPORT_TOOLS_ROUTE;
 
         return this.httpService.uploadFile(url, file)
-        .then((tools) => {
-            return tools[0];
-        });
+        .then(response => JSON.parse(response)[0]);
     }
 
     public importTools(file : any) : Promise<Tool[]> {
         let url = ServersRoutes.IMPORT_TOOLS_ROUTE;
-        return this.httpService.uploadFile(url, file);
+        return this.httpService.uploadFile(url, file)
+        .then(response => JSON.parse(response));
     }
 
     public importPipeline(file : any) : Promise<Pipeline> {
         let url = ServersRoutes.IMPORT_PIPELINES_ROUTE;
 
         return this.httpService.uploadFile(url, file)
-        .then((pipelines) => {
-            return pipelines[0];
-        });
+        .then(response => JSON.parse(response)[0]);
     }
 
     public importPipelines(file : any) : Promise<Pipeline[]> {
         let url = ServersRoutes.IMPORT_PIPELINES_ROUTE;
-        return this.httpService.uploadFile(url, file);
+        return this.httpService.uploadFile(url, file)
+        .then(response => JSON.parse(response));
     }
 
 }
