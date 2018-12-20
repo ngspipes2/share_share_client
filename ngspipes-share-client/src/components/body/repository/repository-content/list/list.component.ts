@@ -154,10 +154,10 @@ export class ListComponent implements OnInit, OnChanges, OnDestroy {
 
     createClick() : Promise<any> {
         if(this.repository.entityType === EntityType.TOOLS) {
-            let tool = new Tool("","","","",[],[],[],[]);
+            let tool = new Tool("","","","",[],[],[],null);
             return this.operationsManager.createTool(this.repository, tool);
         } else {
-            let pipeline = new Pipeline("","","","",[],[],[],[],[],[]);
+            let pipeline = new Pipeline("","","","",[],null,[],[],[],[]);
             return this.operationsManager.createPipeline(this.repository, pipeline);
         }
     }
