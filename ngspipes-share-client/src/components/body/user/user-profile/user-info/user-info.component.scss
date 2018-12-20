@@ -41,3 +41,8 @@ app-user-image, mat-icon {
     justify-content: center;
     margin-top: 20px;
 }
+
+
+app-event-load-element ::ng-deep app-wait-element > div#root.not-waitting {
+    display: block;
+}
