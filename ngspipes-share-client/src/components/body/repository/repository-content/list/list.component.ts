@@ -101,9 +101,6 @@ export class ListComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     loadTools() {
-        this.toolsNames = undefined;
-        this.entitiesNames = undefined;
-
         this.operationsManager.getToolsNames(this.repository)
         .then(toolsNames => {
             this.toolsNames = toolsNames;
@@ -112,9 +109,6 @@ export class ListComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     loadPipelines() {
-        this.pipelinesNames = undefined;
-        this.entitiesNames = undefined;
-
         this.operationsManager.getPipelinesNames(this.repository)
         .then(pipelinesNames => {
             this.pipelinesNames = pipelinesNames;
