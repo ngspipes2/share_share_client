@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
 import { Group } from '../entities/group';
+import { CacheService } from './cache.service';
 
 @Injectable()
 export class GroupService {
@@ -15,7 +16,7 @@ export class GroupService {
 
 
 
-    constructor(private httpService: HttpService) {
+    constructor(private httpService: HttpService, private cacheService : CacheService) {
         this.groupCreateEvent.subscribe(groupName => this.groupEvent.next(groupName));
         this.groupUpdateEvent.subscribe(groupName => this.groupEvent.next(groupName));
         this.groupDeleteEvent.subscribe(groupName => this.groupEvent.next(groupName));
@@ -122,12 +123,17 @@ export class GroupService {
     }
 
     public getGroupImage(groupName : string) : Promise<any> {
+        if(this.cacheService.get("GROUP_" + groupName) !== undefined)
+            return Promise.resolve(this.cacheService.get("GROUP_" + groupName));
+
         let url = ServersRoutes.GET_GROUP_IMAGE_ROUTE.replace('{groupName}', groupName);
 
         return this.httpService.get(url)
             .then(response => {
                 if(!response.text() || response.status===404)
                     return null;
+
+                this.cacheService.put("GROUP_" + groupName, response.text());
 
                 return response.text();
             });
@@ -138,7 +144,10 @@ export class GroupService {
 
         return this.httpService.uploadFile(url, file)
             .then((response) => {
+                this.cacheService.remove("GROUP_" + groupName);
+
                 this.fireUpdateEvent(groupName);
+
                 return true;
             });
     }
@@ -148,7 +157,10 @@ export class GroupService {
 
         return this.httpService.delete(url)
             .then((response) => {
+                this.cacheService.remove("GROUP_" + groupName);
+
                 this.fireUpdateEvent(groupName);
+
                 return true;
             });
     }

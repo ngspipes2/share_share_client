@@ -8,6 +8,8 @@ import { Tool, Command, Parameter, Output, ExecutionContext } from '../entities/
 import { RepositoryConfig, Config } from '../entities/repository-config';
 import { Repository } from '../entities/repository';
 import { RepositoryService } from './repository.service';
+import { CacheService } from './cache.service';
+
 @Injectable()
 export class ToolsRepositoryFacadeService {
 
@@ -19,7 +21,8 @@ export class ToolsRepositoryFacadeService {
 
 
     constructor(private httpService: HttpService,
-                private repositoryService : RepositoryService) {
+                private repositoryService : RepositoryService,
+                private cacheService : CacheService) {
         this.toolCreateEvent.subscribe(id => this.toolEvent.next(id));
         this.toolUpdateEvent.subscribe(id => this.toolEvent.next(id));
         this.toolDeleteEvent.subscribe(id => this.toolEvent.next(id));
@@ -28,11 +31,16 @@ export class ToolsRepositoryFacadeService {
 
 
     public getRepositoryImage(repositoryConfig : RepositoryConfig) : Promise<any> {
+        if(this.cacheService.get("TOOLS_REPOSITORY_" + repositoryConfig.repositoryName) !== undefined)
+            return Promise.resolve(this.cacheService.get("TOOLS_REPOSITORY_" + repositoryConfig.repositoryName));
+
         let url = ServersRoutes.TOOLS_FACADE_GET_LOGO_ROUTE;
         return this.execute(repositoryConfig, url, null)
         .then(response => {
             if(!response.text() || response.status===404)
                 return null;
+
+            this.cacheService.put("TOOLS_REPOSITORY_" + repositoryConfig.repositoryName, response.text());
 
             return response.text();
         });
@@ -76,6 +84,8 @@ export class ToolsRepositoryFacadeService {
             let url = ServersRoutes.TOOLS_FACADE_SET_LOGO_ROUTE;
             return this.execute(repositoryConfig, url, content)
             .then(response => {
+                this.cacheService.remove("TOOLS_REPOSITORY_" + repositoryConfig.repositoryName);
+
                 let success = response.status === 200;
 
                 if(success)

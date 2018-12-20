@@ -5,6 +5,7 @@ import { HttpService } from './http.service';
 import { ServersRoutes } from './servers-routes';
 import { User, UserRole } from '../entities/user';
 import { SessionService } from './session.service';
+import { CacheService } from './cache.service';
 
 @Injectable()
 export class UserService {
@@ -16,7 +17,9 @@ export class UserService {
 
 
 
-    constructor(private httpService: HttpService, private sessionService : SessionService) {
+    constructor(private httpService: HttpService,
+                private sessionService : SessionService,
+                private cacheService : CacheService) {
         this.userCreateEvent.subscribe(userName => this.userEvent.next(userName));
         this.userUpdateEvent.subscribe(userName => this.userEvent.next(userName));
         this.userDeleteEvent.subscribe(userName => this.userEvent.next(userName));
@@ -104,12 +107,17 @@ export class UserService {
     }
 
     public getUserImage(userName : string) : Promise<any> {
+        if(this.cacheService.get("USER_" + userName) !== undefined)
+            return Promise.resolve(this.cacheService.get("USER_" + userName));
+
         let url = ServersRoutes.GET_USER_IMAGE_ROUTE.replace('{userName}', userName);
 
         return this.httpService.get(url)
             .then(response => {
                 if(!response.text() || response.status===404)
                     return null;
+
+                this.cacheService.put("USER_" + userName, response.text());
 
                 return response.text();
             });
@@ -119,10 +127,13 @@ export class UserService {
         let url = ServersRoutes.CHANGE_USER_IMAGE_ROUTE.replace('{userName}', userName);
 
         return this.httpService.uploadFile(url, file)
-            .then((response) => {
-                this.fireUpdateEvent(userName);
-                return true;
-            });
+        .then((response) => {
+            this.cacheService.remove("USER_" + userName);
+
+            this.fireUpdateEvent(userName);
+
+            return true;
+        });
     }
 
     public deleteUserImage(userName : string) : Promise<boolean> {
@@ -130,7 +141,10 @@ export class UserService {
 
         return this.httpService.delete(url)
             .then((response) => {
+                this.cacheService.remove("USER_" + userName);
+
                 this.fireUpdateEvent(userName);
+
                 return true;
             });
     }

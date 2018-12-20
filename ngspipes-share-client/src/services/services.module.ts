@@ -19,6 +19,7 @@ import { RepositoryConfigService } from './repository-config.service';
 import { ToolsRepositoryFacadeService } from './tools-repository-facade.service';
 import { PipelinesRepositoryFacadeService } from './pipelines-repository-facade.service';
 import { ImportExportService } from './import-export.service';
+import { CacheService } from './cache.service';
 
 @NgModule({
     declarations: [ ],
@@ -43,7 +44,8 @@ import { ImportExportService } from './import-export.service';
         RepositoryConfigService,
         ToolsRepositoryFacadeService,
         PipelinesRepositoryFacadeService,
-        ImportExportService
+        ImportExportService,
+        CacheService
     ]
 })
 
