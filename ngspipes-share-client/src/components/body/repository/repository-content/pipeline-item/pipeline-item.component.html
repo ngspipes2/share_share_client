@@ -1,0 +1,31 @@
+<app-list-option [name]="pipelineName">
+    <app-pipeline-image
+        list-option-image
+        [repositoryName]="repository.repositoryName"
+        [pipelineName]="pipelineName"
+        [spinnerDiameter]="15">
+    </app-pipeline-image>
+
+    <app-operation-select-file-icon-button
+        list-option-icons
+        matTooltip="Upload new Pipeline version"
+        icon="publish"
+        accentColor="accent"
+        [action]="uploadClick.bind(this)">
+    </app-operation-select-file-icon-button>
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Download Pipeline"
+        icon="cloud_download"
+        accentColor="accent"
+        [action]="downloadClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Delete Pipeline"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+</app-list-option>

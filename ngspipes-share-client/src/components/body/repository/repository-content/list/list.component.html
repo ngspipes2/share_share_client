@@ -1,0 +1,44 @@
+<div id="root">
+    <app-filter-list [filters]="filters" [elements]="entitiesNames">
+        <ng-template let-element>
+            <div>
+                <app-tool-item
+                    *ngIf="isToolsRepository()"
+                    [repository]="repository"
+                    [toolName]="element"
+                    [editable]="editable">
+                </app-tool-item>
+                <app-pipeline-item
+                    *ngIf="isPipelinesRepository()"
+                    [repository]="repository"
+                    [pipelineName]="element"
+                    [editable]="editable">
+                </app-pipeline-item>
+            </div>
+        </ng-template>
+        <div id="empty-list" empty-list>
+            <p>This Repository has no {{getEntityType()}}s.</p>
+            <app-operation-text-button
+                *ngIf="editable"
+                label="Clone {{getEntityType()}}s"
+                [raised]="true"
+                accentColor="accent"
+                [action]="cloneClick.bind(this)">
+            </app-operation-text-button>
+            <app-operation-select-file-text-button
+                *ngIf="editable"
+                label="Upload {{getEntityType()}}s"
+                [raised]="true"
+                accentColor="accent"
+                [action]="uploadClick.bind(this)">
+            </app-operation-select-file-text-button>
+            <app-operation-text-button
+                *ngIf="editable"
+                label="Create {{getEntityType()}}"
+                [raised]="true"
+                accentColor="accent"
+                [action]="createClick.bind(this)">
+            </app-operation-text-button>
+        </div>
+    </app-filter-list>
+</div>

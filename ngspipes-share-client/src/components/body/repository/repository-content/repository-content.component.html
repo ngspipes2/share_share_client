@@ -1,0 +1,34 @@
+<app-frame [headerTitle]="getHeaderTitle()" svgIcon="repository">
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        matTooltip="Download Reopsitory"
+        icon="cloud_download"
+        accentColor="accent"
+        [action]="downloadClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        [matTooltip]="'Clone ' + getEntityType() + 's from other Repository'"
+        svgIcon="sheep"
+        accentColor="accent"
+        [action]="cloneClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-select-file-icon-button frame-header-buttons
+        *ngIf="editable"
+        [matTooltip]="'Upload ' + getEntityType() + 's'"
+        icon="publish"
+        accentColor="accent"
+        [action]="uploadClick.bind(this)">
+    </app-operation-select-file-icon-button>
+    <app-operation-icon-button frame-header-buttons
+        *ngIf="editable"
+        [matTooltip]="'Create ' + getEntityType()"
+        icon="add"
+        accentColor="accent"
+        [action]="createClick.bind(this)">
+    </app-operation-icon-button>
+    <app-list frame-body
+        [repositoryName]="repositoryName"
+        [editable]="editable">
+    </app-list>
+</app-frame>

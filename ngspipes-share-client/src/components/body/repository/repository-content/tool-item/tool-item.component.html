@@ -1,0 +1,31 @@
+<app-list-option [name]="toolName">
+    <app-tool-image
+        list-option-image
+        [repositoryName]="repository.repositoryName"
+        [toolName]="toolName"
+        [spinnerDiameter]="15">
+    </app-tool-image>
+
+    <app-operation-select-file-icon-button
+        list-option-icons
+        matTooltip="Upload new Tool version"
+        icon="publish"
+        accentColor="accent"
+        [action]="uploadClick.bind(this)">
+    </app-operation-select-file-icon-button>
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Download Tool"
+        icon="cloud_download"
+        accentColor="accent"
+        [action]="downloadClick.bind(this)">
+    </app-operation-icon-button>
+    <app-operation-icon-button
+        list-option-icons
+        *ngIf="editable"
+        matTooltip="Delete Tool"
+        icon="delete"
+        accentColor="warn"
+        [action]="deleteClick.bind(this)">
+    </app-operation-icon-button>
+</app-list-option>

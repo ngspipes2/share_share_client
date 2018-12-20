@@ -1,0 +1,18 @@
+#root {
+    margin: 15px 30px 15px 30px;
+}
+
+app-filter-list ::ng-deep #list {
+    height: 50vh;
+}
+
+#empty-list {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+app-operation-text-button ::ng-deep button, app-operation-select-file-text-button ::ng-deep button {
+    margin: 5px;
+    width: 125px;
+}

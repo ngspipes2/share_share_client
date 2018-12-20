@@ -22,10 +22,12 @@ import { RepositoryGroupMemberService } from '../services/repository-group-membe
 import { RepositoryUserMember } from '../entities/repository-user-member';
 import { RepositoryUserMemberService } from '../services/repository-user-member.service';
 
-import { Tool } from '../entities/tool';
+import { Tool, ToolFormat } from '../entities/tool';
 import { ToolsRepositoryFacadeService } from '../services/tools-repository-facade.service';
-import { Pipeline } from '../entities/pipeline';
+import { Pipeline, PipelineFormat } from '../entities/pipeline';
 import { PipelinesRepositoryFacadeService } from '../services/pipelines-repository-facade.service';
+
+import { ImportExportService } from '../services/import-export.service';
 
 import { SessionService } from '../services/session.service';
 
@@ -45,10 +47,12 @@ export class OperationsManager {
         public repositoryUserMemberService : RepositoryUserMemberService,
         public toolsRepositoryFacadeService : ToolsRepositoryFacadeService,
         public pipelinesRepositoryFacadeService : PipelinesRepositoryFacadeService,
+        public importExportService : ImportExportService,
         public dialogManager : DialogManager,
         public sessionService : SessionService,
         private router : Router
     ) { }
+
 
 
     public login(userName : string, password : string) : Promise<boolean> {
@@ -1170,7 +1174,7 @@ export class OperationsManager {
     }
 
 
-    private updateTool(repository : Repository, tool : Tool) : Promise<boolean> {
+    public updateTool(repository : Repository, tool : Tool) : Promise<boolean> {
         return this.getConfigForRepository(repository.repositoryName)
         .then(config => {
             if(!config)
@@ -1190,7 +1194,7 @@ export class OperationsManager {
     }
 
 
-    private deleteTool(repository : Repository, tool : Tool) : Promise<boolean> {
+    public deleteTool(repository : Repository, tool : Tool) : Promise<boolean> {
         return this.getConfigForRepository(repository.repositoryName)
         .then(config => {
             if(!config)
@@ -1227,6 +1231,66 @@ export class OperationsManager {
             return result;
         })
         .catch(this.createErrorHandler("Error deleting Tool: " +  tool.name + "!"));
+    }
+
+
+    public cloneTools(fromRepositoryName : string, toRepositoryName : string) : Promise<boolean> {
+        let fromRepositoryNamePromise = fromRepositoryName ? Promise.resolve(fromRepositoryName) : this.selectRepositoryName();
+
+        return fromRepositoryNamePromise
+        .then(repositoryName => {
+            if(!repositoryName)
+                return Promise.resolve(false);
+
+            fromRepositoryName = repositoryName;
+
+            return this.selectToolsFromRepository(fromRepositoryName)
+            .then(toolsNames => {
+                if(!toolsNames)
+                    return Promise.resolve(false);
+
+                return this.internalCloneTools(fromRepositoryName, toolsNames, toRepositoryName);
+            });
+        });
+    }
+
+    private selectToolsFromRepository(repositoryName : string) : Promise<string[]> {
+        return this.dialogManager.openSelectToolsFromRepositoryDialogAsPromise(repositoryName)
+        .catch(this.createErrorHandler("Error selecting tools from Repository: " + repositoryName + "!"));
+    }
+
+    private internalCloneTools(fromRepositoryName: string, toolsNames: string[], toRepositoryName: string) : Promise<boolean> {
+        return this.getConfigForRepository(fromRepositoryName)
+        .then(fromRepositoryConfig => {
+            return this.getConfigForRepository(toRepositoryName)
+            .then(toRepositoryConfig => {
+                let clones = [];
+
+                toolsNames.forEach(toolName => {
+                    let promise = this.cloneTool(fromRepositoryConfig, toolName, toRepositoryConfig);
+
+                    clones.push({
+                        repositoryName: fromRepositoryName,
+                        toolName: toolName,
+                        promise: promise
+                    })
+                });
+
+                return this.dialogManager.openCloneToolsDialogAsPromise(clones);
+            });
+        });
+    }
+
+    private cloneTool(fromRepositoryConfig: RepositoryConfig, toolName: string, toRepositoryConfig: RepositoryConfig) : Promise<boolean> {
+        let repository = new Repository(fromRepositoryConfig.repositoryName, null, null, null, null, null, null, null);
+
+        return this.getTool(repository, toolName)
+        .then(tool => {
+            repository.repositoryName = toRepositoryConfig.repositoryName;
+
+            return this.createTool(repository, tool)
+            .then(() => true);
+        });
     }
 
 
@@ -1301,7 +1365,7 @@ export class OperationsManager {
     }
 
 
-    private updatePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
+    public updatePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
         return this.getConfigForRepository(repository.repositoryName)
         .then(config => {
             if(!config)
@@ -1321,7 +1385,7 @@ export class OperationsManager {
     }
 
 
-    private deletePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
+    public deletePipeline(repository : Repository, pipeline : Pipeline) : Promise<boolean> {
         return this.getConfigForRepository(repository.repositoryName)
         .then(config => {
             if(!config)
@@ -1358,6 +1422,214 @@ export class OperationsManager {
             return result;
         })
         .catch(this.createErrorHandler("Error deleting Pipeline: " +  pipeline.name + "!"));
+    }
+
+
+    public clonePipelines(fromRepositoryName : string, toRepositoryName : string) : Promise<boolean> {
+        let fromRepositoryNamePromise = fromRepositoryName ? Promise.resolve(fromRepositoryName) : this.selectRepositoryName();
+
+        return fromRepositoryNamePromise
+        .then(repositoryName => {
+            if(!repositoryName)
+                return Promise.resolve(false);
+
+            fromRepositoryName = repositoryName;
+
+            return this.selectPipelinesFromRepository(fromRepositoryName)
+            .then(pipelinesNames => {
+                if(!pipelinesNames)
+                    return Promise.resolve(false);
+
+                return this.internalClonePipelines(fromRepositoryName, pipelinesNames, toRepositoryName);
+            });
+        });
+    }
+
+    private selectPipelinesFromRepository(repositoryName : string) : Promise<string[]> {
+        return this.dialogManager.openSelectPipelinesFromRepositoryDialogAsPromise(repositoryName)
+        .catch(this.createErrorHandler("Error selecting pipelines from Repository: " + repositoryName + "!"));
+    }
+
+    private internalClonePipelines(fromRepositoryName: string, pipelinesNames: string[], toRepositoryName: string) : Promise<boolean> {
+        return this.getConfigForRepository(fromRepositoryName)
+        .then(fromRepositoryConfig => {
+            return this.getConfigForRepository(toRepositoryName)
+            .then(toRepositoryConfig => {
+                let clones = [];
+
+                pipelinesNames.forEach(pipelineName => {
+                    let promise = this.clonePipeline(fromRepositoryConfig, pipelineName, toRepositoryConfig);
+
+                    clones.push({
+                        repositoryName: fromRepositoryName,
+                        pipelineName: pipelineName,
+                        promise: promise
+                    })
+                });
+
+                return this.dialogManager.openClonePipelinesDialogAsPromise(clones);
+            });
+        });
+    }
+
+    private clonePipeline(fromRepositoryConfig: RepositoryConfig, pipelineName: string, toRepositoryConfig: RepositoryConfig) : Promise<boolean> {
+        let repository = new Repository(fromRepositoryConfig.repositoryName, null, null, null, null, null, null, null);
+
+        return this.getPipeline(repository, pipelineName)
+        .then(pipeline => {
+            repository.repositoryName = toRepositoryConfig.repositoryName;
+
+            return this.createPipeline(repository, pipeline)
+            .then(() => true);
+        });
+    }
+
+
+    public uploadTool(file : any, repositoryName : string) : Promise<boolean> {
+        return this.importExportService.importTool(file)
+        .then(tool => {
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+           return this.updateTool(repository, tool)
+           .catch(this.createErrorHandler("Error uploading Tool to repository: " + repositoryName + " !"));
+       })
+       .catch(this.createErrorHandler("Error importing Tool to Repository:" + repositoryName + "!"));
+    }
+
+
+    public uploadToolsRepository(file : any, repositoryName : string) : Promise<boolean> {
+        return this.importExportService.importTools(file)
+        .then(tools => {
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+
+            let promises = [];
+            tools.forEach(tool => promises.push(this.createTool(repository, tool)));
+
+            return Promise.all(promises)
+            .then(result => true)
+            .catch(this.createErrorHandler("Error uploading Tools to repository: " + repositoryName + " !"));
+        })
+        .catch(this.createErrorHandler("Error importing Tools to Repository:" + repositoryName + "!"));;
+    }
+
+
+    public uploadPipeline(file : any, repositoryName : string) : Promise<boolean> {
+        return this.importExportService.importPipeline(file)
+        .then(pipeline => {
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+           return this.updatePipeline(repository, pipeline)
+           .catch(this.createErrorHandler("Error uploading Pipeline to repository: " + repositoryName + " !"));
+        })
+        .catch(this.createErrorHandler("Error importing Pipeline to Repository:" + repositoryName + "!"));;
+    }
+
+
+    public uploadPipelinesRepository(file : any, repositoryName : string) : Promise<boolean> {
+        return this.importExportService.importPipelines(file)
+        .then(pipelines => {
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+
+            let promises = [];
+            pipelines.forEach(pipeline => promises.push(this.createPipeline(repository, pipeline)));
+
+            return Promise.all(promises)
+            .then(result => true)
+            .catch(this.createErrorHandler("Error uploading Pipelines to repository: " + repositoryName + " !"));
+        })
+        .catch(this.createErrorHandler("Error importing Pipelines to Repository:" + repositoryName + "!"));;
+    }
+
+
+    public downloadTool(repositoryName : string, toolName : string) : Promise<boolean> {
+        let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+        return this.getTool(repository, toolName)
+        .then(tool => {
+            return this.selectToolFormat()
+            .then(format => {
+                if(!format)
+                    return Promise.resolve(false);
+
+                return this.importExportService.exportTool(tool, format, toolName)
+                .catch(this.createErrorHandler("Error downloading Tool: " + toolName + " from repository: " + repositoryName + " !"));;
+            });
+        });
+    }
+
+    private selectToolFormat() : Promise<ToolFormat> {
+        return this.dialogManager.openSelectToolFormatDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting Tool Format!"));
+    }
+
+
+    public downloadToolsRepository(repositoryName : string) : Promise<boolean> {
+        let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+
+        return this.selectToolsFromRepository(repositoryName)
+        .then(toolsNames => {
+            if(!toolsNames)
+                return Promise.resolve(false);
+
+            return this.selectToolFormat()
+            .then(format => {
+                if(!format)
+                    return Promise.resolve(false);
+
+                    let promises = [];
+                    toolsNames.forEach(toolName => promises.push(this.getTool(repository, toolName)));
+
+                    return Promise.all(promises)
+                    .then(tools => {
+                       return this.importExportService.exportTools(tools, format, repositoryName)
+                       .catch(this.createErrorHandler("Error downloading Tools from repository: " + repositoryName + " !"));;
+                    });
+            });
+        });
+    }
+
+
+    public downloadPipeline(repositoryName : string, pipelineName : string) : Promise<boolean> {
+        let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+        return this.getPipeline(repository, pipelineName)
+        .then(pipeline => {
+            return this.selectPipelineFormat()
+            .then(format => {
+                if(!format)
+                    return Promise.resolve(false);
+
+                return this.importExportService.exportPipeline(pipeline, format, pipelineName)
+                .catch(this.createErrorHandler("Error downloading Pipeline: " + pipelineName + " from repository: " + repositoryName + " !"));;
+            });
+        });
+    }
+
+    private selectPipelineFormat() : Promise<PipelineFormat> {
+        return this.dialogManager.openSelectPipelineFormatDialogAsPromise()
+        .catch(this.createErrorHandler("Error selecting Pipeline Format!"));
+    }
+
+
+    public downloadPipelinesRepository(repositoryName : string) : Promise<boolean> {
+        let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+
+        return this.selectPipelinesFromRepository(repositoryName)
+        .then(pipelinesNames => {
+            if(!pipelinesNames)
+                return Promise.resolve(false);
+
+            return this.selectPipelineFormat()
+            .then(format => {
+                if(!format)
+                    return Promise.resolve(false);
+
+                    let promises = [];
+                    pipelinesNames.forEach(pipelineName => promises.push(this.getPipeline(repository, pipelineName)));
+
+                    return Promise.all(promises)
+                    .then(pipelines => {
+                       return this.importExportService.exportPipelines(pipelines, format, repositoryName)
+                       .catch(this.createErrorHandler("Error downloading Pipelines from repository: " + repositoryName + " !"));
+                    });
+            });
+        });
     }
 
 }

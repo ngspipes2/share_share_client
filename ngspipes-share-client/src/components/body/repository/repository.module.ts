@@ -6,6 +6,7 @@ import { UtilsModule } from '../../utils/utils.module';
 
 import { RepositoryProfileModule } from './repository-profile/repository-profile.module';
 import { RepositoryMembersModule } from './repository-members/repository-members.module';
+import { RepositoryContentModule } from './repository-content/repository-content.module';
 
 import { RepositoryComponent } from './repository.component';
 
@@ -15,6 +16,7 @@ import { RepositoryComponent } from './repository.component';
     MaterialModule,
     RepositoryProfileModule,
     RepositoryMembersModule,
+    RepositoryContentModule,
     UtilsModule
   ],
   declarations: [
