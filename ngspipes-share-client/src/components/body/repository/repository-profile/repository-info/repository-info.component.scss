@@ -44,9 +44,10 @@ app-repository-image, mat-icon {
 
 #warning {
     color: rgb(212, 106, 61);
-    vertical-align: sub;
+    align-self: center;
     font-size: 20px;
     height: 20px;
+    margin-left: 5px;
 }
 
 app-event-load-element ::ng-deep app-wait-element > div#root.not-waitting {

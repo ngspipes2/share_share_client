@@ -33,7 +33,8 @@
                 *ngIf="repository"
                 class="property"
                 [name]="'Location'"
-                [value]="repository.location">
+                [value]="repository.location"
+                [copyButton]="true">
             </app-string-property>
             <app-property [name]="'Is Public'" class="property" *ngIf="repository">
                 <ng-template #valueTemplate>
