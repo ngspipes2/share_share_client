@@ -13,6 +13,8 @@ export class NumberPropertyComponent {
     value : number;
     @Input()
     editable : boolean;
+    @Input()
+    copyButton : boolean;
 
     @Output()
     valueChange : EventEmitter<number> = new EventEmitter<number>();

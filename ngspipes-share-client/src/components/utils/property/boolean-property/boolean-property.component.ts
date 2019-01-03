@@ -13,6 +13,8 @@ export class BooleanPropertyComponent {
     value : boolean;
     @Input()
     editable : boolean;
+    @Input()
+    copyButton : boolean;
 
     @Output()
     valueChange : EventEmitter<boolean> = new EventEmitter<boolean>();

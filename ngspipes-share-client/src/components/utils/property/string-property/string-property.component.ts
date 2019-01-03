@@ -15,6 +15,8 @@ export class StringPropertyComponent {
     editable : boolean;
     @Input()
     multipleLines : boolean;
+    @Input()
+    copyButton : boolean;
 
 
     @Output()

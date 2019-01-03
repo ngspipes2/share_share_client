@@ -16,6 +16,8 @@ export class PropertyComponent {
     name : string;
     @Input()
     value : any;
+    @Input()
+    copyButton : boolean;
 
 
 

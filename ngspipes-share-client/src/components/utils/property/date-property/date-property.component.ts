@@ -33,6 +33,8 @@ export class DatePropertyComponent implements OnInit, OnChanges {
     value : Date;
     @Input()
     editable : boolean;
+    @Input()
+    copyButton : boolean;
 
     @Output()
     valueChange : EventEmitter<Date> = new EventEmitter<Date>();

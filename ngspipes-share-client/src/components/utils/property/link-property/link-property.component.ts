@@ -13,6 +13,8 @@ export class LinkPropertyComponent {
     value : string;
     @Input()
     link : string;
+    @Input()
+    copyButton : boolean;
 
 
 

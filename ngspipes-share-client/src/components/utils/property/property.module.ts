@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../../app/material.module';
+import { ClipboardModule } from 'ngx-clipboard';
 
 import { PropertyComponent } from './property.component';
 import { StringPropertyComponent } from './string-property/string-property.component';
@@ -21,7 +22,8 @@ import { LinkPropertyComponent } from './link-property/link-property.component';
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        MaterialModule
+        MaterialModule,
+        ClipboardModule
     ],
     declarations: [
         PropertyComponent,

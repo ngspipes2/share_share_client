@@ -14,5 +14,14 @@
     <div id="value">
         <ng-template [ngTemplateOutlet]="valueTemplateRef ? valueTemplateRef : defaultValueTemplate">
         </ng-template>
+        <mat-icon
+            *ngIf="copyButton"
+            matTooltip="Copy"
+            ngxClipboard [cbContent]="value"
+            #copyButton
+            (mouseenter)="copyButton.color='accent'"
+            (mouseleave)="copyButton.color=''"
+            svgIcon="clipboard">
+        </mat-icon>
     </div>
 </div>
