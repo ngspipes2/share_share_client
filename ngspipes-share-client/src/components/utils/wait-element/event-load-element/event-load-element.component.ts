@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { LoadElementComponent } from '../load-element/load-element.component';
@@ -8,7 +8,7 @@ import { LoadElementComponent } from '../load-element/load-element.component';
     templateUrl: './event-load-element.component.html',
     styleUrls: ['./event-load-element.component.scss']
 })
-export class EventLoadElementComponent implements OnInit, OnChanges, OnDestroy {
+export class EventLoadElementComponent implements OnInit, OnDestroy {
 
     @ViewChild("loaderComponent")
     loaderComponent : LoadElementComponent;
@@ -31,13 +31,6 @@ export class EventLoadElementComponent implements OnInit, OnChanges, OnDestroy {
 
 
     ngOnInit() {
-        this.subscription = this.event.subscribe(() => this.loaderComponent.load());
-    }
-
-    ngOnChanges() {
-        if(this.subscription)
-            this.subscription.unsubscribe();
-            
         this.subscription = this.event.subscribe(() => this.loaderComponent.load());
     }
 
