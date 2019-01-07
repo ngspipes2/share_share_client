@@ -42,7 +42,10 @@ export class RepositoryConfigService {
 
     public getConfig(repositoryName : string) : Promise<RepositoryConfig> {
         return this.getAllConfigs()
-        .then(configs => configs.find(config => config.repositoryName === repositoryName));
+        .then(configs => {
+            let config = configs.find(config => config.repositoryName === repositoryName);
+            return config ? config : null;
+        });
     }
 
     public createConfig(config : RepositoryConfig) : Promise<boolean> {
