@@ -1264,17 +1264,47 @@ export class OperationsManager {
         .then(fromRepositoryConfig => {
             return this.getConfigForRepository(toRepositoryName)
             .then(toRepositoryConfig => {
-                let clones = [];
+                let promisesData = [];
 
                 toolsNames.forEach(toolName => {
-                    let promise = this.cloneTool(fromRepositoryConfig, toolName, toRepositoryConfig);
+                    let data = {
+                        toolName : toolName,
+                        promise : null,
+                        resolve : null,
+                        reject : null
+                    };
 
+                    data.promise = new Promise((resolve, reject) => {
+                        data.resolve = resolve;
+                        data.reject = reject;
+                    });
+
+                    promisesData.push(data);
+                });
+
+                let clones = [];
+
+                promisesData.forEach(promiseData => {
                     clones.push({
                         repositoryName: fromRepositoryName,
-                        toolName: toolName,
-                        promise: promise
-                    })
+                        toolName: promiseData.toolName,
+                        promise: promiseData.promise
+                    });
                 });
+
+                let tasks = promisesData.map(promiseData => {
+                    return () => {
+                        return this.cloneTool(fromRepositoryConfig, promiseData.toolName, toRepositoryConfig)
+                        .then(result => promiseData.resolve(result))
+                        .catch(error => promiseData.reject(error));
+                    };
+                });
+
+                tasks.reduce((promiseChain, currentTask) => {
+                    return promiseChain
+                    .then(() => currentTask())
+                    .catch(() => currentTask());
+                }, Promise.resolve([]));
 
                 return this.dialogManager.openCloneToolsDialogAsPromise(clones);
             });
@@ -1455,17 +1485,47 @@ export class OperationsManager {
         .then(fromRepositoryConfig => {
             return this.getConfigForRepository(toRepositoryName)
             .then(toRepositoryConfig => {
-                let clones = [];
+                let promisesData = [];
 
                 pipelinesNames.forEach(pipelineName => {
-                    let promise = this.clonePipeline(fromRepositoryConfig, pipelineName, toRepositoryConfig);
+                    let data = {
+                        pipelineName : pipelineName,
+                        promise : null,
+                        resolve : null,
+                        reject : null
+                    };
 
+                    data.promise = new Promise((resolve, reject) => {
+                        data.resolve = resolve;
+                        data.reject = reject;
+                    });
+
+                    promisesData.push(data);
+                });
+
+                let clones = [];
+
+                promisesData.forEach(promiseData => {
                     clones.push({
                         repositoryName: fromRepositoryName,
-                        pipelineName: pipelineName,
-                        promise: promise
-                    })
+                        pipelineName: promiseData.pipelineName,
+                        promise: promiseData.promise
+                    });
                 });
+
+                let tasks = promisesData.map(promiseData => {
+                    return () => {
+                        return this.clonePipeline(fromRepositoryConfig, promiseData.pipelineName, toRepositoryConfig)
+                        .then(result => promiseData.resolve(result))
+                        .catch(error => promiseData.reject(error));
+                    };
+                });
+
+                tasks.reduce((promiseChain, currentTask) => {
+                    return promiseChain
+                    .then(() => currentTask())
+                    .catch(() => currentTask());
+                }, Promise.resolve([]));
 
                 return this.dialogManager.openClonePipelinesDialogAsPromise(clones);
             });
@@ -1501,12 +1561,49 @@ export class OperationsManager {
         .then(tools => {
             let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
 
-            let promises = [];
-            tools.forEach(tool => promises.push(this.createTool(repository, tool)));
+            let promisesData = [];
 
-            return Promise.all(promises)
-            .then(result => true)
-            .catch(this.createErrorHandler("Error uploading Tools to repository: " + repositoryName + " !"));
+            tools.forEach(tool => {
+                let data = {
+                    tool : tool,
+                    promise : null,
+                    resolve : null,
+                    reject : null
+                };
+
+                data.promise = new Promise((resolve, reject) => {
+                    data.resolve = resolve;
+                    data.reject = reject;
+                });
+
+                promisesData.push(data);
+            });
+
+            let uploads = [];
+
+            promisesData.forEach(promiseData => {
+                uploads.push({
+                    repositoryName: repository.repositoryName,
+                    toolName: promiseData.tool.name,
+                    promise: promiseData.promise
+                });
+            });
+
+            let tasks = promisesData.map(promiseData => {
+                return () => {
+                    return this.createTool(repository, promiseData.tool)
+                    .then(result => promiseData.resolve(result))
+                    .catch(error => promiseData.reject(error));
+                };
+            });
+
+            tasks.reduce((promiseChain, currentTask) => {
+                return promiseChain
+                .then(() => currentTask())
+                .catch(() => currentTask());
+            }, Promise.resolve([]));
+
+            return this.dialogManager.openUploadToolsDialogAsPromise(uploads);
         })
         .catch(this.createErrorHandler("Error importing Tools to Repository:" + repositoryName + "!"));;
     }
@@ -1524,18 +1621,55 @@ export class OperationsManager {
 
 
     public uploadPipelinesRepository(file : any, repositoryName : string) : Promise<boolean> {
-        return this.importExportService.importPipelines(file)
+        return this.importExportService.importTools(file)
         .then(pipelines => {
             let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
 
-            let promises = [];
-            pipelines.forEach(pipeline => promises.push(this.createPipeline(repository, pipeline)));
+            let promisesData = [];
 
-            return Promise.all(promises)
-            .then(result => true)
-            .catch(this.createErrorHandler("Error uploading Pipelines to repository: " + repositoryName + " !"));
+            pipelines.forEach(pipeline => {
+                let data = {
+                    pipeline : pipeline,
+                    promise : null,
+                    resolve : null,
+                    reject : null
+                };
+
+                data.promise = new Promise((resolve, reject) => {
+                    data.resolve = resolve;
+                    data.reject = reject;
+                });
+
+                promisesData.push(data);
+            });
+
+            let uploads = [];
+
+            promisesData.forEach(promiseData => {
+                uploads.push({
+                    repositoryName: repository.repositoryName,
+                    pipelineName: promiseData.pipeline.name,
+                    promise: promiseData.promise
+                });
+            });
+
+            let tasks = promisesData.map(promiseData => {
+                return () => {
+                    return this.createTool(repository, promiseData.pipeline)
+                    .then(result => promiseData.resolve(result))
+                    .catch(error => promiseData.reject(error));
+                };
+            });
+
+            tasks.reduce((promiseChain, currentTask) => {
+                return promiseChain
+                .then(() => currentTask())
+                .catch(() => currentTask());
+            }, Promise.resolve([]));
+
+            return this.dialogManager.openUploadPipelinesDialogAsPromise(uploads);
         })
-        .catch(this.createErrorHandler("Error importing Pipelines to Repository:" + repositoryName + "!"));;
+        .catch(this.createErrorHandler("Error importing Tools to Repository:" + repositoryName + "!"));;
     }
 
 
@@ -1596,7 +1730,7 @@ export class OperationsManager {
                     return Promise.resolve(false);
 
                 return this.importExportService.exportPipeline(pipeline, format, pipelineName)
-                .catch(this.createErrorHandler("Error downloading Pipeline: " + pipelineName + " from repository: " + repositoryName + " !"));;
+                .catch(this.createErrorHandler("Error downloading Pipeline: " + pipelineName + " from Repository: " + repositoryName + " !"));;
             });
         });
     }
@@ -1626,7 +1760,7 @@ export class OperationsManager {
                     return Promise.all(promises)
                     .then(pipelines => {
                        return this.importExportService.exportPipelines(pipelines, format, repositoryName)
-                       .catch(this.createErrorHandler("Error downloading Pipelines from repository: " + repositoryName + " !"));
+                       .catch(this.createErrorHandler("Error downloading Pipelines from Repository: " + repositoryName + " !"));
                     });
             });
         });
