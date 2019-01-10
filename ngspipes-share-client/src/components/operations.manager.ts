@@ -1621,7 +1621,7 @@ export class OperationsManager {
 
 
     public uploadPipelinesRepository(file : any, repositoryName : string) : Promise<boolean> {
-        return this.importExportService.importTools(file)
+        return this.importExportService.importPipelines(file)
         .then(pipelines => {
             let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
 
@@ -1655,7 +1655,7 @@ export class OperationsManager {
 
             let tasks = promisesData.map(promiseData => {
                 return () => {
-                    return this.createTool(repository, promiseData.pipeline)
+                    return this.createPipeline(repository, promiseData.pipeline)
                     .then(result => promiseData.resolve(result))
                     .catch(error => promiseData.reject(error));
                 };
@@ -1669,7 +1669,7 @@ export class OperationsManager {
 
             return this.dialogManager.openUploadPipelinesDialogAsPromise(uploads);
         })
-        .catch(this.createErrorHandler("Error importing Tools to Repository:" + repositoryName + "!"));;
+        .catch(this.createErrorHandler("Error importing Pipelines to Repository:" + repositoryName + "!"));;
     }
 
 
