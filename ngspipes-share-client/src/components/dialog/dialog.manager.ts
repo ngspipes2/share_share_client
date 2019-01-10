@@ -3,10 +3,10 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { ComponentType } from '@angular/cdk/portal';
 
 import { EntityType } from '../../entities/repository';
-import { ToolFormat } from '../../entities/tool';
-import { PipelineFormat } from '../../entities/pipeline';
+import { Tool, ToolFormat } from '../../entities/tool';
+import { Pipeline, PipelineFormat } from '../../entities/pipeline';
 
-import { Type,  SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
+import { Type, SimpleDialogData, SimpleDialogComponent } from './simple-dialog/simple-dialog.component';
 import { ChangePasswordDialogComponent } from './change-password-dialog/change-password-dialog.component';
 import { NewGroupNameDialogComponent } from './new-group-name-dialog/new-group-name-dialog.component';
 import { SelectRepositoryConfigDialogComponent } from './select-repository-config-dialog/select-repository-config-dialog.component';
@@ -26,7 +26,8 @@ import { CloneToolsDialogComponent, CloneToolsDialogData, CloneData as CloneTool
 import { ClonePipelinesDialogComponent, ClonePipelinesDialogData, CloneData as ClonePipelineData } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
 import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/select-tool-format-dialog.component';
 import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
-
+import { UploadToolsDialogComponent, UploadToolsDialogData, UploadData as UploadToolDats } from './upload-tools-dialog/upload-tools-dialog.component';
+import { UploadPipelinesDialogComponent, UploadPipelinesDialogData, UploadData as UploadPipelineData } from './upload-pipelines-dialog/upload-pipelines-dialog.component';
 
 export class DialogResult<T> {
     public constructor(public result : T, public error : any) { }
@@ -296,6 +297,28 @@ export class DialogManager {
 
     public openSelectPipelineFormatDialogAsPromise() : Promise<PipelineFormat> {
         return this.toPromise(this.openSelectPipelineFormatDialog());
+    }
+
+
+    public openUploadToolsDialog(uploads : UploadToolDats[]) : MatDialogRef<UploadToolsDialogComponent, DialogResult<any>> {
+        return this.dialog.open(UploadToolsDialogComponent, {
+            data: { uploads : uploads }
+        });
+    }
+
+    public openUploadToolsDialogAsPromise(uploads : UploadToolDats[]) : Promise<any> {
+        return this.toPromise(this.openUploadToolsDialog(uploads));
+    }
+
+
+    public openUploadPipelinesDialog(uploads : UploadPipelineData[]) : MatDialogRef<UploadPipelinesDialogComponent, DialogResult<any>> {
+        return this.dialog.open(UploadPipelinesDialogComponent, {
+            data: { uploads : uploads }
+        });
+    }
+
+    public openUploadPipelinesDialogAsPromise(uploads : UploadPipelineData[]) : Promise<any> {
+        return this.toPromise(this.openUploadPipelinesDialog(uploads));
     }
 
 }

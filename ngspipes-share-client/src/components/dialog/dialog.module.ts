@@ -30,6 +30,8 @@ import { CloneToolsDialogComponent } from './clone-tools-dialog/clone-tools-dial
 import { ClonePipelinesDialogComponent } from './clone-pipelines-dialog/clone-pipelines-dialog.component';
 import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/select-tool-format-dialog.component';
 import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
+import { UploadToolsDialogComponent } from './upload-tools-dialog/upload-tools-dialog.component';
+import { UploadPipelinesDialogComponent } from './upload-pipelines-dialog/upload-pipelines-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-di
       CloneToolsDialogComponent,
       ClonePipelinesDialogComponent,
       SelectToolFormatDialogComponent,
-      SelectPipelineFormatDialogComponent
+      SelectPipelineFormatDialogComponent,
+      UploadToolsDialogComponent,
+      UploadPipelinesDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -84,7 +88,9 @@ import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-di
       CloneToolsDialogComponent,
       ClonePipelinesDialogComponent,
       SelectToolFormatDialogComponent,
-      SelectPipelineFormatDialogComponent
+      SelectPipelineFormatDialogComponent,
+      UploadToolsDialogComponent,
+      UploadPipelinesDialogComponent
   ],
   providers: [
       DialogManager
@@ -109,7 +115,9 @@ import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-di
       CloneToolsDialogComponent,
       ClonePipelinesDialogComponent,
       SelectToolFormatDialogComponent,
-      SelectPipelineFormatDialogComponent
+      SelectPipelineFormatDialogComponent,
+      UploadToolsDialogComponent,
+      UploadPipelinesDialogComponent
   ]
 })
 export class DialogModule { }
