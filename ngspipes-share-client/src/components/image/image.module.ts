@@ -12,6 +12,7 @@ import { GroupImageComponent } from './group-image/group-image.component';
 import { RepositoryImageComponent } from './repository-image/repository-image.component';
 import { ToolImageComponent } from './tool-image/tool-image.component';
 import { PipelineImageComponent } from './pipeline-image/pipeline-image.component';
+import { RawImageComponent } from './raw-image/raw-image.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PipelineImageComponent } from './pipeline-image/pipeline-image.componen
       GroupImageComponent,
       RepositoryImageComponent,
       ToolImageComponent,
-      PipelineImageComponent
+      PipelineImageComponent,
+      RawImageComponent
   ],
   imports: [
       BrowserModule,
@@ -34,7 +36,8 @@ import { PipelineImageComponent } from './pipeline-image/pipeline-image.componen
       GroupImageComponent,
       RepositoryImageComponent,
       ToolImageComponent,
-      PipelineImageComponent
+      PipelineImageComponent,
+      RawImageComponent
   ]
 })
 export class ImageModule { }
