@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
+import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
@@ -19,14 +20,16 @@ export class EditPipelineDialogData {
 })
 export class EditPipelineDialogComponent implements OnInit {
 
+    @ViewChild(JsonEditorComponent) editor: JsonEditorComponent;
+    editorOptions: JsonEditorOptions;
+
     pipelineName : string;
     repositoryName : string;
 
     config : RepositoryConfig;
     pipeline : Pipeline;
     logoData : any[];
-
-    pipelineStr : string;
+    updatedPipeline : Pipeline;
 
     loadEvent : Subject<any> = new Subject();
 
@@ -40,6 +43,9 @@ export class EditPipelineDialogComponent implements OnInit {
 
         this.pipelineName = data.pipelineName;
         this.repositoryName = data.repositoryName;
+
+        this.editorOptions = new JsonEditorOptions();
+        this.editorOptions.modes = ['code', 'text', 'tree', 'view'];
     }
 
 
@@ -118,18 +124,23 @@ export class EditPipelineDialogComponent implements OnInit {
     }
 
     readPipeline() : Pipeline {
-        let pipeline = JSON.parse(this.pipelineStr);
-
-        pipeline.logo = this.logoData;
-
-        return pipeline;
+        if(this.updatedPipeline) {
+            this.updatedPipeline.logo = this.logoData;
+            return this.updatedPipeline;
+        } else {
+            this.pipeline.logo = this.logoData;
+            return this.pipeline;
+        }
     }
 
     writePipeline(pipeline :  Pipeline) {
+        this.pipeline = pipeline;
         this.logoData = pipeline.logo;
-
         delete pipeline.logo;
-        this.pipelineStr = JSON.stringify(pipeline, null, 6);
+    }
+
+    changed(pipeline : any) {
+        this.updatedPipeline = pipeline;
     }
 
     saveClick() {

@@ -31,8 +31,9 @@ app-raw-image ::ng-deep #content {
     width: 150px;
 }
 
-textarea {
-    white-space: nowrap;
-    word-break: break-word;
-    height: 48vh;
+:host ::ng-deep json-editor,
+:host ::ng-deep json-editor .jsoneditor,
+:host ::ng-deep json-editor > div,
+:host ::ng-deep json-editor jsoneditor-outer {
+    height: 55vh;
 }

@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClipboardModule } from 'ngx-clipboard';
+import { NgJsonEditorModule } from 'ang-jsoneditor'
 
 import { ImageModule } from '../image/image.module';
 import { UtilsModule } from '../utils/utils.module';
@@ -70,7 +71,8 @@ import { EditPipelineDialogComponent } from './edit-pipeline-dialog/edit-pipelin
       ReactiveFormsModule,
       ClipboardModule,
       ImageModule,
-      UtilsModule
+      UtilsModule,
+      NgJsonEditorModule
   ],
   exports: [
       SimpleDialogComponent,

@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Subject } from 'rxjs';
+import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 
 import { RepositoryConfig } from '../../../entities/repository-config';
 import { RepositoryConfigService } from '../../../services/repository-config.service';
@@ -19,14 +20,16 @@ export class EditToolDialogData {
 })
 export class EditToolDialogComponent implements OnInit {
 
+    @ViewChild(JsonEditorComponent) editor: JsonEditorComponent;
+    editorOptions: JsonEditorOptions;
+
     toolName : string;
     repositoryName : string;
 
     config : RepositoryConfig;
     tool : Tool;
     logoData : any[];
-
-    toolStr : string;
+    updatedTool : Tool;
 
     loadEvent : Subject<any> = new Subject();
 
@@ -40,6 +43,9 @@ export class EditToolDialogComponent implements OnInit {
 
         this.toolName = data.toolName;
         this.repositoryName = data.repositoryName;
+
+        this.editorOptions = new JsonEditorOptions();
+        this.editorOptions.modes = ['code', 'text', 'tree', 'view'];
     }
 
 
@@ -118,18 +124,23 @@ export class EditToolDialogComponent implements OnInit {
     }
 
     readTool() : Tool {
-        let tool = JSON.parse(this.toolStr);
-
-        tool.logo = this.logoData;
-
-        return tool;
+        if(this.updatedTool) {
+            this.updatedTool.logo = this.logoData;
+            return this.updatedTool;
+        } else {
+            this.tool.logo = this.logoData;
+            return this.tool;
+        }
     }
 
     writeTool(tool :  Tool) {
+        this.tool = tool;
         this.logoData = tool.logo;
-
         delete tool.logo;
-        this.toolStr = JSON.stringify(tool, null, 6);
+    }
+
+    changed(tool : any) {
+        this.updatedTool = tool;
     }
 
     saveClick() {
