@@ -27,8 +27,26 @@
         accentColor="accent"
         [action]="createClick.bind(this)">
     </app-operation-icon-button>
-    <app-list frame-body
-        [repositoryName]="repositoryName"
-        [editable]="editable">
-    </app-list>
+    <div id="frame-body" frame-body>
+        <app-list
+            *ngIf="config"
+            [repositoryName]="repositoryName"
+            [editable]="editable">
+        </app-list>
+        <div *ngIf="config === null" id="no-config-container">
+            <div>
+                <p>No Repository Config found!</p>
+                <p>You need to create a Repository Config to access content of this Repository.</p>
+            </div>
+            <div>
+                <button mat-raised-button
+                    #button
+                    (mouseenter)="button.color='accent'"
+                    (mouseleave)="button.color=''"
+                    (click)="goToRepositoryConfigPageClick()">
+                    Go to Repository Config Page
+                </button>
+            </div>
+        </div>        
+    </div>
 </app-frame>
