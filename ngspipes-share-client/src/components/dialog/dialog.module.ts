@@ -32,6 +32,8 @@ import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/sel
 import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
 import { UploadToolsDialogComponent } from './upload-tools-dialog/upload-tools-dialog.component';
 import { UploadPipelinesDialogComponent } from './upload-pipelines-dialog/upload-pipelines-dialog.component';
+import { EditToolDialogComponent } from './edit-tool-dialog/edit-tool-dialog.component';
+import { EditPipelineDialogComponent } from './edit-pipeline-dialog/edit-pipeline-dialog.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { UploadPipelinesDialogComponent } from './upload-pipelines-dialog/upload
       SelectToolFormatDialogComponent,
       SelectPipelineFormatDialogComponent,
       UploadToolsDialogComponent,
-      UploadPipelinesDialogComponent
+      UploadPipelinesDialogComponent,
+      EditToolDialogComponent,
+      EditPipelineDialogComponent
   ],
   imports: [
       BrowserModule,
@@ -90,7 +94,9 @@ import { UploadPipelinesDialogComponent } from './upload-pipelines-dialog/upload
       SelectToolFormatDialogComponent,
       SelectPipelineFormatDialogComponent,
       UploadToolsDialogComponent,
-      UploadPipelinesDialogComponent
+      UploadPipelinesDialogComponent,
+      EditToolDialogComponent,
+      EditPipelineDialogComponent
   ],
   providers: [
       DialogManager
@@ -117,7 +123,9 @@ import { UploadPipelinesDialogComponent } from './upload-pipelines-dialog/upload
       SelectToolFormatDialogComponent,
       SelectPipelineFormatDialogComponent,
       UploadToolsDialogComponent,
-      UploadPipelinesDialogComponent
+      UploadPipelinesDialogComponent,
+      EditToolDialogComponent,
+      EditPipelineDialogComponent
   ]
 })
 export class DialogModule { }

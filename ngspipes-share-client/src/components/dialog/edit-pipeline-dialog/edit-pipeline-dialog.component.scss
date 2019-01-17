@@ -1,0 +1,38 @@
+.container {
+    padding: 10px;
+    min-width: 40vw;
+    min-height: 40vh;
+    display: grid;
+    align-items: end;
+}
+
+#content {
+    display: flex;
+    width: 60vw;
+    height: 60vh;
+}
+
+#content-container {
+    width: 70%;
+    max-height: 100%;
+}
+
+#image-container {
+    width: 30%;
+    height: 100%;
+    display: grid;
+    align-content: space-evenly;
+}
+
+app-raw-image ::ng-deep #content {
+    font-size: 150px;
+
+    height: 150px;
+    width: 150px;
+}
+
+textarea {
+    white-space: nowrap;
+    word-break: break-word;
+    height: 48vh;
+}

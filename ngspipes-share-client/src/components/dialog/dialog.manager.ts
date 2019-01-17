@@ -28,6 +28,8 @@ import { SelectToolFormatDialogComponent } from './select-tool-format-dialog/sel
 import { SelectPipelineFormatDialogComponent } from './select-pipeline-format-dialog/select-pipeline-format-dialog.component';
 import { UploadToolsDialogComponent, UploadToolsDialogData, UploadData as UploadToolDats } from './upload-tools-dialog/upload-tools-dialog.component';
 import { UploadPipelinesDialogComponent, UploadPipelinesDialogData, UploadData as UploadPipelineData } from './upload-pipelines-dialog/upload-pipelines-dialog.component';
+import { EditToolDialogComponent } from './edit-tool-dialog/edit-tool-dialog.component';
+import { EditPipelineDialogComponent } from './edit-pipeline-dialog/edit-pipeline-dialog.component';
 
 export class DialogResult<T> {
     public constructor(public result : T, public error : any) { }
@@ -319,6 +321,34 @@ export class DialogManager {
 
     public openUploadPipelinesDialogAsPromise(uploads : UploadPipelineData[]) : Promise<any> {
         return this.toPromise(this.openUploadPipelinesDialog(uploads));
+    }
+
+
+    public openEditToolDialog(toolName : string, repositoryName: string) : MatDialogRef<EditToolDialogComponent, DialogResult<Tool>> {
+        return this.dialog.open(EditToolDialogComponent, {
+            data: {
+                repositoryName : repositoryName,
+                toolName : toolName
+             }
+        });
+    }
+
+    public openEditToolDialogAsPromise(toolName : string, repositoryName: string) : Promise<Tool> {
+        return this.toPromise(this.openEditToolDialog(toolName, repositoryName));
+    }
+
+
+    public openEditPipelineDialog(pipelineName : string, repositoryName: string) : MatDialogRef<EditPipelineDialogComponent, DialogResult<Pipeline>> {
+        return this.dialog.open(EditPipelineDialogComponent, {
+            data: {
+                repositoryName : repositoryName,
+                pipelineName : pipelineName
+             }
+        });
+    }
+
+    public openEditPipelineDialogAsPromise(pipelineName : string, repositoryName: string) : Promise<Pipeline> {
+        return this.toPromise(this.openEditPipelineDialog(pipelineName, repositoryName));
     }
 
 }

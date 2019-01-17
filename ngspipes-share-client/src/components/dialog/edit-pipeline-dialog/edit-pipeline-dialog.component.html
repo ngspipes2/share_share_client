@@ -1,0 +1,30 @@
+<div class="container">
+    <app-event-load-element
+        [spinnerDiameter]="50"
+        [event]="loadEvent"
+        [loader]="load.bind(this)">
+        <div mat-dialog-content>
+            <div id="content">
+                <div id="content-container">
+                    <mat-form-field class="fill">
+                        <textarea matInput [(ngModel)]="pipelineStr"></textarea>
+                    </mat-form-field>
+                </div>
+                <div id="image-container">
+                    <app-raw-image
+                        [imageData]="logoData"
+                        icon="insert_drive_file">
+                    </app-raw-image>
+                    <app-operation-select-file-text-button
+                        label="Change"
+                        [action]="changeImage.bind(this)">
+                    </app-operation-select-file-text-button>
+                </div>
+            </div>
+        </div>
+    </app-event-load-element>
+    <div mat-dialog-actions class="actions" align="center">
+        <button mat-button (click)="saveClick()">Save</button>
+        <button mat-button (click)="cancelClick()">Cancel</button>
+    </div>
+</div>
