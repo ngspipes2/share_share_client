@@ -1766,4 +1766,30 @@ export class OperationsManager {
         });
     }
 
+
+    public editTool(toolName : string, repositoryName : string) : Promise<boolean> {
+        return this.dialogManager.openEditToolDialogAsPromise(toolName, repositoryName)
+        .then(tool => {
+            if(!tool)
+                return false;
+
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+            return this.updateTool(repository, tool);
+        })
+        .catch(this.createErrorHandler("Error editing Tool: " + toolName + "!"));
+    }
+
+
+    public editPipeline(pipelineName : string, repositoryName : string) : Promise<boolean> {
+        return this.dialogManager.openEditPipelineDialogAsPromise(pipelineName, repositoryName)
+        .then(pipeline => {
+            if(!pipeline)
+                return false;
+
+            let repository = new Repository(repositoryName, null, null, null, null, null, null, null);
+            return this.updatePipeline(repository, pipeline);
+        })
+        .catch(this.createErrorHandler("Error editing Pipeline: " + pipelineName + "!"));
+    }
+
 }

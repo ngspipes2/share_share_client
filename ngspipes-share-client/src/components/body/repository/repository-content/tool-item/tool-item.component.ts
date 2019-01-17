@@ -30,6 +30,10 @@ export class ToolItemComponent {
 
 
 
+    editClick() : Promise<any> {
+        return this.operationManager.editTool(this.toolName, this.repository.repositoryName);
+    }
+
     uploadClick(file : any) : Promise<any> {
         return this.operationManager.uploadTool(file, this.repository.repositoryName);
     }

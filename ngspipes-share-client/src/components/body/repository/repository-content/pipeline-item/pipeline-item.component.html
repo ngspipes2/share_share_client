@@ -6,6 +6,13 @@
         [spinnerDiameter]="15">
     </app-pipeline-image>
 
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Edit Pipeline"
+        svgIcon="pencil"
+        accentColor="accent"
+        [action]="editClick.bind(this)">
+    </app-operation-icon-button>
     <app-operation-select-file-icon-button
         list-option-icons
         matTooltip="Upload new Pipeline version"

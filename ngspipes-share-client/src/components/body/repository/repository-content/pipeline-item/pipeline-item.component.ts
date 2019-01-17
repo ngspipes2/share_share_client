@@ -30,6 +30,10 @@ export class PipelineItemComponent {
 
 
 
+    editClick() : Promise<any> {
+        return this.operationManager.editPipeline(this.pipelineName, this.repository.repositoryName);
+    }
+
     uploadClick(file : any) : Promise<any> {
         return this.operationManager.uploadPipeline(file, this.repository.repositoryName);
     }

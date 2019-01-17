@@ -6,6 +6,13 @@
         [spinnerDiameter]="15">
     </app-tool-image>
 
+    <app-operation-icon-button
+        list-option-icons
+        matTooltip="Edit Tool"
+        svgIcon="pencil"
+        accentColor="accent"
+        [action]="editClick.bind(this)">
+    </app-operation-icon-button>
     <app-operation-select-file-icon-button
         list-option-icons
         matTooltip="Upload new Tool version"
