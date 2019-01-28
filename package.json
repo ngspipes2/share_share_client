@@ -7,10 +7,14 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --output-path angularapp  --aot --prod"
   },
   "private": true,
   "dependencies": {
+    "@angular/compiler-cli": "^6.0.3",
+    "@angular/cli": "~6.0.8",
+    "typescript": "~2.7.2",
     "@angular/animations": "^6.1.10",
     "@angular/cdk": "^7.0.2",
     "@angular/common": "^6.0.3",
@@ -52,5 +56,9 @@
     "protractor": "~5.3.0",
     "ts-node": "~5.0.1",
     "tslint": "~5.9.1"
-  }
+  },
+  "engines": {
+    "node": "v8.11.4",
+    "npm": "5.8.0"
+  },
 }
