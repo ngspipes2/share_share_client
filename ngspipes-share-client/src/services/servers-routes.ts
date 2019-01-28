@@ -1,9 +1,9 @@
 export class ServersRoutes {
 
-    public static TOOLS_SERVER_URI : string = "http://localhost:1111/server";
-    public static PIPELINES_SERVER_URI : string = "http://localhost:1112/server";
-    public static REPOSITORY_FACADE_SERVER_URI : string = "http://localhost:1113";
-    public static API_SERVER_URI : string = "http://localhost:1114";
+    public static TOOLS_SERVER_URI : string = "https://ngspipes-tools-server.herokuapp.com/server";
+    public static PIPELINES_SERVER_URI : string = "https://ngspipes-pipelines-server.herokuapp.com/server";
+    public static REPOSITORY_FACADE_SERVER_URI : string = "https://ngspipes-repository-facade.herokuapp.com";
+    public static API_SERVER_URI : string = "https://ngspipes-share-api.herokuapp.com";
 
 
     public static LOGIN_ROUTE : string = ServersRoutes.API_SERVER_URI + "/login";
