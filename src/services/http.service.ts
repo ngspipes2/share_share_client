@@ -19,42 +19,42 @@ export class HttpService {
 
 
 
-    public get(url : string) : Promise<any> {
+    public get(url : string, authenticated : boolean = true) : Promise<any> {
         return this.execute({
             method : "GET",
             url : url,
             body : null,
-            headers : this.createReadHeaders(),
+            headers : this.createReadHeaders(authenticated),
             responseType : null
         });
     }
 
-    public post(url : string, body : any) : Promise<any> {
+    public post(url : string, body : any, authenticated : boolean = true) : Promise<any> {
         return this.execute({
             method : "POST",
             url : url,
             body : body,
-            headers : this.createWriteHeaders(),
+            headers : this.createWriteHeaders(authenticated),
             responseType : null
         });
     }
 
-    public put(url : string, body : any) : Promise<any> {
+    public put(url : string, body : any, authenticated : boolean = true) : Promise<any> {
         return this.execute({
             method : "PUT",
             url : url,
             body : body,
-            headers : this.createWriteHeaders(),
+            headers : this.createWriteHeaders(authenticated),
             responseType : null
         });
     }
 
-    public delete(url : string) : Promise<any> {
+    public delete(url : string, authenticated : boolean = true) : Promise<any> {
         return this.execute({
             method : "DELETE",
             url : url,
             body : null,
-            headers : this.createWriteHeaders(),
+            headers : this.createWriteHeaders(authenticated),
             responseType : null
         });
     }
@@ -88,12 +88,12 @@ export class HttpService {
           });
     }
 
-    public downloadFile(url : string, body? : any) : Promise<any> {
+    public downloadFile(url : string, body? : any, authenticated : boolean = true) : Promise<any> {
         return this.execute({
             method : "POST",
             url : url,
             body : body,
-            headers : this.createWriteHeaders(),
+            headers : this.createWriteHeaders(authenticated),
             responseType : ResponseContentType.Blob
         }).then(response => {
             let file = response.blob();
@@ -153,26 +153,26 @@ export class HttpService {
         throw "Unknown request method:" + request.method + "!";
     }
 
-    private createReadHeaders() : Headers {
+    private createReadHeaders(appendCredentials : boolean) : Headers {
         let credentials = this.sessionService.getCurrentCredentials();
         let headers = new Headers();
 
         headers.append('Accept', 'application/json');
 
-        if(credentials)
+        if(appendCredentials && credentials)
             headers.append("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
 
         return headers;
     }
 
-    private createWriteHeaders() : Headers {
+    private createWriteHeaders(appendCredentials : boolean) : Headers {
         let credentials = this.sessionService.getCurrentCredentials();
         let headers = new Headers();
 
         headers.append("Content-Type", "application/json");
         headers.append('Accept', 'application/json');
 
-        if(credentials)
+        if(appendCredentials && credentials)
             headers.append("Authorization", "Basic " + btoa(credentials[0]+":"+credentials[1]));
 
         return headers;

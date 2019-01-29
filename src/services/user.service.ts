@@ -77,7 +77,7 @@ export class UserService {
 
         let data = user;
 
-        return this.httpService.post(url, data)
+        return this.httpService.post(url, data, false)
             .then((response) => {
                 this.fireCreateEvent(user.userName);
                 return user.userName;
