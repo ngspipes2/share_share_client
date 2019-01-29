@@ -21,7 +21,7 @@ export class SelectRepositoryEntityTypeDialogComponent {
 
 
 
-    select(type : EntityType) {
+    close(type : EntityType) {
         this.dialogRef.close({
             result: type,
             error: null
