@@ -1,4 +1,4 @@
-<input type="file" (change)="clicked($event.target.files[0], event)" #selectFile hidden="true">
+<input type="file" (change)="clicked($event.target.files[0], $event)" #selectFile hidden="true">
 <app-wait-element
     [spinnerDiameter]="spinnerDiameter"
     [spinnerColor]="spinnerColor"

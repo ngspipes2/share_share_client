@@ -4,8 +4,8 @@
     [loader]="load.bind(this)"
     [event]="loadEvent">
     <div id="content">
-        <img *ngIf="!loading && imageData" [class]="circular? 'circular' : ''" [src]="'data:image/jpeg;base64,' + imageData">
-        <mat-icon *ngIf="!loading && !imageData && icon">{{icon}}</mat-icon>
-        <mat-icon *ngIf="!loading && !imageData && svgIcon" [svgIcon]="svgIcon"></mat-icon>
+        <img *ngIf="imageData" [class]="circular? 'circular' : ''" [src]="'data:image/jpeg;base64,' + imageData">
+        <mat-icon *ngIf="!imageData && icon">{{icon}}</mat-icon>
+        <mat-icon *ngIf="!imageData && svgIcon" [svgIcon]="svgIcon"></mat-icon>
     </div>
 </app-event-load-element>
