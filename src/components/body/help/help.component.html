@@ -1,0 +1,8 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened [fixedInViewport]="true">
+        <app-tutorials [tutorials]="tutorials"></app-tutorials>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-tutorial [tutorial]="tutorial"></app-tutorial>
+    </mat-sidenav-content>
+</mat-sidenav-container>

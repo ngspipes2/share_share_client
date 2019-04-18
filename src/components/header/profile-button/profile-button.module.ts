@@ -13,6 +13,7 @@ import { MyTokensOptionComponent } from './my-tokens-option/my-tokens-option.com
 import { RepositoriesConfigOptionComponent } from './repositories-config-option/repositories-config-option.component';
 
 import { ProfileButtonComponent } from './profile-button.component';
+import { HelpOptionComponent } from './help-option/help-option.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProfileButtonComponent } from './profile-button.component';
       ChangePasswordOptionComponent,
       MyTokensOptionComponent,
       RepositoriesConfigOptionComponent,
-      ProfileButtonComponent
+      ProfileButtonComponent,
+      HelpOptionComponent
   ],
   imports: [
       MaterialModule,

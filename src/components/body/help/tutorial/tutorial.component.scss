@@ -1,0 +1,25 @@
+#root {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    text-align: center;
+}
+
+#title {
+    margin-bottom: 5vh;
+}
+
+#video {
+    width: 60vw;
+    height: 60vh;
+}
+
+#description {
+    margin-top: 5vh;
+}
+
+mat-video ::ng-deep mat-seek-progress-control {
+    width: 100%;
+}

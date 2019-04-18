@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { SessionService } from '../../services/session.service';
 
@@ -16,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 
 
-    constructor(private sessionService : SessionService) { }
+    constructor(private router : Router, private sessionService : SessionService) { }
 
 
 
@@ -35,6 +36,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.loginSubscription.unsubscribe();
         this.logoutSubscription.unsubscribe();
+    }
+
+    helpClick() {
+        this.router.navigate(["/help"]);
     }
 
 }

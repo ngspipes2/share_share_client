@@ -1,0 +1,14 @@
+<div id="root">
+    <div id="title">
+        <h1>{{tutorial ? tutorial.name : ""}}</h1>
+    </div>
+    <div id="video">
+        <mat-video *ngIf="tutorial"
+            [src]="'assets/videos/' + tutorial.id"
+            [title]="tutorial.name"
+            [quality]="false"></mat-video>
+    </div>
+    <div id="description">
+        <h4 *ngIf="!tutorial">Select Tutorial</h4>
+    </div>
+</div>

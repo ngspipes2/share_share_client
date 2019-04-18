@@ -10,6 +10,7 @@ import { SideNavModule } from './side-nav/side-nav.module';
 import { RepositoriesConfigModule } from './repositories-config/repositories-config.module';
 import { AccessTokensModule } from './access-tokens/access-tokens.module';
 import { LoginModule } from './login/login.module';
+import { HelpModule } from './help/help.module';
 import { UserModule } from './user/user.module';
 import { GroupModule } from './group/group.module';
 import { RepositoryModule } from './repository/repository.module';
@@ -31,6 +32,7 @@ import { BodyComponent } from './body.component';
         RepositoriesConfigModule,
         AccessTokensModule,
         LoginModule,
+        HelpModule,
         UserModule,
         GroupModule,
         RepositoryModule

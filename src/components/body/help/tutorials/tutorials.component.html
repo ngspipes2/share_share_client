@@ -1,0 +1,12 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let tag of tutorials">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{tag.name}}
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="tutorial" *ngFor="let tutorial of tag.children" (click)="select(tutorial.id)">
+            {{tutorial.name}}
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

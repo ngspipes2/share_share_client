@@ -7,5 +7,11 @@
         <app-search-bar *ngIf="profileButtonVisible" class="example-spacer"></app-search-bar>
 
         <app-profile-button *ngIf="profileButtonVisible"></app-profile-button>
+
+        <div id="help" *ngIf="!profileButtonVisible" class="example-spacer" (click)="helpClick()">
+            <button mat-icon-button>
+                <mat-icon>help</mat-icon>
+            </button>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>

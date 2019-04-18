@@ -23,12 +23,14 @@ import { LoginComponent } from './body/login/login.component';
 import { UserComponent } from './body/user/user.component';
 import { GroupComponent } from './body/group/group.component';
 import { RepositoryComponent } from './body/repository/repository.component';
+import { HelpComponent } from './body/help/help.component';
 
 import { OperationsManager } from './operations.manager';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
+    { path: 'help', component : HelpComponent },
     { path: 'repositoriesconfig', component: RepositoriesConfigComponent, pathMatch: 'full', canActivate: [AuthGuard] },
     { path: 'mytokens', component: AccessTokensComponent, pathMatch: 'full', canActivate: [AuthGuard] },
     { path: 'users/:userName', component: UserComponent, pathMatch: 'full', canActivate: [AuthGuard] },
@@ -37,7 +39,6 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    declarations: [ ],
     imports: [
         RouterModule,
         BrowserModule,
